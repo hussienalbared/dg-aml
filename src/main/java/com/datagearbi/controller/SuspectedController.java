@@ -13,7 +13,7 @@ import com.datagearbi.model.SuspectedObjectId;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
-@RequestMapping("api/v1/")
+@RequestMapping("aml/api/v1/")
 public class SuspectedController {
 
 	@Autowired
