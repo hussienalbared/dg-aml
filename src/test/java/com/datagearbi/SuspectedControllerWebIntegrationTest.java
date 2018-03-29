@@ -31,7 +31,7 @@ public class SuspectedControllerWebIntegrationTest {
 		System.out.println("port()" + port);
 
 		TestRestTemplate restTemplate = new TestRestTemplate();
-		ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:"+port+"/api/v1/suspectedObject",
+		ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:"+port+"/aml/api/v1/suspectedObject",
 				String.class);
 		System.out.println("response.getStatusCode()" + response.getStatusCode());
 
