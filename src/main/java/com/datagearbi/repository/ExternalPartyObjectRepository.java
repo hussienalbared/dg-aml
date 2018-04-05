@@ -2,8 +2,9 @@ package com.datagearbi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.datagearbi.model.ExternalParty;
+import com.datagearbi.model.CoreExternalPartyD;
 
-public interface ExternalPartyObjectRepository extends JpaRepository<ExternalParty, Long>{
+
+public interface ExternalPartyObjectRepository extends JpaRepository<CoreExternalPartyD, Long>{
 
 }

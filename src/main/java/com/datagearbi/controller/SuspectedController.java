@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.SuspectedObject;
-import com.datagearbi.model.SuspectedObjectId;
+import com.datagearbi.model.AcSuspectedObj;
+import com.datagearbi.model.AcSuspectedObjPK;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
@@ -20,13 +20,13 @@ public class SuspectedController {
 	private SuspectedObjectRepository suspectedObjectRepository;
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
-	public List<SuspectedObject> list() {
+	public List<AcSuspectedObj> list() {
 		return suspectedObjectRepository.findAll();
 	}
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
-	public SuspectedObject get(@PathVariable int key,@PathVariable String levelCode) {
-		SuspectedObjectId id = new SuspectedObjectId(key, levelCode);
+	public AcSuspectedObj get(@PathVariable int key,@PathVariable String levelCode) {
+		AcSuspectedObjPK id = new AcSuspectedObjPK(key, levelCode);
 		return suspectedObjectRepository.getOne(id);
 	}
 }

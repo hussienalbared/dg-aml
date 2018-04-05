@@ -8,9 +8,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.datagearbi.model.Account;
+import com.datagearbi.model.CoreAccountD;
+
+
 @ResponseBody
-public interface AccountObjectRepository extends JpaRepository<Account, Long> {
+public interface AccountObjectRepository extends JpaRepository<CoreAccountD, Long> {
 //	List<Account> findByAcctNo(String acctNo);
 
 	// @Query("SELECT a FROM CORE_ACCOUNT_D a WHERE a.ACCTNO=:AccountNumber")
