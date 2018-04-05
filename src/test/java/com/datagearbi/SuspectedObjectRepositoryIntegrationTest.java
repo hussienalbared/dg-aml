@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.datagearbi.model.SuspectedObject;
+import com.datagearbi.model.AcSuspectedObj;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,7 +22,7 @@ public class SuspectedObjectRepositoryIntegrationTest {
 
 	@Test
 	public void testFindAll() {
-		List<SuspectedObject> objs = suspectedObjectRepository.findAll();
+		List<AcSuspectedObj> objs = suspectedObjectRepository.findAll();
 		System.out.println("test:" + objs.size());
 		assertThat(objs.size()).isGreaterThanOrEqualTo(0);
 	}

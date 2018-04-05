@@ -1,4 +1,4 @@
-package com.datagearbi.model;
+package com.datagearbi.model.old;
 
 import java.util.Date;
 
@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(schema = "AML", name = "CORE_ACCOUNT_D")
 public class Account {
@@ -399,7 +400,7 @@ public class Account {
 
 }
 /*
- account_key	int
+ account_key	int;
 ACCTNO	varchar(50)
 ACCTBNM	varchar(35)
 ACCTTYDESC	varchar(50)
@@ -446,7 +447,4 @@ MODIFICATION_DATE	datetime
 change_begin_date	datetime
 change_end_date	datetime
 change_current_ind	char(1)
-	
-
- 
 */

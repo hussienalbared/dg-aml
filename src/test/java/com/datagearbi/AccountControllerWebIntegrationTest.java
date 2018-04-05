@@ -21,17 +21,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class SuspectedControllerWebIntegrationTest {
-
+public class AccountControllerWebIntegrationTest {
+	
 	@LocalServerPort
 	private int port;
 	
 	@Test
 	public void testListAll() throws IOException {
 		System.out.println("port()" + port);
-
+		
 		TestRestTemplate restTemplate = new TestRestTemplate();
-		ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:"+port+"/aml/api/v1/suspectedObject",
+		ResponseEntity<String> response = restTemplate.getForEntity("http://localhost:"+port+"/aml/api/account/search2/?AccountNumber=100019680748&AccountName=&AccountType=&AccountOpenDate=2014-03-13&AccountCloseDate=",
 				String.class);
 		System.out.println("response.getStatusCode()" + response.getStatusCode());
 
