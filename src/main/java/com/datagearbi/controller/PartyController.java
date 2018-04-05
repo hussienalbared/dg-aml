@@ -2,6 +2,7 @@ package com.datagearbi.controller;
 
 import static org.assertj.core.api.Assertions.filter;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.Party;
+import com.datagearbi.model.CorePartyD;
 import com.datagearbi.repository.PartyObjectRepository;
 
 @RestController
@@ -24,7 +25,7 @@ public class PartyController {
 	@Autowired
 	private PartyObjectRepository PartyObjectRepository;
 	@RequestMapping("search")
-public List<Party> name(@RequestParam(name = "PartyNumber") String PartyNumber,
+public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNumber,
 		@RequestParam(name = "PartyId") String PartyId,
 		@RequestParam(name = "PartyName") String PartyName,
 		@RequestParam(name = "PoliticallyExposedPerson") String PoliticallyExposedPerson,
@@ -48,33 +49,33 @@ public List<Party> name(@RequestParam(name = "PartyNumber") String PartyNumber,
 		System.out.println("politics "+PoliticallyExposedPerson);
 		System.out.println("risk "+Risk);
 		System.out.println("partdes"+PartyStatusDescription);
-		List<Party>list=PartyObjectRepository.findAll();
+		List<CorePartyD>list=PartyObjectRepository.findAll();
 		if (PartyNumber != null && !PartyNumber.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPNO()!=null).filter(p->p.getPNO().trim().equals(PartyNumber.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPno()!=null).filter(p->p.getPno().trim().equals(PartyNumber.trim())).collect(Collectors.toList());
 			
 		}
 		if(PartyId != null && !PartyId.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPID()!=null).filter(p->p.getPID().trim().equals(PartyId.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPid()!=null).filter(p->p.getPid().trim().equals(PartyId.trim())).collect(Collectors.toList());
 		}
 		if(PartyName != null && !PartyName.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPFNM()!=null).filter(p->p.getPFNM().trim().equals(PartyName.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPfnm()!=null).filter(p->p.getPfnm().trim().equals(PartyName.trim())).collect(Collectors.toList());
 		}
 		if(PoliticallyExposedPerson != null && !PoliticallyExposedPerson.isEmpty())
 		{
 			
-			list=list.stream().filter(p->p.getPPEPIND()!=null).filter(p->p.getPPEPIND().trim().equals(PoliticallyExposedPerson.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPpepind()!=null).filter(p->p.getPpepind().trim().equals(PoliticallyExposedPerson.trim())).collect(Collectors.toList());
 		}
 		if(Risk != null && !Risk.isEmpty())
 		{
-			list=list.stream().filter(p->p.getRisk_classification()!=null).filter(p->p.getRisk_classification()==Integer.parseInt(Risk.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getRiskClassification()!=null).filter(p->p.getRiskClassification().compareTo(new BigDecimal(Risk.trim()))==0).collect(Collectors.toList());
 		}
 		
 		if(PartyStatusDescription != null && !PartyStatusDescription.isEmpty())
 		{
-			list=list.stream().filter(p->p.getPSTATDS()!=null).filter(p->p.getPSTATDS().trim().equals(PartyStatusDescription.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPstatds()!=null).filter(p->p.getPstatds().trim().equals(PartyStatusDescription.trim())).collect(Collectors.toList());
 		}
 		
 		

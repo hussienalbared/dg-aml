@@ -1,5 +1,6 @@
 package com.datagearbi.controller;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.Alaram;
+import com.datagearbi.model.AcAlarm;
 import com.datagearbi.repository.AlaramObjectRepository;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -23,61 +24,69 @@ public class AlaramController {
 
 	
 	@RequestMapping(value="allalarams" ,method = RequestMethod.GET)
-public List<Alaram> search(@RequestParam(name = "AlarmId",required=false) Double AlarmId,
+public List<AcAlarm> search(@RequestParam(name = "AlarmId",required=false) String AlarmId,
 		
 		@RequestParam(name = "AlarmStatus") String AlarmStatus,
 		@RequestParam(name = "MoneyLaunderingRisk") String MoneyLaunderingRisk,
 		@RequestParam(name = "CreateDate") String CreateDate,
 		@RequestParam(name = "RunDate") String RunDate,
 		@RequestParam(name = "ScenarioName") String ScenarioName,
-		@RequestParam(name = "ScenarioId") Double ScenarioId
+		@RequestParam(name = "ScenarioId") String ScenarioId
 		)
 {
 		
 		System.out.println(CreateDate);
-		if ((AlarmId == null) && (AlarmStatus == null || AlarmStatus.isEmpty())
+		if        ((AlarmId == null ||AlarmId.isEmpty())
+				&& (AlarmStatus == null || AlarmStatus.isEmpty())
 				&& (MoneyLaunderingRisk == null || MoneyLaunderingRisk.isEmpty())
 				&& (CreateDate == null || CreateDate.isEmpty())
 				&& (RunDate == null || RunDate.isEmpty())
 				&&(ScenarioName == null || ScenarioName.isEmpty())
-				&&(ScenarioId == null )
+				&&(ScenarioId == null ||ScenarioId.isEmpty())
 				) {
 			return null;
 		}
 		
-		System.out.println("djkkkkkkkk"+MoneyLaunderingRisk);
-		List<Alaram> list=alaramObjectRepository.findAll();
-	if(AlarmId != null ) {
-		list=list.stream().filter(e->e.getAlarm_id()==AlarmId).collect(Collectors.toList());
+		
+		List<AcAlarm> list=alaramObjectRepository.findAll();
+	if(AlarmId != null &&!AlarmId.isEmpty() ) {
+		list=list.stream().filter(e->e.getAlarmId()==Long.parseLong(AlarmId.trim())).collect(Collectors.toList());
 	
 	}
 if(AlarmStatus != null && !AlarmStatus.isEmpty()) {
-	list=list.stream().filter(e->e.getAlarm_status_code().trim().equals(AlarmStatus.trim())).collect(Collectors.toList());	
+	list=list.stream().filter(e->e.getAlarmStatusCode()!=null).
+			filter(e->e.getAlarmStatusCode().trim().equals(AlarmStatus.trim())).collect(Collectors.toList());	
 		}
 if(MoneyLaunderingRisk != null && !MoneyLaunderingRisk.isEmpty()) {
-	list=list.stream().filter(e->e.getMoney_laundering_risk_score()==Integer.parseInt(MoneyLaunderingRisk)).collect(Collectors.toList());	
+	list=list.stream().filter(e->e.getMoneyLaunderingRiskScore()!=null).
+			filter(e->e.getMoneyLaunderingRiskScore().
+			compareTo(new BigDecimal(MoneyLaunderingRisk.trim()))==0).collect(Collectors.toList());	
 	
 	
 }
 if(CreateDate != null && !CreateDate.isEmpty()) {
-	list=list.stream().filter(e->e.getCreate_date()!=null).filter(
-		e->e.getCreate_date().toString().split(" ")[0].trim().equals(CreateDate.trim())
+	list=list.stream().filter(e->e.getCreateDate()!=null).
+			filter(e->e.getCreateDate()!=null).filter(
+		e->e.getCreateDate().toString().split(" ")[0].trim().equals(CreateDate.trim())
 			).
 			
 			collect(Collectors.toList());
 }
 if(RunDate != null && !RunDate.isEmpty()) {
-	list=list.stream().filter(e->e.getRun_date()!=null).filter(
-			e->e.getRun_date().toString().split(" ")[0].trim().equals(RunDate.trim())
+	list=list.stream().filter(e->e.getRunDate()!=null).
+			filter(e->e.getRunDate()!=null).filter(
+			e->e.getRunDate().toString().split(" ")[0].trim().equals(RunDate.trim())
 				).
 				
 				collect(Collectors.toList());
 }
 if(ScenarioName != null && !ScenarioName.isEmpty()) {
-	list=list.stream().filter(e->e.getRoutine_name().trim().equals(ScenarioName.trim())).collect(Collectors.toList());
+	list=list.stream().filter(e->e.getRoutineName()!=null).
+			filter(e->e.getRoutineName().trim().equals(ScenarioName.trim())).collect(Collectors.toList());
 }
-if(ScenarioId != null ) {
-	list=list.stream().filter(e->e.getRoutine_id()==ScenarioId).collect(Collectors.toList());
+if(ScenarioId != null &&!ScenarioId.isEmpty() ) {
+	list=list.stream().filter(e->e.getRoutineId()!=null).
+			filter(e->e.getRoutineId().compareTo(new BigDecimal(ScenarioId.trim()))==0).collect(Collectors.toList());
 }
 
 	return list;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.Account;
+import com.datagearbi.model.CoreAccountD;
 import com.datagearbi.repository.AccountObjectRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -29,14 +29,14 @@ public class AccountController {
 	private EntityManager entityManager;
 
 	@RequestMapping(value = "allaccounts", method = RequestMethod.GET)
-	public List<Account> allAccounts() {
+	public List<CoreAccountD> allAccounts() {
 		return accountObjectRepository.findAll();
 	}
 
 	/* Search function- */
 	@RequestMapping(value = "searchAccount", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Account> search(@RequestParam(name = "AccountNumber") String AccountNumber,
+	public List<CoreAccountD> search(@RequestParam(name = "AccountNumber") String AccountNumber,
 			@RequestParam(name = "AccountName") String AccountName,
 			@RequestParam(name = "AccountType") String AccountType,
 			@RequestParam(name = "AccountOpenDate") String AccountOpenDate,
@@ -50,40 +50,44 @@ public class AccountController {
 			return null;
 		}
 
-		List<Account> articleList = accountObjectRepository.findAll();
+		List<CoreAccountD> articleList = accountObjectRepository.findAll();
 
 		String query = "select ACCTNO,ACCTNM,ACCTTYDESC,ACCTOPDATE,ACCTCLDATE from CORE_ACCOUNT_D a where 1=1 ";
-		if (!AccountNumber.isEmpty()) {
+		if (!AccountNumber.isEmpty()&&AccountNumber!=null) {
 			query += " and ACCTNO='" + AccountNumber + "'";
-			articleList = articleList.stream().filter(article ->
+			articleList = articleList.stream().filter(p->p.getAcctno()!=null)
+					.filter(article ->
 
-			article.getAcctNo().trim().equals(AccountNumber.trim())).collect(Collectors.toList());
+			article.getAcctno().trim().equals(AccountNumber.trim())).collect(Collectors.toList());
 
 		}
-		if (!AccountType.isEmpty()) {
+		if (!AccountType.isEmpty()&&AccountType!=null) {
 			query += " and ACCTTYDESC='" + AccountType + "'";
-			articleList = articleList.stream()
-					.filter(article -> article.getACCTTYDESC().trim().equals(AccountType.trim()))
+			articleList = articleList.stream().filter(a->a.getAccttydesc()!=null)
+					.filter(a -> a.getAccttydesc().trim().equals(AccountType.trim()))
 					.collect(Collectors.toList());
 		}
-		if (!AccountName.isEmpty()) {
+		if (!AccountName.isEmpty()&&AccountName!=null) {
 			query += " and ACCTNM='" + AccountName + "'";
-			articleList = articleList.stream().filter(article -> article.getACCTNM().trim().equals(AccountName.trim()))
+			articleList = articleList.stream().filter(a->a.getAcctnm()!=null).
+					filter(a -> a.getAcctnm().trim().equals(AccountName.trim()))
 					.collect(Collectors.toList());
 		}
 
-		if (!AccountOpenDate.isEmpty()) {
+		if (!AccountOpenDate.isEmpty()&&AccountOpenDate!=null) {
 			query += " and ACCTOPDATE='" + AccountOpenDate + "'";
-			System.out.println("opendate " + AccountOpenDate.length());
+		
 
-			articleList = articleList.stream().filter(e -> e.getACCTOPDATE() != null).filter(
-					article -> (article.getACCTOPDATE().toString().split(" ")[0]).trim().equals(AccountOpenDate.trim()))
+			articleList = articleList.stream().filter(a->a.getAcctopdate()!=null).
+					filter(e -> e.getAcctopdate() != null).filter(
+					article -> (article.getAcctopdate().toString().split(" ")[0]).trim().equals(AccountOpenDate.trim()))
 					.collect(Collectors.toList());
 		}
-		if (!AccountCloseDate.isEmpty()) {
+		if (!AccountCloseDate.isEmpty()&&AccountCloseDate!=null) {
 			query += " and ACCTCLDATE='" + AccountCloseDate + "'";
-			articleList = articleList.stream().filter(e -> e.getACCTCLDATE() != null)
-					.filter(article -> (article.getACCTCLDATE().toString().split(" ")[0]).trim()
+			articleList = articleList.stream().filter(a->a.getAcctcldate()!=null).
+					filter(e -> e.getAcctcldate() != null)
+					.filter(article -> (article.getAcctcldate().toString().split(" ")[0]).trim()
 							.equals(AccountCloseDate.trim()))
 					.collect(Collectors.toList());
 		}

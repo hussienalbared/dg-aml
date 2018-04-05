@@ -1,4 +1,4 @@
-package com.datagearbi.model;
+package com.datagearbi.model.old;
 
 import java.util.Date;
 
