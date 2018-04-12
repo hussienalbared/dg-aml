@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.datagearbi.controller.SuspectedController;
 import com.datagearbi.model.AcSuspectedObj;
+import com.datagearbi.model.AcSuspectedObjPK;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 public class SuspectedControllerTest {
@@ -28,14 +29,13 @@ public class SuspectedControllerTest {
 	@Test
 	public void testSuspectedGet() {
 
-//		AcSuspectedObj obj = new AcSuspectedObj();
-//		SuspectedObjectId id = new SuspectedObjectId(1, "A");
-//		obj.setCustomerId(id);
-//		obj.setObj_number("001");
-//		when(suspectedObjectRepository.getOne(id)).thenReturn(obj);
-//
-//		SuspectedObject so = sc.get(1, "A");
-//		assertEquals(so.getObj_number(), 001);
+		AcSuspectedObj obj = new AcSuspectedObj();
+		AcSuspectedObjPK id = new AcSuspectedObjPK(1, "A");
+		obj.setObjNumber("001");
+		when(suspectedObjectRepository.getOne(id)).thenReturn(obj);
+
+		AcSuspectedObj so = sc.get(1, "A");
+		assertEquals(so.getObjNumber(), 001);
 
 	}
 }
