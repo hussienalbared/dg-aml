@@ -2,57 +2,66 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
-import javax.persistence.*;
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the ac_suspected_objs database table.
  * 
  */
 @Entity
-@Table(name="ac_suspected_objs")
-@NamedQuery(name="AcSuspectedObj.findAll", query="SELECT a FROM AcSuspectedObj a")
+@Table(name = "ac_suspected_objs")
+@NamedQuery(name = "AcSuspectedObj.findAll", query = "SELECT a FROM AcSuspectedObj a")
 public class AcSuspectedObj implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="acSuspectedObj")
+	private Set<AcAlarm> acAlarm;
 
 	@EmbeddedId
 	private AcSuspectedObjPK id;
 
-	@Column(name="alert_count")
+	@Column(name = "alert_count")
 	private int alertCount;
 
-	@Column(name="compliance_userid")
+	@Column(name = "compliance_userid")
 	private String complianceUserid;
 
-	@Column(name="created_on")
+	@Column(name = "created_on")
 	private Date createdOn;
 
-	@Column(name="employee_ind")
+	@Column(name = "employee_ind")
 	private String employeeInd;
 
-	@Column(name="money_laundering_score")
+	@Column(name = "money_laundering_score")
 	private int moneyLaunderingScore;
 
-	@Column(name="obj_name")
+	@Column(name = "obj_name")
 	private String objName;
 
-	@Column(name="obj_number")
+	@Column(name = "obj_number")
 	private String objNumber;
 
-	@Column(name="oldest_alert")
+	@Column(name = "oldest_alert")
 	private int oldestAlert;
 
-	@Column(name="pep_ind")
+	@Column(name = "pep_ind")
 	private String pepInd;
 
-	@Column(name="risk_classification_code")
+	@Column(name = "risk_classification_code")
 	private String riskClassificationCode;
 
-	@Column(name="total_amount")
+	@Column(name = "total_amount")
 	private double totalAmount;
 
-	@Column(name="transactions_count")
+	@Column(name = "transactions_count")
 	private int transactionsCount;
 
 	public AcSuspectedObj() {
@@ -162,4 +171,11 @@ public class AcSuspectedObj implements Serializable {
 		this.transactionsCount = transactionsCount;
 	}
 
+	public Set<AcAlarm> getAcAlarm() {
+		return acAlarm;
+	}
+
+	public void setAcAlarm(Set<AcAlarm> acAlarm) {
+		this.acAlarm = acAlarm;
+	}
 }

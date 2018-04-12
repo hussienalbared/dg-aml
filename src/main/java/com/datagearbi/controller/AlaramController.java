@@ -94,5 +94,9 @@ if(ScenarioId != null &&!ScenarioId.isEmpty() ) {
 }
 	
 	
-	
+	@RequestMapping(value="all" ,method = RequestMethod.GET)
+	public List<AcAlarm> allalarms() {
+		
+return this.alaramObjectRepository.findAll();
+	}
 }

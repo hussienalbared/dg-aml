@@ -1,11 +1,14 @@
 package com.datagearbi.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.AcSuspectedObj;
@@ -14,6 +17,7 @@ import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
 @RequestMapping("aml/api/v1/")
+@CrossOrigin(origins = "http://localhost:4200")
 public class SuspectedController {
 
 	@Autowired
@@ -28,5 +32,11 @@ public class SuspectedController {
 	public AcSuspectedObj get(@PathVariable int key,@PathVariable String levelCode) {
 		AcSuspectedObjPK id = new AcSuspectedObjPK(key, levelCode);
 		return suspectedObjectRepository.getOne(id);
+	}
+	@RequestMapping(value = "alarms", method= RequestMethod.GET)
+	public Optional<AcSuspectedObj> getAlarms(@RequestParam("key") String key,
+			@RequestParam("code") String levelCode) {
+		return suspectedObjectRepository.findById(new AcSuspectedObjPK(Integer.parseInt(key), levelCode));
+//		return suspectedObjectRepository.findAll();
 	}
 }

@@ -2,101 +2,123 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
+import java.util.List;
+import java.util.Set;
 
 /**
  * The persistent class for the AC_ALARM database table.
  * 
  */
 @Entity
-@Table(name="AC_ALARM")
-@NamedQuery(name="AcAlarm.findAll", query="SELECT a FROM AcAlarm a")
+@Table(name = "AC_ALARM")
+@NamedQuery(name = "AcAlarm.findAll", query = "SELECT a FROM AcAlarm a")
 public class AcAlarm implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@JsonIgnore
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+			@JoinColumn(name = "alarmed_obj_key", referencedColumnName = "obj_key", insertable = false, updatable = false),
+			@JoinColumn(name = "alarmed_obj_level_code", referencedColumnName = "obj_level_code", insertable = false, updatable = false) })
+	private AcSuspectedObj acSuspectedObj ;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="alarm_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "alarm_id")
 	private long alarmId;
-
-	@Column(name="actual_values_text")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="acalarm")
+    private List<AcRoutine> acroutine;
+	@Column(name = "actual_values_text")
 	private String actualValuesText;
 
-	@Column(name="alarm_category_cd")
+	@Column(name = "alarm_category_cd")
 	private String alarmCategoryCd;
 
-	@Column(name="alarm_description")
+	@Column(name = "alarm_description")
 	private String alarmDescription;
 
-	@Column(name="alarm_status_code")
+	@Column(name = "alarm_status_code")
 	private String alarmStatusCode;
 
-	@Column(name="alarm_subcategory_cd")
+	@Column(name = "alarm_subcategory_cd")
 	private String alarmSubcategoryCd;
 
-	@Column(name="alarm_type_cd")
+	@Column(name = "alarm_type_cd")
 	private String alarmTypeCd;
 
-	@Column(name="alarmed_obj_key")
+	@Column(name = "alarmed_obj_key")
 	private BigDecimal alarmedObjKey;
 
-	@Column(name="alarmed_obj_level_code")
+	@Column(name = "alarmed_obj_level_code")
 	private String alarmedObjLevelCode;
 
-	@Column(name="alarmed_obj_name")
+	@Column(name = "alarmed_obj_name")
 	private String alarmedObjName;
 
-	@Column(name="alarmed_obj_number")
+	@Column(name = "alarmed_obj_number")
 	private String alarmedObjNumber;
 
-	@Column(name="create_date")
+	@Column(name = "create_date")
 	private Timestamp createDate;
 
-	@Column(name="create_user_id")
+	@Column(name = "create_user_id")
 	private String createUserId;
 
-	@Column(name="employee_ind")
+	@Column(name = "employee_ind")
 	private String employeeInd;
 
-	@Column(name="logical_delete_ind")
+	@Column(name = "logical_delete_ind")
 	private String logicalDeleteInd;
 
-	@Column(name="money_laundering_risk_score")
+	@Column(name = "money_laundering_risk_score")
 	private BigDecimal moneyLaunderingRiskScore;
 
-	@Column(name="primary_obj_key")
+	@Column(name = "primary_obj_key")
 	private BigDecimal primaryObjKey;
 
-	@Column(name="primary_obj_level_code")
+	@Column(name = "primary_obj_level_code")
 	private String primaryObjLevelCode;
 
-	@Column(name="primary_obj_name")
+	@Column(name = "primary_obj_name")
 	private String primaryObjName;
 
-	@Column(name="primary_obj_number")
+	@Column(name = "primary_obj_number")
 	private String primaryObjNumber;
 
-	@Column(name="product_type")
+	@Column(name = "product_type")
 	private String productType;
 
-	@Column(name="routine_id")
+	@Column(name = "routine_id")
 	private BigDecimal routineId;
 
-	@Column(name="routine_name")
+	public List<AcRoutine> getAcroutine() {
+		return acroutine;
+	}
+
+	public void setAcroutine(List<AcRoutine> acroutine) {
+		this.acroutine = acroutine;
+	}
+
+	@Column(name = "routine_name")
 	private String routineName;
 
-	@Column(name="run_date")
+	@Column(name = "run_date")
 	private Timestamp runDate;
 
-	@Column(name="suppression_end_date")
+	@Column(name = "suppression_end_date")
 	private Timestamp suppressionEndDate;
 
-	@Column(name="terror_financing_risk_score")
+	@Column(name = "terror_financing_risk_score")
 	private BigDecimal terrorFinancingRiskScore;
 
-	@Column(name="version_number")
+	@Column(name = "version_number")
 	private BigDecimal versionNumber;
 
 	public AcAlarm() {
