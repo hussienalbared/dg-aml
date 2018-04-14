@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "SAMA_report_V")
+//@Entity
+//@Table(name = "SAMA_report_V")
 public class SAMAReport {
 	
 	@Id

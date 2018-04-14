@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="CORE_TRANSACTION_D")
-@NamedQuery(name="CoreTransactionD.findAll", query="SELECT c FROM CoreTransactionD c")
+@NamedQuery(name="CoreTransactionD.findByCustomer", query="SELECT c FROM CoreTransactionD c WHERE c.tsnm = ?")
 public class CoreTransactionD implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -106,6 +106,12 @@ public class CoreTransactionD implements Serializable {
 
 	public void setTtrn(String ttrn) {
 		this.ttrn = ttrn;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 
 }

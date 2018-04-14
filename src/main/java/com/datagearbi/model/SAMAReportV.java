@@ -10,9 +10,10 @@ import java.sql.Timestamp;
  * The persistent class for the SAMA_report_V database table.
  * 
  */
-@Embeddable
-@NamedQuery(name="SAMA_report_V.findAll", query="SELECT s FROM SAMA_report_V s")
-public class SAMA_report_V implements Serializable {
+@Entity
+@Table(name = "SAMA_report_V")
+@NamedQuery(name="SAMA_report_V.findAll", query="SELECT s FROM SAMAReportV s")
+public class SAMAReportV implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="ACCTBNM")
@@ -40,6 +41,7 @@ public class SAMA_report_V implements Serializable {
 	private String pczconm;
 
 	@Column(name="PID")
+	@Id
 	private String pid;
 
 	@Column(name="PNM")
@@ -51,7 +53,7 @@ public class SAMA_report_V implements Serializable {
 	@Column(name="secondary_medium_desc")
 	private String secondaryMediumDesc;
 
-	public SAMA_report_V() {
+	public SAMAReportV() {
 	}
 
 	public String getAcctbnm() {
