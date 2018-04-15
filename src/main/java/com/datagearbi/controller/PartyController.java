@@ -1,13 +1,8 @@
 package com.datagearbi.controller;
 
-import static org.assertj.core.api.Assertions.filter;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
