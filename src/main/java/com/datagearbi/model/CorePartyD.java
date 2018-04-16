@@ -2,8 +2,12 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -20,12 +24,23 @@ public class CorePartyD implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="party_key")
 	private int partyKey;
-
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="corepartyD")
+    private  List<CorePartyAccountB> CorePartyaccountD;
+    
 	@Column(name="change_begin_date")
 	private Timestamp changeBeginDate;
 
 	@Column(name="change_current_ind")
 	private String changeCurrentInd;
+
+	public List<CorePartyAccountB> getCorePartyaccountD() {
+		return CorePartyaccountD;
+	}
+
+	public void setCorePartyaccountD(List<CorePartyAccountB> corePartyaccountD) {
+		CorePartyaccountD = corePartyaccountD;
+	}
 
 	@Column(name="change_end_date")
 	private Timestamp changeEndDate;

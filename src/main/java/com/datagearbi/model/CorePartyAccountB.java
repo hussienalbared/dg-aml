@@ -2,6 +2,9 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Timestamp;
 
 
@@ -17,6 +20,18 @@ public class CorePartyAccountB implements Serializable {
 
 	@EmbeddedId
 	private CorePartyAccountBPK id;
+	
+	@ManyToOne
+	@JoinColumn(name="party_key",insertable=false,updatable=false )
+	@JsonIgnore
+    private CorePartyD corepartyD;
+	public CorePartyD getCorepartyD() {
+		return corepartyD;
+	}
+
+	public void setCorepartyD(CorePartyD corepartyD) {
+		this.corepartyD = corepartyD;
+	}
 
 	@Column(name="change_current_ind")
 	private String changeCurrentInd;

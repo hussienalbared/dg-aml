@@ -2,6 +2,7 @@ package com.datagearbi.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ import com.datagearbi.repository.PartyObjectRepository;
 public class PartyController {
 	@Autowired
 	private PartyObjectRepository PartyObjectRepository;
+	@RequestMapping("ByPNO")
+	private Optional<CorePartyD> findByPNO(@RequestParam(name = "PartyNumber") String PartyNumber) {
+		
+return this.PartyObjectRepository.findBypno(PartyNumber);		
+
+	}
 	@RequestMapping("search")
 public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNumber,
 		@RequestParam(name = "PartyId") String PartyId,

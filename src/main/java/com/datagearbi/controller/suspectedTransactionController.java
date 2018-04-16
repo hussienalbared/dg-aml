@@ -20,27 +20,28 @@ public class suspectedTransactionController {
 	private EntityManager entityManager;
 	@SuppressWarnings("unchecked")
 	@RequestMapping("all")
-	private List<Suspected_transactions_V> suspectedTransaction(@RequestParam("partyNumber")String partyNumber) {
+	public List<Suspected_transactions_V> suspectedTransaction(@RequestParam("partyNumber")String partyNumber) {
 		String Query=
 				
-				"select * from AML_DEV.AML.suspected_transactions_V\r\n" + 
-				"where ACCTNO in ("+
+				"select * from AML_DEV.AML.suspected_transactions_V " + 
+				" where ACCTNO in ("+
 				
-				"select  ACCTNO from AML_DEV.AML.CORE_ACCOUNT_D where change_current_ind='Y'" + 
-				"and account_key in(" + 
+				" select  ACCTNO from AML_DEV.AML.CORE_ACCOUNT_D where change_current_ind='Y'" + 
+				" and account_key in(" + 
 				"" + 
-				"select account_key from AML_DEV.AML.CORE_PARTY_ACCOUNT_B where change_current_ind='Y'"
-				+ " and PACCTNO='"+partyNumber+"'"
-				+ "" + 
+				" select account_key from AML_DEV.AML.CORE_PARTY_ACCOUNT_B where change_current_ind='Y'"
+				+ " and PACCTPNO='"+partyNumber+"'"+
+				
 				")" + 
-				"" + 
-				"" + 
+				
+				
 				")";
 		return (List<Suspected_transactions_V>)this.entityManager.createNativeQuery(Query).getResultList();
 		
 		
 
 	}
+	
 	
 
 }

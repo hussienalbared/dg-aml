@@ -10,6 +10,7 @@ import java.math.BigDecimal;
  * 
  */
 @Embeddable
+
 @Table(name="suspected_transactions_V")
 @NamedQuery(name="Suspected_transactions_V.findAll", query="SELECT s FROM Suspected_transactions_V s")
 public class Suspected_transactions_V implements Serializable {

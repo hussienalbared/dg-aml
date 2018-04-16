@@ -99,4 +99,10 @@ if(ScenarioId != null &&!ScenarioId.isEmpty() ) {
 		
 return this.alaramObjectRepository.findAll();
 	}
+//	@RequestMapping(value="suspect" ,method = RequestMethod.GET)
+//	public List<AcAlarm> suspectAlarms() {
+//		
+//return this.alaramObjectRepository.findBCodeandLevel();
+//	}
+	
 }
