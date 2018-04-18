@@ -49,5 +49,14 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 		
 
 	}
+	@RequestMapping(value = "removeOwnerShip", method= RequestMethod.PUT)
+	public void  removeOwnerShip(@RequestParam("key") String key,
+			@RequestParam("code") String levelCode
+			) {
+		
+this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), levelCode,null);	
+		
+
+	}
 	
 }
