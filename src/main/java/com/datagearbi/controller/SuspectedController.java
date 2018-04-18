@@ -17,7 +17,7 @@ import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
 @RequestMapping("aml/api/v1/")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class SuspectedController {
 
 	@Autowired
@@ -39,4 +39,15 @@ public class SuspectedController {
 		return suspectedObjectRepository.findById(new AcSuspectedObjPK(Integer.parseInt(key), levelCode));
 //		return suspectedObjectRepository.findAll();
 	}
+	@RequestMapping(value = "updateUser", method= RequestMethod.PUT)
+	public void  updateUser(@RequestParam("key") String key,
+			@RequestParam("code") String levelCode,
+			@RequestParam("user") String user
+			) {
+		
+this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), levelCode, user);	
+		
+
+	}
+	
 }
