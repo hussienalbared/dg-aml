@@ -21,27 +21,27 @@ public class SuspectedObjectRepositoryIntegrationTest {
 	@Autowired
 	private SuspectedObjectRepository suspectedObjectRepository;
 
-//	@Test
-//	public void testFindAll() {
-//		List<AcSuspectedObj> objs = suspectedObjectRepository.findAll();
-//		System.out.println("test:" + objs.size());
-//		assertThat(objs.size()).isGreaterThanOrEqualTo(0);
-//	}
-
-
 	@Test
+	public void testFindAll() {
+		System.out.println("testFindAll");
+		List<AcSuspectedObj> objs = suspectedObjectRepository.findAll();
+		System.out.println("test:" + objs.size());
+		assertThat(objs.size()).isGreaterThanOrEqualTo(0);
+	}
+
+
+//	@Test
 	public void testSuspectedGet() {
 		System.out.println("testSuspectedGet");
-		AcSuspectedObj obj = new AcSuspectedObj();
 		AcSuspectedObjPK id = new AcSuspectedObjPK(1, "A");
 		
-		AcSuspectedObj objs = suspectedObjectRepository.getOne(id);
-		System.out.println("test0:" + objs);
+		AcSuspectedObj obj = suspectedObjectRepository.getOne(id);
+		System.out.println("test0:" + obj);
 
-		if (objs!=null) {			
-			System.out.println("test1:" + objs.getEmployeeInd());
-			System.out.println("test2:" + objs.getAcAlarm().size());
-			System.out.println("test2:" + objs.getAcAlarm().size());
+		if (obj!=null) {			
+			System.out.println("test1:" + obj.getEmployeeInd());
+			System.out.println("test2:" + obj.getAcAlarm().size());
+			System.out.println("test2:" + obj.getAcAlarm().size());
 		}
 	}
 
