@@ -5,11 +5,13 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -54,7 +56,7 @@ public class AcAlarm implements Serializable {
 	private String alarmTypeCd;
 
 	@Column(name = "alarmed_obj_key")
-	private BigDecimal alarmedObjKey;
+	private int alarmedObjKey;
 
 	@Column(name = "alarmed_obj_level_code")
 	private String alarmedObjLevelCode;
@@ -108,7 +110,7 @@ public class AcAlarm implements Serializable {
 
 	@Column(name = "routine_name")
 	private String routineName;
-
+ 
 	@Column(name = "run_date")
 	private Timestamp runDate;
 
@@ -180,11 +182,11 @@ public class AcAlarm implements Serializable {
 		this.alarmTypeCd = alarmTypeCd;
 	}
 
-	public BigDecimal getAlarmedObjKey() {
+	public int getAlarmedObjKey() {
 		return this.alarmedObjKey;
 	}
 
-	public void setAlarmedObjKey(BigDecimal alarmedObjKey) {
+	public void setAlarmedObjKey(int alarmedObjKey) {
 		this.alarmedObjKey = alarmedObjKey;
 	}
 

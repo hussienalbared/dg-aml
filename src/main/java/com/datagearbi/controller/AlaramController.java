@@ -3,7 +3,12 @@ package com.datagearbi.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,14 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.AcAlarm;
+import com.datagearbi.model.AcSuspectedObj;
+import com.datagearbi.model.AcSuspectedObjPK;
 import com.datagearbi.repository.AlaramObjectRepository;
-@CrossOrigin(origins = "http://localhost:4200")
+import com.datagearbi.repository.SuspectedObjectRepository;
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/alaram")
 public class AlaramController {
+	@PersistenceContext
+	private EntityManager em;
 	@Autowired
 	private AlaramObjectRepository alaramObjectRepository;
-
+	@Autowired
+	private SuspectedObjectRepository suspectedObjectRepository;
 	
 	@RequestMapping(value="allalarams" ,method = RequestMethod.GET)
 public List<AcAlarm> search(@RequestParam(name = "AlarmId",required=false) String AlarmId,
@@ -99,10 +110,52 @@ if(ScenarioId != null &&!ScenarioId.isEmpty() ) {
 		
 return this.alaramObjectRepository.findAll();
 	}
-//	@RequestMapping(value="suspect" ,method = RequestMethod.GET)
-//	public List<AcAlarm> suspectAlarms() {
-//		
-//return this.alaramObjectRepository.findBCodeandLevel();
-//	}
+//set alram status to close by obj_key obj_code
+	@RequestMapping(value="closeAlarm" ,method = RequestMethod.GET)
+	public void closeAlarm(@RequestParam("alarmed_obj_key") String alarmed_obj_key,
+			@RequestParam("alarmed_obj_level_code")String alarmed_obj_level_code
+			
+			) {
+		this.alaramObjectRepository.closeAlarms(Integer.parseInt(alarmed_obj_key),alarmed_obj_level_code);
+
+	}	
+	@RequestMapping(value="closeAlarmById" ,method = RequestMethod.PUT)
+	private String closeOneAlarm(@RequestParam("alarmId")String alarmId) {
+		//close alarm
+		this.alaramObjectRepository.closeAlarmById(Long.parseLong(alarmId));
+
+		
+		return "updated";
+
+	}
 	
+
+	@RequestMapping(value = "updateAlertCountApi", method= RequestMethod.PUT)	
+   private Object updateAlertCountApi(	@RequestParam("key") String key,
+			@RequestParam("code") String levelCode) {
+	
+
+		
+		
+		Optional suspected=this.suspectedObjectRepository.findById(new AcSuspectedObjPK(Integer.parseInt(key), levelCode));
+		
+		
+		if(!suspected.isPresent()) {
+			
+			return null;
+		}
+
+String query="select count(*)  from AC_ALARM where alarm_status_code='act'"
+		+ " and alarmed_obj_level_code=:code and alarmed_obj_key=:key";
+int y=(Integer)this.em.createNativeQuery(query).setParameter("code", levelCode).
+setParameter("key", key).getResultList().get(0);
+;
+this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Integer.parseInt(key), levelCode, y);
+return y;
+		
+}
+	
+		
+	
+
 }

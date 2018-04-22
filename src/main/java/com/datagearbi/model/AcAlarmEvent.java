@@ -2,7 +2,7 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 import java.sql.Timestamp;
 
 
@@ -11,18 +11,18 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table(name="AC_ALARM_EVENT")
+@Table(name="AC_ALARM_EVENT"/*,schema="AML",catalog="AML_DEV"*/)
 @NamedQuery(name="AcAlarmEvent.findAll", query="SELECT a FROM AcAlarmEvent a")
 public class AcAlarmEvent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="event_id")
 	private long eventId;
 
 	@Column(name="alarm_id")
-	private BigDecimal alarmId;
+	private long alarmId;
 
 	@Column(name="create_date")
 	private Timestamp createDate;
@@ -47,11 +47,11 @@ public class AcAlarmEvent implements Serializable {
 		this.eventId = eventId;
 	}
 
-	public BigDecimal getAlarmId() {
+	public long getAlarmId() {
 		return this.alarmId;
 	}
 
-	public void setAlarmId(BigDecimal alarmId) {
+	public void setAlarmId(long alarmId) {
 		this.alarmId = alarmId;
 	}
 
