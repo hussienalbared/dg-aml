@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.datagearbi.model.AcAlarm;
 import com.datagearbi.model.AcSuspectedObj;
 import com.datagearbi.model.AcSuspectedObjPK;
@@ -155,8 +156,29 @@ this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Integer.parseInt(k
 return y;
 		
 }
-	
+	@RequestMapping(value="AlarmDetailSection1",method=RequestMethod.GET)
+private List getAlarmDetailSection1(@RequestParam("alarmId") String alarmId) {
 		
-	
+		String query=" select  A.routine_name ,B.routine_description,A.run_date "
+				+ " From  AC_ALARM as A inner join "
+				+ " AC_ROUTINE as B on A.routine_id=B.routine_id where A.alarm_id="+alarmId ;
+		return em.createNativeQuery(query).getResultList();
+		
+				
+}	
+		
+	@RequestMapping(value="AlarmDetailSection2",method=RequestMethod.GET)
+private List getAlarmDetailSection2(@RequestParam("alarmId") String alarmId) {
+		
+		String query=
+				"  select * from suspected_transactions_V where TTRN in( "+
+				"  select ttrn from CORE_TRANSACTION_D where transaction_key in( " + 
+				"  select transaction_key from AC_CASH_FLOW_ALARM where alarm_id=1"+ 
+				
+				"  ))";
+		return em.createNativeQuery(query).getResultList();
+		
+				
+}	
 
 }
