@@ -87,12 +87,13 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	@RequestMapping(value = "closeAllSuspectAlarms", method= RequestMethod.GET)
 	public void  closeAllSuspectAlarms(
 			@RequestParam("key") String key,
-			@RequestParam("code") String levelCode
+			@RequestParam("code") String levelCode,
+			@RequestParam("eventType") String eventType
 			) {
 		
 		
 		  //close all alarms
-		  this.alaramObjectRepository.closeAlarms(Integer.parseInt(key), levelCode);
+		  this.alaramObjectRepository.closeAlarms(Integer.parseInt(key), levelCode,eventType);
 	
 		  //update alert count
 		  this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Integer.parseInt(key), levelCode, 0);

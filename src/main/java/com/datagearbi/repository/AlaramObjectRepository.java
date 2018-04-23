@@ -18,13 +18,13 @@ public interface AlaramObjectRepository extends JpaRepository<AcAlarm, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query("update AcAlarm t set t.alarmStatusCode='CLS' where t.alarmedObjKey=?1 "
+	@Query("update AcAlarm t set t.alarmStatusCode=?3 where t.alarmedObjKey=?1 "
 			+ "and t.alarmedObjLevelCode=?2")
-	public void  closeAlarms(int alarmedObjKey,String alarmedObjLevelCode );
+	public void  closeAlarms(int alarmedObjKey,String alarmedObjLevelCode,String eventType );
 	@Transactional
 	@Modifying
-	@Query("update AcAlarm t set t.alarmStatusCode='CLS' where t.alarmId=?1")
-	public void closeAlarmById(long alarmId);
+	@Query("update AcAlarm t set t.alarmStatusCode=?2 where t.alarmId=?1")
+	public void closeAlarmById(long alarmId,String alarmStatusCode);
 	
 
 }

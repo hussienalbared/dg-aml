@@ -111,18 +111,19 @@ if(ScenarioId != null &&!ScenarioId.isEmpty() ) {
 return this.alaramObjectRepository.findAll();
 	}
 //set alram status to close by obj_key obj_code
-	@RequestMapping(value="closeAlarm" ,method = RequestMethod.GET)
-	public void closeAlarm(@RequestParam("alarmed_obj_key") String alarmed_obj_key,
-			@RequestParam("alarmed_obj_level_code")String alarmed_obj_level_code
-			
-			) {
-		this.alaramObjectRepository.closeAlarms(Integer.parseInt(alarmed_obj_key),alarmed_obj_level_code);
-
-	}	
+//	@RequestMapping(value="closeAlarm" ,method = RequestMethod.GET)
+//	public void closeAlarm(@RequestParam("alarmed_obj_key") String alarmed_obj_key,
+//			@RequestParam("alarmed_obj_level_code")String alarmed_obj_level_code
+//			
+//			) {
+//		this.alaramObjectRepository.closeAlarms(Integer.parseInt(alarmed_obj_key),alarmed_obj_level_code);
+//
+//	}	
 	@RequestMapping(value="closeAlarmById" ,method = RequestMethod.PUT)
-	private String closeOneAlarm(@RequestParam("alarmId")String alarmId) {
+	private String closeOneAlarm(@RequestParam("alarmId")String alarmId,
+			@RequestParam("alarmStatusCode")String alarmStatusCode ) {
 		//close alarm
-		this.alaramObjectRepository.closeAlarmById(Long.parseLong(alarmId));
+		this.alaramObjectRepository.closeAlarmById(Long.parseLong(alarmId),alarmStatusCode);
 
 		
 		return "updated";
