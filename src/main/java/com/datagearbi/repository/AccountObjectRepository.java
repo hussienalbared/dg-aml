@@ -21,5 +21,6 @@ public interface AccountObjectRepository extends JpaRepository<CoreAccountD, Lon
 	// @Query(value = ":query", nativeQuery = true)
 //	@Query(value = "select * from CORE_ACCOUNT_D a where 1=1", nativeQuery = true)
 //	List<Account> findAll(String query);
+	List<CoreAccountD> findByacctno(String acctno);
 
 }

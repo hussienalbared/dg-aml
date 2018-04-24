@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -18,7 +19,8 @@ import java.sql.Timestamp;
 @NamedQuery(name="CoreAccountD.findAll", query="SELECT c FROM CoreAccountD c")
 public class CoreAccountD implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@OneToMany(mappedBy="coreAccount")
+    private List<CorePartyAccountB> corePartyD;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="account_key")
@@ -36,6 +38,14 @@ public class CoreAccountD implements Serializable {
 
 	@Column(name="ACCTCOLLTYCD")
 	private String acctcolltycd;
+
+	public List<CorePartyAccountB> getCorePartyD() {
+		return corePartyD;
+	}
+
+	public void setCorePartyD(List<CorePartyAccountB> corePartyD) {
+		this.corePartyD = corePartyD;
+	}
 
 	@Column(name="ACCTCOLLTYDS")
 	private String acctcolltyds;

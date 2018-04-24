@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * The persistent class for the transaction_detail_V database table.
  * 
  */
-@Embeddable
+@Entity
 @Table(name="transaction_detail_V")
 @NamedQuery(name="Transaction_detail_V.findAll", query="SELECT t FROM Transaction_detail_V t")
 public class Transaction_detail_V implements Serializable {
@@ -77,7 +77,8 @@ public class Transaction_detail_V implements Serializable {
 
 	@Column(name="TTDS")
 	private String ttds;
-
+	
+	@Id
 	@Column(name="TTRN")
 	private String ttrn;
 
@@ -259,5 +260,5 @@ public class Transaction_detail_V implements Serializable {
 	public void setTtrn(String ttrn) {
 		this.ttrn = ttrn;
 	}
-
+	
 }

@@ -25,6 +25,19 @@ public class CorePartyAccountB implements Serializable {
 	@JoinColumn(name="party_key",insertable=false,updatable=false )
 	@JsonIgnore
     private CorePartyD corepartyD;
+	@ManyToOne
+	@JoinColumn(name="account_key",insertable=false,updatable=false)
+	@JsonIgnore
+	private CoreAccountD coreAccount;
+	
+	public CoreAccountD getCoreAccount() {
+		return coreAccount;
+	}
+
+	public void setCoreAccount(CoreAccountD coreAccount) {
+		this.coreAccount = coreAccount;
+	}
+
 	public CorePartyD getCorepartyD() {
 		return corepartyD;
 	}
