@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // Un-secure H2 Database
             .antMatchers("/h2-console/**/**").permitAll()
 
-            .antMatchers("/auth/**").permitAll()
+            .antMatchers("/aml/auth/**").permitAll()
             .anyRequest().authenticated();
 
         // Custom JWT based security filter
