@@ -26,7 +26,7 @@ import com.datagearbi.security.JwtTokenUtil;
 import com.datagearbi.security.JwtUser;
 import com.datagearbi.security.service.JwtAuthenticationResponse;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders="*", exposedHeaders="Cache-Control, Content-Language, Content-Type, Expires, Last-Modified")
 @RestController
 public class AuthenticationRestController {
 
@@ -43,7 +43,8 @@ public class AuthenticationRestController {
     @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
-    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST, consumes= {"application/json"}) 
+    //, consumes= {"application/json"}
+    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST) 
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
     	System.out.println("createAuthenticationToken");
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -74,6 +75,7 @@ public class AuthenticationRestController {
 
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
+    	System.out.println("handleAuthenticationException");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
@@ -81,6 +83,7 @@ public class AuthenticationRestController {
      * Authenticates the user. If something is wrong, an {@link AuthenticationException} will be thrown
      */
     private void authenticate(String username, String password) {
+    	System.out.println("authenticate");
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
 
