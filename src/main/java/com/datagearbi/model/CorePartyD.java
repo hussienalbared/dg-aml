@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -24,7 +25,6 @@ public class CorePartyD implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="party_key")
 	private int partyKey;
-	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="corepartyD")
     private  List<CorePartyAccountB> CorePartyaccountD;
     

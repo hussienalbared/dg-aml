@@ -95,9 +95,9 @@ public class AccountController {
 
 	}
 	@RequestMapping("accountDetail")
-	public List<CoreAccountD> getAccountDetail(@RequestParam("accountNumber") String accountNumber  ){
+	public CoreAccountD getAccountDetail(@RequestParam("accountNumber") String accountNumber  ){
 		
-		return this.accountObjectRepository.findByacctno(accountNumber);
+		return this.accountObjectRepository.findByacctno(accountNumber).get(0);
 		
 	}
 }
