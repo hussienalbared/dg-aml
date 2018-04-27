@@ -1,5 +1,8 @@
 package com.datagearbi.model.dto.report;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class SAMAReportDTO {
 
 	private String reportingEntityName;
@@ -7,9 +10,73 @@ public class SAMAReportDTO {
 	private String reportingEntityCity;
 	private String reportingEntityBranch;
 	private String reportingEntityPhone;
-	private String depositType;
-	private String withdrawType;
+	private int depositType;
+	private int withdrawType;
+	private int transferType;
+	private Date creationDate;
+	private String nationality;
+	private String currencyName;
+	private BigDecimal amount;
+	private String accountNumber;
+	private String accountBranch;
+	private String customerId;
+	private String customerName;
 	
+	
+	public String getCurrencyName() {
+		return currencyName;
+	}
+	public void setCurrencyName(String currencyName) {
+		this.currencyName = currencyName;
+	}
+	public BigDecimal getAmount() {
+		return amount;
+	}
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	public String getAccountBranch() {
+		return accountBranch;
+	}
+	public void setAccountBranch(String accountBranch) {
+		this.accountBranch = accountBranch;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getNationality() {
+		return nationality;
+	}
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	public int getTransferType() {
+		return transferType;
+	}
+	public void setTransferType(int transferType) {
+		this.transferType = transferType;
+	}
 	public String getReportingEntityName() {
 		return reportingEntityName;
 	}
@@ -40,24 +107,24 @@ public class SAMAReportDTO {
 	public void setReportingEntityPhone(String reportingEntityPhone) {
 		this.reportingEntityPhone = reportingEntityPhone;
 	}
-	public String getDepositType() {
+	public int getDepositType() {
 		return depositType;
 	}
-	public void setDepositType(String depositType) {
+	public void setDepositType(int depositType) {
 		this.depositType = depositType;
 	}
-	public String getWithdrawType() {
+	public int getWithdrawType() {
 		return withdrawType;
 	}
-	public void setWithdrawType(String withdrawType) {
+	public void setWithdrawType(int withdrawType) {
 		this.withdrawType = withdrawType;
 	}
-	@Override
-	public String toString() {
-		return "SAMAReportDTO [reportingEntityName=" + reportingEntityName + ", reportingEntityType="
-				+ reportingEntityType + ", reportingEntityCity=" + reportingEntityCity + ", reportingEntityBranch="
-				+ reportingEntityBranch + ", reportingEntityPhone=" + reportingEntityPhone + ", depositType="
-				+ depositType + ", withdrawType=" + withdrawType + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "SAMAReportDTO [reportingEntityName=" + reportingEntityName + ", reportingEntityType="
+//				+ reportingEntityType + ", reportingEntityCity=" + reportingEntityCity + ", reportingEntityBranch="
+//				+ reportingEntityBranch + ", reportingEntityPhone=" + reportingEntityPhone + ", depositType="
+//				+ depositType + ", withdrawType=" + withdrawType + "]";
+//	}
 	
 }

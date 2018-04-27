@@ -11,12 +11,14 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
+@Table
 @NamedQuery(name="DEV_Report_SAMA.findAll", query="SELECT d FROM DEV_Report_SAMA d")
 public class DEV_Report_SAMA implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int DEV_Report_SAMA_ID;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer DEV_Report_SAMA_ID;
 
 	@Column(name="ACCTBNM")
 	private String acctbnm;
@@ -57,11 +59,11 @@ public class DEV_Report_SAMA implements Serializable {
 	public DEV_Report_SAMA() {
 	}
 
-	public int getDEV_Report_SAMA_ID() {
+	public Integer getDEV_Report_SAMA_ID() {
 		return this.DEV_Report_SAMA_ID;
 	}
 
-	public void setDEV_Report_SAMA_ID(int DEV_Report_SAMA_ID) {
+	public void setDEV_Report_SAMA_ID(Integer DEV_Report_SAMA_ID) {
 		this.DEV_Report_SAMA_ID = DEV_Report_SAMA_ID;
 	}
 
