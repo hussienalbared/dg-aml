@@ -17,7 +17,8 @@ public class DEV_Report_SAMA implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="DEV_Report_SAMA_ID")
 	private Integer DEV_Report_SAMA_ID;
 
 	@Column(name="ACCTBNM")
