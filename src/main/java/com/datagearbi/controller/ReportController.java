@@ -1,20 +1,38 @@
 package com.datagearbi.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.datagearbi.model.CoreTransactionD;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
 import com.datagearbi.service.ReportService;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @RestController
 
@@ -72,5 +90,42 @@ public class ReportController {
 	public void saveSamaReport(@RequestBody SAMAReportDTO samaReportDTO) {
 		reportService.saveSAMARport(samaReportDTO);
 	}
+	
+	
+	@RequestMapping("printSamaReport")
+	public void printSamaReport(HttpServletResponse response) {
+		InputStream inputStream = this.getClass().getResourceAsStream("/report/SamaReport.jrxml");
+		Map<String, Object> parameters = new HashMap<>();
+		SAMAReportDTO samaReport = new SAMAReportDTO();
+		samaReport.setNationality("Egyptian");
+		
+		List<SAMAReportDTO> samaReports = new ArrayList<SAMAReportDTO>();
+		samaReports.add(samaReport);
+		JRDataSource dataSource = new JRBeanCollectionDataSource(samaReports);
+		try {
+			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+			String fileName= "samareport.pdf";
+			response.setHeader("Content-Disposition", "inline; filename="+ fileName);
+			response.setContentType("application/x-pdf");
+			OutputStream outputStream = response.getOutputStream();
+			JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+//	public ModelAndView printSamaReport() {
+//        JasperReportsPdfView view = new JasperReportsPdfView();
+//        view.setUrl("classpath:report2.jrxml");
+//        view.setApplicationContext(appContext);
+//
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("datasource", carService.findAll());
+//
+//        return new ModelAndView(view, params);
+//	}
+	
 	
 }
