@@ -3,6 +3,9 @@ package com.datagearbi.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -21,14 +24,16 @@ public class CorePartyAccountB implements Serializable {
 
 	@EmbeddedId
 	private CorePartyAccountBPK id;
-	
-	@ManyToOne
-	@JoinColumn(name="party_key",insertable=false,updatable=false )
+//	@JsonIgnore
+//	@ManyToOne
+//	@JoinColumn(name="party_key",insertable=false,updatable=false )
+//	
+//    private CorePartyD corepartyD;
+	@NotFound(action=NotFoundAction.IGNORE)
 	@JsonIgnore
-    private CorePartyD corepartyD;
 	@ManyToOne
 	@JoinColumn(name="account_key",insertable=false,updatable=false)
-	@JsonIgnore
+
 	private CoreAccountD coreAccount;
 	
 	public CoreAccountD getCoreAccount() {
@@ -39,13 +44,13 @@ public class CorePartyAccountB implements Serializable {
 		this.coreAccount = coreAccount;
 	}
 
-	public CorePartyD getCorepartyD() {
-		return corepartyD;
-	}
-
-	public void setCorepartyD(CorePartyD corepartyD) {
-		this.corepartyD = corepartyD;
-	}
+//	public CorePartyD getCorepartyD() {
+//		return corepartyD;
+//	}
+//
+//	public void setCorepartyD(CorePartyD corepartyD) {
+//		this.corepartyD = corepartyD;
+//	}
 
 	@Column(name="change_current_ind")
 	private String changeCurrentInd;

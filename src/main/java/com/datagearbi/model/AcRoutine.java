@@ -26,23 +26,23 @@ public class AcRoutine implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="routine_id")
 	private int routineId;
-	@JsonIgnore
-	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="routine_id",referencedColumnName="routine_id",insertable=false,updatable=false)
-	private AcAlarm acalarm;
+//	@JsonIgnore
+//	@NotFound(action = NotFoundAction.IGNORE)
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="routine_id",referencedColumnName="routine_id",insertable=false,updatable=false)
+//	private AcAlarm acalarm;
 	@Column(name="alarm_category_cd")
 	private String alarmCategoryCd;
 
 	
 
-	public AcAlarm getAcalarm() {
-		return acalarm;
-	}
-
-	public void setAcalarm(AcAlarm acalarm) {
-		this.acalarm = acalarm;
-	}
+//	public AcAlarm getAcalarm() {
+//		return acalarm;
+//	}
+//
+//	public void setAcalarm(AcAlarm acalarm) {
+//		this.acalarm = acalarm;
+//	}
 
 	@Column(name="alarm_subcategory_cd")
 	private String alarmSubcategoryCd;

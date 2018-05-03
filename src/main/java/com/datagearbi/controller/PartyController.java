@@ -45,30 +45,26 @@ public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNum
 			return null;
 		}
 	
-		System.out.println("name"+PartyName);
-		System.out.println("number"+PartyNumber);
-		System.out.println("id "+PartyId);
-		System.out.println("politics "+PoliticallyExposedPerson);
-		System.out.println("risk "+Risk);
-		System.out.println("partdes"+PartyStatusDescription);
+		
 		List<CorePartyD>list=PartyObjectRepository.findAll();
+		
 		if (PartyNumber != null && !PartyNumber.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPno()!=null).filter(p->p.getPno().trim().equals(PartyNumber.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPno()!=null).filter(p->p.getPno().trim().equalsIgnoreCase(PartyNumber.trim())).collect(Collectors.toList());
 			
 		}
 		if(PartyId != null && !PartyId.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPid()!=null).filter(p->p.getPid().trim().equals(PartyId.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPid()!=null).filter(p->p.getPid().trim().equalsIgnoreCase(PartyId.trim())).collect(Collectors.toList());
 		}
 		if(PartyName != null && !PartyName.isEmpty())
 		{ 
-			list=list.stream().filter(p->p.getPfnm()!=null).filter(p->p.getPfnm().trim().equals(PartyName.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPfnm()!=null).filter(p->p.getPfnm().trim().equalsIgnoreCase(PartyName.trim())).collect(Collectors.toList());
 		}
 		if(PoliticallyExposedPerson != null && !PoliticallyExposedPerson.isEmpty())
 		{
 			
-			list=list.stream().filter(p->p.getPpepind()!=null).filter(p->p.getPpepind().trim().equals(PoliticallyExposedPerson.trim())).collect(Collectors.toList());
+			list=list.stream().filter(p->p.getPpepind()!=null).filter(p->p.getPpepind().trim().equalsIgnoreCase(PoliticallyExposedPerson.trim())).collect(Collectors.toList());
 		}
 		if(Risk != null && !Risk.isEmpty())
 		{

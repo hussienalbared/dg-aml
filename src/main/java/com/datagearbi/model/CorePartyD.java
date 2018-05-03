@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -25,7 +27,9 @@ public class CorePartyD implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="party_key")
 	private int partyKey;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="corepartyD")
+
+	@OneToMany
+	@JoinColumn(name="party_key")
     private  List<CorePartyAccountB> CorePartyaccountD;
     
 	@Column(name="change_begin_date")

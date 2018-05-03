@@ -35,11 +35,21 @@ public class AcAlarm implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "alarm_id")
 	private long alarmId;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="acalarm")
-    private List<AcRoutine> acroutine;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="acalarm")
+//    private List<AcRoutine> acroutine;
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="routine_id",referencedColumnName="routine_id",insertable=false,updatable=false)
+	private AcRoutine acRoutine;
+	public AcRoutine getAcRoutine() {
+		return acRoutine;
+	}
+	public void setAcRoutine(AcRoutine acRoutine) {
+		this.acRoutine = acRoutine;
+	}
 	@Column(name = "actual_values_text")
+	
 	private String actualValuesText;
-
+  
 	@Column(name = "alarm_category_cd")
 	private String alarmCategoryCd;
 
@@ -100,13 +110,13 @@ public class AcAlarm implements Serializable {
 	@Column(name = "routine_id")
 	private BigDecimal routineId;
 
-	public List<AcRoutine> getAcroutine() {
-		return acroutine;
-	}
-
-	public void setAcroutine(List<AcRoutine> acroutine) {
-		this.acroutine = acroutine;
-	}
+//	public List<AcRoutine> getAcroutine() {
+//		return acroutine;
+//	}
+//
+//	public void setAcroutine(List<AcRoutine> acroutine) {
+//		this.acroutine = acroutine;
+//	}
 
 	@Column(name = "routine_name")
 	private String routineName;
