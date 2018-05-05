@@ -92,15 +92,13 @@ public class ReportController {
 	}
 	
 	
+	@CrossOrigin(allowedHeaders="*",allowCredentials="true")
 	@RequestMapping("printSamaReport")
-	public void printSamaReport(HttpServletResponse response) {
+	public void printSamaReport(HttpServletResponse response, @RequestParam(name = "transactionIds") Integer[] transactionIds) {
 		InputStream inputStream = this.getClass().getResourceAsStream("/report/SamaReport.jrxml");
 		Map<String, Object> parameters = new HashMap<>();
-		SAMAReportDTO samaReport = new SAMAReportDTO();
-		samaReport.setNationality("Egyptian");
+		List<SAMAReportDTO> samaReports = reportService.samaReportsPDF(transactionIds);
 		
-		List<SAMAReportDTO> samaReports = new ArrayList<SAMAReportDTO>();
-		samaReports.add(samaReport);
 		JRDataSource dataSource = new JRBeanCollectionDataSource(samaReports);
 		try {
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
@@ -116,16 +114,5 @@ public class ReportController {
 			e.printStackTrace();
 		}
 	}
-//	public ModelAndView printSamaReport() {
-//        JasperReportsPdfView view = new JasperReportsPdfView();
-//        view.setUrl("classpath:report2.jrxml");
-//        view.setApplicationContext(appContext);
-//
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("datasource", carService.findAll());
-//
-//        return new ModelAndView(view, params);
-//	}
-	
 	
 }

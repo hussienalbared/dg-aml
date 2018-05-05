@@ -16,24 +16,61 @@ public class SAMAReportDTO {
 	private Date creationDate;
 	private String nationality;
 	private String currencyName;
-	private BigDecimal amount;
+	private BigDecimal amountNumber;
 	private String accountNumber;
 	private String accountBranch;
 	private String customerId;
 	private String customerName;
+	private String bank;
+	private String reportingPersonName;
+	private String reportingPersonPhone;
+	private String reportingPersonAddress;
+	private String writtenAmount;
 	
 	
+	
+	public String getReportingPersonName() {
+		return reportingPersonName;
+	}
+	public void setReportingPersonName(String reportingPersonName) {
+		this.reportingPersonName = reportingPersonName;
+	}
+	public String getReportingPersonPhone() {
+		return reportingPersonPhone;
+	}
+	public void setReportingPersonPhone(String reportingPersonPhone) {
+		this.reportingPersonPhone = reportingPersonPhone;
+	}
+	public String getReportingPersonAddress() {
+		return reportingPersonAddress;
+	}
+	public void setReportingPersonAddress(String reportingPersonAddress) {
+		this.reportingPersonAddress = reportingPersonAddress;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 	public String getCurrencyName() {
 		return currencyName;
 	}
 	public void setCurrencyName(String currencyName) {
 		this.currencyName = currencyName;
 	}
-	public BigDecimal getAmount() {
-		return amount;
+	
+	public BigDecimal getAmountNumber() {
+		return amountNumber;
 	}
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setAmountNumber(BigDecimal amountNumber) {
+		this.amountNumber = amountNumber;
+	}
+	public String getWrittenAmount() {
+		return writtenAmount;
+	}
+	public void setWrittenAmount(String writtenAmount) {
+		this.writtenAmount = writtenAmount;
 	}
 	public String getAccountNumber() {
 		return accountNumber;

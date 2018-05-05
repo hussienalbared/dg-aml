@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.datagearbi.model.CoreTransactionD;
 import com.datagearbi.model.DEV_Report_SAMA;
@@ -83,7 +82,7 @@ public class ReportServiceImpl implements ReportService {
 			}
 			
 			samaReportDTO.setCreationDate(samaReportV.getCalendarDate());
-			samaReportDTO.setAmount(samaReportV.getCfcurramt());
+			samaReportDTO.setAmountNumber(samaReportV.getCfcurramt());
 			samaReportDTO.setCurrencyName(samaReportV.getCurrencyName());
 			samaReportDTO.setAccountNumber(samaReportV.getAcctno());
 			samaReportDTO.setAccountBranch(samaReportV.getAcctbnm());
@@ -130,7 +129,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		samaReportEntity.setCalendarDate(samaReportDTO.getCreationDate() != null? new Timestamp(samaReportDTO.getCreationDate().getTime()): new Timestamp(0));
 		
-		samaReportEntity.setCfcurramt(samaReportDTO.getAmount());
+		samaReportEntity.setCfcurramt(samaReportDTO.getAmountNumber());
 		
 		samaReportEntity.setCurrencyName(samaReportDTO.getCurrencyName());
 		
@@ -145,6 +144,13 @@ public class ReportServiceImpl implements ReportService {
 		samaReportEntity.setPczconm(samaReportDTO.getNationality());
 		
 		samaReportEntity = samaReportRepository.save(samaReportEntity);
+	}
+
+	@Override
+	public List<SAMAReportDTO> samaReportsPDF(Integer[] transactionIds) {
+		List<SAMAReportDTO> samaReports = new ArrayList<SAMAReportDTO>();
+		samaReports = getSAMAReport(transactionIds);		
+		return samaReports;
 	}
 
 }

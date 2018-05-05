@@ -12,4 +12,5 @@ public interface ReportService {
 	public List<SAMAReportDTO> getSAMAReport(Integer[] transactionIds);	
 	public List<AlarmReportDTO> getAlarmsReport(String status);
 	public void saveSAMARport(SAMAReportDTO samaReportDTO);
+	public List<SAMAReportDTO> samaReportsPDF(Integer[] transactionIds);
 }
