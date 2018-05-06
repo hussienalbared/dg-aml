@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+    	System.out.println("---configure HttpSecurity---");
         httpSecurity
             // we don't need CSRF because our token is invulnerable
             .csrf().disable()
@@ -76,7 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // Un-secure H2 Database
             .antMatchers("/h2-console/**/**").permitAll()
 
-            .antMatchers("/aml/auth/**").permitAll()
+            .antMatchers(authenticationPath+"/**").permitAll()
+            // TODO @mfarag remove next line and fix the JwtAuthorizationTokenFilter
+            .antMatchers("/aml/api/**/**/**").permitAll()
             .anyRequest().authenticated();
 
         // Custom JWT based security filter
@@ -93,6 +96,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+    	System.out.println("configure WebSecurity");
+
         // AuthenticationTokenFilter will ignore the below paths
         web
             .ignoring()
