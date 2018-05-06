@@ -27,7 +27,7 @@ return this.PartyObjectRepository.findBypno(PartyNumber);
 
 	}
 	@RequestMapping("search")
-public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNumber,
+	public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNumber,
 		@RequestParam(name = "PartyId") String PartyId,
 		@RequestParam(name = "PartyName") String PartyName,
 		@RequestParam(name = "PoliticallyExposedPerson") String PoliticallyExposedPerson,
@@ -76,9 +76,7 @@ public List<CorePartyD> name(@RequestParam(name = "PartyNumber") String PartyNum
 			list=list.stream().filter(p->p.getPstatds()!=null).filter(p->p.getPstatds().trim().equals(PartyStatusDescription.trim())).collect(Collectors.toList());
 		}
 		
-		
-		
-	return list;
-	
-}
+		return list;
+
+	}
 }
