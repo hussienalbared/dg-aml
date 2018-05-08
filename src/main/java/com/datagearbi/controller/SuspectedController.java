@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.model.AcAlarm;
 import com.datagearbi.model.AcSuspectedObj;
 import com.datagearbi.model.AcSuspectedObjPK;
+import com.datagearbi.model.Transaction_detail_V;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
@@ -53,7 +54,7 @@ public class SuspectedController {
 		
 		
 		AcSuspectedObj asObj= suspectedObjectRepository.findById(new AcSuspectedObjPK(Integer.parseInt(key), levelCode)).get();
-
+System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%5");
 		Set<AcAlarm> alarms=asObj.getAcAlarm().stream().filter(a->a.getAlarmStatusCode().equalsIgnoreCase("act")).
 		collect(Collectors.toSet());
 		asObj.setAcAlarm(alarms);
@@ -100,5 +101,20 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	
 	
 	}
-		
+	
+	
+	@RequestMapping(value = "getSuspetedByObjectNumber", method= RequestMethod.GET)
+	public List getByObjectNumber(@RequestParam("obj_number") String obj_number)
+	{
+		String query="select obj_key,obj_level_code from [AML_DEV].[AML].[ac_suspected_objs] "
+				+ "where obj_number='"+obj_number+"'";
+	
+				List s= entityManager.createNativeQuery(query).getResultList();
+				
+				return s;
+
+	
+	
+	}
+	
 }
