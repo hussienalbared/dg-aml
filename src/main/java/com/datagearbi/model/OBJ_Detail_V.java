@@ -10,72 +10,71 @@ import java.sql.Timestamp;
  * The persistent class for the OBJ_Detail_V database table.
  * 
  */
-/*@Entity
-@Table(name="OBJ_Detail_V",schema="AML")
-@NamedQuery(name="OBJ_Detail_V.findAll", query="SELECT o FROM OBJ_Detail_V o")*/
+@Embeddable
+@NamedQuery(name="OBJ_Detail_V.findAll", query="SELECT o FROM OBJ_Detail_V o")
 public class OBJ_Detail_V implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-/*	@Column(name="ASCFNM")
-	private String ascfnm;
+	@Column(name="Acct_Key")
+	private int acct_Key;
 
 	@Column(name="Beneficiary_Name")
 	private String beneficiary_Name;
 
-	@Column(name="CFACCTNO")
-	private BigDecimal cfacctno;
+	@Column(name="Branch_Key")
+	private int branch_Key;
 
-	@Column(name="CFBRNO")
-	private String cfbrno;
+	@Column(name="Ccy_Amt")
+	private BigDecimal ccy_Amt;
 
-	@Column(name="CFCURRAMT")
-	private BigDecimal cfcurramt;
+	@Column(name="Cust_Key")
+	private int cust_Key;
 
-	@Column(name="CFDATEKEY")
-	private BigDecimal cfdatekey;
+	@Column(name="Cust_Type_Desc")
+	private String cust_Type_Desc;
 
-	@Column(name="CFTSTATKEY")
-	private BigDecimal cftstatkey;
+	@Column(name="Date_Key")
+	private int date_Key;
 
-	@Column(name="mechanism_desc")
-	private String mechanismDesc;
+	@Column(name="Emp_FName")
+	private String emp_FName;
 
-	@Column(name="party_key")
-	private int partyKey;
+	@Column(name="Mech_Desc")
+	private String mech_Desc;
 
-	@Column(name="primary_medium_desc")
-	private String primaryMediumDesc;
+	@Column(name="Prim_Med_Desc")
+	private String prim_Med_Desc;
 
-	@Column(name="PTYDS")
-	private String ptyds;
+	@Column(name="Sec_Med_Desc")
+	private String sec_Med_Desc;
 
-	@Column(name="secondary_medium_desc")
-	private String secondaryMediumDesc;
+	@Column(name="Time_Key")
+	private int time_Key;
 
-	@Column(name="time_key")
-	private BigDecimal timeKey;
+	@Column(name="Trans_Cr_Db_Ind_Desc")
+	private String trans_Cr_Db_Ind_Desc;
 
-	@Column(name="transaction_cdi_desc")
-	private String transactionCdiDesc;
+	@Column(name="Trans_Desc")
+	private String trans_Desc;
+
+	@Column(name="Trans_Ref_No")
+	private String trans_Ref_No;
+
+	@Column(name="Trans_Status_Key")
+	private int trans_Status_Key;
 
 	@Column(name="Transaction_date")
 	private Timestamp transaction_date;
 
-	@Column(name="TTDS")
-	private String ttds;
-
-	@Column(name="TTRN")
-	private String ttrn;
-
 	public OBJ_Detail_V() {
 	}
 
-	public String getAscfnm() {
-		return this.ascfnm;
+	public int getAcct_Key() {
+		return this.acct_Key;
 	}
 
-	public void setAscfnm(String ascfnm) {
-		this.ascfnm = ascfnm;
+	public void setAcct_Key(int acct_Key) {
+		this.acct_Key = acct_Key;
 	}
 
 	public String getBeneficiary_Name() {
@@ -86,100 +85,116 @@ public class OBJ_Detail_V implements Serializable {
 		this.beneficiary_Name = beneficiary_Name;
 	}
 
-	public BigDecimal getCfacctno() {
-		return this.cfacctno;
+	public int getBranch_Key() {
+		return this.branch_Key;
 	}
 
-	public void setCfacctno(BigDecimal cfacctno) {
-		this.cfacctno = cfacctno;
+	public void setBranch_Key(int branch_Key) {
+		this.branch_Key = branch_Key;
 	}
 
-	public String getCfbrno() {
-		return this.cfbrno;
+	public BigDecimal getCcy_Amt() {
+		return this.ccy_Amt;
 	}
 
-	public void setCfbrno(String cfbrno) {
-		this.cfbrno = cfbrno;
+	public void setCcy_Amt(BigDecimal ccy_Amt) {
+		this.ccy_Amt = ccy_Amt;
 	}
 
-	public BigDecimal getCfcurramt() {
-		return this.cfcurramt;
+	public int getCust_Key() {
+		return this.cust_Key;
 	}
 
-	public void setCfcurramt(BigDecimal cfcurramt) {
-		this.cfcurramt = cfcurramt;
+	public void setCust_Key(int cust_Key) {
+		this.cust_Key = cust_Key;
 	}
 
-	public BigDecimal getCfdatekey() {
-		return this.cfdatekey;
+	public String getCust_Type_Desc() {
+		return this.cust_Type_Desc;
 	}
 
-	public void setCfdatekey(BigDecimal cfdatekey) {
-		this.cfdatekey = cfdatekey;
+	public void setCust_Type_Desc(String cust_Type_Desc) {
+		this.cust_Type_Desc = cust_Type_Desc;
 	}
 
-	public BigDecimal getCftstatkey() {
-		return this.cftstatkey;
+	public int getDate_Key() {
+		return this.date_Key;
 	}
 
-	public void setCftstatkey(BigDecimal cftstatkey) {
-		this.cftstatkey = cftstatkey;
+	public void setDate_Key(int date_Key) {
+		this.date_Key = date_Key;
 	}
 
-	public String getMechanismDesc() {
-		return this.mechanismDesc;
+	public String getEmp_FName() {
+		return this.emp_FName;
 	}
 
-	public void setMechanismDesc(String mechanismDesc) {
-		this.mechanismDesc = mechanismDesc;
+	public void setEmp_FName(String emp_FName) {
+		this.emp_FName = emp_FName;
 	}
 
-	public int getPartyKey() {
-		return this.partyKey;
+	public String getMech_Desc() {
+		return this.mech_Desc;
 	}
 
-	public void setPartyKey(int partyKey) {
-		this.partyKey = partyKey;
+	public void setMech_Desc(String mech_Desc) {
+		this.mech_Desc = mech_Desc;
 	}
 
-	public String getPrimaryMediumDesc() {
-		return this.primaryMediumDesc;
+	public String getPrim_Med_Desc() {
+		return this.prim_Med_Desc;
 	}
 
-	public void setPrimaryMediumDesc(String primaryMediumDesc) {
-		this.primaryMediumDesc = primaryMediumDesc;
+	public void setPrim_Med_Desc(String prim_Med_Desc) {
+		this.prim_Med_Desc = prim_Med_Desc;
 	}
 
-	public String getPtyds() {
-		return this.ptyds;
+	public String getSec_Med_Desc() {
+		return this.sec_Med_Desc;
 	}
 
-	public void setPtyds(String ptyds) {
-		this.ptyds = ptyds;
+	public void setSec_Med_Desc(String sec_Med_Desc) {
+		this.sec_Med_Desc = sec_Med_Desc;
 	}
 
-	public String getSecondaryMediumDesc() {
-		return this.secondaryMediumDesc;
+	public int getTime_Key() {
+		return this.time_Key;
 	}
 
-	public void setSecondaryMediumDesc(String secondaryMediumDesc) {
-		this.secondaryMediumDesc = secondaryMediumDesc;
+	public void setTime_Key(int time_Key) {
+		this.time_Key = time_Key;
 	}
 
-	public BigDecimal getTimeKey() {
-		return this.timeKey;
+	public String getTrans_Cr_Db_Ind_Desc() {
+		return this.trans_Cr_Db_Ind_Desc;
 	}
 
-	public void setTimeKey(BigDecimal timeKey) {
-		this.timeKey = timeKey;
+	public void setTrans_Cr_Db_Ind_Desc(String trans_Cr_Db_Ind_Desc) {
+		this.trans_Cr_Db_Ind_Desc = trans_Cr_Db_Ind_Desc;
 	}
 
-	public String getTransactionCdiDesc() {
-		return this.transactionCdiDesc;
+	public String getTrans_Desc() {
+		return this.trans_Desc;
 	}
 
-	public void setTransactionCdiDesc(String transactionCdiDesc) {
-		this.transactionCdiDesc = transactionCdiDesc;
+	public void setTrans_Desc(String trans_Desc) {
+		this.trans_Desc = trans_Desc;
+	}
+
+	public String getTrans_Ref_No() {
+		return this.trans_Ref_No;
+	}
+
+	public void setTrans_Ref_No(String trans_Ref_No) {
+		this.trans_Ref_No = trans_Ref_No;
+	}
+
+	public int getTrans_Status_Key() {
+		return this.trans_Status_Key;
+	}
+
+	public void setTrans_Status_Key(int trans_Status_Key) {
+		this.trans_Status_Key = trans_Status_Key;
 	}
 
 	public Timestamp getTransaction_date() {
@@ -190,20 +205,4 @@ public class OBJ_Detail_V implements Serializable {
 		this.transaction_date = transaction_date;
 	}
 
-	public String getTtds() {
-		return this.ttds;
-	}
-
-	public void setTtds(String ttds) {
-		this.ttds = ttds;
-	}
-
-	public String getTtrn() {
-		return this.ttrn;
-	}
-
-	public void setTtrn(String ttrn) {
-		this.ttrn = ttrn;
-	}
-*/
 }
