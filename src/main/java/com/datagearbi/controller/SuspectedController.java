@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
-import com.datagearbi.model.AcAlarm;
-import com.datagearbi.model.AcSuspectedObj;
-import com.datagearbi.model.AcSuspectedObjPK;
-import com.datagearbi.model.Transaction_detail_V;
+
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
@@ -51,13 +49,13 @@ public class SuspectedController {
 		return suspectedObjectRepository.getOne(id);
 	}
 	@RequestMapping(value = "alarms", method= RequestMethod.GET)
-	public AcSuspectedObj getAlarms(@RequestParam("key") String key,
+	public AC_Suspected_Object getAlarms(@RequestParam("key") String key,
 			@RequestParam("code") String levelCode) {
 		
 		
-		AcSuspectedObj asObj= suspectedObjectRepository.findById(new AcSuspectedObjPK(Integer.parseInt(key), levelCode)).get();
+		AC_Suspected_Object asObj= suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(levelCode, Integer.parseInt(key))).get();
 System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%5");
-		Set<AcAlarm> alarms=asObj.getAcAlarm().stream().filter(a->a.getAlarmStatusCode().equalsIgnoreCase("act")).
+		Set<AC_Alarm> alarms=asObj.getAcAlarm().stream().filter(a->a.getAlarm_Status_Cd().equalsIgnoreCase("act")).
 		collect(Collectors.toSet());
 		asObj.setAcAlarm(alarms);
 		return asObj;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.CoreExternalPartyD;
+import com.datagearbi.model.External_Customer;
 import com.datagearbi.repository.ExternalPartyObjectRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,7 +30,7 @@ public class ExternalPartyController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public List<CoreExternalPartyD> name2(
+	public List<External_Customer> name2(
 
 			@RequestParam(name = "ExtPartynumber") String ExtPartynumber,
 			@RequestParam(name = "ExtPartyId") String ExtPartyId,
@@ -63,7 +63,7 @@ public class ExternalPartyController {
 		// entityManager.createNativeQuery(query,CoreAccountD.class).getResultList().subList(1,
 		// 4);
 		// return query;
-		return (List<CoreExternalPartyD>) entityManager.createNativeQuery(query, CoreExternalPartyD.class)
+		return (List<External_Customer>) entityManager.createNativeQuery(query, External_Customer.class)
 				.getResultList();
 
 	}

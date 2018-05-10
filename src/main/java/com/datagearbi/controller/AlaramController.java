@@ -19,6 +19,7 @@ import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
+import com.datagearbi.repository.suspected_transactions_VRepository;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,6 +31,8 @@ public class AlaramController {
 	private AlaramObjectRepository alaramObjectRepository;
 	@Autowired
 	private SuspectedObjectRepository suspectedObjectRepository;
+	@Autowired
+	private suspected_transactions_VRepository transctiobb;
 
 	@RequestMapping(value = "allalarams", method = RequestMethod.GET)
 	public List<AC_Alarm> search(@RequestParam(name = "AlarmId", required = false) String AlarmId,
@@ -116,7 +119,8 @@ public class AlaramController {
 	}
 
 	@RequestMapping(value = "updateAlertCountApi", method = RequestMethod.PUT)
-	private Object updateAlertCountApi(@RequestParam("key") String key, @RequestParam("code") String levelCode) {
+	private Object updateAlertCountApi(@RequestParam("key") String key,
+			@RequestParam("code") String levelCode) {
 
 		Optional suspected = this.suspectedObjectRepository
 				.findById(new AC_Suspected_ObjectPK(levelCode, Integer.parseInt(key)));
@@ -126,34 +130,45 @@ public class AlaramController {
 			return null;
 		}
 
-		String query = "select count(*)  from AC_ALARM where alarm_status_code='act'"
-				+ " and alarmed_obj_level_code=:code and alarmed_obj_key=:key";
-		int y = (Integer) this.em.createNativeQuery(query).setParameter("code", levelCode).setParameter("key", key)
-				.getResultList().get(0);
+		String query = "select count(*)  from AC_Alarm A"
+				+ " where A.alarm_Status_Cd='ACT'"
+				+ " and A.alarmed_Obj_Level_Cd=:code and A.alarmed_Obj_Key=:key";
+		int y =  ((Long) (this.em.createQuery(query)
+				.setParameter("code", levelCode).setParameter("key",new BigDecimal(key))
+				.getResultList().get(0))).intValue();;
 		;
-		this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Integer.parseInt(key), levelCode, y);
+	
+		
+		this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Long.parseLong(key), levelCode,y);
 		return y;
 
 	}
 
 	@RequestMapping(value="AlarmDetailSection1",method=RequestMethod.GET)
-	private List getAlarmDetailSection1(@RequestParam("alarmId") String alarmId) {
-			
-		String query=" select A.routine_name ,B.routine_description,A.run_date ,A.actual_values_text "
-				+ " From  AC_ALARM as A inner join "
-				+ " AC_ROUTINE as B on A.routine_id=B.routine_id where A.alarm_id="+alarmId ;
-		return em.createNativeQuery(query).getResultList();
+	private Optional<AC_Alarm> getAlarmDetailSection1(@RequestParam("alarmId") String alarmId) {
+//			
+//		String query=" select A.routine_Name ,B.routine_Desc,A.run_Date ,A.actual_Value_Txt "
+//				+ " From  AC_Alarm as A inner join "
+//				+ " AC_ROUTINE as B on A.routine_Id=B.routine_Id where A.alarm_Id="+alarmId ;
+//		return em.createNativeQuery(query).getResultList();
+		return this.alaramObjectRepository.findById(Long.parseLong(alarmId));
 								
 	}
 
 	@RequestMapping(value = "AlarmDetailSection2", method = RequestMethod.GET)
 	private List getAlarmDetailSection2(@RequestParam("alarmId") String alarmId) {
-
-		String query = "  select ACCTNO ,TTRN,CFDATEKEY,CFCURRAMT,transaction_cdi_desc, TTDS from suspected_transactions_V where TTRN in( "
-				+ "  select ttrn from CORE_TRANSACTION_D where transaction_key in( "
-				+ "  select transaction_key from AC_CASH_FLOW_ALARM where alarm_id=" + alarmId +
+	
+		String query = " select ST.acct_Key ,ST.trans_Ref_No,ST.date_Key,ST.ccy_Amt,ST.trans_Desc, ST.trans_Cr_Db_Ind_Desc"
+				+ " from Suspected_transactions_V ST"
+				+ ""
+				+ " where ST.trans_Ref_No in( "
+				+ "  select A.trans_Ref_No from Transaction_Detail A "
+				+ ""
+				+ "where A.trans_Key in( "
+				+ "  select B.id.trans_Key from AC_Transaction_Flow_Alarm B where B.id.alarm_Id=" + alarmId +
 				"  ))";
-		return em.createNativeQuery(query).getResultList();
+		String query2="select B from AC_Transaction_Flow_Alarm B";
+		return em.createQuery(query).getResultList();
 
 	}
 

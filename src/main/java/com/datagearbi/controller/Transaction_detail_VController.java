@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.Transaction_detail_V;
+import com.datagearbi.model.Transaction_Detail_V;
+
+
 
 
 @RestController
@@ -29,13 +31,10 @@ public class Transaction_detail_VController {
 	@RequestMapping(value="transactionDeatil",method=RequestMethod.GET)
 	public Object getTranasctionDetail(@RequestParam("ttrn")String ttrn){
 		
-		List<Transaction_detail_V> test = em.createNativeQuery("SELECT * FROM Transaction_detail_V t where TTRN='"+ttrn+"'",Transaction_detail_V.class).getResultList();
+		List<Transaction_Detail_V> test = em.createQuery("SELECT T FROM Transaction_Detail_V T where T.trans_Ref_No='"+ttrn+"'",Transaction_Detail_V.class).getResultList();
 
 		return test;
-//		  return em.createNativeQuery("SELECT * FROM Transaction_detail_V t").getResultList().subList(1, 5);
-		//  return em.createQuery("SELECT t FROM Transaction_detail_V t").getResultList();
-//	Object result=	 em.createNativeQuery("select  *  from transaction_detail_V where TTRN='"+ttrn+"'").getSingleResult();
-//	return result;
+//	
 		
 		
 	

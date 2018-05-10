@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="Transaction_Details")
+@Table(name="Transaction_Details",schema="DGAMLCORE")
 @NamedQuery(name="Transaction_Detail.findAll", query="SELECT t FROM Transaction_Detail t")
 public class Transaction_Detail implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -22,7 +22,7 @@ import com.datagearbi.model.Customer;
 import com.datagearbi.model.Customer_X_Account;
 import com.datagearbi.model.Customer_X_AccountPK;
 import com.datagearbi.model.External_Customer;
-import com.datagearbi.model.Suspected_transactions_V;
+
 import com.datagearbi.model.Transaction_Detail_V;
 
 
