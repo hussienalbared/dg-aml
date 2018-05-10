@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.model.AC_Suspected_Object;
+import com.datagearbi.model.AC_Suspected_ObjectPK;
 import com.datagearbi.model.AcAlarm;
 import com.datagearbi.model.AcSuspectedObj;
 import com.datagearbi.model.AcSuspectedObjPK;
@@ -39,13 +41,13 @@ public class SuspectedController {
 	
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
-	public List<AcSuspectedObj> list() {
+	public List<AC_Suspected_Object> list() {
 		return suspectedObjectRepository.findAll();
 	}
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
-	public AcSuspectedObj get(@PathVariable int key,@PathVariable String levelCode) {
-		AcSuspectedObjPK id = new AcSuspectedObjPK(key, levelCode);
+	public AC_Suspected_Object get(@PathVariable int key,@PathVariable String levelCode) {
+		AC_Suspected_ObjectPK id = new AC_Suspected_ObjectPK(levelCode, key);
 		return suspectedObjectRepository.getOne(id);
 	}
 	@RequestMapping(value = "alarms", method= RequestMethod.GET)
