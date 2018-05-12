@@ -10,6 +10,7 @@ import java.sql.Timestamp;
  * The persistent class for the AC_RISK_CLASSIFIER database table.
  * 
  */
+@SuppressWarnings("JpaQlInspection")
 @Entity
 @Table(name="AC_RISK_CLASSIFIER")
 @NamedQuery(name="AcRiskClassifier.findAll", query="SELECT a FROM AcRiskClassifier a")
@@ -84,6 +85,7 @@ public class AcRiskClassifier implements Serializable {
 	@Column(name="version_number")
 	private BigDecimal versionNumber;
 
+	@Column(name="weight")
 	private BigDecimal weight;
 
 	public AcRiskClassifier() {
