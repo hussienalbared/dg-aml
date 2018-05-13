@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -303,8 +304,17 @@ public class Customer implements Serializable {
 
 	@Column(name="Trust_Acct_Ind")
 	private String trust_Acct_Ind;
-
+	@OneToMany
+	@JoinColumn(name="Cust_Key")
+	private List<Customer_X_Account> customerAccount;
+	public List<Customer_X_Account> getCustomerAccount() {
+		return customerAccount;
+	}
+	public void setCustomerAccount(List<Customer_X_Account> customerAccount) {
+		this.customerAccount = customerAccount;
+	}
 	public Customer() {
+		
 	}
 
 	public String getAddr_1() {

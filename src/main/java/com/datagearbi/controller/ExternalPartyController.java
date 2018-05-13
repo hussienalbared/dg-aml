@@ -37,35 +37,32 @@ public class ExternalPartyController {
 			@RequestParam(name = "ExtPartyFullName") String ExtPartyFullName,
 			@RequestParam(name = "ExtPartyIdCountryCode") String ExtPartyIdCountryCode) {
 
-		/*
-		 * /*EXPFULLNM,EXPNO,EXPSTADD1,EXPSTADD2 ," + " EXPSTCINM , EXPBOD , EXPSTCONM "
-		 * + ", EXPIDTYDS , EXPID
-		 */
+	
 
-		String query = "select * from CORE_EXTERNAL_PARTY_D where 1=1 ";
+		String query = "select A from External_Customer A where 1=1 ";
 		if (!ExtPartynumber.isEmpty() && ExtPartynumber != null) {
-			query += " and EXPNO = '" + ExtPartynumber + "' ";
+			query += " and A.ext_Cust_No = '" + ExtPartynumber + "' ";
 		}
 		if (!ExtPartyId.isEmpty() && ExtPartyId != null) {
-			query += " and EXPID = '" + ExtPartyId + "' ";
+			query += " and A.ident_Id = '" + ExtPartyId + "' ";
 
 		}
 
 		if (!ExtPartyFullName.isEmpty() && ExtPartyFullName != null) {
-			query += " and EXPFULLNM = '" + ExtPartyFullName + "' ";
+			query += " and A.ext_Full_Name = '" + ExtPartyFullName + "' ";
 		}
 
 		if (!ExtPartyIdCountryCode.isEmpty() && ExtPartyIdCountryCode != null) {
-			query += " and EXPIDCONM = '" + ExtPartyIdCountryCode + "' ";
+			query += " and A.ident_Cntry_Name = '" + ExtPartyIdCountryCode + "' ";
 		}
 
-		// return (List<CoreAccountD>)
-		// entityManager.createNativeQuery(query,CoreAccountD.class).getResultList().subList(1,
-		// 4);
-		// return query;
-		return (List<External_Customer>) entityManager.createNativeQuery(query, External_Customer.class)
+		
+		return entityManager.createQuery(query)
 				.getResultList();
 
 	}
-
+	@RequestMapping(value = "all2", method = RequestMethod.GET)
+	public List<External_Customer> all(){
+		return this.externalPartyObjectRepository.findAll();
+	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 /**
@@ -18,6 +19,9 @@ public class Account implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
+	@OneToMany
+	@JoinColumn(name="acct_Key")
+	private List<Customer_X_Account> CutomerAccounts;
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
 		@Column(name="Acct_Key")
@@ -25,6 +29,14 @@ public class Account implements Serializable {
 
 	@Column(name="Acct_Ccy_Cd")
 	private String acct_Ccy_Cd;
+
+	public List<Customer_X_Account> getCutomerAccounts() {
+		return CutomerAccounts;
+	}
+
+	public void setCutomerAccounts(List<Customer_X_Account> cutomerAccounts) {
+		CutomerAccounts = cutomerAccounts;
+	}
 
 	@Column(name="Acct_Ccy_Name")
 	private String acct_Ccy_Name;

@@ -106,10 +106,13 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	@RequestMapping(value = "getSuspetedByObjectNumber", method= RequestMethod.GET)
 	public List getByObjectNumber(@RequestParam("obj_number") String obj_number)
 	{
-		String query="select obj_key,obj_level_code from [AML_DEV].[AML].[ac_suspected_objs] "
-				+ "where obj_number='"+obj_number+"'";
+		String query="select a.id.alarmed_Obj_Key ,a.id.alarmed_Obj_level_Cd from AC_Suspected_Object a "
+				+ "where a.alarmed_Obj_No='"+obj_number+"'";
 	
-				List s= entityManager.createNativeQuery(query).getResultList();
+				List s= entityManager.createQuery(query).getResultList();
+				int y=s.size();
+				if(s.size()==0)
+					return null;
 				
 				return s;
 

@@ -1,6 +1,7 @@
 package com.datagearbi.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -151,7 +152,9 @@ public class AlaramController {
 //				+ " From  AC_Alarm as A inner join "
 //				+ " AC_ROUTINE as B on A.routine_Id=B.routine_Id where A.alarm_Id="+alarmId ;
 //		return em.createNativeQuery(query).getResultList();
+		
 		return this.alaramObjectRepository.findById(Long.parseLong(alarmId));
+		
 								
 	}
 

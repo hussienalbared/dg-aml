@@ -17,7 +17,7 @@ private CorePartyAccountObjRepository corePartyAccountObjRepository;
 	@RequestMapping("search")
 	private List<Customer_X_Account> all() {
 		// TODO Auto-generated method stub
-		return this.corePartyAccountObjRepository.findAll().subList(1, 10);
+		return this.corePartyAccountObjRepository.findAll();
 
 	}
 
