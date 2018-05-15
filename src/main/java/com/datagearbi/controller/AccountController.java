@@ -106,5 +106,14 @@ public class AccountController {
 		
 		return this.accountObjectRepository.fetchAccountsByAccountNumber(accountNumber).get(0);
 		
+		
+	}
+	@RequestMapping("alarmInBrief")
+	public List  alarmAccount(@RequestParam("accountKey") String accountKey ) {
+		String query="Select D from AC_Alarm D  inner join AC_Transaction_Flow_Alarm T on  D.alarmed_Obj_Key=T.exec_Cust_Key"
+				+ " where"
+				+ ""
+				+ " T.acct_Key="+accountKey;
+		return this.entityManager.createQuery(query).getResultList();
 	}
 }

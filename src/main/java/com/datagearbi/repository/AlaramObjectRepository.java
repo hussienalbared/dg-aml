@@ -35,7 +35,7 @@ public interface AlaramObjectRepository extends JpaRepository<AC_Alarm, Long> {
 	@Modifying
 	@Query("update AC_Alarm t set t.alarm_Status_Cd=?3 where t.alarmed_Obj_Key=?1 "
 			+ "and t.alarmed_Obj_Level_Cd=?2")
-	public void  closeAlarms(int alarmedObjKey,String alarmedObjLevelCode,String eventType );
+	public void  closeAlarms(long alarmedObjKey,String alarmedObjLevelCode,String eventType );
 	@Transactional
 	@Modifying
 	@Query("update AC_Alarm t set t.alarm_Status_Cd=?2 where t.alarm_Id=?1")

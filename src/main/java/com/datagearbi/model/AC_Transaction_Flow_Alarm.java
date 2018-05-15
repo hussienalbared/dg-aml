@@ -46,7 +46,7 @@ public class AC_Transaction_Flow_Alarm implements Serializable {
 	private BigDecimal emp_Key;
 
 	@Column(name="Exec_Cust_Key")
-	private BigDecimal exec_Cust_Key;
+	private long exec_Cust_Key;
 
 	@Column(name="Exec_Ext_Cust_Key")
 	private BigDecimal exec_Ext_Cust_Key;
@@ -164,11 +164,11 @@ public class AC_Transaction_Flow_Alarm implements Serializable {
 		this.emp_Key = emp_Key;
 	}
 
-	public BigDecimal getExec_Cust_Key() {
+	public long getExec_Cust_Key() {
 		return this.exec_Cust_Key;
 	}
 
-	public void setExec_Cust_Key(BigDecimal exec_Cust_Key) {
+	public void setExec_Cust_Key(long exec_Cust_Key) {
 		this.exec_Cust_Key = exec_Cust_Key;
 	}
 

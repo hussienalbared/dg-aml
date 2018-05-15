@@ -43,10 +43,10 @@ public class AcAlarmEventController {
 
 		acAlarmEvent.setEvent_Type_Cd(ac.getEvent_type_code());
 		acAlarmEvent.setAlarm_Id(ac.getAlarm_id());
-		this.acAlarmEventRepository.save(acAlarmEvent);
+	this.acAlarmEventRepository.save(acAlarmEvent);
 		  
-		 
-		return "an event added";
+	//	return acAlarmEvent; 
+	return "an event added";
 		
 
 		

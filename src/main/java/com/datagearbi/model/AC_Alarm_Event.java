@@ -17,7 +17,7 @@ public class AC_Alarm_Event implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="Alarm_Id")
-	private BigDecimal alarm_Id;
+	private long alarm_Id;
 
 	@Column(name="Create_Date")
 	private Timestamp create_Date;
@@ -28,8 +28,9 @@ public class AC_Alarm_Event implements Serializable {
 	@Column(name="Event_Desc")
 	private String event_Desc;
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Event_Id")
-	private BigDecimal event_Id;
+	private long event_Id;
 
 	@Column(name="Event_Type_Cd")
 	private String event_Type_Cd;
@@ -37,11 +38,11 @@ public class AC_Alarm_Event implements Serializable {
 	public AC_Alarm_Event() {
 	}
 
-	public BigDecimal getAlarm_Id() {
+	public long getAlarm_Id() {
 		return this.alarm_Id;
 	}
 
-	public void setAlarm_Id(BigDecimal alarm_Id) {
+	public void setAlarm_Id(long alarm_Id) {
 		this.alarm_Id = alarm_Id;
 	}
 
@@ -69,11 +70,11 @@ public class AC_Alarm_Event implements Serializable {
 		this.event_Desc = event_Desc;
 	}
 
-	public BigDecimal getEvent_Id() {
+	public long getEvent_Id() {
 		return this.event_Id;
 	}
 
-	public void setEvent_Id(BigDecimal event_Id) {
+	public void setEvent_Id(long event_Id) {
 		this.event_Id = event_Id;
 	}
 

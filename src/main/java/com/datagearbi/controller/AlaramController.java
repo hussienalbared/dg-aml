@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
+import com.datagearbi.model.Suspected_transactions_V;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 import com.datagearbi.repository.suspected_transactions_VRepository;
@@ -124,7 +125,7 @@ public class AlaramController {
 			@RequestParam("code") String levelCode) {
 
 		Optional suspected = this.suspectedObjectRepository
-				.findById(new AC_Suspected_ObjectPK(levelCode, Integer.parseInt(key)));
+				.findById(new AC_Suspected_ObjectPK(levelCode, Long.parseLong(key)));
 
 		if (!suspected.isPresent()) {
 
@@ -135,7 +136,7 @@ public class AlaramController {
 				+ " where A.alarm_Status_Cd='ACT'"
 				+ " and A.alarmed_Obj_Level_Cd=:code and A.alarmed_Obj_Key=:key";
 		int y =  ((Long) (this.em.createQuery(query)
-				.setParameter("code", levelCode).setParameter("key",new BigDecimal(key))
+				.setParameter("code", levelCode).setParameter("key",Long.parseLong(key))
 				.getResultList().get(0))).intValue();;
 		;
 	
@@ -161,7 +162,7 @@ public class AlaramController {
 	@RequestMapping(value = "AlarmDetailSection2", method = RequestMethod.GET)
 	private List getAlarmDetailSection2(@RequestParam("alarmId") String alarmId) {
 	
-		String query = " select ST.acct_Key ,ST.trans_Ref_No,ST.date_Key,ST.ccy_Amt,ST.trans_Desc, ST.trans_Cr_Db_Ind_Desc"
+		String query = " select ST "
 				+ " from Suspected_transactions_V ST"
 				+ ""
 				+ " where ST.trans_Ref_No in( "
@@ -171,7 +172,7 @@ public class AlaramController {
 				+ "  select B.id.trans_Key from AC_Transaction_Flow_Alarm B where B.id.alarm_Id=" + alarmId +
 				"  ))";
 		String query2="select B from AC_Transaction_Flow_Alarm B";
-		return em.createQuery(query).getResultList();
+		return em.createQuery(query,Suspected_transactions_V.class).getResultList();
 
 	}
 

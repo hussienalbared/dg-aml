@@ -67,7 +67,7 @@ public class AC_Alarm implements Serializable {
 	private String alarm_Type_Cd;
 
 	@Column(name="Alarmed_Obj_Key")
-	private BigDecimal alarmed_Obj_Key;
+	private long alarmed_Obj_Key;
 
 	@Column(name="Alarmed_Obj_Level_Cd")
 	private String alarmed_Obj_Level_Cd;
@@ -185,11 +185,11 @@ public class AC_Alarm implements Serializable {
 		this.alarm_Type_Cd = alarm_Type_Cd;
 	}
 
-	public BigDecimal getAlarmed_Obj_Key() {
+	public long getAlarmed_Obj_Key() {
 		return this.alarmed_Obj_Key;
 	}
 
-	public void setAlarmed_Obj_Key(BigDecimal alarmed_Obj_Key) {
+	public void setAlarmed_Obj_Key(long alarmed_Obj_Key) {
 		this.alarmed_Obj_Key = alarmed_Obj_Key;
 	}
 

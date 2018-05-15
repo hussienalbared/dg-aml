@@ -40,6 +40,7 @@ public class SuspectedController {
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
+		System.out.println("---list---");
 		return suspectedObjectRepository.findAll();
 	}
 	
@@ -70,7 +71,7 @@ System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%5");
 			@RequestParam("user") String user
 			) {
 		
-this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), levelCode, user);	
+this.suspectedObjectRepository.updateAcSuspectedObj(Long.parseLong(key), levelCode, user);	
 		
 
 	}
@@ -93,11 +94,11 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 			) {
 		
 		
-		  //close all alarms
-		  this.alaramObjectRepository.closeAlarms(Integer.parseInt(key), levelCode,eventType);
+		  //close all alarms or uppress it according to eventType
+		  this.alaramObjectRepository.closeAlarms(Long.parseLong(key), levelCode,eventType);
 	
 		  //update alert count
-		  this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Integer.parseInt(key), levelCode, 0);
+		  this.suspectedObjectRepository.updateAcSuspectedObjAlertCount(Long.parseLong(key), levelCode, 0);
 	
 	
 	}

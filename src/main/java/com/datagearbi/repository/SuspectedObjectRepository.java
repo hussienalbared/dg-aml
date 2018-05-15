@@ -15,7 +15,7 @@ public interface SuspectedObjectRepository extends JpaRepository<AC_Suspected_Ob
 	@Modifying
 	@Transactional
 	@Query("update AC_Suspected_Object a set a.owner_UID=?3 where a.id.alarmed_Obj_Key=?1 and a.id.alarmed_Obj_level_Cd=?2")
-	void updateAcSuspectedObj(int objkey,String objLevelCode,String User);
+	void updateAcSuspectedObj(long objkey,String objLevelCode,String User);
 	@Modifying
 	@Transactional
 	@Query("update AC_Suspected_Object a set a.alarms_Count=?3 where a.id.alarmed_Obj_Key=?1 and a.id.alarmed_Obj_level_Cd=?2")

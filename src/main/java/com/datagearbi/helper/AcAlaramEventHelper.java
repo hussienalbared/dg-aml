@@ -3,17 +3,17 @@ package com.datagearbi.helper;
 import java.math.BigDecimal;
 
 public class AcAlaramEventHelper {
-	private BigDecimal alarm_id ;
+	private long alarm_id ;
 	private	String event_type_code;
 	private String event_description;
 	private String create_user_id;
 	public AcAlaramEventHelper() {
 		// TODO Auto-generated constructor stub
 	}
-	public BigDecimal getAlarm_id() {
+	public long getAlarm_id() {
 		return alarm_id;
 	}
-	public void setAlarm_id(BigDecimal alarm_id) {
+	public void setAlarm_id(long alarm_id) {
 		this.alarm_id = alarm_id;
 	}
 	public String getEvent_type_code() {

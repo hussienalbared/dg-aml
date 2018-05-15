@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,12 @@ public class ExternalPartyController {
 	}
 	@RequestMapping(value = "all2", method = RequestMethod.GET)
 	public List<External_Customer> all(){
-		return this.externalPartyObjectRepository.findAll();
+		CriteriaBuilder cb=this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<External_Customer> query=cb.createQuery(External_Customer.class);
+		Root<External_Customer> e=query.from(External_Customer.class);
+		 query.select(e).where(cb.lt(e.get("ext_Cust_Acct_Key"), 3));
+		return  this.entityManager.createQuery(query).getResultList();
+		
+		//return this.externalPartyObjectRepository.findAll();
 	}
 }
