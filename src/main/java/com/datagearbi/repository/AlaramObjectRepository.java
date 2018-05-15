@@ -10,20 +10,35 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.datagearbi.model.AcAlarm;
+import com.datagearbi.model.AC_Alarm;
+import com.datagearbi.model.AC_Alarm_Event;
+import com.datagearbi.model.AC_Routine;
+import com.datagearbi.model.AC_Suspected_Object;
+import com.datagearbi.model.AC_Suspected_ObjectPK;
+import com.datagearbi.model.AC_Transaction_Flow_Alarm;
+import com.datagearbi.model.AC_Transaction_Flow_AlarmPK;
+import com.datagearbi.model.Account;
+import com.datagearbi.model.Customer;
+import com.datagearbi.model.Customer_X_Account;
+import com.datagearbi.model.Customer_X_AccountPK;
+import com.datagearbi.model.External_Customer;
+
+import com.datagearbi.model.Transaction_Detail_V;
+
+
 
 
 @ResponseBody
-public interface AlaramObjectRepository extends JpaRepository<AcAlarm, Long> {
+public interface AlaramObjectRepository extends JpaRepository<AC_Alarm, Long> {
 	
 	@Transactional
 	@Modifying
-	@Query("update AcAlarm t set t.alarmStatusCode=?3 where t.alarmedObjKey=?1 "
-			+ "and t.alarmedObjLevelCode=?2")
-	public void  closeAlarms(int alarmedObjKey,String alarmedObjLevelCode,String eventType );
+	@Query("update AC_Alarm t set t.alarm_Status_Cd=?3 where t.alarmed_Obj_Key=?1 "
+			+ "and t.alarmed_Obj_Level_Cd=?2")
+	public void  closeAlarms(long alarmedObjKey,String alarmedObjLevelCode,String eventType );
 	@Transactional
 	@Modifying
-	@Query("update AcAlarm t set t.alarmStatusCode=?2 where t.alarmId=?1")
+	@Query("update AC_Alarm t set t.alarm_Status_Cd=?2 where t.alarm_Id=?1")
 	public void closeAlarmById(long alarmId,String alarmStatusCode);
 	
 

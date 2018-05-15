@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.datagearbi.model.AcAlarm;
+import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.repository.AlaramObjectRepository;
 
 @Configuration
@@ -47,8 +47,7 @@ public class AmlConfiguration {
 	@Bean(name = "amlEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean amlEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(amlDataSource())
-				.packages(AcAlarm.class)
-				.persistenceUnit("aml")
+				.packages(AC_Alarm.class).persistenceUnit("aml")
 				.build();
 	}
 
