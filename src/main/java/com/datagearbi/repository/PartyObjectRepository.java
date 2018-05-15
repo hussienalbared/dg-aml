@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.datagearbi.model.CorePartyD;
+
+import com.datagearbi.model.Customer;
 
 
-public interface PartyObjectRepository extends JpaRepository<CorePartyD, Integer> {
-//	 @Query("SELECT t FROM CorePartyD t where t.ptaxid = :id") 
-//	    String findTitleById(@Param("id") String id);
-	     
-	Optional<CorePartyD> findBypno(String pno);
+public interface PartyObjectRepository extends JpaRepository<Customer, Integer> {
+
+	@Query("select t from Customer t where t.cust_No=?1 ")     
+	Optional<Customer> findBcust_No(String pno);
 }

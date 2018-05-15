@@ -9,80 +9,79 @@ import java.math.BigDecimal;
  * The persistent class for the suspected_transactions_V database table.
  * 
  */
-@Embeddable
-
-@Table(name="suspected_transactions_V")
+@Entity
+@Table(name="suspected_transactions_V",schema="DGAMLCORE")
 @NamedQuery(name="Suspected_transactions_V.findAll", query="SELECT s FROM Suspected_transactions_V s")
 public class Suspected_transactions_V implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="ACCTNO")
-	private String acctno;
+	@Column(name="Acct_Key")
+	private int acct_Key;
 
-	@Column(name="CFCURRAMT")
-	private BigDecimal cfcurramt;
+	@Column(name="Ccy_Amt")
+	private BigDecimal ccy_Amt;
 
-	@Column(name="CFDATEKEY")
-	private BigDecimal cfdatekey;
+	@Column(name="Date_Key")
+	private int date_Key;
 
-	@Column(name="transaction_cdi_desc")
-	private String transactionCdiDesc;
+	@Column(name="Trans_Cr_Db_Ind_Desc")
+	private String trans_Cr_Db_Ind_Desc;
 
-	@Column(name="TTDS")
-	private String ttds;
-
-	@Column(name="TTRN")
-	private String ttrn;
+	@Column(name="Trans_Desc")
+	private String trans_Desc;
+	@Id
+	@Column(name="Trans_Ref_No")
+	private String trans_Ref_No;
 
 	public Suspected_transactions_V() {
 	}
 
-	public String getAcctno() {
-		return this.acctno;
+	public int getAcct_Key() {
+		return this.acct_Key;
 	}
 
-	public void setAcctno(String acctno) {
-		this.acctno = acctno;
+	public void setAcct_Key(int acct_Key) {
+		this.acct_Key = acct_Key;
 	}
 
-	public BigDecimal getCfcurramt() {
-		return this.cfcurramt;
+	public BigDecimal getCcy_Amt() {
+		return this.ccy_Amt;
 	}
 
-	public void setCfcurramt(BigDecimal cfcurramt) {
-		this.cfcurramt = cfcurramt;
+	public void setCcy_Amt(BigDecimal ccy_Amt) {
+		this.ccy_Amt = ccy_Amt;
 	}
 
-	public BigDecimal getCfdatekey() {
-		return this.cfdatekey;
+	public int getDate_Key() {
+		return this.date_Key;
 	}
 
-	public void setCfdatekey(BigDecimal cfdatekey) {
-		this.cfdatekey = cfdatekey;
+	public void setDate_Key(int date_Key) {
+		this.date_Key = date_Key;
 	}
 
-	public String getTransactionCdiDesc() {
-		return this.transactionCdiDesc;
+	public String getTrans_Cr_Db_Ind_Desc() {
+		return this.trans_Cr_Db_Ind_Desc;
 	}
 
-	public void setTransactionCdiDesc(String transactionCdiDesc) {
-		this.transactionCdiDesc = transactionCdiDesc;
+	public void setTrans_Cr_Db_Ind_Desc(String trans_Cr_Db_Ind_Desc) {
+		this.trans_Cr_Db_Ind_Desc = trans_Cr_Db_Ind_Desc;
 	}
 
-	public String getTtds() {
-		return this.ttds;
+	public String getTrans_Desc() {
+		return this.trans_Desc;
 	}
 
-	public void setTtds(String ttds) {
-		this.ttds = ttds;
+	public void setTrans_Desc(String trans_Desc) {
+		this.trans_Desc = trans_Desc;
 	}
 
-	public String getTtrn() {
-		return this.ttrn;
+	public String getTrans_Ref_No() {
+		return this.trans_Ref_No;
 	}
 
-	public void setTtrn(String ttrn) {
-		this.ttrn = ttrn;
+	public void setTrans_Ref_No(String trans_Ref_No) {
+		this.trans_Ref_No = trans_Ref_No;
 	}
 
 }

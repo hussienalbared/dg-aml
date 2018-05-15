@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.helper.AcAlaramEventHelper;
-import com.datagearbi.model.AcAlarmEvent;
+import com.datagearbi.model.AC_Alarm_Event;
 import com.datagearbi.repository.AcAlarmEventRepository;
 
 @RestController
@@ -34,19 +34,19 @@ public class AcAlarmEventController {
 	
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-		AcAlarmEvent acAlarmEvent = new AcAlarmEvent();
+		AC_Alarm_Event acAlarmEvent = new AC_Alarm_Event();
 	
-		acAlarmEvent.setCreateUserId(ac.getCreate_user_id());
-		acAlarmEvent.setEventDescription(ac.getEvent_description());
+		acAlarmEvent.setCreate_User_Id(ac.getCreate_user_id());
+		acAlarmEvent.setEvent_Desc(ac.getEvent_description());
 
-		acAlarmEvent.setCreateDate(timestamp);
+		acAlarmEvent.setCreate_Date(timestamp);
 
-		acAlarmEvent.setEventTypeCode(ac.getEvent_type_code());
-		acAlarmEvent.setAlarmId(ac.getAlarm_id());
-		this.acAlarmEventRepository.save(acAlarmEvent);
+		acAlarmEvent.setEvent_Type_Cd(ac.getEvent_type_code());
+		acAlarmEvent.setAlarm_Id(ac.getAlarm_id());
+	this.acAlarmEventRepository.save(acAlarmEvent);
 		  
-		 
-		return "an event added";
+	//	return acAlarmEvent; 
+	return "an event added";
 		
 
 		
