@@ -175,5 +175,14 @@ public class AlaramController {
 		return em.createQuery(query,Suspected_transactions_V.class).getResultList();
 
 	}
+	@RequestMapping(value = "AlarmDetailSection2/Account", method = RequestMethod.GET)
+	private List getAlarmDetailSection2Account(@RequestParam("alarmId") String alarmId,
+			@RequestParam("accountKey") String AccountKey) {
+	
+		String query = "select B from AC_Transaction_Flow_Alarm B where B.";
+		String query2="select B from AC_Transaction_Flow_Alarm B";
+		return em.createQuery(query,Suspected_transactions_V.class).getResultList();
+
+	}
 
 }

@@ -14,9 +14,18 @@ import java.math.BigDecimal;
 @NamedQuery(name="Suspected_transactions_V.findAll", query="SELECT s FROM Suspected_transactions_V s")
 public class Suspected_transactions_V implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@Column(name="Acct_No")
+    private String acct_No;
 	@Column(name="Acct_Key")
 	private int acct_Key;
+
+	public String getAcct_No() {
+		return acct_No;
+	}
+
+	public void setAcct_No(String acct_No) {
+		this.acct_No = acct_No;
+	}
 
 	@Column(name="Ccy_Amt")
 	private BigDecimal ccy_Amt;
