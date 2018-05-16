@@ -110,10 +110,15 @@ public class AccountController {
 	}
 	@RequestMapping("alarmInBrief")
 	public List  alarmAccount(@RequestParam("accountKey") String accountKey ) {
-		String query="Select D from AC_Alarm D  inner join AC_Transaction_Flow_Alarm T on  D.alarmed_Obj_Key=T.exec_Cust_Key"
-				+ " where"
-				+ ""
-				+ " T.acct_Key="+accountKey;
-		return this.entityManager.createQuery(query).getResultList();
+	
+		String query2="Select D from AC_Alarm D where D.alarmed_Obj_Level_Cd='ACC' and D.alarmed_Obj_Key= "+Long.parseLong(accountKey);
+		return this.entityManager.createQuery(query2).getResultList();
 	}
+	@RequestMapping("accountDetailSection3")
+	public List  accountDetailSection3(@RequestParam("accountNo") String accountNo) {
+	
+		String query2="Select D from Suspected_transactions_V D where D.acct_No='"+accountNo+"'";
+		return this.entityManager.createQuery(query2).getResultList();
+	}
+	
 }

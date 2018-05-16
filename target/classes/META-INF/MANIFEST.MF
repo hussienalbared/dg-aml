@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: dg-aml
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Mohamed.Farag
+Built-By: DELL
 Implementation-Vendor-Id: com.datagearbi
 Build-Jdk: 1.8.0_162
 Implementation-URL: http://maven.apache.org

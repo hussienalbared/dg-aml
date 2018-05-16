@@ -54,8 +54,8 @@ public class SuspectedController {
 			@RequestParam("code") String levelCode) {
 		
 		
-		AC_Suspected_Object asObj= suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(levelCode, Integer.parseInt(key))).get();
-System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%5");
+		AC_Suspected_Object asObj= suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(levelCode, Long.parseLong(key))).get();
+
 		Set<AC_Alarm> alarms=asObj.getAcAlarm().stream().filter(a->a.getAlarm_Status_Cd().equalsIgnoreCase("act")).
 		collect(Collectors.toSet());
 		asObj.setAcAlarm(alarms);
