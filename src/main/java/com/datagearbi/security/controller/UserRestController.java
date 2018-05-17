@@ -35,5 +35,4 @@ public class UserRestController {
         JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
         return user;
     }
-
 }
