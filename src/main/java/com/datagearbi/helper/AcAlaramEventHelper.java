@@ -1,7 +1,5 @@
 package com.datagearbi.helper;
 
-import java.math.BigDecimal;
-
 public class AcAlaramEventHelper {
 	private long alarm_id ;
 	private	String event_type_code;

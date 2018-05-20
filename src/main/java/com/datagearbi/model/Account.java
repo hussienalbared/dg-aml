@@ -50,6 +50,7 @@ public class Account implements Serializable {
 
 	@Column(name="Acct_No")
 	private String acct_No;
+	
 
 	@Column(name="Acct_Open_Date")
 	private Timestamp acct_Open_Date;

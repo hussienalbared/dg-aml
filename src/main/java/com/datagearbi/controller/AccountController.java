@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.helper.DateUtil;
 import com.datagearbi.model.Account;
 import com.datagearbi.repository.AccountObjectRepository;
 
@@ -73,12 +74,19 @@ public class AccountController {
 		}
 
 		if (!AccountOpenDate.isEmpty()&&AccountOpenDate!=null) {
-			query += " and A.acct_Open_Date like '%" + AccountOpenDate + "%'";
+			
+			query += " and A.acct_Open_Date >='" + DateUtil.startOfDay(AccountOpenDate) + "'"
+					+" and A.acct_Open_Date <=' "+ DateUtil.endOfDay(AccountOpenDate) + "'";
 		
 
 		}
 		if (!AccountCloseDate.isEmpty()&&AccountCloseDate!=null) {
-			query += " and A.acct_Close_Date like '%" + AccountCloseDate + "%'";
+			
+			
+			query += " and A.acct_Close_Date >='" + DateUtil.startOfDay(AccountCloseDate) + "'"
+					+" and A.acct_Close_Date <='"+ DateUtil.endOfDay(AccountCloseDate) + "'";
+		
+
 
 		}
 	return entityManager.createQuery(query,Account.class).getResultList();
