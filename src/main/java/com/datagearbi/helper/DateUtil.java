@@ -9,6 +9,6 @@ public class DateUtil {
 	}
 	
 	static public Timestamp endOfDay(String date) {
-		return Timestamp.valueOf(date + " 21:59:59.999");
+		return Timestamp.valueOf(date + " 23:59:59.998");
 	}
 }
