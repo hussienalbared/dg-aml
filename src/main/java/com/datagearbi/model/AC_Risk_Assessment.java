@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @NamedQuery(name="AC_Risk_Assessment.findAll", query="SELECT a FROM AC_Risk_Assessment a")
+@Table(schema="AC", name="AC_Risk_Assessment")
 public class AC_Risk_Assessment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
