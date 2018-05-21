@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.helper.DateUtil;
 import com.datagearbi.model.Account;
 import com.datagearbi.repository.AccountObjectRepository;
 
@@ -56,50 +57,40 @@ public class AccountController {
 			return null;
 		}
 
-		//List<Account> articleList = accountObjectRepository.findAll();
+		
 
 		String query = "select A from Account A where 1=1 ";
 		if (!AccountNumber.isEmpty()&&AccountNumber!=null) {
-			query += " and A.acct_No='" + AccountNumber + "'";
-//			articleList = articleList.stream().filter(p->p.getAcct_No()!=null)
-//					.filter(article ->
-//
-//			article.getAcct_No().trim().equals(AccountNumber.trim())).collect(Collectors.toList());
+			query += " and A.acct_No like '%" + AccountNumber + "%'";
 
 		}
 		if (!AccountType.isEmpty()&&AccountType!=null) {
-			query += " and A.acct_Type_Desc='" + AccountType + "'";
-//			articleList = articleList.stream().filter(a->a.getAcct_Type_Desc()!=null)
-//					.filter(a -> a.getAcct_Type_Desc().trim().equals(AccountType.trim()))
-//					.collect(Collectors.toList());
+			query += " and A.acct_Type_Desc like '%" + AccountType + "%'";
+
 		}
 		if (!AccountName.isEmpty()&&AccountName!=null) {
-			query += " and A.acct_Name='" + AccountName + "'";
-//			articleList = articleList.stream().filter(a->a.getAcct_Name()!=null).
-//					filter(a -> a.getAcct_Name().trim().equals(AccountName.trim()))
-//					.collect(Collectors.toList());
+			query += " and A.acct_Name like '%" + AccountName + "%'";
+
 		}
 
 		if (!AccountOpenDate.isEmpty()&&AccountOpenDate!=null) {
-			query += " and A.acct_Open_Date='" + AccountOpenDate + "'";
+			
+			query += " and A.acct_Open_Date >='" + DateUtil.startOfDay(AccountOpenDate) + "'"
+					+" and A.acct_Open_Date <=' "+ DateUtil.endOfDay(AccountOpenDate) + "'";
 		
 
-//			articleList = articleList.stream().filter(a->a.getAcct_Open_Date()!=null).
-//					filter(e -> e.getAcct_Open_Date() != null).filter(
-//					article -> (article.getAcct_Open_Date().toString().split(" ")[0]).trim().equals(AccountOpenDate.trim()))
-//					.collect(Collectors.toList());
 		}
 		if (!AccountCloseDate.isEmpty()&&AccountCloseDate!=null) {
-			query += " and A.acct_Close_Date='" + AccountCloseDate + "'";
-//			articleList = articleList.stream().filter(a->a.getAcct_Close_Date()!=null).
-//					filter(e -> e.getAcct_Close_Date() != null)
-//					.filter(article -> (article.getAcct_Close_Date().toString().split(" ")[0]).trim()
-//							.equals(AccountCloseDate.trim()))
-//					.collect(Collectors.toList());
+			
+			
+			query += " and A.acct_Close_Date >='" + DateUtil.startOfDay(AccountCloseDate) + "'"
+					+" and A.acct_Close_Date <='"+ DateUtil.endOfDay(AccountCloseDate) + "'";
+		
+
+
 		}
 	return entityManager.createQuery(query,Account.class).getResultList();
-	//	return articleList;
-
+	
 	}
 	@RequestMapping("accountDetail")
 	public Account getAccountDetail(@RequestParam("accountNumber") String accountNumber  ){

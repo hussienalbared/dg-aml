@@ -5,7 +5,9 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
@@ -77,7 +79,7 @@ public class AC_Alarm implements Serializable {
 
 	@Column(name="Alarmed_Obj_No")
 	private String alarmed_Obj_No;
-
+	@JsonFormat( pattern="yyyy-MM-dd")
 	@Column(name="Create_Date")
 	private Timestamp create_Date;
 
@@ -115,6 +117,7 @@ public class AC_Alarm implements Serializable {
 	private String routine_Name;
 
 	@Column(name="Run_Date")
+	@JsonFormat( pattern="yyyy-MM-dd")
 	private Timestamp run_Date;
 
 	@Column(name="Suppr_End_Date")

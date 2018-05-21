@@ -1,8 +1,5 @@
 package com.datagearbi.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,19 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.datagearbi.model.AC_Alarm;
-import com.datagearbi.model.AC_Alarm_Event;
-import com.datagearbi.model.AC_Routine;
-import com.datagearbi.model.AC_Suspected_Object;
-import com.datagearbi.model.AC_Suspected_ObjectPK;
-import com.datagearbi.model.AC_Transaction_Flow_Alarm;
-import com.datagearbi.model.AC_Transaction_Flow_AlarmPK;
-import com.datagearbi.model.Account;
-import com.datagearbi.model.Customer;
-import com.datagearbi.model.Customer_X_Account;
-import com.datagearbi.model.Customer_X_AccountPK;
-import com.datagearbi.model.External_Customer;
-
-import com.datagearbi.model.Transaction_Detail_V;
 
 
 

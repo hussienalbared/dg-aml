@@ -44,19 +44,19 @@ public class ExternalPartyController {
 
 		String query = "select A from External_Customer A where 1=1 ";
 		if (!ExtPartynumber.isEmpty() && ExtPartynumber != null) {
-			query += " and A.ext_Cust_No = '" + ExtPartynumber + "' ";
+			query += " and A.ext_Cust_No like '%" + ExtPartynumber + "%' ";
 		}
 		if (!ExtPartyId.isEmpty() && ExtPartyId != null) {
-			query += " and A.ident_Id = '" + ExtPartyId + "' ";
+			query += " and A.ident_Id like  '%" + ExtPartyId + "%' ";
 
 		}
 
 		if (!ExtPartyFullName.isEmpty() && ExtPartyFullName != null) {
-			query += " and A.ext_Full_Name = '" + ExtPartyFullName + "' ";
+			query += " and A.ext_Full_Name like '%" + ExtPartyFullName + "%' ";
 		}
 
 		if (!ExtPartyIdCountryCode.isEmpty() && ExtPartyIdCountryCode != null) {
-			query += " and A.ident_Cntry_Name = '" + ExtPartyIdCountryCode + "' ";
+			query += " and A.ident_Cntry_Name like '%" + ExtPartyIdCountryCode + "%' ";
 		}
 
 		
