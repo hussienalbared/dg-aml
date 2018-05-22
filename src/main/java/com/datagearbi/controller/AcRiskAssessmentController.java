@@ -78,12 +78,18 @@ public class AcRiskAssessmentController {
 	}
     
     @RequestMapping(value = "approveRisk", method= RequestMethod.PUT)
-	public void approveRisk(@RequestParam("key") String key) {
+	public void approveRisk(@RequestParam("key") Long key, @RequestParam("custNo") String custNo) {
 		
-    	this.acRiskAssismentRepository.riskDecline(Long.parseLong(key),"CLS");	
-    	
+    	this.acRiskAssismentRepository.riskDecline(Long.parseLong(key),"CLS");
     	//update customer table
-    	
+    	//String query="update Customer set Customer.risk_Class= AC_Risk_Assessment.proposed_Risk_Class from Customer INNER JOIN AC_Risk_Assessment ON "
+			//	+ "Customer.cust_No = AC_Risk_Assessment.cust_No";
+//    	String query="update Customer c set c.risk_Class = "
+//    			+ "( SELECT proposed_Risk_Class FROM AC_Risk_Assessment Where risk_Assmnt_Id='"+key+"') " + 
+//    			" where c.cust_No='"+custNo+"'";
+//    	
+//    	em.createQuery(query).executeUpdate();
+    	this.acRiskAssismentRepository.updateCusNo(key, custNo);
 	}
     /******/
 }		
