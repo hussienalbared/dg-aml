@@ -26,9 +26,9 @@ public class AC_Risk_Classifier implements Serializable {
 
 	@Column(name="Class_Fact_Col")
 	private String class_Fact_Col;
-
+	
 	@Column(name="Class_Limit")
-	private int class_Limit;
+	private Integer class_Limit;
 
 	@Column(name="Create_Date")
 	private Timestamp create_Date;
@@ -114,11 +114,11 @@ public class AC_Risk_Classifier implements Serializable {
 		this.class_Fact_Col = class_Fact_Col;
 	}
 
-	public int getClass_Limit() {
+	public Integer getClass_Limit() {
 		return this.class_Limit;
 	}
 
-	public void setClass_Limit(int class_Limit) {
+	public void setClass_Limit(Integer class_Limit) {
 		this.class_Limit = class_Limit;
 	}
 

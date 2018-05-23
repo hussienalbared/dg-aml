@@ -85,4 +85,9 @@ return this.PartyObjectRepository.findBcust_No(PartyNumber);
 		return list;
 
 	}
+	
+	@RequestMapping("getAll")
+	public List<Customer> getAll(){
+		return this.PartyObjectRepository.findAll();
+	}
 }
