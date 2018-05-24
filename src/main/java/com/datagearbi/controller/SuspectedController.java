@@ -41,7 +41,8 @@ public class SuspectedController {
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return suspectedObjectRepository.findAll();
+		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0);
+//		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)

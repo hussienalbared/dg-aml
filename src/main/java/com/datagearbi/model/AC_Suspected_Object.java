@@ -40,7 +40,8 @@ public class AC_Suspected_Object implements Serializable {
 	private String alarmed_Obj_No;
 
 	@Column(name="Alarms_Count")
-	private int alarms_Count;
+	
+	private int alarmsCount;
 
 	@Column(name="Create_Timestamp")
 	private Timestamp create_Timestamp;
@@ -106,11 +107,11 @@ public class AC_Suspected_Object implements Serializable {
 	}
 
 	public int getAlarms_Count() {
-		return this.alarms_Count;
+		return this.alarmsCount;
 	}
 
 	public void setAlarms_Count(int alarms_Count) {
-		this.alarms_Count = alarms_Count;
+		this.alarmsCount = alarms_Count;
 	}
 
 	public Timestamp getCreate_Timestamp() {
