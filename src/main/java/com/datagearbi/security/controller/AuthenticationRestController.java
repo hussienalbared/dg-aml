@@ -26,7 +26,7 @@ import com.datagearbi.security.JwtTokenUtil;
 import com.datagearbi.security.JwtUser;
 import com.datagearbi.security.service.JwtAuthenticationResponse;
 
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders="*", exposedHeaders="Cache-Control, Content-Language, Content-Type, Expires, Last-Modified")
+@CrossOrigin(origins = "*", allowedHeaders="*", exposedHeaders="Cache-Control, Content-Language, Content-Type, Expires, Last-Modified")
 @RestController
 public class AuthenticationRestController {
 

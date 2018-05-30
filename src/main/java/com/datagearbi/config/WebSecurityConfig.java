@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
             // we don't need CSRF because our token is invulnerable
             .csrf().disable()
-
+            .cors().and()
             .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 
             // don't create session
@@ -74,12 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .authorizeRequests()
 
-            // Un-secure H2 Database
-            .antMatchers("/h2-console/**/**").permitAll()
-
             .antMatchers(authenticationPath+"/**").permitAll()
-            // TODO @mfarag remove next line and fix the JwtAuthorizationTokenFilter
-            .antMatchers("/aml/api/**/**/**").permitAll()
+            
             .anyRequest().authenticated();
 
         // Custom JWT based security filter
@@ -124,4 +120,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .ignoring()
             .antMatchers("/h2-console/**/**");
     }
+    
 }

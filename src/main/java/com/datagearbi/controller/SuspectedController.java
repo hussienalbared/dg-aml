@@ -1,17 +1,13 @@
 package com.datagearbi.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
-
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
@@ -41,7 +36,8 @@ public class SuspectedController {
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return suspectedObjectRepository.findAll();
+		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0);
+//		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)

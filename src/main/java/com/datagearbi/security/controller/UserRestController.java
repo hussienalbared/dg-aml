@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.security.JwtTokenUtil;
 import com.datagearbi.security.JwtUser;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserRestController {
 
