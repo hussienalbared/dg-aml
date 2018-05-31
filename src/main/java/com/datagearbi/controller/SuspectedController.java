@@ -36,7 +36,7 @@ public class SuspectedController {
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0);
+		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 2);
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
