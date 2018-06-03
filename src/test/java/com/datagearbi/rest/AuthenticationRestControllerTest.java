@@ -24,8 +24,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import com.datagearbi.model.security.Authority;
 import com.datagearbi.model.security.AuthorityName;
+import com.datagearbi.model.security.Group;
 import com.datagearbi.model.security.User;
 
 import static org.mockito.Matchers.any;
@@ -78,14 +78,14 @@ public class AuthenticationRestControllerTest {
     @WithMockUser(roles = "USER")
     public void successfulRefreshTokenWithUserRole() throws Exception {
 
-        Authority authority = new Authority();
-        authority.setId(0L);
-        authority.setName(AuthorityName.ROLE_USER);
-        List<Authority> authorities = Arrays.asList(authority);
+        Group group = new Group();
+        group.setId(0);
+        group.setName(AuthorityName.ROLE_USER);
+        List<Group> groups = Arrays.asList(group);
 
         User user = new User();
         user.setUsername("username");
-        user.setAuthorities(authorities);
+        user.setGroup(groups);
         user.setEnabled(Boolean.TRUE);
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
@@ -106,14 +106,14 @@ public class AuthenticationRestControllerTest {
     @WithMockUser(roles = "ADMIN")
     public void successfulRefreshTokenWithAdminRole() throws Exception {
 
-        Authority authority = new Authority();
-        authority.setId(1L);
-        authority.setName(AuthorityName.ROLE_ADMIN);
-        List<Authority> authorities = Arrays.asList(authority);
+    	Group group = new Group();
+    	group.setId(1);
+    	group.setName(AuthorityName.ROLE_ADMIN);
+        List<Group> groups = Arrays.asList(group);
 
         User user = new User();
         user.setUsername("admin");
-        user.setAuthorities(authorities);
+        user.setGroup(groups);
         user.setEnabled(Boolean.TRUE);
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 

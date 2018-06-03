@@ -65,10 +65,10 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    private List<Authority> authorities;
+            name = "USER_GROUP",
+            joinColumns = {@JoinColumn(name = "U_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "G_ID", referencedColumnName = "ID")})
+    private List<Group> groups;
 
     public Long getId() {
         return id;
@@ -126,15 +126,15 @@ public class User {
         this.enabled = enabled;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
-    }
+    public List<Group> getGroups() {
+		return groups;
+	}
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
-    }
+	public void setGroup(List<Group> groups) {
+		this.groups = groups;
+	}
 
-    public Date getLastPasswordResetDate() {
+	public Date getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
 

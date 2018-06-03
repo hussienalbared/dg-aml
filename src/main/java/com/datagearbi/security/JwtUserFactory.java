@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import com.datagearbi.model.security.Authority;
+import com.datagearbi.model.security.Group;
 import com.datagearbi.model.security.User;
 
 public final class JwtUserFactory {
@@ -21,15 +21,15 @@ public final class JwtUserFactory {
                 user.getLastname(),
                 user.getEmail(),
                 user.getPassword(),
-                mapToGrantedAuthorities(user.getAuthorities()),
+                mapToGrantedAuthorities(user.getGroups()),
                 user.getEnabled(),
                 user.getLastPasswordResetDate()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
-        return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
+    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Group> groups) {
+        return groups.stream()
+                .map(group -> new SimpleGrantedAuthority(group.getName().name()))
                 .collect(Collectors.toList());
     }
 }
