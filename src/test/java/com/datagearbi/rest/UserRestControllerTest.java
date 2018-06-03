@@ -21,8 +21,8 @@ import com.datagearbi.security.JwtUser;
 import com.datagearbi.security.JwtUserFactory;
 import com.datagearbi.security.service.JwtUserDetailsService;
 
-import com.datagearbi.model.security.Authority;
 import com.datagearbi.model.security.AuthorityName;
+import com.datagearbi.model.security.Group;
 import com.datagearbi.model.security.User;
 
 import static org.mockito.Matchers.any;
@@ -66,14 +66,14 @@ public class UserRestControllerTest {
     @WithMockUser(roles = "USER")
     public void getPersonsSuccessfullyWithUserRole() throws Exception {
 
-        Authority authority = new Authority();
-        authority.setId(1L);
-        authority.setName(AuthorityName.ROLE_ADMIN);
-        List<Authority> authorities = Arrays.asList(authority);
+    	Group group = new Group();
+        group.setId(1);
+        group.setName(AuthorityName.ROLE_ADMIN);
+        List<Group> groups = Arrays.asList(group);
 
         User user = new User();
         user.setUsername("username");
-        user.setAuthorities(authorities);
+        user.setGroup(groups);
         user.setEnabled(Boolean.TRUE);
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
