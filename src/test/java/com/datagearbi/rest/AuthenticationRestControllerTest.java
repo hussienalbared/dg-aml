@@ -80,7 +80,7 @@ public class AuthenticationRestControllerTest {
 
         Group group = new Group();
         group.setId(0);
-        group.setName(AuthorityName.ROLE_USER);
+        group.setName(AuthorityName.ROLE_USER.name());
         List<Group> groups = Arrays.asList(group);
 
         User user = new User();
@@ -108,7 +108,7 @@ public class AuthenticationRestControllerTest {
 
     	Group group = new Group();
     	group.setId(1);
-    	group.setName(AuthorityName.ROLE_ADMIN);
+    	group.setName(AuthorityName.ROLE_ADMIN.name());
         List<Group> groups = Arrays.asList(group);
 
         User user = new User();
