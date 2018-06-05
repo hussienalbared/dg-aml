@@ -1,5 +1,6 @@
 package com.datagearbi.model.security;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -21,46 +22,48 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "[User]")
-public class User {
-
+public class User implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+//    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "UserName", length = 50, unique = true)
-    @NotNull
+    
     @Size(min = 4, max = 50)
     private String username;
 
     @Column(name = "Password", length = 100)
-    @NotNull
+    
     @Size(min = 4, max = 100)
     private String password;
 
     @Column(name = "FirstName", length = 50)
-    @NotNull
+    
     @Size(min = 4, max = 50)
     private String firstname;
 
     @Column(name = "LastName", length = 50)
-    @NotNull
+    
     @Size(min = 4, max = 50)
     private String lastname;
 
     @Column(name = "Email", length = 50)
-    @NotNull
+    
     @Size(min = 4, max = 50)
     private String email;
 
     @Column(name = "Enabled")
-    @NotNull
+    
     private Boolean enabled;
 
     @Column(name = "LastPasswordResetDate")
     @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
+    
     private Date lastPasswordResetDate;
 
     @ManyToMany(fetch = FetchType.EAGER)

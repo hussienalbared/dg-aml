@@ -25,21 +25,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
 //    @Modifying
 //	@Transactional
-//	@Query("insert into User U (U.password,U.firstname,U.lastname,U.email,U.enabled,U.lastPasswordResetDate) "
-//			+ "values(U.id=?1,U.password=?2, U.firstname=?3 , U.lastname=?4 , U.email=?5 , U.enabled=?6 , "
-//			+ "U.lastPasswordResetDate=?7) ")
-//	void addUser(String password, String firstname, String lastname,String email,Boolean enabled
-//			/*Date lastPasswordResetDate*/);
+//	@Query("insert into User (password,firstname,lastname,email,enabled) "
+//			+ "values(password=?1, firstname=?2 ,lastname=?3 , email=?4 , enabled=?5 ) ")
+//	void addUser(String password, String firstname, String lastname,String email,Boolean enabled);
     
-    @Modifying
-    @Query(value = "insert into User (password,firstname,lastname,email,enabled) VALUES (:password,:firstname,"
-    		+ ":lastname,:email,:enabled)", nativeQuery = true)
-    @Transactional
-    void addUser(@Param("password") String password, @Param("firstname") String firstname,@Param("lastname") String lastname,
-    		@Param("email") String email,@Param("enabled") Boolean enabled);
+//    @Modifying
+//    @Query(value = "insert into User (password,firstname,lastname,email,enabled) VALUES (:password,:firstname,"
+//    		+ ":lastname,:email,:enabled)", nativeQuery = true)
+//    @Transactional
+//    void addUser(@Param("password") String password, @Param("firstname") String firstname,@Param("lastname") String lastname,
+//    		@Param("email") String email,@Param("enabled") Boolean enabled);
     
-    @Modifying
-   	@Transactional
+    
    	@Query("Select U.lastPasswordResetDate from User U where U.id=?1")
    	List getUser(Long userId);
     
@@ -61,4 +58,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			+ "U.email=?5 , U.enabled=?6 where U.id=?1")
 	void editUser(Long userId,String password, String firstname, String lastname,String email,Boolean enabled
 			/*,Date lastPasswordResetDate*/);
+    
+	@Query("select u.id, u.firstname, u.lastname, u.email, u.enabled, u.lastPasswordResetDate from User u")
+	List getAll_users();
 }
