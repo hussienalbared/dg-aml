@@ -17,7 +17,13 @@ public class AC_Transaction_Flow_AlarmPK implements Serializable {
 
 	@Column(name="Trans_Key")
 	private long trans_Key;
+	
 
+	public AC_Transaction_Flow_AlarmPK(long alarm_Id, long trans_Key) {
+		super();
+		this.alarm_Id = alarm_Id;
+		this.trans_Key = trans_Key;
+	}
 	public AC_Transaction_Flow_AlarmPK() {
 	}
 	public long getAlarm_Id() {

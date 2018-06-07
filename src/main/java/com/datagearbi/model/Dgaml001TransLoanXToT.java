@@ -8,17 +8,17 @@ import javax.persistence.*;
  * The persistent class for the DGAML001_TRANS_LOAN_X_TO_T database table.
  * 
  */
-@Embeddable
-@Table(name="DGAML001_TRANS_LOAN_X_TO_T")
+@Entity
+@Table(name="DGAML001_TRANS_LOAN_X_TO_T",schema="DGAMLCORE")
 @NamedQuery(name="Dgaml001TransLoanXToT.findAll", query="SELECT d FROM Dgaml001TransLoanXToT d")
 public class Dgaml001TransLoanXToT implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;
-
+    @Id
 	@Column(name="Acct_Key")
-	private int acct_Key;
+	private int acctKey;
 
 	@Column(name="Acct_Name")
 	private String acct_Name;
@@ -80,11 +80,11 @@ public class Dgaml001TransLoanXToT implements Serializable {
 	}
 
 	public int getAcct_Key() {
-		return this.acct_Key;
+		return this.acctKey;
 	}
 
 	public void setAcct_Key(int acct_Key) {
-		this.acct_Key = acct_Key;
+		this.acctKey = acct_Key;
 	}
 
 	public String getAcct_Name() {

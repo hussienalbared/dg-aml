@@ -1,5 +1,6 @@
 package com.datagearbi.controller;
 
+import java.com.datagearbi.aml.agp.AlarmsProcess;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,16 +9,21 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.DateUtil;
+import com.datagearbi.helper.ParamRecord;
+import com.datagearbi.model.AC_Routine;
+import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.Account;
 import com.datagearbi.repository.AccountObjectRepository;
-
+import com.datagearbi.service.*;
 
 
 
@@ -111,5 +117,47 @@ public class AccountController {
 		String query2="Select D from Suspected_transactions_V D where D.acct_No='"+accountNo+"'";
 		return this.entityManager.createQuery(query2).getResultList();
 	}
-	
+	@RequestMapping("test")
+	public void test() {
+
+	    int SCR[]={1,2,3,5,7,10,16,20,21,22,23};
+	    
+	    for (int x : SCR)
+	    {
+	            //System.out.println("gsjkfgskj:"+ x);
+	            
+	            switch (x) {
+	            case 1:  try {
+						AlarmsProcess.insertAML001AlarmData();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                     break;
+//	            case 2:  AlarmsProcess.insertAML002AlarmData();
+//	                     break;
+//	            case 3:  AlarmsProcess.insertAML003AlarmData();
+//	                     break;
+//	            case 5:  AlarmsProcess.insertAML005AlarmData();
+//	                     break;
+//	            case 7:  AlarmsProcess.insertAML007AlarmData();
+//	                     break;
+//	            case 10: AlarmsProcess.insertAML010AlarmData(); ;
+//	                     break;
+//	            case 16:  AlarmsProcess.insertAML016AlarmData();
+//	                     break;
+//	            case 20:  AlarmsProcess.insertAML020AlarmData();
+//	                     break;
+//	            case 21:  AlarmsProcess.insertAML021AlarmData();
+//	                     break;
+//	            case 22: AlarmsProcess.insertAML022AlarmData();
+//	                     break;
+//	            case 23: AlarmsProcess.insertAML023AlarmData();
+//	                     break;
+	            default: System.out.println("Invalid Scenario Name");;
+	                     break;
+	        }
+
+	}
+	}
 }
