@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="AC_Routine_Parameter",schema="AC")
 @NamedQuery(name="AC_Routine_Parameter.findAll", query="SELECT a FROM AC_Routine_Parameter a")
 public class AC_Routine_Parameter implements Serializable {
 	private static final long serialVersionUID = 1L;
