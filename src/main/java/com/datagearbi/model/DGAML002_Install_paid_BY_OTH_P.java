@@ -9,14 +9,45 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML002_Install_paid_BY_OTH_P database table.
  * 
  */
-@Embeddable
+@Entity
 @NamedQuery(name="DGAML002_Install_paid_BY_OTH_P.findAll", query="SELECT d FROM DGAML002_Install_paid_BY_OTH_P d")
+@Table(name="DGAML002_Install_paid_BY_OTH_P",schema="DGAMLCORE")
+/*
+ * USE DGAML
+SELECT CUST.Cust_Type_Desc, CUST.Cust_No, CUST.Cust_Name, Acct.Acct_No, Acct.Acct_Key, Acct.Acct_Name, Acct.Acct_Type_Desc, Acct.Emp_Ind AS Acct_Emp_Ind, CUST.Emp_Ind AS Cust_Emp_Ind, CUST.Cust_Key, 
+                  CUST.Political_Exp_Prsn_Ind, TRANSF.Trans_Key, TRANSF.Date_Key, TRANSF.Time_Key, TRANSF.Trans_Type_Key, TRANSF.Cntry_Key, TRANSF.Trans_Status_Key, TRANSF.Branch_Key, TRANSF.Remit_Ext_Cust_Key, 
+                  TRANSF.Benef_Ext_Cust_Key, TRANSF.Trans_Ccy_Key, TRANSF.Post_Date_Key, TRANSF.Emp_Key, TRANSF.Ccy_Amt, TRANSF.Ccy_Amt_In_Trans_Ccy, TRANSF.Ccy_Amt_In_Acct_Ccy, TRANSF.Sec_Acct_Key, TRANSF.Relate_Ind, 
+                  TRANSF.Third_Cust_Ind
+FROM     DGAMLCORE.Customer AS CUST INNER JOIN
+                  DGAMLCORE.Customer_X_Account AS C_X_A ON CUST.Cust_Key = C_X_A.Cust_Key AND C_X_A.Chg_Current_Ind = 'Y' INNER JOIN
+                  DGAMLCORE.Account AS Acct ON C_X_A.Acct_Key = Acct.Acct_Key INNER JOIN
+                  DGAMLCORE.Transaction_Flow AS TRANSF ON Acct.Acct_Key = TRANSF.Acct_Key --AND CUST.Cust_Key <> TRANSF.Exec_Cust_Key 
+				  INNER JOIN
+                  DGAMLCORE.Transaction_Type AS Trans_T ON TRANSF.Trans_Type_Key = Trans_T.Trans_Type_Key
+
+WHERE  (Trans_T.Trans_Cr_Db_Ind_Cd IN ('CREDIT')) AND (Trans_T.Prim_Med_Desc IN ('CASH')) AND (TRANSF.Relate_Ind = 'N') AND (CONVERT(DATETIME, CONVERT(varchar, TRANSF.Date_Key)) BETWEEN
+                      (SELECT MIN(Calendar_Date) - 1 AS Calendar_Date
+                       FROM      AC.AC_Job_Calendar
+                       WHERE   (Status_Ind = 'N')) AND
+                     (SELECT MIN(Calendar_Date) AS Calendar_Date
+                       FROM      AC.AC_Job_Calendar AS AC_Job_Calendar_1
+                      WHERE   (Status_Ind = 'N')))
+ */
 public class DGAML002_Install_paid_BY_OTH_P implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@Column(name="Exec_Cust_Key")
+	private String Exec_Cust_Key;
+	public String getExec_Cust_Key() {
+		return Exec_Cust_Key;
+	}
+
+	public void setExec_Cust_Key(String exec_Cust_Key) {
+		Exec_Cust_Key = exec_Cust_Key;
+	}
 
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;
-
+@Id
 	@Column(name="Acct_Key")
 	private int acct_Key;
 

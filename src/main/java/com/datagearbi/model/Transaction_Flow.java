@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @NamedQuery(name="Transaction_Flow.findAll", query="SELECT t FROM Transaction_Flow t")
+@Table(name="Transaction_Flow",schema="DGAMLCORE")
 public class Transaction_Flow implements Serializable {
 	private static final long serialVersionUID = 1L;
 
