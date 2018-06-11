@@ -38,7 +38,7 @@ public class AC_RoutineController {
 	
 //	@PersistenceContext
 //	private EntityManager em;
-//	@RequestMapping(value="updateroutine", method=RequestMethod.PUT)
+	@RequestMapping(value="updateroutine", method=RequestMethod.PUT)
 //	@Transactional
 	public void upfateParam(@RequestBody AC_Routine ac_Routine) {
 		
