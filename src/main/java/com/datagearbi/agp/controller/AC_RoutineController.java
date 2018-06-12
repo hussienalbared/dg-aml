@@ -36,21 +36,31 @@ public class AC_RoutineController {
 		return ac_RoutineRepository.findById(Long.parseLong(id));
 	}
 	
-//	@PersistenceContext
-//	private EntityManager em;
 	@RequestMapping(value="updateroutine", method=RequestMethod.PUT)
-//	@Transactional
-	public void upfateParam(@RequestBody AC_Routine ac_Routine) {
+	public void updateRoutine(/*@RequestBody AC_Routine ac_Routine*/
+			@RequestParam("routine_Id") String routine_Id,@RequestParam("routine_Name") String routine_Name,
+			@RequestParam("routine_Short_Desc") String routine_Short_Desc,@RequestParam("routine_Desc") String routine_Desc,
+			@RequestParam("routine_Status_Cd") String routine_Status_Cd,@RequestParam("risk_Fact_Ind") String risk_Fact_Ind,
+			@RequestParam("routine_Run_Freq_Cd") String routine_Run_Freq_Cd,@RequestParam("alarm_Categ_Cd") String alarm_Categ_Cd,
+			@RequestParam("alarm_Subcateg_Cd") String alarm_Subcateg_Cd,@RequestParam("routine_Type_Cd") String routine_Type_Cd,
+			@RequestParam("save_Trig_Trans_Ind") String save_Trig_Trans_Ind,@RequestParam("obj_Level_Cd") String obj_Level_Cd,
+			@RequestParam("routine_Msg_Txt") String routine_Msg_Txt) {
 		
-//		em.find(AC_Routine.class, ac_Routine.getRoutine_Id());
-//		this.em.merge(ac_Routine);
+		System.out.println("DDDDDDDDDDDDD");
+		
+//		AC_Routine obj = em.find(AC_Routine.class, Long.parseLong(routine_Id));
+//		obj.setRoutine_Name(routine_Name);		obj.setRoutine_Short_Desc(routine_Short_Desc);
+//		obj.setRoutine_Desc(routine_Desc);		obj.setRoutine_Status_Cd(routine_Status_Cd);
+//		obj.setRisk_Fact_Ind(risk_Fact_Ind);	obj.setRoutine_Run_Freq_Cd(routine_Run_Freq_Cd);
+//		obj.setAlarm_Categ_Cd(alarm_Categ_Cd);	obj.setAlarm_Subcateg_Cd(alarm_Subcateg_Cd);
+//		obj.setRoutine_Type_Cd(routine_Type_Cd);obj.setSave_Trig_Trans_Ind(save_Trig_Trans_Ind);
+//		obj.setObj_Level_Cd(obj_Level_Cd);		obj.setRoutine_Msg_Txt(routine_Msg_Txt);
 //		
+//		this.em.merge(obj);
 		
-		//this.ac_RoutineRepository.save(tar_ac_Routine);
-//		this.ac_RoutineRepository.updateAcRoutine(ac_Routine.getRoutine_Id(), ac_Routine.getRoutine_Name(), ac_Routine.getRoutine_Desc()
-//				, ac_Routine.getRoutine_Short_Desc(), ac_Routine.getRoutine_Status_Cd(), ac_Routine.getRisk_Fact_Ind(), 
-//				ac_Routine.getRoutine_Run_Freq_Cd(), ac_Routine.getAlarm_Categ_Cd(), ac_Routine.getAlarm_Subcateg_Cd(), 
-//				ac_Routine.getRoutine_Type_Cd(), ac_Routine.getSave_Trig_Trans_Ind(), ac_Routine.getObj_Level_Cd()
-//				, ac_Routine.getRoutine_Msg_Txt());
+		this.ac_RoutineRepository.updateAcRoutine(Long.parseLong(routine_Id), routine_Name, routine_Short_Desc, 
+				routine_Desc, routine_Status_Cd, risk_Fact_Ind, routine_Run_Freq_Cd, alarm_Categ_Cd, 
+				alarm_Subcateg_Cd, routine_Type_Cd, save_Trig_Trans_Ind, obj_Level_Cd, routine_Msg_Txt);
+		
 	}
 }
