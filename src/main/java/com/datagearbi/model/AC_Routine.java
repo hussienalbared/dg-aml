@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+//import org.hibernate.annotations.DynamicUpdate;
+
 
 /**
  * The persistent class for the AC_Routine database table.
@@ -20,6 +22,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQuery(name="AC_Routine.findAll", query="SELECT a FROM AC_Routine a")
 @Table(name="AC_Routine",schema="AC")
+//@DynamicUpdate
 public class AC_Routine implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -70,7 +73,7 @@ public class AC_Routine implements Serializable {
 	@Column(name="Logic_Del_Ind")
 	private String logic_Del_Ind;
 
-	private BigDecimal ML_Bayes_Weight;
+	private Integer ML_Bayes_Weight;
 
 	@Column(name="Obj_Level_Cd")
 	private String obj_Level_Cd;
@@ -264,11 +267,11 @@ public class AC_Routine implements Serializable {
 		this.logic_Del_Ind = logic_Del_Ind;
 	}
 
-	public BigDecimal getML_Bayes_Weight() {
+	public int getML_Bayes_Weight() {
 		return this.ML_Bayes_Weight;
 	}
 
-	public void setML_Bayes_Weight(BigDecimal ML_Bayes_Weight) {
+	public void setML_Bayes_Weight(int ML_Bayes_Weight) {
 		this.ML_Bayes_Weight = ML_Bayes_Weight;
 	}
 

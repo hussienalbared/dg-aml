@@ -26,7 +26,7 @@ public class Routine_ParameterController {
 		this.routine_ParameterRepository.save(ac_Routine_Parameter);
 	}
 	
-	@RequestMapping(value="params", method=RequestMethod.GET)
+	@RequestMapping(value="getparams", method=RequestMethod.GET)
 	public List<AC_Routine_Parameter> getAllParam(){
 		return this.routine_ParameterRepository.findAll();
 	}
