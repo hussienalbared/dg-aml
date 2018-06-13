@@ -19,10 +19,10 @@ public class AC_Suspected_ObjectPK implements Serializable {
 	private long alarmed_Obj_Key;
 
 	public AC_Suspected_ObjectPK(String alarmed_Obj_level_Cd, long alarmed_Obj_Key) {
-		super();
 		this.alarmed_Obj_level_Cd = alarmed_Obj_level_Cd;
 		this.alarmed_Obj_Key = alarmed_Obj_Key;
 	}
+	
 	public AC_Suspected_ObjectPK() {
 	}
 	public String getAlarmed_Obj_level_Cd() {
