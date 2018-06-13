@@ -1,9 +1,6 @@
 package com.datagearbi.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /*
@@ -16,9 +13,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML003_Install_paid_exceed_limit_UPRepositorty;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
@@ -28,10 +27,12 @@ import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
  * @author Hamzah.Ahmed
  */
 public class AML003AlarmData {
-
-//	Connection dbConnection = null;
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	@Autowired
+	Routine_ParameterRepository routine_ParameterRepository;
+	@Autowired
+	private DGAML003_Install_paid_exceed_limit_UPRepositorty dGAML003_Install_paid_exceed_limit_UPRepositorty;
 
 	public AML003AlarmData() {
 	}
@@ -76,16 +77,12 @@ public class AML003AlarmData {
 
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML003View() throws SQLException {
-		String selectRecord = "select x from DGAML003_Install_paid_exceed_limit_UP x";
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML003' and current_Ind='Y'";
 
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML003");
+
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
-		List<DGAML003_Install_paid_exceed_limit_UP> s = this.entityManager.createQuery(selectRecord).getResultList();
+		List<DGAML003_Install_paid_exceed_limit_UP> s = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.findAll();
 		s.forEach(res -> {
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
@@ -145,45 +142,36 @@ public class AML003AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-	public String selectTransactionsCount(String Acct_key) throws SQLException {
+	public String selectTransactionsCount(int Acct_key) throws SQLException {
 
-	
-
-		
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
-				+ " FROM DGAML003_Install_paid_exceed_limit_UP D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
-		if(z.size()>0)
-		transactions_count1=z.get(0)[0].toString();
+
+		List<Object[]> z = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.TransactionsCount(Acct_key);
+		if (z.size() > 0)
+			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
-}
+	}
 
 	/**
 	 * ************** Get Total amount
 	 */
-	public String selectTotalAmount(String Acct_key) throws SQLException {
+	public String selectTotalAmount(int Acct_key) {
 		String total_amount1 = null;
-		String selectRecord = "SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  FROM DGAML003_Install_paid_exceed_limit_UP D "
-				+ "where D.acct_Key=" + Acct_key + " group by D.acct_Key";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
-		if(z.size()>0)
-		total_amount1= String.valueOf(z.get(0)[0]);
-		return total_amount1;	}
+		List<Object[]> z = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.selectTotalAmount(Acct_key);
+		if (z.size() > 0)
+			total_amount1 = String.valueOf(z.get(0)[0]);
+		return total_amount1;
+	}
 
 	/**
 	 * ************** Get Number of installments
 	 */
-	public String selectInstNum(String Acct_key) throws SQLException {
+	public String selectInstNum(int Acct_key) {
 
-	
-		String inst_num1=null;
-		String selectTransactionsCount = "SELECT count(Exec_Cust_Key) as inst_num,Acct_Key"
-				+ "  FROM DGAMLCORE.DGAML003_Install_paid_exceed_limit_UP" + " where Acct_Key=" + Acct_key
-				+ " and Acct_Key <> Exec_Cust_Key and Relate_Ind='N'" + "  group by Acct_Key";
-	
-		List<Object[]> list = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+		String inst_num1 = null;
+
+		List<Object[]> list = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.selectInstNum(Acct_key);
 		if (list.size() > 0) {
 			inst_num1 = list.get(0)[0].toString();
 		}
@@ -195,11 +183,9 @@ public class AML003AlarmData {
 	 */
 
 	public List<AlarmDTO> selectRecordfromAML003Parm() throws SQLException {
-		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML003' and B.current_Ind='Y')";
 
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML003");
+
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 		c.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();

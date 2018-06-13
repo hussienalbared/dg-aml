@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.Dgaml001TransLoanXToT;
@@ -27,12 +28,13 @@ import com.datagearbi.model.Dgaml001TransLoanXToT;
  *
  * @author Hamzah.Ahmed
  * 
- * This class gets all data for the AML001
+ *         This class gets all data for the AML001
  */
 @Service
 public class AML001AlarmData {
-	@PersistenceContext
-	private EntityManager entityManager;
+
+	@Autowired
+	Routine_ParameterRepository routine_ParameterRepository;
 
 	@Autowired
 	Dgaml001TransLoanXToRepository dgaml001TransLoanXToRepository;
@@ -182,11 +184,8 @@ public class AML001AlarmData {
 
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 
-		String selectParmRecord = "SELECT AP FROM AC_Routine_Parameter AP  where AP.id.routine_Id = "
-				+ "(select A.routine_Id from AC_Routine A  where A.routine_Name='AML001' and A.current_Ind='Y')";
+		List<AC_Routine_Parameter> list = this.routine_ParameterRepository.getRoutineParameter("AML001");
 
-		List<AC_Routine_Parameter> list = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
 		for (AC_Routine_Parameter r : list) {
 			AlarmDTO tempParm = new AlarmDTO();
 			tempParm.setParm_name(r.getParm_Desc());

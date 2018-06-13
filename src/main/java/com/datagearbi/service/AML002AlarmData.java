@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML002_Install_paid_BY_OTH_PRepsoitory;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML002_Install_paid_BY_OTH_P;
@@ -43,9 +44,12 @@ import com.datagearbi.model.DGAML002_Install_paid_BY_OTH_P;
 @Service
 // @Transactional
 public class AML002AlarmData {
-
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	Routine_ParameterRepository routine_ParameterRepository;
+	@Autowired
+	private DGAML002_Install_paid_BY_OTH_PRepsoitory dgaml002_Install_paid_BY_OTH_PRepsoitory;
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
 
 	public AML002AlarmData() {
 	}
@@ -84,7 +88,7 @@ public class AML002AlarmData {
 	}
 
 	// EXPN VM
-	public AlarmsVM getAML002EXPNData(String Acct_key) {
+	public AlarmsVM getAML002EXPNData(int Acct_key) {
 		AlarmsVM expnMAVM = new AlarmsVM();
 		List<AlarmDTO> listofEXPN;
 
@@ -104,16 +108,10 @@ public class AML002AlarmData {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
-		String selectRecord = "select D from DGAML002_Install_paid_BY_OTH_P D from";
+		List<DGAML002_Install_paid_BY_OTH_P> a = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.findAll();
 
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML002' and current_Ind='Y'";
-		List<DGAML002_Install_paid_BY_OTH_P> a = this.entityManager
-				.createQuery(selectRecord, DGAML002_Install_paid_BY_OTH_P.class).getResultList();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML002");
 
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
 		a.forEach(b -> {
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(b.getCust_Type_Desc());
@@ -146,7 +144,7 @@ public class AML002AlarmData {
 			// temp.setExec_Cust_Key(b.getcus
 			temp.setCcy_Amt(String.valueOf(b.getCcy_Amt()));
 
-			temp.setTotal_amount(selectTotalAmount(String.valueOf(b.getAcct_Key())));
+			temp.setTotal_amount(selectTotalAmount(b.getAcct_Key()));
 
 			temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(b.getCcy_Amt_In_Trans_Ccy()));
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(b.getCcy_Amt_In_Acct_Ccy()));
@@ -180,9 +178,8 @@ public class AML002AlarmData {
 	 */
 	public String selectTransactionsCount(int Acct_key) {
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
-				+ " FROM DGAML002_Install_paid_BY_OTH_P D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+
+		List<Object[]> z = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.TransactionsCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
@@ -192,14 +189,11 @@ public class AML002AlarmData {
 	 * ************** Get Total amount changed from jdbc syntac to hql by hussien
 	 * 
 	 */
-	public String selectTotalAmount(String Acct_key) {
+	public String selectTotalAmount(int Acct_key) {
 
-		System.out.println("ppppppppppppppppppp");
 		String total_amount1 = null;
-		String selectRecord = "SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  FROM DGAML002_Install_paid_BY_OTH_P D "
-				+ "where D.acct_Key=" + Acct_key + " group by D.acct_Key";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+		List<Object[]> z = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectTotalAmount(Acct_key);
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
@@ -211,11 +205,8 @@ public class AML002AlarmData {
 	 */
 	public String selectInstNum(int Acct_key) {
 
-		String q = "SELECT count(A.Exec_Cust_Key) as inst_num,A.acct_Key "
-				+ " FROm DGAML002_Install_paid_BY_OTH_P A  where A.acct_Key=" + Acct_key
-				+ " and A.acct_Key <> A.Exec_Cust_Key and A.relate_Ind='N'    group by A.acct_Key";
 		String inst_num1 = null;
-		List<Object[]> list = this.entityManager.createQuery(q, Object[].class).getResultList();
+		List<Object[]> list = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectInstNum(Acct_key);
 		if (list.size() > 0) {
 			inst_num1 = list.get(0)[0].toString();
 		}
@@ -227,13 +218,9 @@ public class AML002AlarmData {
 	 */
 	public List<AlarmDTO> selectRecordfromAML002Parm() {
 
-		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "= (  select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML002' and B.current_Ind='Y')";
-
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+		List<AC_Routine_Parameter> list = this.routine_ParameterRepository.getRoutineParameter("AML002");
 		List<AlarmDTO> listOfParm = new ArrayList<>();
-		c.forEach(q -> {
+		list.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();
 
 			tempParm.setParm_name(q.getId().getParm_Name());
@@ -248,12 +235,11 @@ public class AML002AlarmData {
 	/*
 	 * changed from jdbc syntac to hql by hussien
 	 */
-	public List<AlarmDTO> selectRecordfromAML002EXPN(String Acct_key) {
+	public List<AlarmDTO> selectRecordfromAML002EXPN(int Acct_key) {
 
 		List<AlarmDTO> listOfEXPN = new ArrayList<>();
-		String selectParmRecord = "select A.Exec_Cust_Key from DGAML002_Install_paid_BY_OTH_P A" + " where A.acct_Key="
-				+ 1884;
-		List<Object[]> L = this.entityManager.createQuery(selectParmRecord, Object[].class).getResultList();
+
+		List<Object[]> L = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectRecordfromAML002EXPN(Acct_key);
 		L.forEach(q -> {
 			AlarmDTO tempEXPN = new AlarmDTO();
 
