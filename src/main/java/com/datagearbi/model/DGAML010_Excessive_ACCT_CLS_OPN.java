@@ -9,14 +9,22 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML010_Excessive_ACCT_CLS_OPN database table.
  * 
  */
-@Embeddable
+@Entity
 @NamedQuery(name="DGAML010_Excessive_ACCT_CLS_OPN.findAll", query="SELECT d FROM DGAML010_Excessive_ACCT_CLS_OPN d")
+@Table(schema="DGAMLCORE")
 public class DGAML010_Excessive_ACCT_CLS_OPN implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+@Id
 	@Column(name="Acct_Name")
 	private String acct_Name;
-
+@Column(name="Exec_Cust_Key")
+private int Exec_Cust_Key;
+public void setExec_Cust_Key(int exec_Cust_Key) {
+	Exec_Cust_Key = exec_Cust_Key;
+}
+public int getExec_Cust_Key() {
+	return Exec_Cust_Key;
+}
 	@Column(name="Acct_Type_Desc")
 	private String acct_Type_Desc;
 

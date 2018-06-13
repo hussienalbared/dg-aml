@@ -10,17 +10,25 @@ import java.sql.Timestamp;
  * The persistent class for the DGAML007_Early_Termin_Loan database table.
  * 
  */
-@Embeddable
+@Entity
 @NamedQuery(name="DGAML007_Early_Termin_Loan.findAll", query="SELECT d FROM DGAML007_Early_Termin_Loan d")
+@Table(name="DGAML007_Early_Termin_Loan",schema="DGAMLCORE")
 public class DGAML007_Early_Termin_Loan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="Acct_Close_Date")
 	private Timestamp acct_Close_Date;
-
+@Id
 	@Column(name="Acct_Name")
 	private String acct_Name;
-
+@Column(name="Exec_Cust_Key")
+private int Exec_Cust_Key;
+public void setExec_Cust_Key(int exec_Cust_Key) {
+	Exec_Cust_Key = exec_Cust_Key;
+}
+public int getExec_Cust_Key() {
+	return Exec_Cust_Key;
+}
 	@Column(name="Acct_Open_Date")
 	private Timestamp acct_Open_Date;
 

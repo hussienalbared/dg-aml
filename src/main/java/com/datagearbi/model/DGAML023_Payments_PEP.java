@@ -9,11 +9,19 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML023_Payments_PEP database table.
  * 
  */
-@Embeddable
+@Entity
+@Table(name="DGAML023_Payments_PEP",schema="DGAMLCORE")
 @NamedQuery(name="DGAML023_Payments_PEP.findAll", query="SELECT d FROM DGAML023_Payments_PEP d")
 public class DGAML023_Payments_PEP implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@Column(name="Exec_Cust_Key")
+	public void setExec_Cust_Key(int exec_Cust_Key) {
+		Exec_Cust_Key = exec_Cust_Key;
+	}
+	public int getExec_Cust_Key() {
+		return Exec_Cust_Key;
+	}
+private int Exec_Cust_Key;
 	@Column(name="Acct_Name")
 	private String acct_Name;
 
@@ -61,7 +69,7 @@ public class DGAML023_Payments_PEP implements Serializable {
 
 	@Column(name="Expr16")
 	private String expr16;
-
+@Id
 	@Column(name="Expr6")
 	private int expr6;
 

@@ -5,16 +5,15 @@
  */
 package com.datagearbi.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Service;
 
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
@@ -41,10 +40,12 @@ import com.datagearbi.model.DGAML002_Install_paid_BY_OTH_P;
  * 
  * @author Hamzah.Ahmed
  */
+@Service
+// @Transactional
 public class AML002AlarmData {
-	// @PersistenceContext
+
+	@PersistenceContext
 	private EntityManager entityManager;
-	Connection dbConnection = null;
 
 	public AML002AlarmData() {
 	}
@@ -56,14 +57,11 @@ public class AML002AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML002View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML002View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
+		Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, "");
 
 		return scMAVM;
 
@@ -75,14 +73,11 @@ public class AML002AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML002Parm();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofParm = selectRecordfromAML002Parm();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		parmMAVM.setAlrmVMs(listofParm);
+		Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, "");
 
 		return parmMAVM;
 
@@ -93,25 +88,22 @@ public class AML002AlarmData {
 		AlarmsVM expnMAVM = new AlarmsVM();
 		List<AlarmDTO> listofEXPN;
 
-		try {
-			listofEXPN = selectRecordfromAML002EXPN(Acct_key);
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			expnMAVM.setAlrmVMs(listofEXPN);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofEXPN = selectRecordfromAML002EXPN(Acct_key);
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		expnMAVM.setAlrmVMs(listofEXPN);
+
+		Logger.getLogger(AML002AlarmData.class.getName()).log(Level.SEVERE, "");
 
 		return expnMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML002View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML002View() {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
-		
-	
+
 		String selectRecord = "select D from DGAML002_Install_paid_BY_OTH_P D from";
 
 		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
@@ -164,7 +156,6 @@ public class AML002AlarmData {
 
 			temp.setNum_inst(selectInstNum(b.getAcct_Key()));
 
-
 			if (list.size() > 0) {
 				temp.setRoutine_Id(String.valueOf(list.get(0).getRoutine_Id()));
 				temp.setRoutine_Name(list.get(0).getRoutine_Name());
@@ -192,8 +183,8 @@ public class AML002AlarmData {
 		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
 				+ " FROM DGAML002_Install_paid_BY_OTH_P D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
 		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
-		if(z.size()>0)
-		transactions_count1=z.get(0)[0].toString();
+		if (z.size() > 0)
+			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
 	}
 
@@ -202,13 +193,15 @@ public class AML002AlarmData {
 	 * 
 	 */
 	public String selectTotalAmount(String Acct_key) {
+
+		System.out.println("ppppppppppppppppppp");
 		String total_amount1 = null;
 		String selectRecord = "SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  FROM DGAML002_Install_paid_BY_OTH_P D "
 				+ "where D.acct_Key=" + Acct_key + " group by D.acct_Key";
 
 		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
-		if(z.size()>0)
-		total_amount1= String.valueOf(z.get(0)[0]);
+		if (z.size() > 0)
+			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
 
 	}
@@ -232,11 +225,10 @@ public class AML002AlarmData {
 	/**
 	 * ************ Get parameters Data * changed from jdbc syntac to hql by hussien
 	 */
-
-	public List<AlarmDTO> selectRecordfromAML002Parm() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML002Parm() {
 
 		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML002' and B.current_Ind='Y')";
+				+ "= (  select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML002' and B.current_Ind='Y')";
 
 		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
 				.getResultList();
@@ -256,7 +248,7 @@ public class AML002AlarmData {
 	/*
 	 * changed from jdbc syntac to hql by hussien
 	 */
-	public List<AlarmDTO> selectRecordfromAML002EXPN(String Acct_key) throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML002EXPN(String Acct_key) {
 
 		List<AlarmDTO> listOfEXPN = new ArrayList<>();
 		String selectParmRecord = "select A.Exec_Cust_Key from DGAML002_Install_paid_BY_OTH_P A" + " where A.acct_Key="
