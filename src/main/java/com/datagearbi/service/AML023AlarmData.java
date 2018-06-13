@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML023_Payments_PEPRepository;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML010_Excessive_ACCT_CLS_OPN;
@@ -28,9 +33,17 @@ import com.datagearbi.model.DGAML023_Payments_PEP;
  * @author Hamzah.Ahmed
  */
 public class AML023AlarmData {
-	private EntityManager entityManager;
-    Connection dbConnection = null;
 
+	@Autowired
+	private DGAML023_Payments_PEPRepository dgaml023_Payments_PEPRepository;
+	
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	
+	@Autowired
+	private Routine_ParameterRepository routine_ParameterRepository;
+
+	
     public AML023AlarmData() {
     }
 
@@ -77,15 +90,9 @@ public class AML023AlarmData {
 
         List<AlarmDTO> listOfSC = new ArrayList<>();
    
-        String selectRecord = "select D from DGAML023_Payments_PEP D";
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML023' and current_Ind='Y'";
+		List<DGAML023_Payments_PEP> a = this.dgaml023_Payments_PEPRepository.findAll();
 		
-		List<DGAML023_Payments_PEP> a = this.entityManager
-				.createQuery(selectRecord, DGAML023_Payments_PEP.class).getResultList();
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML023");
 
 		 a.forEach(res->{
 			 AlarmDTO temp = new AlarmDTO();
@@ -154,11 +161,9 @@ public class AML023AlarmData {
     public String selectTransactionsCount(int Acct_key) {
     	// List<AlarmDTO> listOfSC = new ArrayList<>();
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.expr6 "
-				+ " FROM DGAML023_Payments_PEP D where D.expr6= " + Acct_key + " group by D.expr6";
 
 		
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+		List<Object[]> z = this.dgaml023_Payments_PEPRepository.getTransactionCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;    }
@@ -170,11 +175,8 @@ public class AML023AlarmData {
     public String selectTotalAmount(int Acct_key) {
 
     	String total_amount1 = null;
-		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.expr6  "
-				+ " FROM DGAML023_Payments_PEP D " + 
-								 " where D.expr6=" + Acct_key + " group by D.expr6";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+		List<Object[]> z = this.dgaml023_Payments_PEPRepository.getTotalAmount(Acct_key);
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
@@ -188,11 +190,10 @@ public class AML023AlarmData {
     */ 
     
     public List<AlarmDTO> selectRecordfromAML023Parm() throws SQLException {
-    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML023' and B.current_Ind='Y')";
+//    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
+//				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML023' and B.current_Ind='Y')";
 
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML023");
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 		c.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();

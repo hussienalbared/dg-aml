@@ -16,6 +16,12 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML010_Excessive_ACCT_CLS_OPNRepository;
+import com.datagearbi.agp.repository.DGAML016_Account_Open_Outside_RegionRepository;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML010_Excessive_ACCT_CLS_OPN;
@@ -26,8 +32,14 @@ import com.datagearbi.model.DGAML010_Excessive_ACCT_CLS_OPN;
  */
 public class AML010AlarmData {
 
-	Connection dbConnection = null;
-	private EntityManager entityManager;
+	@Autowired
+	private DGAML010_Excessive_ACCT_CLS_OPNRepository dGAML010_Excessive_ACCT_CLS_OPNRepository;
+	
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	
+	@Autowired
+	private Routine_ParameterRepository routine_ParameterRepository;
 
 	public AML010AlarmData() {
 	}
@@ -77,16 +89,19 @@ public class AML010AlarmData {
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 	
 
-		String selectRecord = "select D from DGAML010_Excessive_ACCT_CLS_OPN D";
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML010' and current_Ind='Y'";
+//		String selectRecord = "select D from DGAML010_Excessive_ACCT_CLS_OPN D";
+//		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
+//				+ ",A.routine_Short_Desc"
+//				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML010' and current_Ind='Y'";
+//
+//		List<DGAML010_Excessive_ACCT_CLS_OPN> a = this.entityManager
+//				.createQuery(selectRecord, DGAML010_Excessive_ACCT_CLS_OPN.class).getResultList();
+//		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
+//				.getResultList();
 
-		List<DGAML010_Excessive_ACCT_CLS_OPN> a = this.entityManager
-				.createQuery(selectRecord, DGAML010_Excessive_ACCT_CLS_OPN.class).getResultList();
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
-
+		List<DGAML010_Excessive_ACCT_CLS_OPN> a = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.findAll();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML010");
+		
 		 a.forEach(res->{
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
@@ -152,11 +167,14 @@ public class AML010AlarmData {
 
 		// List<AlarmDTO> listOfSC = new ArrayList<>();
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.expr6 "
-				+ " FROM DGAML010_Excessive_ACCT_CLS_OPN D where D.expr6= " + Acct_key + " group by D.expr6";
+//		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.expr6 "
+//				+ " FROM DGAML010_Excessive_ACCT_CLS_OPN D where D.expr6= " + Acct_key + " group by D.expr6";
 
 		
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+//		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+		
+		List<Object[]> z = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.getTransactionCount(Acct_key);
+		
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;	}
@@ -167,11 +185,14 @@ public class AML010AlarmData {
 	public String selectTotalAmount(int Acct_key)  {
 
 		String total_amount1 = null;
-		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.expr6  "
-				+ " FROM DGAML010_Excessive_ACCT_CLS_OPN D " + 
-								 " where D.expr6=" + Acct_key + " group by D.expr6";
+//		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.expr6  "
+//				+ " FROM DGAML010_Excessive_ACCT_CLS_OPN D " + 
+//								 " where D.expr6=" + Acct_key + " group by D.expr6";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+//		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+		
+		List<Object[]> z = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.getTotalAmount(Acct_key);
+		
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
@@ -183,13 +204,16 @@ public class AML010AlarmData {
 	public String selectInstNum(int Acct_key) {
 
 		 String inst_num1=null;
-	        String selectTransactionsCount = "SELECT count(D.Exec_Cust_Key) as inst_num,D.expr6"
-	                + "  FROM DGAML010_Excessive_ACCT_CLS_OPN D"
-	                + " where D.expr6=" + Acct_key + " and D.expr6 <> D.Exec_Cust_Key and D.relate_Ind='N'"
-	                + "  group by D.expr6";
+//	        String selectTransactionsCount = "SELECT count(D.Exec_Cust_Key) as inst_num,D.expr6"
+//	                + "  FROM DGAML010_Excessive_ACCT_CLS_OPN D"
+//	                + " where D.expr6=" + Acct_key + " and D.expr6 <> D.Exec_Cust_Key and D.relate_Ind='N'"
+//	                + "  group by D.expr6";
 
-		List <Object[]>tt= this.entityManager.createQuery(selectTransactionsCount,Object[].class).getResultList();
-		if(tt.size()>0)
+//		List <Object[]>tt= this.entityManager.createQuery(selectTransactionsCount,Object[].class).getResultList();
+		
+		 List <Object[]>tt= this.dGAML010_Excessive_ACCT_CLS_OPNRepository.selectInstNum(Acct_key);
+		 
+		 if(tt.size()>0)
 			inst_num1= tt.get(0)[0].toString();
 	        
 	                return inst_num1;
@@ -200,11 +224,14 @@ public class AML010AlarmData {
 	 */
 	public List<AlarmDTO> selectRecordfromAML010Parm() throws SQLException {
 
-		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML010' and B.current_Ind='Y')";
-
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+//		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
+//				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML010' and B.current_Ind='Y')";
+//
+//		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
+//				.getResultList();
+		
+		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML010");
+		
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 		c.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();

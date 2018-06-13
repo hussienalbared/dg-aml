@@ -24,6 +24,7 @@ public interface AC_RoutineRepository extends JpaRepository<AC_Routine, Long> {
 			String alarm_Subcateg_Cd, String routine_Type_Cd, String save_Trig_Trans_Ind, String obj_Level_Cd,
 			String routine_Msg_Txt, int ml_Bayes_Weight, int dflt_Suppr_Dur_Count, int routine_Dur_Count);
 
+	
 	@Query("select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
 			+ ",A.routine_Short_Desc"
 			+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name=?1 and current_Ind='Y'")
