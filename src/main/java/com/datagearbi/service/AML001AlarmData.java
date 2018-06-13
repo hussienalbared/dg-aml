@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
 import com.datagearbi.helper.AcRoutineHelper;
-import com.datagearbi.helper.ParamRecord;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.Dgaml001TransLoanXToT;
 
@@ -28,7 +27,7 @@ import com.datagearbi.model.Dgaml001TransLoanXToT;
  *
  * @author Hamzah.Ahmed
  * 
- *         This class gets all data for the AML001
+ * This class gets all data for the AML001
  */
 @Service
 public class AML001AlarmData {
@@ -155,7 +154,6 @@ public class AML001AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-
 	public String selectTransactionsCount(String Acct_key) throws SQLException {
 		String transactions_count1 = null;
 		// String selectTransactionsCount = "SELECT count(D.trans_Key) as
@@ -180,7 +178,6 @@ public class AML001AlarmData {
 	/**
 	 * ************ Get parameters Data
 	 */
-
 	public List<AlarmDTO> selectRecordfromAML001Parm() {
 
 		List<AlarmDTO> listOfParm = new ArrayList<>();
@@ -198,20 +195,7 @@ public class AML001AlarmData {
 			listOfParm.add(tempParm);
 		}
 
-		/**
-		 * ***********************************************
-		 */
-
 		return listOfParm;
 
 	}
-
-	/**
-	 * *********** End of AML001 ***
-	 */
-	public static void main(String[] args) {
-		// AlarmProcess AMLP = new AlarmProcess();
-		// AlarmVM Results = AMLP.getAlarmData();
-	}
-
 }
