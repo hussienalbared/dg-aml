@@ -16,12 +16,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.repository.AlaramObjectRepository;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = AlaramObjectRepository.class,
+@EnableJpaRepositories(basePackageClasses = {AlaramObjectRepository.class, AC_RoutineRepository.class},
 		entityManagerFactoryRef = "amlEntityManagerFactory",
 		  transactionManagerRef = "amlTransactionManager"
 )
