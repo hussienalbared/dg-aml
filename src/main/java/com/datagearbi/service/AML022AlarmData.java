@@ -17,6 +17,12 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML022_Payments_High_Risk_Industry_CustRepository;
+import com.datagearbi.agp.repository.DGAML023_Payments_PEPRepository;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML010_Excessive_ACCT_CLS_OPN;
@@ -27,9 +33,16 @@ import com.datagearbi.model.DGAML022_Payments_High_Risk_Industry_Cust;
  * @author Hamzah.Ahmed
  */
 public class AML022AlarmData {
-	private EntityManager entityManager;
-    
-
+	
+	@Autowired
+	private DGAML022_Payments_High_Risk_Industry_CustRepository dGAML022_Payments_High_Risk_Industry_CustRepository;
+	
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	
+	@Autowired
+	private Routine_ParameterRepository routine_ParameterRepository;
+	
     public AML022AlarmData() {
     }
 
@@ -40,13 +53,9 @@ public class AML022AlarmData {
         AlarmsVM scMAVM = new AlarmsVM();
         List<AlarmDTO> listofSC;
 
-        try {
-            listofSC = selectRecordfromAML022View();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            scMAVM.setAlrmVMs(listofSC);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML022AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofSC = selectRecordfromAML022View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
         return scMAVM;
 
@@ -59,37 +68,36 @@ public class AML022AlarmData {
         AlarmsVM parmMAVM = new AlarmsVM();
         List<AlarmDTO> listofParm;
 
-        try {
-            listofParm = selectRecordfromAML022Parm();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            parmMAVM.setAlrmVMs(listofParm);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML022AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofParm = selectRecordfromAML022Parm();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		parmMAVM.setAlrmVMs(listofParm);
 
         return parmMAVM;
 
     }
 
     //select Data
-    public List<AlarmDTO> selectRecordfromAML022View() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML022View()  {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 		
 
-		String selectRecord = "select D from DGAML022_Payments_High_Risk_Industry_Cust D";
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML022' and current_Ind='Y'";
+//		String selectRecord = "select D from DGAML022_Payments_High_Risk_Industry_Cust D";
+//		
+//		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
+//				+ ",A.routine_Short_Desc"
+//				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML022' and current_Ind='Y'";
+//
+//		List<DGAML022_Payments_High_Risk_Industry_Cust> a = this.entityManager
+//				.createQuery(selectRecord, DGAML022_Payments_High_Risk_Industry_Cust.class).getResultList();
+//		
+//		
+//		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
+//				.getResultList();
 
-		List<DGAML022_Payments_High_Risk_Industry_Cust> a = this.entityManager
-				.createQuery(selectRecord, DGAML022_Payments_High_Risk_Industry_Cust.class).getResultList();
+		List<DGAML022_Payments_High_Risk_Industry_Cust> a = this.dGAML022_Payments_High_Risk_Industry_CustRepository.findAll();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML022");
 		
-		
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
-
-       
      a.forEach(res->{
     	 
     	 
@@ -155,11 +163,12 @@ public class AML022AlarmData {
 
     	// List<AlarmDTO> listOfSC = new ArrayList<>();
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
-				+ " FROM DGAML022_Payments_High_Risk_Industry_Cust D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
+//		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
+//				+ " FROM DGAML022_Payments_High_Risk_Industry_Cust D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
 
 		
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+//		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTransactionCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
@@ -171,11 +180,13 @@ public class AML022AlarmData {
      */
     public String selectTotalAmount(int Acct_key)  {
 		String total_amount1 = null;
-		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  "
-				+ " FROM DGAML022_Payments_High_Risk_Industry_Cust D " + 
-								 " where D.acct_Key=" + Acct_key + " group by D.acct_Key";
+//		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  "
+//				+ " FROM DGAML022_Payments_High_Risk_Industry_Cust D " + 
+//								 " where D.acct_Key=" + Acct_key + " group by D.acct_Key";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+//		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
+		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTotalAmount(Acct_key);
+		
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
@@ -189,13 +200,16 @@ public class AML022AlarmData {
     * ************ Get parameters Data
     */ 
     
-    public List<AlarmDTO> selectRecordfromAML022Parm() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML022Parm()  {
 
-    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML022' and B.current_Ind='Y')";
-
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+//    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
+//				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML022' and B.current_Ind='Y')";
+//
+//		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
+//				.getResultList();
+    	
+    	List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML022");
+    	
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 		c.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();
