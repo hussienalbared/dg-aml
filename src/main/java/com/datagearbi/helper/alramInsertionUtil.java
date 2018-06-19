@@ -14,6 +14,9 @@ public class alramInsertionUtil {
 	private String routine_id;
 	private String routine_name;
 	private String suppression_end_date;
+	public alramInsertionUtil() {
+		// TODO Auto-generated constructor stub
+	}
 	public alramInsertionUtil(String product_type, String alarm_status_code, String money_laundering_risk_score,
 			String alarm_description, String primary_obj_level_code, String alarmed_obj_number, String alarmed_obj_name,
 			String primary_obj_number, String primary_obj_key, String primary_obj_name, String routine_id,

@@ -70,7 +70,7 @@ public class AML005AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML005View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		List<DGAML005_Install_Paid_In_Cash> a = this.DGAML005_Install_Paid_In_CashRepository.findAll();
 
@@ -147,10 +147,7 @@ public class AML005AlarmData {
 	public String selectTransactionsCount(int Acct_key) {
 
 		String transactions_count1 = null;
-		// String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
-		// + " FROM DGAML005_Install_Paid_In_Cash D where D.acct_Key= " + Acct_key + "
-		// group by D.acct_Key";
-		//
+
 		List<Object[]> z = this.DGAML005_Install_Paid_In_CashRepository.TransactionsCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
@@ -162,10 +159,7 @@ public class AML005AlarmData {
 	 */
 	public String selectTotalAmount(int Acct_key) {
 		String total_amount1 = null;
-		// String selectRecord = "SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key FROM
-		// DGAML005_Install_Paid_In_Cash D "
-		// + "where D.acct_Key=" + Acct_key + " group by D.acct_Key";
-
+		
 		List<Object[]> z = this.DGAML005_Install_Paid_In_CashRepository.selectTotalAmount(Acct_key);
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
@@ -179,7 +173,7 @@ public class AML005AlarmData {
 
 		String all_amnt1 = null;
 
-		List tt = this.Transaction_FlowReoisitory.selectAllAmnt(Acct_key);
+		List<Object> tt = this.Transaction_FlowReoisitory.selectAllAmnt(Acct_key);
 		if (tt.size() > 0)
 			all_amnt1 = tt.get(0).toString();
 

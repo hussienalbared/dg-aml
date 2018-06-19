@@ -34,32 +34,31 @@ public class AML010AlarmDataTest {
 	}
 
 	@Test
-	private void selectRecordfromAML010ViewTest() {
-
+	public void selectRecordfromAML010ViewTest() {
+		System.out.println("selectRecordfromAML010ViewTest");
 		List<AlarmDTO> list = this.aml010AlarmData.selectRecordfromAML010View();
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
 	@Test
-	void selectTransactionsCountTest() {
+	public void selectTransactionsCountTest() {
 		assertThat(this.aml010AlarmData.selectTransactionsCount(1884)).isNotNull();
 	}
 
 	@Test
-	private void selectTotalAmountTest() {
+	public void   selectTotalAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.aml010AlarmData.selectTotalAmount(1884)).isNotNull();
 
 	}
 
 	@Test
-	private void selectInstNumTest() {
+	public void  selectInstNumTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.aml010AlarmData.selectInstNum(1884)).isNotNull();
 	}
-
 	@Test
-	private void selectRecordfromAML010ParmTest() {
+	public void  selectRecordfromAML010ParmTest() {
 		assertThat(this.aml010AlarmData.selectRecordfromAML010Parm().size()).isGreaterThan(0);
 
 	}

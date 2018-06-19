@@ -26,12 +26,5 @@ public class Dgaml001TransLoanXToRepositoryIntegrationTest {
 		System.out.println("list.size:" + list.size());
 		assertThat(list.size()).isGreaterThanOrEqualTo(0);
 	}
-	
-	@Test
-	public void testGetTransactionCount() {
-		System.out.println("testGetTransactionCount");
-		List<Long> list = dgaml001TransLoanXToRepository.getTransactionCount();
-		System.out.println("list.size:" + list.size());
-		assertThat(list.size()).isGreaterThanOrEqualTo(0);
-	}
+
 }

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML005_Install_Paid_In_CashRepository;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.service.AML005AlarmData;
 import com.datagearbi.service.AlarmDTO;
 import com.datagearbi.service.AlarmsVM;
@@ -18,16 +21,23 @@ import com.datagearbi.service.AlarmsVM;
 @SpringBootTest
 public class AML005AlarmDataTest {
 	@Autowired
+	DGAML005_Install_Paid_In_CashRepository DGAML005_Install_Paid_In_CashRepository;
+
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	@Autowired
+	Routine_ParameterRepository routine_ParameterRepository;
+	@Autowired
 	public AML005AlarmData alAml005AlarmData;
 
-	@Test
+	// @Test
 	public void getAML005AlarmDataTest() {
 		AlarmsVM alarmsVM = this.alAml005AlarmData.getAML005AlarmData();
 		assertThat(alarmsVM).isNotNull();
 
 	}
 
-	@Test
+	// @Test
 	public void getAML005ParmDataTest() {
 		// TODO Auto-generated method stub
 
@@ -41,21 +51,32 @@ public class AML005AlarmDataTest {
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
-	@Test
+	// @Test
 	public void selectTransactionsCountTest() {
 		assertThat(this.alAml005AlarmData.selectTransactionsCount(1884)).isNotNull();
 	}
 
-	@Test
+	// @Test
 	public void selectTotalAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml005AlarmData.selectTotalAmount(1884)).isNotNull();
 
 	}
 
-	@Test
+	// @Test
 	public void selectRecordfromAML005ParmTest() {
 		assertThat(this.alAml005AlarmData.selectRecordfromAML005Parm().size()).isGreaterThan(0);
 
 	}
+
+//	@Test
+	public void DGAML005_Install_Paid_In_CashRepositoryFindAllTest() {
+		assertThat(this.DGAML005_Install_Paid_In_CashRepository.findAll().size()).isGreaterThan(0);
+	}
+
+	//@Test
+	public void getRoutineDetailAML005Test() {
+		assertThat(this.ac_RoutineRepository.getRoutineDetail("AML005").size()).isGreaterThan(0);
+	}
+
 }

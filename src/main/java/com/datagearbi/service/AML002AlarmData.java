@@ -106,7 +106,7 @@ public class AML002AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML002View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		List<DGAML002_Install_paid_BY_OTH_P> a = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.findAll();
 

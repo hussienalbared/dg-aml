@@ -42,8 +42,8 @@ public class MainAGP {
             //System.out.println("gsjkfgskj:"+ x);
             
             switch (x) {
-            case 1:  AlarmsProcess.insertAML001AlarmData();
-                     break;
+//            case 1:  AlarmsProcess.insertAML001AlarmData();
+//                     break;
 //            case 2:  AlarmsProcess.insertAML002AlarmData();
 //                     break;
 //            case 3:  AlarmsProcess.insertAML003AlarmData();
