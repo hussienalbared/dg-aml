@@ -17,54 +17,54 @@ import com.datagearbi.service.AlarmsVM;
 @SpringBootTest
 public class AML007AlarmDataTest {
 	@Autowired
-	private AML007AlarmData alAml007AlarmData;
+	public AML007AlarmData alAml007AlarmData;
 
 	@Test
-	private void getAML007AlarmDataTest() {
+	public void getAML007AlarmDataTest() {
 		AlarmsVM alarmsVM = this.alAml007AlarmData.getAML007AlarmData();
 		assertThat(alarmsVM).isNotNull();
 
 	}
 
 	@Test
-	private void getAML007ParmDataTest() {
+	public void getAML007ParmDataTest() {
 		// TODO Auto-generated method stub
 
 		assertThat(this.alAml007AlarmData.getAML007ParmData().getAlrmsVMs().size()).isGreaterThan(0);
 	}
 
 	@Test
-	private void selectRecordfromAML007ViewTest() {
+	public void selectRecordfromAML007ViewTest() {
 
 		List<AlarmDTO> list = this.alAml007AlarmData.selectRecordfromAML007View();
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
 	@Test
-	void selectTransactionsCountTest() {
+	public void selectTransactionsCountTest() {
 		assertThat(this.alAml007AlarmData.selectTransactionsCount(1884)).isNotNull();
 	}
 
 	@Test
-	private void selectTotalAmountTest() {
+	public void selectTotalAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectTotalAmount(1884)).isNotNull();
 
 	}
 
 	@Test
-	private void selectInstNumTest() {
+	public void selectInstNumTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectInstNum(1884)).isNotNull();
 	}
 
 	@Test
-	private void selectRecordfromAML007ParmTest() {
+	public void selectRecordfromAML007ParmTest() {
 		assertThat(this.alAml007AlarmData.selectRecordfromAML007Parm().size()).isGreaterThan(0);
 
 	}
 	@Test
-	private void selectTotalLoanAmountTest() {
+	public void selectTotalLoanAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectTotalLoanAmount(1884)).isNotNull();
 
