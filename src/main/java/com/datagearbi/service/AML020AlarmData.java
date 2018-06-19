@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.stereotype.Service;
+
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML020_Large_Number_Autho_Conduct_Busin;
@@ -22,9 +24,10 @@ import com.datagearbi.model.DGAML020_Large_Number_Autho_Conduct_Busin;
  *
  * @author Hamzah.Ahmed
  */
+@Service
 public class AML020AlarmData {
 
-	Connection dbConnection = null;
+	
 	private EntityManager entityManager;
 
 	public AML020AlarmData() {

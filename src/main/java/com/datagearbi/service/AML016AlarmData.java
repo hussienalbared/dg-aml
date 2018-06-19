@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.stereotype.Service;
+
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML016_Account_Open_Outside_Region;
@@ -18,6 +20,7 @@ import com.datagearbi.model.DGAML016_Account_Open_Outside_Region;
  *
  * @author Hamzah.Ahmed
  */
+@Service
 public class AML016AlarmData {
 
 	private EntityManager entityManager;

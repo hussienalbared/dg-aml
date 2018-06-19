@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.DGAML005_Install_Paid_In_CashRepository;
@@ -22,6 +23,7 @@ import com.datagearbi.repository.Transaction_FlowReoisitory;
  *
  * @author Hamzah.Ahmed
  */
+@Service
 public class AML005AlarmData {
 	@Autowired
 	private Transaction_FlowReoisitory Transaction_FlowReoisitory;
