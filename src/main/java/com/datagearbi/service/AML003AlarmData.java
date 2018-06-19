@@ -1,6 +1,5 @@
 package com.datagearbi.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /*
@@ -10,10 +9,9 @@ import java.util.ArrayList;
  */
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.DGAML003_Install_paid_exceed_limit_UPRepositorty;
@@ -26,6 +24,7 @@ import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
  *
  * @author Hamzah.Ahmed
  */
+@Service
 public class AML003AlarmData {
 	@Autowired
 	private AC_RoutineRepository ac_RoutineRepository;
@@ -44,14 +43,10 @@ public class AML003AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML003View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML003AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML003View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -63,20 +58,16 @@ public class AML003AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML003Parm();
+		listofParm = selectRecordfromAML003Parm();
 
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML003AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		parmMAVM.setAlrmVMs(listofParm);
 
 		return parmMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML003View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML003View() {
 
 		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML003");
 
@@ -99,7 +90,7 @@ public class AML003AlarmData {
 			temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 			temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
-			// temp.setTransactions_count(selectTransactionsCount(res.getAcct_Key());
+			temp.setTransactions_count(selectTransactionsCount(res.getAcct_Key()));
 
 			temp.setDate_Key(String.valueOf(res.getDate_Key()));
 			temp.setTime_Key(String.valueOf(res.getTime_Key()));
@@ -115,7 +106,7 @@ public class AML003AlarmData {
 			temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 			temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
 
-			// temp.setTotal_amount(selectTotalAmount(String.valueOf(res.getAcct_Key())));
+			temp.setTotal_amount(selectTotalAmount(res.getAcct_Key()));
 
 			temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));
@@ -123,7 +114,7 @@ public class AML003AlarmData {
 			temp.setRelate_Ind(String.valueOf(res.getRelate_Ind()));
 			temp.setThird_Cust_Ind(res.getThird_Cust_Ind());
 
-			// temp.setNum_inst(selectInstNum(String.valueOf(res.getAcct_Key())));
+			temp.setNum_inst(selectInstNum(res.getAcct_Key()));
 
 			if (list.size() > 0) {
 				temp.setRoutine_Id(String.valueOf(list.get(0).getRoutine_Id()));
@@ -142,7 +133,7 @@ public class AML003AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-	public String selectTransactionsCount(int Acct_key) throws SQLException {
+	public String selectTransactionsCount(int Acct_key) {
 
 		String transactions_count1 = null;
 
@@ -182,7 +173,7 @@ public class AML003AlarmData {
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML003Parm() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML003Parm() {
 
 		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML003");
 

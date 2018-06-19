@@ -5,11 +5,8 @@
  */
 package com.datagearbi.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,14 +43,9 @@ public class AML005AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML005View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML005AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML005View();
+
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -65,31 +57,18 @@ public class AML005AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML005Parm();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML005AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofParm = selectRecordfromAML005Parm();
+
+		parmMAVM.setAlrmVMs(listofParm);
 
 		return parmMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML005View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML005View() {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
-
-		// String selectRecord = "select D from DGAML005_Install_Paid_In_Cash D ";
-		//
-		// String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper
-		// (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-		// + ",A.routine_Short_Desc"
-		// + ", A.routine_Msg_Txt) from AC_Routine A where A.routine_Name='AML005' and
-		// current_Ind='Y'";
 
 		List<DGAML005_Install_Paid_In_Cash> a = this.DGAML005_Install_Paid_In_CashRepository.findAll();
 
@@ -196,12 +175,7 @@ public class AML005AlarmData {
 	 */
 	public String selectAllAmnt(int Acct_key) {
 
-		// List<AlarmDTO> listOfSC = new ArrayList<>();
 		String all_amnt1 = null;
-
-		// String selectTransactionsCount = "select sum(T.ccy_Amt) as all_amnt from
-		// Transaction_Flow T"
-		// + " where T.acct_Key=" + 1884;
 
 		List tt = this.Transaction_FlowReoisitory.selectAllAmnt(Acct_key);
 		if (tt.size() > 0)
@@ -214,11 +188,7 @@ public class AML005AlarmData {
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML005Parm() throws SQLException {
-		// String selectParmRecord = "select A from AC_Routine_Parameter A where
-		// A.id.routine_Id "
-		// + "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML005'
-		// and B.current_Ind='Y')";
+	public List<AlarmDTO> selectRecordfromAML005Parm() {
 
 		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML005");
 

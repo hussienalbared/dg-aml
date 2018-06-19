@@ -5,14 +5,8 @@
  */
 package com.datagearbi.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
@@ -26,7 +20,6 @@ import com.datagearbi.model.DGAML016_Account_Open_Outside_Region;
  */
 public class AML016AlarmData {
 
-	Connection dbConnection = null;
 	private EntityManager entityManager;
 
 	public AML016AlarmData() {
@@ -39,14 +32,9 @@ public class AML016AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML016View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML016AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML016View();
+
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -58,21 +46,16 @@ public class AML016AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML016Parm();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML016AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofParm = selectRecordfromAML016Parm();
+
+		parmMAVM.setAlrmVMs(listofParm);
 
 		return parmMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML016View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML016View() {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
@@ -85,7 +68,7 @@ public class AML016AlarmData {
 		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
 				.getResultList();
 
-		a.forEach(res->{
+		a.forEach(res -> {
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
 			temp.setCust_No(res.getCust_No());
@@ -104,7 +87,6 @@ public class AML016AlarmData {
 
 			temp.setTransactions_count(selectTransactionsCount(res.getExpr6()));
 
-
 			temp.setDate_Key(String.valueOf(res.getDate_Key()));
 			temp.setTime_Key(String.valueOf(res.getTime_Key()));
 			temp.setTrans_Type_Key(String.valueOf(res.getTrans_Type_Key()));
@@ -116,9 +98,8 @@ public class AML016AlarmData {
 			temp.setTrans_Curr_Key(String.valueOf(res.getTrans_Ccy_Key()));
 			temp.setPost_Date_Key(String.valueOf(res.getPost_Date_Key()));
 			temp.setEmp_Key(String.valueOf(res.getEmp_Key()));
-			 temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
+			temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 			temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
-
 
 			temp.setTotal_amount(selectTotalAmount(res.getExpr6()));
 
@@ -145,9 +126,7 @@ public class AML016AlarmData {
 			 */
 			listOfSC.add(temp);
 
-
 		});
-				
 
 		return listOfSC;
 
@@ -156,13 +135,12 @@ public class AML016AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-	public String selectTransactionsCount(int Acct_key){
+	public String selectTransactionsCount(int Acct_key) {
 		// List<AlarmDTO> listOfSC = new ArrayList<>();
 		String transactions_count1 = null;
 		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.expr6 "
 				+ " FROM DGAML016_Account_Open_Outside_Region D where D.expr6= " + Acct_key + " group by D.expr6";
 
-		
 		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
@@ -172,23 +150,23 @@ public class AML016AlarmData {
 	/**
 	 * ************** Get Total amount
 	 */
-	public String selectTotalAmount(int Acct_key)  {
+	public String selectTotalAmount(int Acct_key) {
 
 		String total_amount1 = null;
 		String selectRecord = " SELECT sum(D.ccy_Amt) as total_amount,D.expr6  "
-				+ " FROM DGAML016_Account_Open_Outside_Region D " + 
-								 " where D.expr6=" + Acct_key + " group by D.expr6";
+				+ " FROM DGAML016_Account_Open_Outside_Region D " + " where D.expr6=" + Acct_key + " group by D.expr6";
 
 		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
-		return total_amount1;	}
+		return total_amount1;
+	}
 
 	/**
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML016Parm() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML016Parm() {
 
 		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
 				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML016' and B.current_Ind='Y')";
@@ -210,6 +188,5 @@ public class AML016AlarmData {
 	/**
 	 * *********** End of AML016 ***
 	 */
-
 
 }
