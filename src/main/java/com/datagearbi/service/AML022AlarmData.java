@@ -144,7 +144,7 @@ public class AML022AlarmData {
 	 * ************** Get transactions count
 	 */
 	public String selectTransactionsCount(int Acct_key) {
-
+		String transactions_count1 = null;
 		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTransactionCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
@@ -155,6 +155,7 @@ public class AML022AlarmData {
 	 * ************** Get Total amount
 	 */
 	public String selectTotalAmount(int Acct_key) {
+		String total_amount1 = null;
 		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTotalAmount(Acct_key);
 		
 		if (z.size() > 0)
@@ -167,7 +168,7 @@ public class AML022AlarmData {
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML022Parm() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML022Parm() {
 
 		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML022");
     	
