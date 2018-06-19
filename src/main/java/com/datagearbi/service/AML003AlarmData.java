@@ -1,9 +1,5 @@
 package com.datagearbi.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /*
@@ -13,12 +9,13 @@ import java.util.ArrayList;
  */
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.datagearbi.agp.repository.AC_RoutineRepository;
+import com.datagearbi.agp.repository.DGAML003_Install_paid_exceed_limit_UPRepositorty;
+import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
@@ -27,11 +24,14 @@ import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
  *
  * @author Hamzah.Ahmed
  */
+@Service
 public class AML003AlarmData {
-
-//	Connection dbConnection = null;
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private AC_RoutineRepository ac_RoutineRepository;
+	@Autowired
+	Routine_ParameterRepository routine_ParameterRepository;
+	@Autowired
+	private DGAML003_Install_paid_exceed_limit_UPRepositorty dGAML003_Install_paid_exceed_limit_UPRepositorty;
 
 	public AML003AlarmData() {
 	}
@@ -43,14 +43,10 @@ public class AML003AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML003View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML003AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML003View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -62,30 +58,22 @@ public class AML003AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML003Parm();
+		listofParm = selectRecordfromAML003Parm();
 
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML003AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		parmMAVM.setAlrmVMs(listofParm);
 
 		return parmMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML003View() throws SQLException {
-		String selectRecord = "select x from DGAML003_Install_paid_exceed_limit_UP x";
-		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-				+ ",A.routine_Short_Desc"
-				+ ", A.routine_Msg_Txt)  from AC_Routine A where A.routine_Name='AML003' and current_Ind='Y'";
+	public List<AlarmDTO> selectRecordfromAML003View() {
 
-		List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1, AcRoutineHelper.class)
-				.getResultList();
+		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML003");
+
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
-		List<DGAML003_Install_paid_exceed_limit_UP> s = this.entityManager.createQuery(selectRecord).getResultList();
+		List<DGAML003_Install_paid_exceed_limit_UP> s = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.findAll();
 		s.forEach(res -> {
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
@@ -102,7 +90,7 @@ public class AML003AlarmData {
 			temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 			temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
-			// temp.setTransactions_count(selectTransactionsCount(res.getAcct_Key());
+			temp.setTransactions_count(selectTransactionsCount(res.getAcct_Key()));
 
 			temp.setDate_Key(String.valueOf(res.getDate_Key()));
 			temp.setTime_Key(String.valueOf(res.getTime_Key()));
@@ -118,7 +106,7 @@ public class AML003AlarmData {
 			temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 			temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
 
-			// temp.setTotal_amount(selectTotalAmount(String.valueOf(res.getAcct_Key())));
+			temp.setTotal_amount(selectTotalAmount(res.getAcct_Key()));
 
 			temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));
@@ -126,7 +114,7 @@ public class AML003AlarmData {
 			temp.setRelate_Ind(String.valueOf(res.getRelate_Ind()));
 			temp.setThird_Cust_Ind(res.getThird_Cust_Ind());
 
-			// temp.setNum_inst(selectInstNum(String.valueOf(res.getAcct_Key())));
+			temp.setNum_inst(selectInstNum(res.getAcct_Key()));
 
 			if (list.size() > 0) {
 				temp.setRoutine_Id(String.valueOf(list.get(0).getRoutine_Id()));
@@ -145,45 +133,36 @@ public class AML003AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-	public String selectTransactionsCount(String Acct_key) throws SQLException {
+	public String selectTransactionsCount(int Acct_key) {
 
-	
-
-		
 		String transactions_count1 = null;
-		String selectTransactionsCount = " SELECT count(D.trans_Key) ,D.acct_Key "
-				+ " FROM DGAML003_Install_paid_exceed_limit_UP D where D.acct_Key= " + Acct_key + " group by D.acct_Key";
-		List<Object[]> z = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
-		if(z.size()>0)
-		transactions_count1=z.get(0)[0].toString();
+
+		List<Object[]> z = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.TransactionsCount(Acct_key);
+		if (z.size() > 0)
+			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
-}
+	}
 
 	/**
 	 * ************** Get Total amount
 	 */
-	public String selectTotalAmount(String Acct_key) throws SQLException {
+	public String selectTotalAmount(int Acct_key) {
 		String total_amount1 = null;
-		String selectRecord = "SELECT sum(D.ccy_Amt) as total_amount,D.acct_Key  FROM DGAML003_Install_paid_exceed_limit_UP D "
-				+ "where D.acct_Key=" + Acct_key + " group by D.acct_Key";
 
-		List<Object[]> z = this.entityManager.createQuery(selectRecord, Object[].class).getResultList();
-		if(z.size()>0)
-		total_amount1= String.valueOf(z.get(0)[0]);
-		return total_amount1;	}
+		List<Object[]> z = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.selectTotalAmount(Acct_key);
+		if (z.size() > 0)
+			total_amount1 = String.valueOf(z.get(0)[0]);
+		return total_amount1;
+	}
 
 	/**
 	 * ************** Get Number of installments
 	 */
-	public String selectInstNum(String Acct_key) throws SQLException {
+	public String selectInstNum(int Acct_key) {
 
-	
-		String inst_num1=null;
-		String selectTransactionsCount = "SELECT count(Exec_Cust_Key) as inst_num,Acct_Key"
-				+ "  FROM DGAMLCORE.DGAML003_Install_paid_exceed_limit_UP" + " where Acct_Key=" + Acct_key
-				+ " and Acct_Key <> Exec_Cust_Key and Relate_Ind='N'" + "  group by Acct_Key";
-	
-		List<Object[]> list = this.entityManager.createQuery(selectTransactionsCount, Object[].class).getResultList();
+		String inst_num1 = null;
+
+		List<Object[]> list = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.selectInstNum(Acct_key);
 		if (list.size() > 0) {
 			inst_num1 = list.get(0)[0].toString();
 		}
@@ -194,12 +173,10 @@ public class AML003AlarmData {
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML003Parm() throws SQLException {
-		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
-				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML003' and B.current_Ind='Y')";
+	public List<AlarmDTO> selectRecordfromAML003Parm() {
 
-		List<AC_Routine_Parameter> c = this.entityManager.createQuery(selectParmRecord, AC_Routine_Parameter.class)
-				.getResultList();
+		List<AC_Routine_Parameter> c = this.routine_ParameterRepository.getRoutineParameter("AML003");
+
 		List<AlarmDTO> listOfParm = new ArrayList<>();
 		c.forEach(q -> {
 			AlarmDTO tempParm = new AlarmDTO();
