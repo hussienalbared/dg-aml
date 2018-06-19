@@ -49,14 +49,10 @@ public class AML020AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML020View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML020AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML020View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -68,21 +64,17 @@ public class AML020AlarmData {
 		AlarmsVM parmMAVM = new AlarmsVM();
 		List<AlarmDTO> listofParm;
 
-		try {
-			listofParm = selectRecordfromAML020Parm();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			parmMAVM.setAlrmVMs(listofParm);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML020AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofParm = selectRecordfromAML020Parm();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		parmMAVM.setAlrmVMs(listofParm);
 
 		return parmMAVM;
 
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML020View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML020View() {
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
@@ -135,7 +127,7 @@ public class AML020AlarmData {
 	 * ************ Get parameters Data
 	 */
 
-	public List<AlarmDTO> selectRecordfromAML020Parm() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML020Parm(){
 //		String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
 //				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML020' and B.current_Ind='Y')";
 //

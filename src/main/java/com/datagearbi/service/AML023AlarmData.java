@@ -54,13 +54,9 @@ public class AML023AlarmData {
         AlarmsVM scMAVM = new AlarmsVM();
         List<AlarmDTO> listofSC;
 
-        try {
-            listofSC = selectRecordfromAML023View();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            scMAVM.setAlrmVMs(listofSC);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML023AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofSC = selectRecordfromAML023View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
         return scMAVM;
 
@@ -73,20 +69,17 @@ public class AML023AlarmData {
         AlarmsVM parmMAVM = new AlarmsVM();
         List<AlarmDTO> listofParm;
 
-        try {
-            listofParm = selectRecordfromAML023Parm();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            parmMAVM.setAlrmVMs(listofParm);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML023AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofParm = selectRecordfromAML023Parm();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		parmMAVM.setAlrmVMs(listofParm);
 
         return parmMAVM;
 
     }
 
+    /**/
     //select Data
-    public List<AlarmDTO> selectRecordfromAML023View() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML023View()  {
 
         List<AlarmDTO> listOfSC = new ArrayList<>();
    
@@ -189,7 +182,7 @@ public class AML023AlarmData {
     * ************ Get parameters Data
     */ 
     
-    public List<AlarmDTO> selectRecordfromAML023Parm() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML023Parm() {
 //    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
 //				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML023' and B.current_Ind='Y')";
 

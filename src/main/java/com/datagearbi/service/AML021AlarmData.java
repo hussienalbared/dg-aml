@@ -53,13 +53,9 @@ public class AML021AlarmData {
         AlarmsVM scMAVM = new AlarmsVM();
         List<AlarmDTO> listofSC;
 
-        try {
-            listofSC = selectRecordfromAML021View();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            scMAVM.setAlrmVMs(listofSC);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML021AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofSC = selectRecordfromAML021View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
         return scMAVM;
 
@@ -72,20 +68,16 @@ public class AML021AlarmData {
         AlarmsVM parmMAVM = new AlarmsVM();
         List<AlarmDTO> listofParm;
 
-        try {
-            listofParm = selectRecordfromAML021Parm();
-            // System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
-            parmMAVM.setAlrmVMs(listofParm);
-        } catch (SQLException ex) {
-            Logger.getLogger(AML021AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        listofParm = selectRecordfromAML021Parm();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():   "+listofSC.get(0));
+		parmMAVM.setAlrmVMs(listofParm);
 
         return parmMAVM;
 
     }
 
     //select Data
-    public List<AlarmDTO> selectRecordfromAML021View() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML021View() {
 
 
 		List<AlarmDTO> listOfSC = new ArrayList<>();
@@ -148,7 +140,7 @@ public class AML021AlarmData {
     * ************ Get parameters Data
     */ 
     
-    public List<AlarmDTO> selectRecordfromAML021Parm() throws SQLException {
+    public List<AlarmDTO> selectRecordfromAML021Parm(){
 
 //    	String selectParmRecord = "select A  from AC_Routine_Parameter A where A.id.routine_Id "
 //				+ "=(select B.routine_Id from AC_Routine B" + " where B.routine_Name='AML021' and B.current_Ind='Y')";
