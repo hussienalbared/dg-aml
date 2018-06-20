@@ -5,14 +5,10 @@
  */
 package com.datagearbi.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,14 +47,10 @@ public class AML001AlarmData {
 		AlarmsVM scMAVM = new AlarmsVM();
 		List<AlarmDTO> listofSC;
 
-		try {
-			listofSC = selectRecordfromAML001View();
-			// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
-			// "+listofSC.get(0));
-			scMAVM.setAlrmVMs(listofSC);
-		} catch (SQLException ex) {
-			Logger.getLogger(AML001AlarmData.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		listofSC = selectRecordfromAML001View();
+		// System.out.println("com.datagearbi.aml.agb.AlarmProcess.getAlarmData():
+		// "+listofSC.get(0));
+		scMAVM.setAlrmVMs(listofSC);
 
 		return scMAVM;
 
@@ -81,25 +73,12 @@ public class AML001AlarmData {
 	}
 
 	// select Data
-	public List<AlarmDTO> selectRecordfromAML001View() throws SQLException {
+	public List<AlarmDTO> selectRecordfromAML001View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
-		// String selectRecord = "select D from Dgaml001TransLoanXToT D";
-		//
-		// String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper
-		// (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
-		// + ",A.routine_Short_Desc"
-		// + ", A.routine_Msg_Txt) from AC_Routine A where A.routine_Name='AML001' and
-		// current_Ind='Y'";
-
-		// List<Dgaml001TransLoanXToT> res1 =
-		// this.entityManager.createQuery(selectRecord, Dgaml001TransLoanXToT.class)
-		// .getResultList();
 		List<Dgaml001TransLoanXToT> res1 = this.dgaml001TransLoanXToRepository.findAll();
-		// List<AcRoutineHelper> list = this.entityManager.createQuery(selectRecord1,
-		// AcRoutineHelper.class)
-		// .getResultList();
+
 		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML001");
 
 		res1.forEach(a -> {
@@ -117,12 +96,7 @@ public class AML001AlarmData {
 			temp.setPolitical_Exp_Prsn_Ind(a.getPolitical_Exp_Prsn_Ind());
 			temp.setTrans_Key(String.valueOf(a.getTrans_Key()));
 
-			try {
-				temp.setTransactions_count(selectTransactionsCount(String.valueOf(a.getAcct_Key())));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			temp.setTransactions_count(selectTransactionsCount(a.getAcct_Key()));
 
 			temp.setDate_Key(String.valueOf(a.getDate_Key()));
 			temp.setTime_Key(String.valueOf(a.getTime_Key()));
@@ -131,8 +105,6 @@ public class AML001AlarmData {
 			temp.setTrans_Status_Key(String.valueOf(a.getTrans_Status_Key()));
 			temp.setBranch_Key(String.valueOf(a.getBranch_Key()));
 
-			// ResultSet res2 = statement2.executeQuery(selectRecord1);
-			// res2.next();
 			if (list.size() > 0) {
 				temp.setRoutine_Id(String.valueOf(list.get(0).getRoutine_Id()));
 				temp.setRoutine_Name(list.get(0).getRoutine_Name());
@@ -156,15 +128,10 @@ public class AML001AlarmData {
 	/**
 	 * ************** Get transactions count
 	 */
-	public String selectTransactionsCount(String Acct_key) throws SQLException {
+	public String selectTransactionsCount(int Acct_key) {
 		String transactions_count1 = null;
-		// String selectTransactionsCount = "SELECT count(D.trans_Key) as
-		// transactions_count"
-		// + " FROM Dgaml001TransLoanXToT D group by D.acctKey";
 
-		// List<Long> f =
-		// this.entityManager.createQuery(selectTransactionsCount).getResultList();
-		List<Long> f = this.dgaml001TransLoanXToRepository.getTransactionCount();
+		List<Long> f = this.dgaml001TransLoanXToRepository.getTransactionCount(Acct_key);
 
 		if (f.size() > 0) {
 			long z = f.get(0);
@@ -172,8 +139,6 @@ public class AML001AlarmData {
 		}
 
 		return transactions_count1;
-		// res.next();
-		// transactions_count1=res.getString("transactions_count");
 
 	}
 
@@ -182,7 +147,7 @@ public class AML001AlarmData {
 	 */
 	public List<AlarmDTO> selectRecordfromAML001Parm() {
 
-		List<AlarmDTO> listOfParm = new ArrayList<>();
+		List<AlarmDTO> listOfParm = new ArrayList<AlarmDTO>();
 
 		List<AC_Routine_Parameter> list = this.routine_ParameterRepository.getRoutineParameter("AML001");
 

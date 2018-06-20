@@ -68,7 +68,7 @@ public class AML007AlarmData {
 
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
         
-        List<DGAML007_Early_Termin_Loan> a = this.dgaml007_Early_Termin_LoanRepository.findAll();
+        List<DGAML007_Early_Termin_Loan> a = this.dgaml007_Early_Termin_LoanRepository.findAll().subList(1, 3);
         List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML007");
         
           a.forEach(res->{
@@ -153,13 +153,13 @@ public class AML007AlarmData {
      * ************** Get  transactions count
      */
 	public String selectTransactionsCount(int Acct_key) {
-
+System.out.println(Acct_key+"********************");
 		String transactions_count1 = null;
 
 		List<Object[]> z = this.dgaml007_Early_Termin_LoanRepository.getTransactionCount(Acct_key);
 		
 		if (z.size() > 0)
-			transactions_count1 = z.get(0)[0].toString();
+			transactions_count1 =z.get(0)[0]!=null? z.get(0)[0].toString():null;
 		return transactions_count1;
 	}    
     
@@ -172,7 +172,7 @@ public class AML007AlarmData {
 		List<Object[]> z = this.dgaml007_Early_Termin_LoanRepository.getTotalAmount(Acct_key); 
 				
 		if (z.size() > 0)
-			total_amount1 = String.valueOf(z.get(0)[0]);
+			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 	}    
     /**
@@ -186,7 +186,11 @@ public class AML007AlarmData {
         List <Object[]>tt= this.dgaml007_Early_Termin_LoanRepository.getTotalLoanAmount(Acct_key);
         
 	if(tt.size()>0)
-		total_loan_amount1= tt.get(0)[0].toString();
+	{
+		
+		total_loan_amount1= tt.get(0)[0]!=null?tt.get(0)[0].toString():null;
+	}
+	
         return total_loan_amount1;
     }
     
@@ -200,7 +204,7 @@ public class AML007AlarmData {
         List <Object[]>tt= this.dgaml007_Early_Termin_LoanRepository.selectInstNum(Acct_key);
         
         if(tt.size()>0)
-		inst_num1= tt.get(0)[0].toString();
+		inst_num1= tt.get(0)[0]!=null?tt.get(0)[0].toString():null;
         
                 return inst_num1;
     }

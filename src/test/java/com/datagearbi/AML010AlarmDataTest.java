@@ -44,6 +44,7 @@ public class AML010AlarmDataTest {
 	 */
 	@Test
 	public void selectRecordfromAML010ViewTest() {
+		System.out.println("selectRecordfromAML010ViewTest");
 		List<AlarmDTO> list = this.aml010AlarmData.selectRecordfromAML010View();
 		System.out.println("Cust_Name: " + list.get(0).getCust_Name());
 		assertThat(list.size()).isGreaterThan(0);

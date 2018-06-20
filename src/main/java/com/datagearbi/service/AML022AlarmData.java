@@ -159,7 +159,7 @@ public class AML022AlarmData {
 		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTotalAmount(Acct_key);
 		
 		if (z.size() > 0)
-			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
+			total_amount1 =  z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 
 	}

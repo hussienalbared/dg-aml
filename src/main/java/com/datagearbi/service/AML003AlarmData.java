@@ -71,7 +71,7 @@ public class AML003AlarmData {
 
 		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML003");
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		List<DGAML003_Install_paid_exceed_limit_UP> s = this.dGAML003_Install_paid_exceed_limit_UPRepositorty.findAll();
 		s.forEach(res -> {
