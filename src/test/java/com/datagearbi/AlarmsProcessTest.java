@@ -39,7 +39,7 @@ public class AlarmsProcessTest {
 //		assertThat(sizeafter).isGreaterThan(sizebefore);
 		
 	}
-	@Test
+//	@Test
 	public void insertAML002AlarmDataTest(){
 		this.alarmsProcess.insertAML002AlarmData();
 	}
@@ -48,5 +48,38 @@ public class AlarmsProcessTest {
 	public void dgaml001TransLoanXToRepositoryfindAllTest()
 	{
 		System.out.println("TESTETSTETS=" + this.dgaml001TransLoanXToRepository.findAll().size());
+	}
+	
+	/*
+	 * ?
+	 */
+	@Test
+	public void testInsertAML023AlarmData(){
+		System.out.println("testInsertAML023AlarmData");
+		this.alarmsProcess.insertAML023AlarmData();
+	}
+	
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void testInsertAML021AlarmData(){
+		System.out.println("testInsertAML021AlarmData");
+		this.alarmsProcess.insertAML021AlarmData();
+	}
+	
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void testInsertAML020AlarmData(){
+		System.out.println("testInsertAML020AlarmData");
+		this.alarmsProcess.insertAML020AlarmData();
+	}
+	
+//	@Test
+	public void testInsertAML016AlarmData(){
+		System.out.println("testInsertAML016AlarmData");
+		this.alarmsProcess.insertAML016AlarmData();
 	}
 }

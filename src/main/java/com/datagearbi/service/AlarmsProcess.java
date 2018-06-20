@@ -19,26 +19,37 @@ import com.datagearbi.repository.AlaramObjectRepository;
 public class AlarmsProcess {
 	@Autowired
 	private AlaramObjectRepository alaramObjectRepository;
+	
 	@Autowired
 	private AML001AlarmData AMLP;
+	
 	@Autowired
 	private AML002AlarmData AMLP2;
+	
 	@Autowired
 	private AML003AlarmData AMLP3;
+	
 	@Autowired
 	private AML005AlarmData AMLP5;
+	
 	@Autowired
 	private AML007AlarmData AMLP7;
+	
 	@Autowired
 	private AML010AlarmData AMLP10;
+	
 	@Autowired
 	private AML016AlarmData AMLP16;
+	
 	@Autowired
 	private AML020AlarmData AMLP20;
+	
 	@Autowired
 	private AML021AlarmData AMLP21;
+	
 	@Autowired
 	private AML022AlarmData AMLP22;
+	
 	@Autowired
 	private AML023AlarmData AMLP23;
 
@@ -74,10 +85,8 @@ public class AlarmsProcess {
 
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
+					
 					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-
-						System.out.println("FFFFFFLOAT: " + results.getAcct_Close_Date());
-						
 						String acct_Close_Date = results.getAcct_Close_Date();
 						String date_Key = results.getDate_Key();
 						String acct_Open_Date = results.getAcct_Open_Date();
@@ -505,6 +514,31 @@ public class AlarmsProcess {
 				String alert_count = "2", oldest_alert = "7";
 				flag1 = false;
 				flag2 = false;
+				
+				//***********************
+				// Was Commented By Hamza !!!
+                for (AlarmDTO parmres : parmResults.getAlrmsVMs())
+                {
+                	String total_amount = results.getTotal_amount();
+					String parm_value = parmres.getParm_value();
+					String num_inst = results.getNum_inst();
+                	
+                    int oo=5;
+                    if(parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant"))
+                    {
+                    	if(total_amount!=null && parm_value!=null && num_inst!=null) {
+                    		if (parmres.getParm_name().equalsIgnoreCase("m002_amount") && 
+                                    Float.parseFloat(total_amount)>=Integer.parseInt(parm_value))
+                                flag1=true;
+                            
+                            if(Integer.parseInt(num_inst)>=Integer.parseInt(parm_value) && 
+                                    parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
+                                flag2=true;
+                    	}
+                    }
+                }
+                
+                //***********************
 
 				if (flag1 == true && flag2 == true) {
 
@@ -543,7 +577,11 @@ public class AlarmsProcess {
 
 		for (AlarmDTO results : Results.getAlrmsVMs()) {
 
-			String msg = results.getRoutine_Msg_Txt().replace("#1", results.getAcct_No());
+			String routine_Msg_Txt = results.getRoutine_Msg_Txt();
+			String msg = "#" ;
+			
+			if(routine_Msg_Txt != null && results.getAcct_No() != null)
+				msg = routine_Msg_Txt.replace("#1", results.getAcct_No());
 
 			boolean flag1 = false, flag2 = false;
 
@@ -557,6 +595,33 @@ public class AlarmsProcess {
 				flag1 = false;
 				flag2 = false;
 
+				//***********************
+				// Was Commented By Hamza !!!
+//				for (AlarmDTO parmres : parmResults.getAlrmsVMs())
+//                {
+//					
+//					/**/
+//					String total_amount = results.getTotal_amount();
+//					String parm_value = parmres.getParm_value();
+//					String num_inst = results.getNum_inst();
+//					
+//                    int oo=5;
+//                    if(parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant"))
+//                    {
+//                    	if(total_amount!=null && parm_value!=null && num_inst!=null) {
+//                    		if (parmres.getParm_name().equalsIgnoreCase("m002_amount") && 
+//                                    Float.parseFloat(total_amount)>=Integer.parseInt(parm_value))
+//                                flag1=true;
+//                            
+//                            if(Integer.parseInt(num_inst)>=Integer.parseInt(parm_value) && 
+//                                    parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
+//                                flag2=true;
+//                    	}
+//                    
+//                    }
+//                }
+                //***********************
+				
 				if (flag1 == true && flag2 == true) {
 
 					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
@@ -588,7 +653,14 @@ public class AlarmsProcess {
 
 		for (AlarmDTO results : Results.getAlrmsVMs()) {
 
-			String msg = results.getRoutine_Msg_Txt().replace("#1", results.getAcct_No());
+			String routine_Msg_Txt = results.getRoutine_Msg_Txt();
+			String msg = "#" ;
+			
+			System.out.println("Orignal String=" + routine_Msg_Txt);
+			System.out.println("getAcct_No String=" + results.getAcct_No());
+			
+			if(routine_Msg_Txt != null && results.getAcct_No() != null)
+				msg = routine_Msg_Txt.replace("#1", results.getAcct_No());
 
 			boolean flag1 = false, flag2 = false;
 
@@ -623,7 +695,7 @@ public class AlarmsProcess {
 	/* End of AML021 - */
 
 	/* AML022 - *****/
-	public void insertAML022AlarmData() throws SQLException {
+	public void insertAML022AlarmData() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
@@ -689,12 +761,11 @@ public class AlarmsProcess {
 	/* End of AML022 - */
 
 	/* AML023 - *****/
-	public void insertAML023AlarmData() throws SQLException {
+	public void insertAML023AlarmData() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML023AlarmData AMLP = new AML023AlarmData();
 		AlarmsVM Results = AMLP23.getAML023AlarmData();
 
 		AlarmsVM parmResults = AMLP23.getAML023ParmData();
@@ -719,11 +790,15 @@ public class AlarmsProcess {
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
 					int oo = 5;
+					
+					String total_amount = results.getTotal_amount();
+					String parm_value = parmres.getParm_value();
+					
 					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						if (parmres.getParm_name().equalsIgnoreCase("m023_amount") && Float
-								.parseFloat(results.getTotal_amount()) >= Integer.parseInt(parmres.getParm_value()))
+						if (parmres.getParm_name().equalsIgnoreCase("m023_amount") &&
+								total_amount != null && parm_value != null 
+								&& Float.parseFloat(total_amount) >= Integer.parseInt(parm_value))
 							flag1 = true;
-
 					}
 				}
 
