@@ -66,7 +66,7 @@ public class AML007AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML007View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
         
         List<DGAML007_Early_Termin_Loan> a = this.dgaml007_Early_Termin_LoanRepository.findAll();
         List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML007");

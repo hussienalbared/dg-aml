@@ -69,7 +69,7 @@ public class AML016AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML016View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 //		String selectRecord = "select D from DGAML016_Account_Open_Outside_Region D";
 //		String selectRecord1 = "select new com.datagearbi.helper.AcRoutineHelper (A.routine_Id,A.routine_Name,A.alarm_Categ_Cd,A.alarm_Subcateg_Cd"
@@ -161,7 +161,7 @@ public class AML016AlarmData {
 		List<Object[]> z = this.dGAML016_Account_Open_Outside_RegionRepository.getTransactionCount(Acct_key);
 		
 		if (z.size() > 0)
-			transactions_count1 = z.get(0)[0].toString();
+			transactions_count1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return transactions_count1;
 	}
 
@@ -175,7 +175,7 @@ public class AML016AlarmData {
 		List<Object[]> z = this.dGAML016_Account_Open_Outside_RegionRepository.getTotalAmount(Acct_key);
 		
 		if (z.size() > 0)
-			total_amount1 = String.valueOf(z.get(0)[0]);
+			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 	}
 

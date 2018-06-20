@@ -20,17 +20,23 @@ public class AML021AlarmDataIntegrationTest {
 	@Autowired
 	private AML021AlarmData aml021AlarmData;
 	
+	/*
+	 * Passed
+	 */
 	@Test
 	public void TestSelectRecordfromAML023View() {
 		List<AlarmDTO> obj = this.aml021AlarmData.selectRecordfromAML021View();
-		System.out.println("Cust_Name: " + obj.get(0).getCust_Name());
+//		System.out.println("Cust_Name: " + obj.get(0).getCust_Name());
 		assertThat(obj).size().isGreaterThan(0);
 	}
 	
-//	@Test
+	/*
+	 * Passed
+	 */
+	@Test
 	public void TestSelectRecordfromAML023Parm() {
 		List<AlarmDTO> obj = this.aml021AlarmData.selectRecordfromAML021Parm();
-		System.out.println("Pram Name: " + obj.get(0).getParm_name());
+//		System.out.println("Pram Name: " + obj.get(0).getParm_name());
 		assertThat(obj).size().isGreaterThan(0);
 	}
 }

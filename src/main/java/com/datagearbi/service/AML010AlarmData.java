@@ -69,7 +69,7 @@ public class AML010AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML010View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 	
 		List<DGAML010_Excessive_ACCT_CLS_OPN> a = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.findAll();
 		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML010");
@@ -142,7 +142,7 @@ public class AML010AlarmData {
 		List<Object[]> z = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.getTransactionCount(Acct_key);
 		
 		if (z.size() > 0)
-			transactions_count1 = z.get(0)[0].toString();
+			transactions_count1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return transactions_count1;	}
 
 	/**
@@ -155,7 +155,7 @@ public class AML010AlarmData {
 		List<Object[]> z = this.dGAML010_Excessive_ACCT_CLS_OPNRepository.getTotalAmount(Acct_key);
 		
 		if (z.size() > 0)
-			total_amount1 = String.valueOf(z.get(0)[0]);
+			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 			}
 
@@ -169,7 +169,7 @@ public class AML010AlarmData {
 		 List <Object[]>tt= this.dGAML010_Excessive_ACCT_CLS_OPNRepository.selectInstNum(Acct_key);
 		 
 		 if(tt.size()>0)
-			inst_num1= tt.get(0)[0].toString();
+			inst_num1= tt.get(0)[0]!=null?tt.get(0)[0].toString():null;
 	        
 	                return inst_num1;
 	}

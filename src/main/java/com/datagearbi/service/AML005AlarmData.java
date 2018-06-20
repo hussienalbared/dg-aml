@@ -70,7 +70,7 @@ public class AML005AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML005View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		List<DGAML005_Install_Paid_In_Cash> a = this.DGAML005_Install_Paid_In_CashRepository.findAll();
 

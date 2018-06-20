@@ -65,7 +65,7 @@ public class AML022AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML022View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 //		String selectRecord = "select D from DGAML022_Payments_High_Risk_Industry_Cust D";
 //		
@@ -147,7 +147,7 @@ public class AML022AlarmData {
 		String transactions_count1 = null;
 		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTransactionCount(Acct_key);
 		if (z.size() > 0)
-			transactions_count1 = z.get(0)[0].toString();
+			transactions_count1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return transactions_count1;
 	}
 
@@ -159,7 +159,7 @@ public class AML022AlarmData {
 		List<Object[]> z = this.dGAML022_Payments_High_Risk_Industry_CustRepository.getTotalAmount(Acct_key);
 		
 		if (z.size() > 0)
-			total_amount1 = String.valueOf(z.get(0)[0]);
+			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 
 	}
