@@ -18,45 +18,62 @@ import com.datagearbi.service.AlarmsVM;
 public class AML016AlarmDataTest {
 	@Autowired
 	AML016AlarmData aml016AlarmData;
-	@Test
-	private void getAML016AlarmDataTest() {
+	
+//	@Test
+	public void getAML016AlarmDataTest() {
 		AlarmsVM alarmsVM = this.aml016AlarmData.getAML016AlarmData();
+		
 		assertThat(alarmsVM).isNotNull();
-
 	}
 
-	@Test
-	private void getAML016ParmDataTest() {
-		// TODO Auto-generated method stub
-
-		assertThat(this.aml016AlarmData.getAML016ParmData().getAlrmsVMs().size()).isGreaterThan(0);
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void getAML016ParmDataTest() {
+		AlarmsVM alarmsVM = this.aml016AlarmData.getAML016ParmData();
+		System.out.println("getAML016ParmDataTest" + alarmsVM.getAlrmsVMs().get(0));
+		assertThat(alarmsVM.getAlrmsVMs().size()).isGreaterThan(0);
 	}
 
+	/*
+	 * ??
+	 */
 	@Test
-	private void selectRecordfromAML016ViewTest() {
-
+	public void selectRecordfromAML016ViewTest() {
+		System.out.println("selectRecordfromAML016ViewTest");
 		List<AlarmDTO> list = this.aml016AlarmData.selectRecordfromAML016View();
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
-	@Test
-	void selectTransactionsCountTest() {
-		assertThat(this.aml016AlarmData.selectTransactionsCount(1884)).isNotNull();
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void selectTransactionsCountTest() {
+		String trans_count = this.aml016AlarmData.selectTransactionsCount(1884);
+		System.out.println("Transaction Count: " + trans_count);
+		assertThat(trans_count).isNotNull();
 	}
 
-	@Test
-	private void selectTotalAmountTest() {
-		// TODO Auto-generated method stub
-		assertThat(this.aml016AlarmData.selectTotalAmount(1884)).isNotNull();
-
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void selectTotalAmountTest() {
+		String total_amount = this.aml016AlarmData.selectTotalAmount(1884);
+		System.out.println("Total Amount: " + total_amount);
+		assertThat(total_amount).isNotNull();
 	}
 
-
-
-	@Test
-	private void selectRecordfromAML016ParmTest() {
-		assertThat(this.aml016AlarmData.selectRecordfromAML016Parm().size()).isGreaterThan(0);
-
+	/*
+	 * Passed
+	 */
+//	@Test
+	public void selectRecordfromAML016ParmTest() {
+		List<AlarmDTO> obj = this.aml016AlarmData.selectRecordfromAML016Parm(); 
+		System.out.println("Pram Name: " + obj.get(0).getParm_name());
+		assertThat(obj).size().isGreaterThan(0);
 	}
 
 }

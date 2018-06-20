@@ -66,7 +66,7 @@ public class AML021AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML021View() {
 
-		List<AlarmDTO> listOfSC = new ArrayList<>();
+		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 //		String selectRecord = "select D from DGAML021_Large_Number_Autho_Financed_Asset D";
 		

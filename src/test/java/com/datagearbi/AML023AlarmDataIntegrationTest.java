@@ -20,6 +20,9 @@ public class AML023AlarmDataIntegrationTest {
 	@Autowired
 	private AML023AlarmData amL023AlarmData;
 	
+	/*
+	 * Passed
+	 */
 	@Test
 	public void TestSelectRecordfromAML023View() {
 		List<AlarmDTO> obj = this.amL023AlarmData.selectRecordfromAML023View();
@@ -27,13 +30,21 @@ public class AML023AlarmDataIntegrationTest {
 		assertThat(obj).size().isGreaterThan(0);
 	}
 	
-	//@Test
+	/*
+	 * Passed
+	 * 5
+	 */
+//	@Test
 	public void TestSelectTransactionsCount() {
 		String trans_count = this.amL023AlarmData.selectTransactionsCount(1884);
 		System.out.println("Transaction Count: " + trans_count);
 		assertThat(trans_count).isNotNull();
 	}
 	
+	/*
+	 * Passed
+	 * 341685.00000
+	 */
 //	@Test
 	public void TestSelectTotalAmount() {
 		String total_amount = this.amL023AlarmData.selectTotalAmount(1884);
@@ -41,6 +52,9 @@ public class AML023AlarmDataIntegrationTest {
 		assertThat(total_amount).isNotNull();
 	}
 	
+	/*
+	 * Passed
+	 */
 //	@Test
 	public void TestSelectRecordfromAML023Parm() {
 		

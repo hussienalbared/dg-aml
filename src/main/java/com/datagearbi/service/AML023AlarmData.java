@@ -72,6 +72,7 @@ public class AML023AlarmData {
 	// select Data
 	public List<AlarmDTO> selectRecordfromAML023View() {
 
+//		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 		List<AlarmDTO> listOfSC = new ArrayList<>();
 
 		List<DGAML023_Payments_PEP> a = this.dgaml023_Payments_PEPRepository.findAll();
@@ -148,7 +149,7 @@ public class AML023AlarmData {
 
 		List<Object[]> z = this.dgaml023_Payments_PEPRepository.getTransactionCount(Acct_key);
 		if (z.size() > 0)
-			transactions_count1 = z.get(0)[0].toString();
+			transactions_count1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return transactions_count1;
 	}
 
@@ -161,7 +162,7 @@ public class AML023AlarmData {
 
 		List<Object[]> z = this.dgaml023_Payments_PEPRepository.getTotalAmount(Acct_key);
 		if (z.size() > 0)
-			total_amount1 = String.valueOf(z.get(0)[0]);
+			total_amount1 = z.get(0)[0]!=null?z.get(0)[0].toString():null;
 		return total_amount1;
 	}
 
