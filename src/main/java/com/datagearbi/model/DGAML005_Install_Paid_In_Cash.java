@@ -4,128 +4,146 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the DGAML005_Install_Paid_In_Cash database table.
  * 
  */
 /*
- * SELECT CUST.Cust_Type_Desc, CUST.Cust_No, CUST.Cust_Name, Acct.Acct_No, Acct.Acct_Key, Acct.Acct_Name, Acct.Acct_Type_Desc, Acct.Emp_Ind AS Acct_Emp_Ind, CUST.Emp_Ind AS Cust_Emp_Ind, CUST.Cust_Key, 
-                  CUST.Political_Exp_Prsn_Ind, TRANSF.Trans_Key, TRANSF.Date_Key, TRANSF.Time_Key, TRANSF.Trans_Type_Key, TRANSF.Cntry_Key, TRANSF.Trans_Status_Key, TRANSF.Branch_Key, TRANSF.Remit_Ext_Cust_Key, 
-                  TRANSF.Benef_Ext_Cust_Key, TRANSF.Trans_Ccy_Key, TRANSF.Post_Date_Key, TRANSF.Emp_Key, TRANSF.Ccy_Amt, TRANSF.Ccy_Amt_In_Trans_Ccy, TRANSF.Ccy_Amt_In_Acct_Ccy, TRANSF.Sec_Acct_Key, TRANSF.Relate_Ind, 
-                  TRANSF.Third_Cust_Ind
-FROM     DGAMLCORE.Customer AS CUST INNER JOIN
-                  DGAMLCORE.Customer_X_Account AS C_X_A ON CUST.Cust_Key = C_X_A.Cust_Key AND C_X_A.Chg_Current_Ind = 'Y' INNER JOIN
-                  DGAMLCORE.Account AS Acct ON C_X_A.Acct_Key = Acct.Acct_Key INNER JOIN
-                  DGAMLCORE.Transaction_Flow AS TRANSF ON Acct.Acct_Key = TRANSF.Acct_Key INNER JOIN
-                  DGAMLCORE.Transaction_Type AS Trans_T ON TRANSF.Trans_Type_Key = Trans_T.Trans_Type_Key
-WHERE  (Trans_T.Prim_Med_Desc IN ('CASH')) AND (Trans_T.Trans_Cr_Db_Ind_Cd IN ('CREDIT')) AND (CONVERT(DATETIME, CONVERT(varchar, TRANSF.Date_Key)) BETWEEN
-                      (SELECT MIN(Calendar_Date) - 90 AS Calendar_Date
-                       FROM      AC.AC_Job_Calendar
-                       WHERE   (Status_Ind = 'N')) AND
-                      (SELECT MIN(Calendar_Date) AS Calendar_Date
-                       FROM      AC.AC_Job_Calendar AS AC_Job_Calendar_1
-                       WHERE   (Status_Ind = 'N')))
+ * SELECT CUST.Cust_Type_Desc, CUST.Cust_No, CUST.Cust_Name, Acct.Acct_No,
+ * Acct.Acct_Key, Acct.Acct_Name, Acct.Acct_Type_Desc, Acct.Emp_Ind AS
+ * Acct_Emp_Ind, CUST.Emp_Ind AS Cust_Emp_Ind, CUST.Cust_Key,
+ * CUST.Political_Exp_Prsn_Ind, TRANSF.Trans_Key, TRANSF.Date_Key,
+ * TRANSF.Time_Key, TRANSF.Trans_Type_Key, TRANSF.Cntry_Key,
+ * TRANSF.Trans_Status_Key, TRANSF.Branch_Key, TRANSF.Remit_Ext_Cust_Key,
+ * TRANSF.Benef_Ext_Cust_Key, TRANSF.Trans_Ccy_Key, TRANSF.Post_Date_Key,
+ * TRANSF.Emp_Key, TRANSF.Ccy_Amt, TRANSF.Ccy_Amt_In_Trans_Ccy,
+ * TRANSF.Ccy_Amt_In_Acct_Ccy, TRANSF.Sec_Acct_Key, TRANSF.Relate_Ind,
+ * TRANSF.Third_Cust_Ind FROM DGAMLCORE.Customer AS CUST INNER JOIN
+ * DGAMLCORE.Customer_X_Account AS C_X_A ON CUST.Cust_Key = C_X_A.Cust_Key AND
+ * C_X_A.Chg_Current_Ind = 'Y' INNER JOIN DGAMLCORE.Account AS Acct ON
+ * C_X_A.Acct_Key = Acct.Acct_Key INNER JOIN DGAMLCORE.Transaction_Flow AS
+ * TRANSF ON Acct.Acct_Key = TRANSF.Acct_Key INNER JOIN
+ * DGAMLCORE.Transaction_Type AS Trans_T ON TRANSF.Trans_Type_Key =
+ * Trans_T.Trans_Type_Key WHERE (Trans_T.Prim_Med_Desc IN ('CASH')) AND
+ * (Trans_T.Trans_Cr_Db_Ind_Cd IN ('CREDIT')) AND (CONVERT(DATETIME,
+ * CONVERT(varchar, TRANSF.Date_Key)) BETWEEN (SELECT MIN(Calendar_Date) - 90 AS
+ * Calendar_Date FROM AC.AC_Job_Calendar WHERE (Status_Ind = 'N')) AND (SELECT
+ * MIN(Calendar_Date) AS Calendar_Date FROM AC.AC_Job_Calendar AS
+ * AC_Job_Calendar_1 WHERE (Status_Ind = 'N')))
  */
 @Entity
-@NamedQuery(name="DGAML005_Install_Paid_In_Cash.findAll", query="SELECT d FROM DGAML005_Install_Paid_In_Cash d")
-@Table(name="DGAML005_Install_Paid_In_Cash",schema="DGAMLCORE")
+@NamedQuery(name = "DGAML005_Install_Paid_In_Cash.findAll", query = "SELECT d FROM DGAML005_Install_Paid_In_Cash d")
+@Table(name = "DGAML005_Install_Paid_In_Cash", schema = "DGAMLCORE")
 public class DGAML005_Install_Paid_In_Cash implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Column(name="Exec_Cust_Key")
- private int Exec_Cust_Key;
+	@Column(name = "Exec_Cust_Key")
+	private int Exec_Cust_Key;
+
 	public int getExec_Cust_Key() {
 		return Exec_Cust_Key;
+	}
+
+	@Id
+	@Column(name = "IdRow")
+	private int IdRow;
+
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+
+	public int getIdRow() {
+		return IdRow;
 	}
 
 	public void setExec_Cust_Key(int exec_Cust_Key) {
 		Exec_Cust_Key = exec_Cust_Key;
 	}
-	@Column(name="Acct_Emp_Ind")
+
+	@Column(name = "Acct_Emp_Ind")
 	private String acct_Emp_Ind;
-@Id
-	@Column(name="Acct_Key")
+
+	@Column(name = "Acct_Key")
 	private int acct_Key;
 
-	@Column(name="Acct_Name")
+	@Column(name = "Acct_Name")
 	private String acct_Name;
 
-	@Column(name="Acct_No")
+	@Column(name = "Acct_No")
 	private String acct_No;
 
-	@Column(name="Acct_Type_Desc")
+	@Column(name = "Acct_Type_Desc")
 	private String acct_Type_Desc;
 
-	@Column(name="Benef_Ext_Cust_Key")
+	@Column(name = "Benef_Ext_Cust_Key")
 	private int benef_Ext_Cust_Key;
 
-	@Column(name="Branch_Key")
+	@Column(name = "Branch_Key")
 	private int branch_Key;
 
-	@Column(name="Ccy_Amt")
+	@Column(name = "Ccy_Amt")
 	private BigDecimal ccy_Amt;
 
-	@Column(name="Ccy_Amt_In_Acct_Ccy")
+	@Column(name = "Ccy_Amt_In_Acct_Ccy")
 	private BigDecimal ccy_Amt_In_Acct_Ccy;
 
-	@Column(name="Ccy_Amt_In_Trans_Ccy")
+	@Column(name = "Ccy_Amt_In_Trans_Ccy")
 	private BigDecimal ccy_Amt_In_Trans_Ccy;
 
-	@Column(name="Cntry_Key")
+	@Column(name = "Cntry_Key")
 	private int cntry_Key;
 
-	@Column(name="Cust_Emp_Ind")
+	@Column(name = "Cust_Emp_Ind")
 	private String cust_Emp_Ind;
 
-	@Column(name="Cust_Key")
+	@Column(name = "Cust_Key")
 	private int cust_Key;
 
-	@Column(name="Cust_Name")
+	@Column(name = "Cust_Name")
 	private String cust_Name;
 
-	@Column(name="Cust_No")
+	@Column(name = "Cust_No")
 	private String cust_No;
 
-	@Column(name="Cust_Type_Desc")
+	@Column(name = "Cust_Type_Desc")
 	private String cust_Type_Desc;
 
-	@Column(name="Date_Key")
+	@Column(name = "Date_Key")
 	private int date_Key;
 
-	@Column(name="Emp_Key")
+	@Column(name = "Emp_Key")
 	private int emp_Key;
 
-	@Column(name="Political_Exp_Prsn_Ind")
+	@Column(name = "Political_Exp_Prsn_Ind")
 	private String political_Exp_Prsn_Ind;
 
-	@Column(name="Post_Date_Key")
+	@Column(name = "Post_Date_Key")
 	private int post_Date_Key;
 
-	@Column(name="Relate_Ind")
+	@Column(name = "Relate_Ind")
 	private String relate_Ind;
 
-	@Column(name="Remit_Ext_Cust_Key")
+	@Column(name = "Remit_Ext_Cust_Key")
 	private int remit_Ext_Cust_Key;
 
-	@Column(name="Sec_Acct_Key")
+	@Column(name = "Sec_Acct_Key")
 	private int sec_Acct_Key;
 
-	@Column(name="Third_Cust_Ind")
+	@Column(name = "Third_Cust_Ind")
 	private String third_Cust_Ind;
 
-	@Column(name="Time_Key")
+	@Column(name = "Time_Key")
 	private int time_Key;
 
-	@Column(name="Trans_Ccy_Key")
+	@Column(name = "Trans_Ccy_Key")
 	private int trans_Ccy_Key;
 
-	@Column(name="Trans_Key")
+	@Column(name = "Trans_Key")
 	private int trans_Key;
 
-	@Column(name="Trans_Status_Key")
+	@Column(name = "Trans_Status_Key")
 	private int trans_Status_Key;
 
-	@Column(name="Trans_Type_Key")
+	@Column(name = "Trans_Type_Key")
 	private int trans_Type_Key;
 
 	public DGAML005_Install_Paid_In_Cash() {

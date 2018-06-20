@@ -13,10 +13,19 @@ import javax.persistence.*;
 @NamedQuery(name="Dgaml001TransLoanXToT.findAll", query="SELECT d FROM Dgaml001TransLoanXToT d")
 public class Dgaml001TransLoanXToT implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+	
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;
-    @Id
+   
 	@Column(name="Acct_Key")
 	private int acctKey;
 

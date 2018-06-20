@@ -16,6 +16,15 @@ public class DGAML022_Payments_High_Risk_Industry_Cust implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+	
 	@Column(name="Acct_Key")
 	private int acct_Key;
 

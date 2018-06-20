@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.datagearbi.model.DGAML007_Early_Termin_Loan;
 
-public interface DGAML007_Early_Termin_LoanRepository extends JpaRepository<DGAML007_Early_Termin_Loan, String>{
+public interface DGAML007_Early_Termin_LoanRepository extends JpaRepository<DGAML007_Early_Termin_Loan, Integer>{
 
 	@Query("SELECT count(D.trans_Key) ,D.expr6 FROM DGAML007_Early_Termin_Loan D where D.expr6=?1 group by D.expr6")
 	public List<Object[]> getTransactionCount(int Acct_key);

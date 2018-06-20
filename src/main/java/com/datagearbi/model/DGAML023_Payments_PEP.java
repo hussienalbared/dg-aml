@@ -4,109 +4,121 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the DGAML023_Payments_PEP database table.
  * 
  */
 @Entity
-@Table(name="DGAML023_Payments_PEP",schema="DGAMLCORE")
-@NamedQuery(name="DGAML023_Payments_PEP.findAll", query="SELECT d FROM DGAML023_Payments_PEP d")
+@Table(name = "DGAML023_Payments_PEP", schema = "DGAMLCORE")
+@NamedQuery(name = "DGAML023_Payments_PEP.findAll", query = "SELECT d FROM DGAML023_Payments_PEP d")
 public class DGAML023_Payments_PEP implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Column(name="Exec_Cust_Key")
+
+	@Column(name = "Exec_Cust_Key")
 	public void setExec_Cust_Key(int exec_Cust_Key) {
 		Exec_Cust_Key = exec_Cust_Key;
 	}
+
 	public int getExec_Cust_Key() {
 		return Exec_Cust_Key;
 	}
-private int Exec_Cust_Key;
-	@Column(name="Acct_Name")
+	
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+
+	private int Exec_Cust_Key;
+	@Column(name = "Acct_Name")
 	private String acct_Name;
 
-	@Column(name="Acct_Type_Desc")
+	@Column(name = "Acct_Type_Desc")
 	private String acct_Type_Desc;
 
-	@Column(name="Benef_Ext_Cust_Key")
+	@Column(name = "Benef_Ext_Cust_Key")
 	private int benef_Ext_Cust_Key;
 
-	@Column(name="Branch_Key")
+	@Column(name = "Branch_Key")
 	private int branch_Key;
 
-	@Column(name="Ccy_Amt")
+	@Column(name = "Ccy_Amt")
 	private BigDecimal ccy_Amt;
 
-	@Column(name="Ccy_Amt_In_Acct_Ccy")
+	@Column(name = "Ccy_Amt_In_Acct_Ccy")
 	private BigDecimal ccy_Amt_In_Acct_Ccy;
 
-	@Column(name="Ccy_Amt_In_Trans_Ccy")
+	@Column(name = "Ccy_Amt_In_Trans_Ccy")
 	private BigDecimal ccy_Amt_In_Trans_Ccy;
 
-	@Column(name="Cntry_Key")
+	@Column(name = "Cntry_Key")
 	private int cntry_Key;
 
-	@Column(name="Cust_Emp_Ind")
+	@Column(name = "Cust_Emp_Ind")
 	private String cust_Emp_Ind;
 
-	@Column(name="Cust_Key")
+	@Column(name = "Cust_Key")
 	private int cust_Key;
 
-	@Column(name="Cust_Name")
+	@Column(name = "Cust_Name")
 	private String cust_Name;
 
-	@Column(name="Cust_No")
+	@Column(name = "Cust_No")
 	private String cust_No;
 
-	@Column(name="Cust_Type_Desc")
+	@Column(name = "Cust_Type_Desc")
 	private String cust_Type_Desc;
 
-	@Column(name="Date_Key")
+	@Column(name = "Date_Key")
 	private int date_Key;
 
-	@Column(name="Emp_Key")
+	@Column(name = "Emp_Key")
 	private int emp_Key;
 
-	@Column(name="Expr16")
+	@Column(name = "Expr16")
 	private String expr16;
-@Id
-	@Column(name="Expr6")
+	
+	@Column(name = "Expr6")
 	private int expr6;
 
-	@Column(name="Expr7")
+	@Column(name = "Expr7")
 	private String expr7;
 
-	@Column(name="Political_Exp_Prsn_Ind")
+	@Column(name = "Political_Exp_Prsn_Ind")
 	private String political_Exp_Prsn_Ind;
 
-	@Column(name="Post_Date_Key")
+	@Column(name = "Post_Date_Key")
 	private int post_Date_Key;
 
-	@Column(name="Relate_Ind")
+	@Column(name = "Relate_Ind")
 	private String relate_Ind;
 
-	@Column(name="Remit_Ext_Cust_Key")
+	@Column(name = "Remit_Ext_Cust_Key")
 	private int remit_Ext_Cust_Key;
 
-	@Column(name="Sec_Acct_Key")
+	@Column(name = "Sec_Acct_Key")
 	private int sec_Acct_Key;
 
-	@Column(name="Third_Cust_Ind")
+	@Column(name = "Third_Cust_Ind")
 	private String third_Cust_Ind;
 
-	@Column(name="Time_Key")
+	@Column(name = "Time_Key")
 	private int time_Key;
 
-	@Column(name="Trans_Ccy_Key")
+	@Column(name = "Trans_Ccy_Key")
 	private int trans_Ccy_Key;
 
-	@Column(name="Trans_Key")
+	@Column(name = "Trans_Key")
 	private int trans_Key;
 
-	@Column(name="Trans_Status_Key")
+	@Column(name = "Trans_Status_Key")
 	private int trans_Status_Key;
 
-	@Column(name="Trans_Type_Key")
+	@Column(name = "Trans_Type_Key")
 	private int trans_Type_Key;
 
 	public DGAML023_Payments_PEP() {

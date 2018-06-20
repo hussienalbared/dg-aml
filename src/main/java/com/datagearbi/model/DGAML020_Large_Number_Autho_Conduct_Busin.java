@@ -19,7 +19,15 @@ public class DGAML020_Large_Number_Autho_Conduct_Busin implements Serializable {
 
 	@Column(name="Cust_Ident_Type_Desc")
 	private String cust_Ident_Type_Desc;
-@Id
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
 	@Column(name="Cust_Key")
 	private int cust_Key;
 

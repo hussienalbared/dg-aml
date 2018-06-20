@@ -1,9 +1,5 @@
 package com.datagearbi;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
-import com.datagearbi.model.Dgaml001TransLoanXToT;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.service.AlarmsProcess;
 
@@ -49,7 +44,7 @@ public class AlarmsProcessTest {
 	public void insertAML005AlarmDataTest(){
 		this.alarmsProcess.insertAML005AlarmData();
 	}
-//	@Test
+	@Test
 	public void insertAML007AlarmDataTest(){
 		this.alarmsProcess.insertAML007AlarmData();
 	}
@@ -65,7 +60,7 @@ public class AlarmsProcessTest {
 	public void insertAML022AlarmDataTest(){
 		this.alarmsProcess.insertAML022AlarmData();
 	}
-	@Test
+//	@Test
 	public void insertAML023AlarmDataTest(){
 		this.alarmsProcess.insertAML023AlarmData();
 	}
@@ -88,7 +83,7 @@ public class AlarmsProcessTest {
 	/*
 	 * ?
 	 */
-	@Test
+	//@Test
 	public void testInsertAML022AlarmData(){
 		System.out.println("testInsertAML022AlarmData");
 		this.alarmsProcess.insertAML022AlarmData();

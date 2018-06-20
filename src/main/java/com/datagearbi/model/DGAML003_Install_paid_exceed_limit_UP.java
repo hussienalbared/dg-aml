@@ -19,14 +19,22 @@ public class DGAML003_Install_paid_exceed_limit_UP implements Serializable {
 	public int getExec_Cust_Key() {
 		return Exec_Cust_Key;
 	}
-
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
 	public void setExec_Cust_Key(int exec_Cust_Key) {
 		Exec_Cust_Key = exec_Cust_Key;
 	}
 
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;
-@Id
+
 	@Column(name="Acct_Key")
 	private int acct_Key;
 

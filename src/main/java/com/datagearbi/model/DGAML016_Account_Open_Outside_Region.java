@@ -51,6 +51,14 @@ private int Exec_Cust_Key;
 	private String cust_Emp_Ind;
 
 	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
 	@Column(name="Cust_Key")
 	private int cust_Key;
 
