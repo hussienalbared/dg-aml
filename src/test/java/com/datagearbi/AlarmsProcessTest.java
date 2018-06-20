@@ -41,7 +41,7 @@ public class AlarmsProcessTest {
 	}
 //	@Test
 	public void insertAML002AlarmDataTest(){
-		this.alarmsProcess.insertAML002AlarmData();
+		this.alarmsProcess.insertAML002AlarmData();}
 	public void insertAML003AlarmDataTest(){
 		this.alarmsProcess.insertAML003AlarmData();
 	}

@@ -89,12 +89,9 @@ public class AlarmsProcess {
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
 					
 					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-<<<<<<< HEAD
-=======
 
-						System.out.println("FFFFFFLOAT: " + results.getAcct_Close_Date());
 
->>>>>>> ad946afb80799bccb55d20f445015837d8582be7
+		
 						String acct_Close_Date = results.getAcct_Close_Date();
 						String date_Key = results.getDate_Key();
 						String acct_Open_Date = results.getAcct_Open_Date();
