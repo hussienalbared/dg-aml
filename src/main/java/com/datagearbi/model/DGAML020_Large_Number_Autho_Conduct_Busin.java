@@ -8,7 +8,8 @@ import javax.persistence.*;
  * The persistent class for the DGAML020_Large_Number_Autho_Conduct_Busin database table.
  * 
  */
-@Embeddable
+@Entity
+@Table(name="DGAML020_Large_Number_Autho_Conduct_Busin",schema="DGAMLCORE")
 @NamedQuery(name="DGAML020_Large_Number_Autho_Conduct_Busin.findAll", query="SELECT d FROM DGAML020_Large_Number_Autho_Conduct_Busin d")
 public class DGAML020_Large_Number_Autho_Conduct_Busin implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +19,15 @@ public class DGAML020_Large_Number_Autho_Conduct_Busin implements Serializable {
 
 	@Column(name="Cust_Ident_Type_Desc")
 	private String cust_Ident_Type_Desc;
-
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
 	@Column(name="Cust_Key")
 	private int cust_Key;
 

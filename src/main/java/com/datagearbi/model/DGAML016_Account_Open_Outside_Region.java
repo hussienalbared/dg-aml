@@ -9,11 +9,20 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML016_Account_Open_Outside_Region database table.
  * 
  */
-@Embeddable
+@Entity
+@Table(name="DGAML016_Account_Open_Outside_Region",schema="DGAMLCORE")
 @NamedQuery(name="DGAML016_Account_Open_Outside_Region.findAll", query="SELECT d FROM DGAML016_Account_Open_Outside_Region d")
 public class DGAML016_Account_Open_Outside_Region implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@Column(name="Exec_Cust_Key")
+private int Exec_Cust_Key;
+	public void setExec_Cust_Key(int exec_Cust_Key) {
+		Exec_Cust_Key = exec_Cust_Key;
+	}
+	public int getExec_Cust_Key() {
+		return Exec_Cust_Key;
+	}
+	
 	@Column(name="Acct_Name")
 	private String acct_Name;
 
@@ -41,6 +50,15 @@ public class DGAML016_Account_Open_Outside_Region implements Serializable {
 	@Column(name="Cust_Emp_Ind")
 	private String cust_Emp_Ind;
 
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
 	@Column(name="Cust_Key")
 	private int cust_Key;
 

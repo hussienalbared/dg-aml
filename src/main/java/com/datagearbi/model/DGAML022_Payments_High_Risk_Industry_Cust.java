@@ -9,11 +9,22 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML022_Payments_High_Risk_Industry_Cust database table.
  * 
  */
-@Embeddable
+@Entity
+@Table(name="DGAML022_Payments_High_Risk_Industry_Cust", schema="DGAMLCORE")
 @NamedQuery(name="DGAML022_Payments_High_Risk_Industry_Cust.findAll", query="SELECT d FROM DGAML022_Payments_High_Risk_Industry_Cust d")
 public class DGAML022_Payments_High_Risk_Industry_Cust implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+	
 	@Column(name="Acct_Key")
 	private int acct_Key;
 

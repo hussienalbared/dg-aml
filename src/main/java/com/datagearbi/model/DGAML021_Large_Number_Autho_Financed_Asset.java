@@ -3,38 +3,49 @@ package com.datagearbi.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
- * The persistent class for the DGAML021_Large_Number_Autho_Financed_Asset database table.
+ * The persistent class for the DGAML021_Large_Number_Autho_Financed_Asset
+ * database table.
  * 
  */
-@Embeddable
-@NamedQuery(name="DGAML021_Large_Number_Autho_Financed_Asset.findAll", query="SELECT d FROM DGAML021_Large_Number_Autho_Financed_Asset d")
+@Entity
+@Table(name = "DGAML021_Large_Number_Autho_Financed_Asset", schema = "DGAMLCORE")
+@NamedQuery(name = "DGAML021_Large_Number_Autho_Financed_Asset.findAll", query = "SELECT d FROM DGAML021_Large_Number_Autho_Financed_Asset d")
 public class DGAML021_Large_Number_Autho_Financed_Asset implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="Acct_Emp_Ind")
+	@Column(name = "Acct_Emp_Ind")
 	private String acct_Emp_Ind;
 
-	@Column(name="Cust_Ident_Type_Desc")
+	@Column(name = "Cust_Ident_Type_Desc")
 	private String cust_Ident_Type_Desc;
 
-	@Column(name="Cust_Key")
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+	
+	@Column(name = "Cust_Key")
 	private int cust_Key;
 
-	@Column(name="Cust_Name")
+	@Column(name = "Cust_Name")
 	private String cust_Name;
 
-	@Column(name="Cust_No")
+	@Column(name = "Cust_No")
 	private String cust_No;
 
-	@Column(name="Cust_Type_Desc")
+	@Column(name = "Cust_Type_Desc")
 	private String cust_Type_Desc;
 
-	@Column(name="Empr_Name")
+	@Column(name = "Empr_Name")
 	private String empr_Name;
 
-	@Column(name="Political_Exp_Prsn_Ind")
+	@Column(name = "Political_Exp_Prsn_Ind")
 	private String political_Exp_Prsn_Ind;
 
 	public DGAML021_Large_Number_Autho_Financed_Asset() {

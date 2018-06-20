@@ -24,6 +24,8 @@ public interface AlaramObjectRepository extends JpaRepository<AC_Alarm, Long> {
 	@Modifying
 	@Query("update AC_Alarm t set t.alarm_Status_Cd=?2 where t.alarm_Id=?1")
 	public void closeAlarmById(long alarmId,String alarmStatusCode);
+	@Query("select count(a) from AC_Alarm a where a.alarmed_Obj_No=?1 and a.routine_Name=?2 and a.actual_Value_Txt=?3")
+	public int countAlarms(String alarmed_Obj_No,String routine_Name,String actual_Value_Txt);
 	
 
 }

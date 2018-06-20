@@ -9,10 +9,28 @@ import java.math.BigDecimal;
  * The persistent class for the DGAML003_Install_paid_exceed_limit_UP database table.
  * 
  */
-@Embeddable
+@Entity
 @NamedQuery(name="DGAML003_Install_paid_exceed_limit_UP.findAll", query="SELECT d FROM DGAML003_Install_paid_exceed_limit_UP d")
+@Table(name="DGAML003_Install_paid_exceed_limit_UP",schema="DGAMLCORE")
 public class DGAML003_Install_paid_exceed_limit_UP implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@Column(name="Exec_Cust_Key")
+ private int Exec_Cust_Key;
+	public int getExec_Cust_Key() {
+		return Exec_Cust_Key;
+	}
+	@Id
+	@Column(name="IdRow")
+	private int IdRow;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
+	public int getIdRow() {
+		return IdRow;
+	}
+	public void setExec_Cust_Key(int exec_Cust_Key) {
+		Exec_Cust_Key = exec_Cust_Key;
+	}
 
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;

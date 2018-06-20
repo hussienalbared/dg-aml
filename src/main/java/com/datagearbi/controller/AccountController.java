@@ -1,11 +1,12 @@
 package com.datagearbi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.h2.util.TempFileDeleter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.DateUtil;
 import com.datagearbi.model.Account;
+import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AccountObjectRepository;
-
-
-
-
-
+import com.datagearbi.service.AlarmDTO;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -30,14 +29,15 @@ public class AccountController {
 
 	@Autowired
 	private AccountObjectRepository accountObjectRepository;
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-//
+
+	//
 	@RequestMapping(value = "allaccounts", method = RequestMethod.GET)
 	public List allAccounts() {
 		return accountObjectRepository.findAll();
-	
+
 	}
 
 	/* Search function- */
@@ -57,59 +57,70 @@ public class AccountController {
 			return null;
 		}
 
-		
-
 		String query = "select A from Account A where 1=1 ";
-		if (!AccountNumber.isEmpty()&&AccountNumber!=null) {
+		if (!AccountNumber.isEmpty() && AccountNumber != null) {
 			query += " and A.acct_No like '%" + AccountNumber + "%'";
 
 		}
-		if (!AccountType.isEmpty()&&AccountType!=null) {
+		if (!AccountType.isEmpty() && AccountType != null) {
 			query += " and A.acct_Type_Desc like '%" + AccountType + "%'";
 
 		}
-		if (!AccountName.isEmpty()&&AccountName!=null) {
+		if (!AccountName.isEmpty() && AccountName != null) {
 			query += " and A.acct_Name like '%" + AccountName + "%'";
 
 		}
 
-		if (!AccountOpenDate.isEmpty()&&AccountOpenDate!=null) {
-			
+		if (!AccountOpenDate.isEmpty() && AccountOpenDate != null) {
+
 			query += " and A.acct_Open_Date >='" + DateUtil.startOfDay(AccountOpenDate) + "'"
-					+" and A.acct_Open_Date <=' "+ DateUtil.endOfDay(AccountOpenDate) + "'";
-		
+					+ " and A.acct_Open_Date <=' " + DateUtil.endOfDay(AccountOpenDate) + "'";
 
 		}
-		if (!AccountCloseDate.isEmpty()&&AccountCloseDate!=null) {
-			
-			
+		if (!AccountCloseDate.isEmpty() && AccountCloseDate != null) {
+
 			query += " and A.acct_Close_Date >='" + DateUtil.startOfDay(AccountCloseDate) + "'"
-					+" and A.acct_Close_Date <='"+ DateUtil.endOfDay(AccountCloseDate) + "'";
-		
-
+					+ " and A.acct_Close_Date <='" + DateUtil.endOfDay(AccountCloseDate) + "'";
 
 		}
-	return entityManager.createQuery(query,Account.class).getResultList();
-	
+		return entityManager.createQuery(query, Account.class).getResultList();
+
 	}
+
 	@RequestMapping("accountDetail")
-	public Account getAccountDetail(@RequestParam("accountNumber") String accountNumber  ){
-		
+	public Account getAccountDetail(@RequestParam("accountNumber") String accountNumber) {
+
 		return this.accountObjectRepository.fetchAccountsByAccountNumber(accountNumber).get(0);
-		
-		
+
 	}
+
 	@RequestMapping("alarmInBrief")
-	public List  alarmAccount(@RequestParam("accountKey") String accountKey ) {
-	
-		String query2="Select D from AC_Alarm D where D.alarmed_Obj_Level_Cd='ACC' and D.alarmed_Obj_Key= "+Long.parseLong(accountKey);
+	public List alarmAccount(@RequestParam("accountKey") String accountKey) {
+
+		String query2 = "Select D from AC_Alarm D where D.alarmed_Obj_Level_Cd='ACC' and D.alarmed_Obj_Key= "
+				+ Long.parseLong(accountKey);
 		return this.entityManager.createQuery(query2).getResultList();
 	}
+
 	@RequestMapping("accountDetailSection3")
-	public List  accountDetailSection3(@RequestParam("accountNo") String accountNo) {
-	
-		String query2="Select D from Suspected_transactions_V D where D.acct_No='"+accountNo+"'";
+	public List accountDetailSection3(@RequestParam("accountNo") String accountNo) {
+
+		String query2 = "Select D from Suspected_transactions_V D where D.acct_No='" + accountNo + "'";
 		return this.entityManager.createQuery(query2).getResultList();
 	}
+
+	@RequestMapping("test")
+	public String test() {
+
+		// comment by hussien
+
+		String selectTransactionsCount = "select sum(T.ccy_Amt) as all_amnt from Transaction_Flow T"
+				+ " where T.acct_Key=" + 1884 ;
+
 	
+	
+
+	List tt= this.entityManager.createQuery(selectTransactionsCount,Object.class).getResultList();
+	return tt.get(0).toString();
+		}
 }
