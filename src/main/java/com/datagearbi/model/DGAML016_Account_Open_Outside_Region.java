@@ -22,7 +22,7 @@ private int Exec_Cust_Key;
 	public int getExec_Cust_Key() {
 		return Exec_Cust_Key;
 	}
-	@Id
+	
 	@Column(name="Acct_Name")
 	private String acct_Name;
 
@@ -50,6 +50,7 @@ private int Exec_Cust_Key;
 	@Column(name="Cust_Emp_Ind")
 	private String cust_Emp_Ind;
 
+	@Id
 	@Column(name="Cust_Key")
 	private int cust_Key;
 

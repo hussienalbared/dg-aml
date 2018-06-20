@@ -38,7 +38,7 @@ public class AML007AlarmDataTest {
 
 	}
 
-	@Test
+//	@Test
 	public void getAML007ParmDataTest() {
 		// TODO Auto-generated method stub
 
@@ -52,43 +52,43 @@ public class AML007AlarmDataTest {
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
-	@Test
+//	@Test
 	public void selectTransactionsCountTest() {
 		assertThat(this.alAml007AlarmData.selectTransactionsCount(2000)).isNotNull();
 	}
 
-	@Test
+//	@Test
 	public void selectTotalAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectTotalAmount(2000)).isNotNull();
 
 	}
-	@Test
+//	@Test
 	
 	public void dgaml007_Early_Termin_LoanRepositoryfindAll()
 	{
 		assertThat(this.dgaml007_Early_Termin_LoanRepository.findAll().size()).isGreaterThan(0);
 	}
 
-	@Test
+//	@Test
 	public void selectInstNumTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectInstNum(2000)).isNotNull();
 	}
 
-	@Test
+//	@Test
 	public void selectRecordfromAML007ParmTest() {
 		assertThat(this.alAml007AlarmData.selectRecordfromAML007Parm().size()).isGreaterThan(0);
 
 	}
 
-	@Test
+//	@Test
 	public void selectTotalLoanAmountTest() {
 		// TODO Auto-generated method stub
 		assertThat(this.alAml007AlarmData.selectTotalLoanAmount(2000)).isNotNull();
 
 	}
-	@Test
+//	@Test
 	public void ac_RoutineRepositoryAML007(){
 	int size=	this.ac_RoutineRepository.getRoutineDetail("AML007").size();
 	System.out.println(size+"9999999999999999999");

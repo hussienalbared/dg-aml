@@ -39,9 +39,33 @@ public class AlarmsProcessTest {
 //		assertThat(sizeafter).isGreaterThan(sizebefore);
 		
 	}
+//	@Test
+	public void insertAML003AlarmDataTest(){
+		this.alarmsProcess.insertAML003AlarmData();
+	}
+	//@Test
+	public void insertAML005AlarmDataTest(){
+		this.alarmsProcess.insertAML005AlarmData();
+	}
+//	@Test
+	public void insertAML007AlarmDataTest(){
+		this.alarmsProcess.insertAML007AlarmData();
+	}
+//	@Test
+	public void insertAML010AlarmDataTest(){
+		this.alarmsProcess.insertAML010AlarmData();
+	}
+//	@Test
+	public void insertAML016AlarmDataTest(){
+		this.alarmsProcess.insertAML016AlarmData();
+	}
+//	@Test
+	public void insertAML022AlarmDataTest(){
+		this.alarmsProcess.insertAML022AlarmData();
+	}
 	@Test
-	public void insertAML002AlarmDataTest(){
-		this.alarmsProcess.insertAML002AlarmData();
+	public void insertAML023AlarmDataTest(){
+		this.alarmsProcess.insertAML023AlarmData();
 	}
 	
 //	@Test
