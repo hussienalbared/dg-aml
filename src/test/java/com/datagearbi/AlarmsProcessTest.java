@@ -53,10 +53,19 @@ public class AlarmsProcessTest {
 	/*
 	 * ?
 	 */
-	@Test
+//	@Test
 	public void testInsertAML023AlarmData(){
 		System.out.println("testInsertAML023AlarmData");
 		this.alarmsProcess.insertAML023AlarmData();
+	}
+	
+	/*
+	 * ?
+	 */
+	@Test
+	public void testInsertAML022AlarmData(){
+		System.out.println("testInsertAML022AlarmData");
+		this.alarmsProcess.insertAML022AlarmData();
 	}
 	
 	/*
@@ -75,11 +84,5 @@ public class AlarmsProcessTest {
 	public void testInsertAML020AlarmData(){
 		System.out.println("testInsertAML020AlarmData");
 		this.alarmsProcess.insertAML020AlarmData();
-	}
-	
-//	@Test
-	public void testInsertAML016AlarmData(){
-		System.out.println("testInsertAML016AlarmData");
-		this.alarmsProcess.insertAML016AlarmData();
 	}
 }

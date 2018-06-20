@@ -720,15 +720,19 @@ public class AlarmsProcess {
 				String alert_count = "2", oldest_alert = "7";
 				flag1 = false;
 				flag2 = false;
-
+				
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
+					String total_amount = results.getTotal_amount();
+					String parm_value = parmres.getParm_value();
+					
 					int oo = 5;
 					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						if (parmres.getParm_name().equalsIgnoreCase("m022_amount") && Float
-								.parseFloat(results.getTotal_amount()) >= Integer.parseInt(parmres.getParm_value()))
-							flag1 = true;
-
+						if(total_amount!=null && parm_value!=null) {
+							if (parmres.getParm_name().equalsIgnoreCase("m022_amount") && Float
+									.parseFloat(total_amount) >= Integer.parseInt(parm_value))
+								flag1 = true;
+						}
 					}
 				}
 
