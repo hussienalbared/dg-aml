@@ -18,6 +18,8 @@ import com.datagearbi.repository.AlaramObjectRepository;
 @Service
 public class AlarmsProcess {
 	@Autowired
+	AlarmGeneration AlarmGeneration;
+	@Autowired
 	private AlaramObjectRepository alaramObjectRepository;
 	
 	@Autowired
@@ -87,17 +89,23 @@ public class AlarmsProcess {
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
 					
 					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
+<<<<<<< HEAD
+=======
+
+						System.out.println("FFFFFFLOAT: " + results.getAcct_Close_Date());
+
+>>>>>>> ad946afb80799bccb55d20f445015837d8582be7
 						String acct_Close_Date = results.getAcct_Close_Date();
 						String date_Key = results.getDate_Key();
 						String acct_Open_Date = results.getAcct_Open_Date();
 						String parm_value = parmres.getParm_value();
-						
-						if (acct_Close_Date!=null && date_Key!=null && acct_Open_Date!=null && parm_value!=null) {
+
+						if (acct_Close_Date != null && date_Key != null && acct_Open_Date != null
+								&& parm_value != null) {
 
 							float m007_percentage = (Float.parseFloat(acct_Close_Date)
 									- Float.parseFloat(acct_Open_Date))
-									/ (Float.parseFloat(date_Key)
-											- Float.parseFloat(acct_Open_Date));
+									/ (Float.parseFloat(date_Key) - Float.parseFloat(acct_Open_Date));
 
 							if (m007_percentage * 100 >= Float.parseFloat(parm_value)
 									&& parmres.getParm_name().equalsIgnoreCase("m001_percentage"))
@@ -136,7 +144,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-		//AML002AlarmData AMLP = new AML002AlarmData();
+		// AML002AlarmData AMLP = new AML002AlarmData();
 		AlarmsVM Results = AMLP2.getAML002AlarmData();
 
 		AlarmsVM parmResults = AMLP2.getAML002ParmData();
@@ -177,15 +185,27 @@ public class AlarmsProcess {
 
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
-					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						if (parmres.getParm_name().equalsIgnoreCase("m002_amount") && Float
-								.parseFloat(results.getTotal_amount()) >= Integer.parseInt(parmres.getParm_value()))
-							flag1 = true;
+					String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalAmount = results.getTotal_amount();
+					String paramValue = parmres.getParm_value();
 
-						if (Integer.parseInt(results.getNum_inst()) >= Integer.parseInt(parmres.getParm_value())
-								&& parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
-							flag2 = true;
+					String NumInst = results.getNum_inst();
+					if (paramType != null && paramName != null && totalAmount != null && paramValue != null
+							&& NumInst != null) {
+						if (paramType.equalsIgnoreCase("Numeric Constant")) {
+
+							if (paramName.equalsIgnoreCase("m002_amount")
+									&& Float.parseFloat(totalAmount) >= Integer.parseInt(paramValue))
+								flag1 = true;
+
+							if (Integer.parseInt(NumInst) >= Integer.parseInt(paramValue)
+									&& paramName.equalsIgnoreCase("m002_num_inst"))
+								flag2 = true;
+						}
+
 					}
+
 				}
 
 				// ***********************
@@ -219,7 +239,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML003AlarmData AMLP = new AML003AlarmData();
+		// AML003AlarmData AMLP = new AML003AlarmData();
 		AlarmsVM Results = AMLP3.getAML003AlarmData();
 
 		AlarmsVM parmResults = AMLP3.getAML003ParmData();
@@ -237,10 +257,32 @@ public class AlarmsProcess {
 
 				String suppression_end_date = "2099-04-28 00:00:00.000", executing_ext_party_key = null;
 				String alert_count = "2", oldest_alert = "7";
-				// transactions_count = "3",total_amount = "2000",
 				flag1 = false;
 				flag2 = false;
+				// *************** Conditions (parametrs) ********
+				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
 
+					String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalAmount = results.getTotal_amount();
+					String paramValue = parmres.getParm_value().replaceAll("[^0-9]", "");
+					String NumInst = results.getNum_inst().replaceAll("[^0-9]", "");
+					if (paramType != null && paramName != null && totalAmount != null && paramValue != null
+							&& NumInst != null) {
+						if (paramType.equalsIgnoreCase("Numeric Constant")) {
+							if (paramName.equalsIgnoreCase("m002_amount")
+									&& Float.parseFloat(totalAmount) >= Integer.parseInt(paramValue))
+								flag1 = true;
+							System.out.println(NumInst+"hala");
+							System.out.println(paramValue+")))))))))");
+
+							if (Integer.parseInt(NumInst) >= Integer.parseInt(paramValue)
+									&& paramName.equalsIgnoreCase("m002_num_inst"))
+								flag2 = true;
+						}
+					}
+
+				}
 				if (flag1 == true && flag2 == true) {
 
 					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
@@ -273,7 +315,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML005AlarmData AMLP = new AML005AlarmData();
+		// AML005AlarmData AMLP = new AML005AlarmData();
 		AlarmsVM Results = AMLP5.getAML005AlarmData();
 
 		AlarmsVM parmResults = AMLP5.getAML005ParmData();
@@ -301,19 +343,26 @@ public class AlarmsProcess {
 
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
-					int oo = 5;
-					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						float cash_perc = Float.parseFloat(results.getTotal_amount())
-								/ Float.parseFloat(results.getAll_amnt());
-						if (parmres.getParm_name().equalsIgnoreCase("m005_percentage")
-								&& cash_perc * 100.0 >= Integer.parseInt(parmres.getParm_value()))
-							flag1 = true;
+					String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalAmount = results.getTotal_amount();
+					String paramValue = parmres.getParm_value().replaceAll("[^0-9]", "");
+					String allAmount = results.getAll_amnt();
+					if (paramType != null && paramName != null && totalAmount != null && paramValue != null
+							&& allAmount != null) {
+						if (paramType.equalsIgnoreCase("Numeric Constant")) {
+							float cash_perc = Float.parseFloat(totalAmount) / Float.parseFloat(allAmount);
+							if (paramName.equalsIgnoreCase("m005_percentage")
+									&& cash_perc * 100.0 >= Integer.parseInt(paramValue))
+								flag1 = true;
 
-						// if(Integer.parseInt(results.getNum_inst())>=Integer.parseInt(parmres.getParm_value())
-						// &&
-						// parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
-						// flag2=true;
+							// if(Integer.parseInt(results.getNum_inst())>=Integer.parseInt(parmres.getParm_value())
+							// &&
+							// parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
+							// flag2=true;
+						}
 					}
+
 				}
 
 				// ***********************
@@ -350,14 +399,20 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML007AlarmData AMLP = new AML007AlarmData();
+		// AML007AlarmData AMLP = new AML007AlarmData();
 		AlarmsVM Results = AMLP7.getAML007AlarmData();
 
 		AlarmsVM parmResults = AMLP7.getAML007ParmData();
 
 		for (AlarmDTO results : Results.getAlrmsVMs()) {
+			
+			String routine_Msg_Txt = results.getRoutine_Msg_Txt();
 
-			String msg = results.getRoutine_Msg_Txt().replace("#1", results.getAcct_No());
+			System.out.println("MSG: " + routine_Msg_Txt);
+			String msg  =routine_Msg_Txt;
+			if(routine_Msg_Txt != null && results.getAcct_No() != null) {
+				msg = routine_Msg_Txt.replace("#1", results.getAcct_No());
+			}
 
 			boolean flag1 = false, flag2 = false, flag3 = false;
 
@@ -375,25 +430,38 @@ public class AlarmsProcess {
 
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
-					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						if (parmres.getParm_name().equalsIgnoreCase("m007_total_amount")
-								&& Float.parseFloat(results.getTotal_loan_amount()) >= Integer
-										.parseInt(parmres.getParm_value()))
-							flag1 = true;
 
-						if (Float.parseFloat(results.getOrig_Loan_Amt()) >= Integer.parseInt(parmres.getParm_value())
-								&& parmres.getParm_name().equalsIgnoreCase("m007_amt_single_loan"))
-							flag2 = true;
+					String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalLoanAmount = results.getTotal_loan_amount();
+					String paramValue = parmres.getParm_value().replaceAll("[^0-9]", "");
+					String OrigLoanAmt = results.getOrig_Loan_Amt();
+					String AcctCloseDate = results.getAcct_Close_Date().trim().split(" ")[0].replaceAll("[^0-9]", "");
+					String AcctOpenDate = results.getAcct_Open_Date().trim().split(" ")[0].replaceAll("[^0-9]", "");
+					String Date_Key = results.getDate_Key();
+					if (paramType != null && paramName != null && totalLoanAmount != null && paramValue != null
+							&& OrigLoanAmt != null&&AcctCloseDate!= null 
+							&&AcctOpenDate!= null &&Date_Key!= null ) {
+						if (paramType.equalsIgnoreCase("Numeric Constant")) {
+							if (paramName.equalsIgnoreCase("m007_total_amount")
+									&& Float.parseFloat(totalLoanAmount) >= Integer.parseInt(paramValue))
+								flag1 = true;
 
-						float m007_percentage = (Float.parseFloat(results.getAcct_Close_Date())
-								- Float.parseFloat(results.getAcct_Open_Date()))
-								/ (Float.parseFloat(results.getDate_Key())
-										- Float.parseFloat(results.getAcct_Open_Date()));
+							if (Float.parseFloat(OrigLoanAmt) >= Integer.parseInt(paramValue)
+									&& paramName.equalsIgnoreCase("m007_amt_single_loan"))
+								flag2 = true;
 
-						if (m007_percentage * 100 >= Float.parseFloat(parmres.getParm_value())
-								&& parmres.getParm_name().equalsIgnoreCase("m007_percentage"))
-							flag3 = true;
+							System.out.println("FLOOOOOOOOOOAT: " + Float.parseFloat(AcctCloseDate) );
+							float m007_percentage = (Float.parseFloat(AcctCloseDate) - Float.parseFloat(AcctOpenDate))
+									/ (Float.parseFloat(Date_Key) - Float.parseFloat(AcctOpenDate));
+
+							if (m007_percentage * 100 >= Float.parseFloat(paramValue)
+									&& paramName.equalsIgnoreCase("m007_percentage"))
+								flag3 = true;
+						}
 					}
+
+				
 				}
 
 				// ***********************
@@ -427,14 +495,20 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML010AlarmData AMLP = new AML010AlarmData();
+		// AML010AlarmData AMLP = new AML010AlarmData();
 		AlarmsVM Results = AMLP10.getAML010AlarmData();
 
 		AlarmsVM parmResults = AMLP10.getAML010ParmData();
 
 		for (AlarmDTO results : Results.getAlrmsVMs()) {
 
-			String msg = results.getRoutine_Msg_Txt().replace("#1", results.getAcct_No());
+			String routine_Msg_Txt = results.getRoutine_Msg_Txt();
+
+			System.out.println("MSG: " + routine_Msg_Txt);
+			String msg  =routine_Msg_Txt;
+			if(routine_Msg_Txt != null && results.getAcct_No() != null) {
+				msg = routine_Msg_Txt.replace("#1", results.getAcct_No());
+			}
 
 			boolean flag1 = false, flag2 = false;
 
@@ -451,12 +525,21 @@ public class AlarmsProcess {
 
 				// ***********************
 				for (AlarmDTO parmres : parmResults.getAlrmsVMs()) {
-					if (parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant")) {
-						if (parmres.getParm_name().equalsIgnoreCase("m010_amount") && Float
-								.parseFloat(results.getTotal_amount()) >= Integer.parseInt(parmres.getParm_value()))
+					
+					String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalAmount = results.getTotal_amount();
+					String paramValue = parmres.getParm_value().replaceAll("[^0-9]", "");
+					if(paramType !=null&&paramName !=null&& totalAmount !=null&& paramValue  !=null)
+					{if (paramType.equalsIgnoreCase("Numeric Constant")) {
+						if (paramName.equalsIgnoreCase("m010_amount") && Float
+								.parseFloat(totalAmount) >= Integer.parseInt(paramValue))
 							flag1 = true;
 
 					}
+						
+					}
+					
 				}
 
 				// ***********************
@@ -493,7 +576,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML016AlarmData AMLP = new AML016AlarmData();
+		// AML016AlarmData AMLP = new AML016AlarmData();
 		AlarmsVM Results = AMLP16.getAML016AlarmData();
 
 		AlarmsVM parmResults = AMLP16.getAML016ParmData();
@@ -514,28 +597,29 @@ public class AlarmsProcess {
 				String alert_count = "2", oldest_alert = "7";
 				flag1 = false;
 				flag2 = false;
-				
 				//***********************
-				// Was Commented By Hamza !!!
                 for (AlarmDTO parmres : parmResults.getAlrmsVMs())
                 {
-                	String total_amount = results.getTotal_amount();
-					String parm_value = parmres.getParm_value();
-					String num_inst = results.getNum_inst();
-                	
-                    int oo=5;
-                    if(parmres.getParm_type_desc().equalsIgnoreCase("Numeric Constant"))
-                    {
-                    	if(total_amount!=null && parm_value!=null && num_inst!=null) {
-                    		if (parmres.getParm_name().equalsIgnoreCase("m002_amount") && 
-                                    Float.parseFloat(total_amount)>=Integer.parseInt(parm_value))
-                                flag1=true;
-                            
-                            if(Integer.parseInt(num_inst)>=Integer.parseInt(parm_value) && 
-                                    parmres.getParm_name().equalsIgnoreCase("m002_num_inst"))
-                                flag2=true;
-                    	}
-                    }
+                    String paramType = parmres.getParm_type_desc();
+					String paramName = parmres.getParm_name();
+					String totalAmount = results.getTotal_amount();
+					String paramValue = parmres.getParm_value();
+					String NumInst = results.getNum_inst();
+					if (paramType != null && paramName != null && totalAmount != null && paramValue != null
+							&& NumInst != null) {
+						 if(paramType.equalsIgnoreCase("Numeric Constant"))
+		                    {
+		                    if (paramName.equalsIgnoreCase("m002_amount") && 
+		                            Float.parseFloat(totalAmount)>=Integer.parseInt(paramValue))
+		                        flag1=true;
+		                    
+		                    if(Integer.parseInt(NumInst)>=Integer.parseInt(paramValue) && 
+		                    		paramName.equalsIgnoreCase("m002_num_inst"))
+		                        flag2=true;
+		                    }
+						
+					}
+                   
                 }
                 
                 //***********************
@@ -570,7 +654,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML020AlarmData AMLP = new AML020AlarmData();
+		// AML020AlarmData AMLP = new AML020AlarmData();
 		AlarmsVM Results = AMLP20.getAML020AlarmData();
 
 		AlarmsVM parmResults = AMLP20.getAML020ParmData();
@@ -646,7 +730,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML021AlarmData AMLP = new AML021AlarmData();
+		// AML021AlarmData AMLP = new AML021AlarmData();
 		AlarmsVM Results = AMLP21.getAML021AlarmData();
 
 		AlarmsVM parmResults = AMLP21.getAML021ParmData();
@@ -700,7 +784,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
-//		AML022AlarmData AMLP = new AML022AlarmData();
+		// AML022AlarmData AMLP = new AML022AlarmData();
 		AlarmsVM Results = AMLP22.getAML022AlarmData();
 
 		AlarmsVM parmResults = AMLP22.getAML022ParmData();
@@ -770,6 +854,7 @@ public class AlarmsProcess {
 		Date dateobj = new Date();
 		String StDate = df.format(dateobj);
 
+		// AML023AlarmData AMLP = new AML023AlarmData();
 		AlarmsVM Results = AMLP23.getAML023AlarmData();
 
 		AlarmsVM parmResults = AMLP23.getAML023ParmData();

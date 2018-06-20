@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Table(schema="DGAMLCORE")
 public class DGAML010_Excessive_ACCT_CLS_OPN implements Serializable {
 	private static final long serialVersionUID = 1L;
-@Id
+
 	@Column(name="Acct_Name")
 	private String acct_Name;
 @Column(name="Exec_Cust_Key")
@@ -54,7 +54,7 @@ public int getExec_Cust_Key() {
 
 	@Column(name="Cust_Name")
 	private String cust_Name;
-
+	@Id
 	@Column(name="Cust_No")
 	private String cust_No;
 

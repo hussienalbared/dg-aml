@@ -22,16 +22,21 @@ import com.datagearbi.repository.SuspectedObjectRepository;
 public class AlarmGeneration {
 
 	@Autowired
-	private static AcAlarmEventRepository acAlarmEventRepository;
+	private  AcAlarmEventRepository acAlarmEventRepository;
 	@Autowired
-	private static AlaramObjectRepository alaramObjectRepository;
+	private  AlaramObjectRepository alaramObjectRepository;
 	@Autowired
-	private static SuspectedObjectRepository suspectedObjectRepository;
+	private  SuspectedObjectRepository suspectedObjectRepository;
 	@Autowired
-	private static AC_Transaction_Flow_AlarmRepository ac_Transaction_Flow_AlarmRepository;
+	private  AC_Transaction_Flow_AlarmRepository ac_Transaction_Flow_AlarmRepository;
 
-	public static void insertRecordIntoDbAlarmTable(alramInsertionUtil ut) {
+
+	public  void insertRecordIntoDbAlarmTable(alramInsertionUtil ut) {
+		
 		AC_Alarm acc = new AC_Alarm();
+		System.out.println(acc+"amr");
+		System.out.println(alaramObjectRepository+"husien");
+		System.out.println(ut.getProduct_type()+ut.getAlarm_status_code()+"55555");
 		// + "( product_type,alarm_status_code,money_laundering_risk_score"
 		// + ",alarm_description,primary_obj_level_code"
 		// + ",alarmed_obj_number ,alarmed_obj_name,primary_obj_number,primary_obj_key"
@@ -64,6 +69,8 @@ public class AlarmGeneration {
 		acc.setAlarm_Subcateg_Cd(ut.getAlarm_subcategory_cd());
 		acc.setAlarmed_Obj_Level_Cd(ut.getAlarmed_obj_level_code());
 		acc.setAlarmed_Obj_Key(Long.valueOf(ut.getAlarmed_obj_key()));
+		//FIXME add for testing
+//		acc.setAlarm_Id(99);
 		AC_Alarm aa = alaramObjectRepository.save(acc);
 		String event_code = "CRE";
 		AC_Alarm_Event ac = new AC_Alarm_Event();

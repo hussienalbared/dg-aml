@@ -19,16 +19,13 @@ import com.datagearbi.service.AlarmsVM;
 public class AML010AlarmDataTest {
 	@Autowired
 	AML010AlarmData aml010AlarmData;
-	
-	/*
-	 * ???
-	 */
-//	@Test
+	@Test
 	public void getAML010AlarmDataTest() {
 		AlarmsVM alarmsVM = this.aml010AlarmData.getAML010AlarmData();
 		assertThat(alarmsVM).isNotNull();
+
 	}
-	
+
 	/*
 	 * Passed
 	 */
@@ -39,9 +36,6 @@ public class AML010AlarmDataTest {
 		assertThat(alarmsVM.getAlrmsVMs().size()).isGreaterThan(0);
 	}
 
-	/*
-	 * ???
-	 */
 	@Test
 	public void selectRecordfromAML010ViewTest() {
 		System.out.println("selectRecordfromAML010ViewTest");
@@ -50,9 +44,6 @@ public class AML010AlarmDataTest {
 		assertThat(list.size()).isGreaterThan(0);
 	}
 
-	/*
-	 * Passed
-	 */
 //	@Test
 	public void selectTransactionsCountTest() {
 		String trans_count = this.aml010AlarmData.selectTransactionsCount(1884);
@@ -70,6 +61,7 @@ public class AML010AlarmDataTest {
 		assertThat(total_amount).isNotNull();
 
 	}
+
 
 	/*
 	 * Passed
