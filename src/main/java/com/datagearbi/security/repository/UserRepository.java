@@ -20,6 +20,8 @@ import com.datagearbi.model.security.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+   
+    
     @Query("Select U.username from User U")
     List getuserNames();
     
@@ -59,6 +61,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	void editUser(Long userId,String password, String firstname, String lastname,String email,Boolean enabled
 			/*,Date lastPasswordResetDate*/);
     
-	@Query("select u.id, u.firstname, u.lastname, u.email, u.enabled, u.lastPasswordResetDate from User u")
-	List getAll_users();
+//	@Query("select u from User u")
+    @Query("select new map( u.id as id,u.firstname as firstname,u.lastname as lastname,u.email as email,u.enabled as enabled,"
+    		+ "u.username as username,u.password as password,u.lastPasswordResetDate as lastPasswordResetDate )from User u")
+	List<User> getAll_users();
 }
