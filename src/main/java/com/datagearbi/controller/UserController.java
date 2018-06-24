@@ -1,5 +1,8 @@
 package com.datagearbi.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +29,19 @@ public class UserController {
     	return userRepository.getuserNames();
     }
 	
-	/*********/
+	/**
+	 * @return *******/
     @RequestMapping(value = "addUser", method= RequestMethod.POST)
 	public void addUser(@RequestBody User target_user) {	
     	System.out.println("----------------------------------***");
-    	System.out.println(target_user.getUsername() + ","+target_user.getDisplayName());
+//    	System.out.println(target_user.getUsername() + ","+target_user.getDisplayName());
+//    	return target_user;
+    	
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
+    	System.out.println(date); //2016/11/16 12:08:43
+    	target_user.setLastPasswordResetDate(date);
+    	
     	this.userRepository.save(target_user);
     	//FIXME make Sure of Data
 	}
