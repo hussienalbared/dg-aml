@@ -20,6 +20,9 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -79,8 +82,8 @@ public class User implements Serializable {
 	public void setDisplayName(String displayName) {
 		this.DisplayName = displayName;
 	}
-
-	@ManyToMany(fetch = FetchType.EAGER)
+	@NotFound(action=NotFoundAction.IGNORE)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_GROUP", joinColumns = {
 			@JoinColumn(name = "U_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "G_ID", referencedColumnName = "ID") })
