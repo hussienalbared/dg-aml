@@ -62,7 +62,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			/*,Date lastPasswordResetDate*/);
     
 //	@Query("select u from User u")
-    @Query("select new map( u.id as id,u.firstname as firstname,u.lastname as lastname,u.email as email,u.enabled as enabled,"
+    @Query("select new map( u.id as id,u.DisplayName as displayName,u.firstname as firstname,u.lastname as lastname,u.email as email,u.enabled as enabled,"
     		+ "u.username as username,u.password as password,u.lastPasswordResetDate as lastPasswordResetDate )from User u")
 	List<User> getAll_users();
 }

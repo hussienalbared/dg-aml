@@ -62,10 +62,11 @@ public class UserController {
    	}
     
     @RequestMapping(value = "editUser", method= RequestMethod.PUT)
-   	public void  editUser(@RequestBody User target_user) {	
+   	public void  editUser(@RequestBody User target_user) {
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
+    	target_user.setLastPasswordResetDate(date);
        	this.userRepository.save(target_user);
-       	
-       	//TODO Still working on it
    	}
     
 //    @RequestMapping(value = "getUser", method= RequestMethod.GET)
