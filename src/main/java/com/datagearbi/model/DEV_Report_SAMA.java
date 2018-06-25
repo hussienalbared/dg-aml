@@ -3,6 +3,9 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -12,13 +15,19 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table
+@Table(schema="AML")
 @NamedQuery(name="DEV_Report_SAMA.findAll", query="SELECT d FROM DEV_Report_SAMA d")
 public class DEV_Report_SAMA implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(
+		    name = "incrementGenerator2",
+		    strategy = "org.hibernate.id.IncrementGenerator",
+		    parameters = {
+                    @org.hibernate.annotations.Parameter(name = "schema",value = "AML")
+            })
+	@GeneratedValue(generator="incrementGenerator2")
 	@Column(name="DEV_Report_SAMA_ID")
 	private Integer DEV_Report_SAMA_ID;
 

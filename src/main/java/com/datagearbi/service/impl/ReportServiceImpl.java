@@ -8,8 +8,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.datagearbi.model.CoreTransactionD;
+
 import com.datagearbi.model.DEV_Report_SAMA;
+import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
 import com.datagearbi.repository.ReportRepository;
@@ -27,13 +28,13 @@ public class ReportServiceImpl implements ReportService {
 	private TransactionRepository transactionRepository;
 
 	@Override
-	public List<CoreTransactionD> getTransactions(String customerId) {
-		List<CoreTransactionD> transactions = transactionRepository.find(customerId);
+	public List<Transaction_Detail> getTransactions(String customerId) {
+		List<Transaction_Detail> transactions = transactionRepository.find(customerId);
 		if(transactions == null || transactions.size() == 0) {
-			transactions = new ArrayList<CoreTransactionD>();
-			CoreTransactionD transaction = new CoreTransactionD();
-			transaction.setTransactionKey(1);
-			transaction.setTtrn("first transaction");
+			transactions = new ArrayList<Transaction_Detail>();
+			Transaction_Detail transaction = new Transaction_Detail();
+			transaction.setTrans_Key(1);
+			transaction.setTrans_Ref_No("first jkhkjhtransaction");
 			transactions.add(transaction);
 		}
 		return transactions;
@@ -51,10 +52,15 @@ public class ReportServiceImpl implements ReportService {
 
 		List<DEV_Report_SAMA> samaReports = samaReportRepository.findAllById(Arrays.asList(transactionIds));
 
+System.out.println(samaReports.size()+"ammmmmmmmmmmmmmmmmmmmmmmmmmr"); 
+//for (Integer x : transactionIds) {
+//	System.out.println(x);
+//}
 
 		List<SAMAReportDTO> samaReportDTOs = new ArrayList<>();
 
 		for (DEV_Report_SAMA samaReportV : samaReports) {
+			System.out.println("AMRAMR");
 			SAMAReportDTO samaReportDTO = new SAMAReportDTO();
 			samaReportDTO.setReportingEntityName(samaReportV.getPnm());
 			switch (samaReportV.getPrimaryMediumDesc()) {

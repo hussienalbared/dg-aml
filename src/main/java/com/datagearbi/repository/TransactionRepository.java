@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.datagearbi.model.CoreTransactionD;
+import com.datagearbi.model.Transaction_Detail;
 
-public interface TransactionRepository extends JpaRepository<CoreTransactionD, Serializable>{
 
-	@Query("SELECT c FROM CoreTransactionD c WHERE c.tsnm = :tsnm")
-	public List<CoreTransactionD> find(@Param("tsnm") String tsnm);
+
+public interface TransactionRepository extends JpaRepository<Transaction_Detail, Integer>{
+
+	@Query("SELECT c FROM Transaction_Detail c WHERE c.secur_Name = :secur_Name")
+	public List<Transaction_Detail> find(@Param("secur_Name") String secur_Name);
 }
