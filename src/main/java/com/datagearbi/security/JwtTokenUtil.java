@@ -89,6 +89,7 @@ public class JwtTokenUtil implements Serializable {
         final Date expirationDate = calculateExpirationDate(createdDate);
       Map<String, Object> payload=new HashMap<>();
       payload.put("userName", userDetails.getFirstname()+" "+userDetails.getLastname());
+      payload.put("id", userDetails.getId());
         return Jwts.builder()
             .setClaims(claims)
             .setSubject(userDetails.getUsername())
