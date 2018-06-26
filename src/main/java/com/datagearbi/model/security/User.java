@@ -1,5 +1,6 @@
 package com.datagearbi.model.security;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,114 +20,132 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "[User]")
-public class User {
+@Table(name = "[User]", schema = "[Admin_DEV].[Admin]")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
-    private Long id;
+	@Id
+	@Column(name = "ID")
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+	// @SequenceGenerator(name = "user_seq", sequenceName = "user_seq",
+	// allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "UserName", length = 50, unique = true)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String username;
+	@Column(name = "UserName", length = 50, unique = true)
 
-    @Column(name = "Password", length = 100)
-    @NotNull
-    @Size(min = 4, max = 100)
-    private String password;
+	@Size(min = 4, max = 50)
+	private String username;
 
-    @Column(name = "FirstName", length = 50)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String firstname;
+	@Column(name = "Password", length = 100)
 
-    @Column(name = "LastName", length = 50)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String lastname;
+	@Size(min = 4, max = 100)
+	private String password;
 
-    @Column(name = "Email", length = 50)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String email;
+	@Column(name = "FirstName", length = 50)
 
-    @Column(name = "Enabled")
-    @NotNull
-    private Boolean enabled;
+	@Size(min = 4, max = 50)
+	private String firstname;
 
-    @Column(name = "LastPasswordResetDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
-    private Date lastPasswordResetDate;
+	@Column(name = "LastName", length = 50)
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "USER_GROUP",
-            joinColumns = {@JoinColumn(name = "U_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "G_ID", referencedColumnName = "ID")})
-    private List<Group> groups;
+	@Size(min = 4, max = 50)
+	private String lastname;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "Email", length = 50)
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Size(min = 4, max = 50)
+	private String email;
 
-    public String getUsername() {
-        return username;
-    }
+	@Column(name = "Enabled")
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	private Boolean enabled;
 
-    public String getPassword() {
-        return password;
-    }
+	@Column(name = "LastPasswordResetDate")
+	@Temporal(TemporalType.TIMESTAMP)
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	private Date lastPasswordResetDate;
+	
+	@Column(name = "DisplayName")
+	private String DisplayName;
 
-    public String getFirstname() {
-        return firstname;
-    }
+	public String getDisplayName() {
+		return this.DisplayName;
+	}
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+	public void setDisplayName(String displayName) {
+		this.DisplayName = displayName;
+	}
+	@NotFound(action=NotFoundAction.IGNORE)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "USER_GROUP", joinColumns = {
+			@JoinColumn(name = "U_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+					@JoinColumn(name = "G_ID", referencedColumnName = "ID") })
+	private List<Group> groups;
 
-    public String getLastname() {
-        return lastname;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public List<Group> getGroups() {
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Group> getGroups() {
 		return groups;
 	}
 
@@ -135,10 +154,10 @@ public class User {
 	}
 
 	public Date getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
+		return lastPasswordResetDate;
+	}
 
-    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
 }
