@@ -45,11 +45,11 @@ public class UserIntegraionTest {
 	}
 	
 //	@Test
-	public void testGetUser() {
-		System.out.println("testGetUser");
-		User user = this.userController.getUser("1002");
-		System.out.println("FirstName: "+ user.getFirstname());
-	}
+//	public void testGetUser() {
+//		System.out.println("testGetUser");
+//		User user = this.userController.getUser("1002");
+//		System.out.println("FirstName: "+ user.getFirstname());
+//	}
 	
 //	@Test
 	public void testdisableUser() {

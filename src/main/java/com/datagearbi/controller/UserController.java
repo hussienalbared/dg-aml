@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -74,9 +75,9 @@ public class UserController {
 //       	return this.userRepository.getUser(Long.parseLong(userId));
 //   	}
     @RequestMapping(value = "getUser/{userId}", method= RequestMethod.GET)
-   	public User getUser(@PathVariable("userId") String userId) {	
-//       	return this.userRepository.findById(Long.parseLong(userId));
-    	return this.userRepository.getOne(Long.parseLong(userId));
+   	public Optional<User> getUser(@PathVariable("userId") String userId) {	
+       	return this.userRepository.findById(Long.parseLong(userId));
+//    	return this.userRepository.getOne(Long.parseLong(userId));
    	}
     
     @RequestMapping(value = "getAllUsers", method= RequestMethod.GET)
