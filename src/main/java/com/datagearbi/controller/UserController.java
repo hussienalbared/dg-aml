@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,8 @@ import com.datagearbi.security.repository.UserRepository;
 @RequestMapping("aml/api/user/")
 @CrossOrigin(origins = "*")
 public class UserController {
-
+	@Autowired
+	private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
 
@@ -42,7 +44,9 @@ public class UserController {
     	Date date = new Date();
     	System.out.println(date); //2016/11/16 12:08:43
     	target_user.setLastPasswordResetDate(date);
-    	
+        target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
+        System.out.println(passwordEncoder.encode(target_user.getPassword()));
+        System.out.println("kkkkk");
     	this.userRepository.save(target_user);
     	//FIXME make Sure of Data
 	}
