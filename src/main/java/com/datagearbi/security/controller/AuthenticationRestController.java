@@ -86,6 +86,7 @@ public class AuthenticationRestController {
      */
     private void authenticate(String username, String password) {
     	System.out.println("authenticate");
+    	System.out.println(password);
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
 

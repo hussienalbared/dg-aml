@@ -53,7 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoderBean() {
         return new BCryptPasswordEncoder();
     }
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
