@@ -45,8 +45,6 @@ public class UserController {
     	System.out.println(date); //2016/11/16 12:08:43
     	target_user.setLastPasswordResetDate(date);
         target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
-        System.out.println(passwordEncoder.encode(target_user.getPassword()));
-        System.out.println("kkkkk");
     	this.userRepository.save(target_user);
     	//FIXME make Sure of Data
 	}
@@ -69,6 +67,10 @@ public class UserController {
     @RequestMapping(value = "editUser", method= RequestMethod.PUT)
    	public void  editUser(@RequestBody User target_user) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	if(target_user.getPassword().length()>0)
+    	{
+    		target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
+    	}
     	Date date = new Date();
     	target_user.setLastPasswordResetDate(date);
        	this.userRepository.save(target_user);
@@ -80,7 +82,9 @@ public class UserController {
 //   	}
     @RequestMapping(value = "getUser/{userId}", method= RequestMethod.GET)
    	public Optional<User> getUser(@PathVariable("userId") String userId) {	
-       	return this.userRepository.findById(Long.parseLong(userId));
+    	 Optional<User> u= this.userRepository.findById(Long.parseLong(userId));
+    	
+    	 return u;
 //    	return this.userRepository.getOne(Long.parseLong(userId));
    	}
     
