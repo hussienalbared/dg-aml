@@ -1,6 +1,5 @@
 package com.datagearbi.security.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.datagearbi.model.security.User;
@@ -20,27 +18,9 @@ import com.datagearbi.model.security.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
-   
     
     @Query("Select U.username from User U")
-    List getuserNames();
-    
-//    @Modifying
-//	@Transactional
-//	@Query("insert into User (password,firstname,lastname,email,enabled) "
-//			+ "values(password=?1, firstname=?2 ,lastname=?3 , email=?4 , enabled=?5 ) ")
-//	void addUser(String password, String firstname, String lastname,String email,Boolean enabled);
-    
-//    @Modifying
-//    @Query(value = "insert into User (password,firstname,lastname,email,enabled) VALUES (:password,:firstname,"
-//    		+ ":lastname,:email,:enabled)", nativeQuery = true)
-//    @Transactional
-//    void addUser(@Param("password") String password, @Param("firstname") String firstname,@Param("lastname") String lastname,
-//    		@Param("email") String email,@Param("enabled") Boolean enabled);
-    
-    
-   	@Query("Select U.lastPasswordResetDate from User U where U.id=?1")
-   	List getUser(Long userId);
+    List getUserNames();
     
     @Modifying
 	@Transactional

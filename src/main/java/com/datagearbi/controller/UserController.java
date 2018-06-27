@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class UserController {
 
 	@RequestMapping(value = "users", method = RequestMethod.GET)
     public  List<String> getUsers() {
-    	return userRepository.getuserNames();
+    	return userRepository.getUserNames();
     }
 	
 	/**
@@ -67,9 +68,16 @@ public class UserController {
     @RequestMapping(value = "editUser", method= RequestMethod.PUT)
    	public void  editUser(@RequestBody User target_user) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    	if(target_user.getPassword().length()>0)
+    	if(target_user.getPassword()!= null && target_user.getPassword().length()>0)
     	{
     		target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
+    	}
+    	else {
+    		try {    			
+    			target_user.setPassword(userRepository.findById(target_user.getId()).get().getPassword());
+    		}catch (NoSuchElementException ex) {
+    			// TODO log
+    		}
     	}
     	Date date = new Date();
     	target_user.setLastPasswordResetDate(date);
