@@ -34,7 +34,7 @@ public class SuspectedController {
 	
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
-	public List<Object> list() {
+	public Object[] list() {
 		System.out.println("---list---");
 		return this.suspectedObjectRepository.getAllSuspectWithNames();
 //		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 2);
