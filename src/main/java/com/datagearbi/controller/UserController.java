@@ -2,6 +2,7 @@ package com.datagearbi.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -46,6 +47,16 @@ public class UserController {
     	System.out.println(date); //2016/11/16 12:08:43
     	target_user.setLastPasswordResetDate(date);
         target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
+        
+        List<User> users = this.userRepository.findAll();
+        for (User user : users) {
+        	if(target_user.getUsername().equals(user.getUsername())) {
+            	System.out.println("same user name ...");
+            	return; //TODO some action to the UI
+            }
+		}
+        
+        
     	this.userRepository.save(target_user);
     	//FIXME make Sure of Data
 	}
