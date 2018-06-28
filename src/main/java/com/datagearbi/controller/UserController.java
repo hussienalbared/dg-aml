@@ -79,19 +79,29 @@ public class UserController {
     @RequestMapping(value = "editUser", method= RequestMethod.PUT)
    	public void  editUser(@RequestBody User target_user) {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	
+    	User user = userRepository.findById(target_user.getId()).get();
     	if(target_user.getPassword()!= null && target_user.getPassword().length()>0)
     	{
     		target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
     	}
     	else {
     		try {    			
-    			target_user.setPassword(userRepository.findById(target_user.getId()).get().getPassword());
+    			target_user.setPassword(user.getPassword());
     		}catch (NoSuchElementException ex) {
     			// TODO log
     		}
     	}
     	Date date = new Date();
     	target_user.setLastPasswordResetDate(date);
+    	
+    	List<User> users = this.userRepository.findAll();
+        for (User user2 : users) {
+        	if(target_user.getUsername().equals(user2.getUsername())) {
+            	System.out.println("this user name is exist...");
+            	target_user.setUsername(user.getUsername());
+            }
+		}
        	this.userRepository.save(target_user);
    	}
     
