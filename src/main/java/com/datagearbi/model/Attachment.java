@@ -22,16 +22,16 @@ import com.datagearbi.model.security.User;
 @NamedQuery(name="Attachment.findAll", query="SELECT c FROM Attachment c")
 @Table(schema="AC")
 public class Attachment  implements Serializable {
-	@OneToOne(optional=true,fetch=FetchType.LAZY)
-	@NotFound(action=NotFoundAction.IGNORE)
-	@JoinColumn(insertable=false,updatable=false,name="UplodedById")
-	private User user;
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	@OneToOne(optional=true,fetch=FetchType.LAZY)
+//	@NotFound(action=NotFoundAction.IGNORE)
+//	@JoinColumn(insertable=false,updatable=false,name="UplodedById")
+//	private User user;
+//	public User getUser() {
+//		return user;
+//	}
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

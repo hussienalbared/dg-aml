@@ -46,8 +46,8 @@ public class AttachmentController {
 		
 	}
 	@RequestMapping(value = "bySuspect", method = RequestMethod.GET)
-	public List<Attachment> findBySuspect(@RequestParam("code") String code,@RequestParam("key") long key)
-	{return this.attachmentRepository.findAttachmentbySuspect(code, key);
+	public List<Attachment> findBySuspect(@RequestParam("code") String code,@RequestParam("key") String key)
+	{return this.attachmentRepository.findAttachmentbySuspect(code, Long.parseLong(key));
 		
 	}
 
