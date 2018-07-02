@@ -28,17 +28,17 @@ public class FileStorageService {
 	@Autowired
 	private AttachmentRepository AttachmentRepository;
 
-	@Autowired
-	public FileStorageService(FileStorageProperties fileStorageProperties) {
-		this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
+	  @Autowired
+	    public FileStorageService(FileStorageProperties fileStorageProperties) {
+	        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
+	                .toAbsolutePath().normalize();
 
-		try {
-			Files.createDirectories(this.fileStorageLocation);
-		} catch (Exception ex) {
-			throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
-					ex);
-		}
-	}
+	        try {
+	            Files.createDirectories(this.fileStorageLocation);
+	        } catch (Exception ex) {
+	            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
+	        }
+	    }
 
 	public Attachment storeFile(MultipartFile file,long alarmed_Obj_Key,
 			String alarmed_Obj_level_Cd,String description,int uplodedById) {
@@ -64,8 +64,9 @@ public class FileStorageService {
 			x.setFileName(file.getOriginalFilename());
 			x.setFilepath(targetLocation.toString());
 			x.setUploadDate(new Date());
-			this.AttachmentRepository.save(x);
 			 x.setUplodedById(uplodedById);
+
+			this.AttachmentRepository.save(x);
 			return x;
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

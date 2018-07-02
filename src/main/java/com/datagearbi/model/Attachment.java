@@ -5,15 +5,33 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
+import com.datagearbi.model.security.User;
 @Entity
 @NamedQuery(name="Attachment.findAll", query="SELECT c FROM Attachment c")
 @Table(schema="AC")
 public class Attachment  implements Serializable {
+	@OneToOne(optional=true,fetch=FetchType.LAZY)
+	@NotFound(action=NotFoundAction.IGNORE)
+	@JoinColumn(insertable=false,updatable=false,name="UplodedById")
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

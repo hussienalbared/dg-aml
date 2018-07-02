@@ -1,8 +1,10 @@
 package com.datagearbi.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +45,12 @@ public class AttachmentController {
 	{return this.attachmentRepository.findAll();
 		
 	}
+	@RequestMapping(value = "bySuspect", method = RequestMethod.GET)
+	public List<Attachment> findBySuspect(@RequestParam("code") String code,@RequestParam("key") long key)
+	{return this.attachmentRepository.findAttachmentbySuspect(code, key);
+		
+	}
+
 
     private static final Logger logger = LoggerFactory.getLogger(AttachmentController.class);
 
@@ -72,6 +80,7 @@ public class AttachmentController {
     public void  uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
     	int	alarmed_Obj_Key,
   			String  alarmed_Obj_level_Cd,String description,int  uplodedById) {
+    	
          Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file, alarmed_Obj_Key,
@@ -83,7 +92,6 @@ public class AttachmentController {
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResource(fileName);
-        System.out.println(fileName+"8***");
 
         // Try to determine file's content type
         String contentType = null;
@@ -104,8 +112,20 @@ public class AttachmentController {
                 .body(resource);
     }
     @DeleteMapping("/delete/{id}")
-   public void DeleteAttachment(@PathVariable(name="id") int id)
-   {
-	   this.fileStorageService.deleteFile(id);
+   public String DeleteAttachment(@PathVariable(name="id") int id)
+   { 
+    	 Optional<Attachment> optionalFile= this.attachmentRepository.findById(id);
+    	 if(optionalFile.isPresent())
+    	 {
+    		 String filepath=optionalFile.get().getFilepath();
+    		 File file = new File(filepath);
+    		   this.fileStorageService.deleteFile(id);
+
+    		 if(file.delete()) {
+    			 return "delete succesfully";
+    		 }
+    		 
+    	 }
+    	 return "file not found";
    }
 }
