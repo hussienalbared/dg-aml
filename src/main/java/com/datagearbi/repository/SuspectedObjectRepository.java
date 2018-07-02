@@ -26,5 +26,6 @@ public interface SuspectedObjectRepository extends JpaRepository<AC_Suspected_Ob
 	
 	@Query("select new map(u.username as ownername,s as details)from User u,AC_Suspected_Object s where u.id=s.owner_UID")
 	public Object[] getAllSuspectWithNames();
+	
 
 }
