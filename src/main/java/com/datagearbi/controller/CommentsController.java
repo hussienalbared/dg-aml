@@ -10,19 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.Comments;
 import com.datagearbi.repository.CommentsRepository;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/comments")
 public class CommentsController {
-	
+
 	@Autowired
 	private CommentsRepository CommentsRepository;
-	
-
 
 	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public List<Comments> findAll()
-	{return this.CommentsRepository.findAll();
-		
+	public List<Comments> findAll() {
+		List<Comments> comments = this.CommentsRepository.findAll();
+		comments.forEach(c->{
+			if (c.getUserview()!=null) {				
+				System.out.println("getDisplayName:"+c.getUserview().getDisplayName());
+			}
+			
+		});
+		System.out.println("comments"+comments.size());
+		return comments;
 	}
 }

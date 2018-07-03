@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -19,7 +22,9 @@ import com.datagearbi.Exception.FileStorageException;
 import com.datagearbi.Exception.MyFileNotFoundException;
 import com.datagearbi.helper.FileStorageProperties;
 import com.datagearbi.model.Attachment;
+import com.datagearbi.model.Comments;
 import com.datagearbi.repository.AttachmentRepository;
+import com.datagearbi.repository.CommentsRepository;
 
 @Service
 public class FileStorageService {
@@ -27,24 +32,44 @@ public class FileStorageService {
 	private final Path fileStorageLocation;
 	@Autowired
 	private AttachmentRepository AttachmentRepository;
+	@Autowired
+	private CommentsRepository CommentsRepository;
 
-	  @Autowired
-	    public FileStorageService(FileStorageProperties fileStorageProperties) {
-	        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
-	                .toAbsolutePath().normalize();
+	@Autowired
+	public FileStorageService(FileStorageProperties fileStorageProperties) {
+		this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
 
-	        try {
-	            Files.createDirectories(this.fileStorageLocation);
-	        } catch (Exception ex) {
-	            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
-	        }
-	    }
+		try {
+			Files.createDirectories(this.fileStorageLocation);
+		} catch (Exception ex) {
+			throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
+					ex);
+		}
+	}
 
-	public Attachment storeFile(MultipartFile file,long alarmed_Obj_Key,
-			String alarmed_Obj_level_Cd,String description,int uplodedById) {
+	public Attachment storeFile(MultipartFile file, int commentId) {
 		// Normalize file name
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		System.out.println(fileName + "{}");
+		List<Attachment> files = this.AttachmentRepository.findByfileName(file.getOriginalFilename());
+		String fileName;
+		Path targetLocation;
+		if (files.size() > 0) {
+
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
+
+			String strDate = dateFormat.format(date);
+
+			 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			int extensionIndex = fileName.lastIndexOf('.');
+
+			 fileName = fileName.substring(0, extensionIndex) + strDate + fileName.substring(extensionIndex);
+		
+		}
+		else
+		{
+			 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			
+		}
 
 		try {
 			// Check if the file's name contains invalid characters
@@ -53,20 +78,15 @@ public class FileStorageService {
 			}
 
 			// Copy file to the target location (Replacing existing file with the same name)
-			Path targetLocation = this.fileStorageLocation.resolve(fileName);
-			System.out.println(targetLocation);
+			 targetLocation = this.fileStorageLocation.resolve(fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 			Attachment x = new Attachment();
-			 x.setAlarmed_Obj_Key(alarmed_Obj_Key);
-			 x.setAlarmed_Obj_level_Cd(alarmed_Obj_level_Cd);
-			x.setCommentId(-1);
-			 x.setDescription(description);
+			x.setCommentId(commentId);
 			x.setFileName(file.getOriginalFilename());
 			x.setFilepath(targetLocation.toString());
-			x.setUploadDate(new Date());
-			 x.setUplodedById(uplodedById);
 
 			this.AttachmentRepository.save(x);
+
 			return x;
 		} catch (IOException ex) {
 			throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
