@@ -1,6 +1,7 @@
 package com.datagearbi.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public Userview getUserview() {
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "commentId")
-	private List<Attachment> attachment;
+	private List<Attachment> attachment= new ArrayList<>();
 
 	public List<Attachment> getAttachment() {
 		return attachment;

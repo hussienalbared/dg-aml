@@ -19,6 +19,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,9 @@ public class AttachmentController {
 
 	@Autowired
 	private FileStorageService fileStorageService;
+	
+	@Autowired
+    private SimpMessagingTemplate template;
 
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public List<Attachment> findAll() {
@@ -91,6 +95,12 @@ public class AttachmentController {
 		c.setUplodedById(uplodedById);
 		Comments z = this.commentsRepository.save(c);
 		Arrays.asList(files).stream().map(file -> uploadFile(file, z.getId())).collect(Collectors.toList());
+		
+		z.setAttachment(this.attachmentRepository.findByCommentId(z.getId()));
+		template.convertAndSend("/topic/comment", this.commentsRepository.findById(z.getId()));
+		
+		System.out.println("AAAAAAAAAAAAAAa:" + z.getAttachment().size());
+		
 		return findBySuspect(alarmed_Obj_level_Cd, String.valueOf(alarmed_Obj_Key));
 	}
 

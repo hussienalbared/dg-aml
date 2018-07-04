@@ -15,4 +15,6 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Integer>
 	@Transactional
 	void deleteByfileName(String fileName);
 
+	List<Attachment> findByCommentId(int commentId);
+	
 }
