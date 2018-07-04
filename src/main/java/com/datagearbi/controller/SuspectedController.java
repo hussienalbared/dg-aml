@@ -24,7 +24,9 @@ import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
 import com.datagearbi.model.Comment;
+import com.datagearbi.model.Comments;
 import com.datagearbi.repository.AlaramObjectRepository;
+import com.datagearbi.repository.CommentsRepository;
 import com.datagearbi.repository.SuspectCommentRrepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
@@ -41,6 +43,9 @@ public class SuspectedController {
 	
 	@Autowired
 	private SuspectCommentRrepository SuspectCommentRrepository;
+	
+	@Autowired
+	private CommentsRepository commentsRepository;
 	
 	@Autowired
     private SimpMessagingTemplate template;
@@ -147,12 +152,13 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	}
 //	
 	@RequestMapping(value="comments",method=RequestMethod.GET)
-	public List<Comment> getAllComments(@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd,
+	public List<Comments> getAllComments(@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd,
 										@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key) {
 		/*
 		 * get all suspect comments
 		 */
-		return this.SuspectCommentRrepository.getAllComments(alarmed_Obj_level_Cd,alarmed_Obj_Key);
+		//return this.SuspectCommentRrepository.getAllComments(alarmed_Obj_level_Cd,alarmed_Obj_Key);
+		return this.commentsRepository.findAll();
 	}
 	
 }
