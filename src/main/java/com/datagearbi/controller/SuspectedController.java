@@ -27,7 +27,7 @@ import com.datagearbi.model.Comment;
 import com.datagearbi.model.Comments;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.CommentsRepository;
-import com.datagearbi.repository.SuspectCommentRrepository;
+
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
@@ -41,8 +41,7 @@ public class SuspectedController {
 	@Autowired
 	private AlaramObjectRepository alaramObjectRepository;
 	
-	@Autowired
-	private SuspectCommentRrepository SuspectCommentRrepository;
+	
 	
 	@Autowired
 	private CommentsRepository commentsRepository;
@@ -134,31 +133,4 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	
 	
 	}
-
-	@RequestMapping(value="addcomment",method=RequestMethod.POST)
-	public void addComment(@RequestBody Comment comment) {
-		/*
-		 * insert comment
-		 * get all comments
-		 * converstAndSend all comments to the topic 
-		 */
-    	Date date = new Date();
-    	comment.setUploadDate(date);
-		this.SuspectCommentRrepository.save(comment);
-		
-//		List<Comment> allcommants = getAllComments(comment.getAlarmed_Obj_level_Cd(), comment.getAlarmed_Obj_Key());
-		// Push notifications to front-end
-        template.convertAndSend("/topic/comment", comment);
-	}
-//	
-	@RequestMapping(value="comments",method=RequestMethod.GET)
-	public List<Comments> getAllComments(@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd,
-										@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key) {
-		/*
-		 * get all suspect comments
-		 */
-		//return this.SuspectCommentRrepository.getAllComments(alarmed_Obj_level_Cd,alarmed_Obj_Key);
-		return this.commentsRepository.findAll();
-	}
-	
 }

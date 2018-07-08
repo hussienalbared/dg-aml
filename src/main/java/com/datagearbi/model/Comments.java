@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,7 +63,9 @@ public Userview getUserview() {
 	private List<Attachment> attachment= new ArrayList<>();
 
 	public List<Attachment> getAttachment() {
-		return attachment;
+		return attachment.stream().filter(z->
+			z.getDeletedBy()==0
+		).collect(Collectors.toList());
 	}
 
 	public void setAttachment(List<Attachment> attachment) {

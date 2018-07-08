@@ -19,6 +19,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.datagearbi.Exception.FileStorageException;
@@ -148,20 +149,23 @@ public class FileStorageService {
 		if (comment.isPresent()) {
 			Comments c = comment.get();
 			c.setStateIndicator("n");
-			c.getAttachment().forEach(attach -> {
-				this.moveToDelete(attach.getFileName());
-			});
 
 			Comments v = new Comments();
 			v.setAlarmed_Obj_Key(c.getAlarmed_Obj_Key());
 			v.setAlarmed_Obj_level_Cd(c.getAlarmed_Obj_level_Cd());
 			v.setDescription(c.getDescription());
 			v.setPreviousComment(c.getId());
-			v.setStateIndicator("y");
+			v.setStateIndicator("n");
 			v.setUploadDate(new Date());
 			v.setUplodedById(updaterId);
-			this.CommentsRepository.save(v);
-
+			Comments newOne = this.CommentsRepository.save(v);
+			
+			c.getAttachment().forEach(attach -> {
+				this.moveToDelete(attach.getFileName());
+				attach.setDeletedBy(updaterId);
+				attach.setCommentId(newOne.getId());
+				this.AttachmentRepository.save(attach);
+			});
 		}
 
 	}
@@ -170,9 +174,14 @@ public class FileStorageService {
 	// user id the id of user who add the file
 	public void addNewFileToComment(MultipartFile file, int commentId, int userId) {
 		this.storeFile(file, commentId, userId);
-
 	}
 
+	public void addNewFilesToComment(MultipartFile[] files, int commentId, int userId) {
+		for (MultipartFile file : files) {
+			this.addNewFileToComment(file, commentId, userId);
+		}
+	}
+	
 	// state 3
 	public void removeAttachment(int attachmentid, int userId) {
 		
@@ -191,27 +200,40 @@ public class FileStorageService {
 	}
 
 	// state 1
-	public void updateComment(Comments comments, MultipartFile[] files) {
+	public void updateComment(int commentid, int alarmed_Obj_Key,String alarmed_Obj_level_Cd, String description, 
+			int uplodedById, MultipartFile[] files) {
 
+		Optional<Comments> oldOne = this.CommentsRepository.findById(commentid);
+		if(oldOne.isPresent()) {
+			oldOne.get().setStateIndicator("n");
+			this.CommentsRepository.save(oldOne.get());
+		}
+		
 		Comments s = new Comments();
-		s.setAlarmed_Obj_Key(comments.getAlarmed_Obj_Key());
-		s.setAlarmed_Obj_level_Cd(comments.getAlarmed_Obj_level_Cd());
-		s.setDescription(comments.getDescription());
+		s.setAlarmed_Obj_Key(alarmed_Obj_Key);
+		s.setAlarmed_Obj_level_Cd(alarmed_Obj_level_Cd);
+		s.setDescription(description);
 		s.setUploadDate(new Date());
-		s.setPreviousComment(comments.getId());
+		s.setPreviousComment(commentid);
 		s.setStateIndicator("y");
-		s.setUplodedById(comments.getUplodedById());
+		s.setUplodedById(uplodedById);
 		Comments newComment = this.CommentsRepository.save(s);
-		this.CommentsRepository.findById(comments.getId()).get().getAttachment().forEach(attach -> {
+		this.CommentsRepository.findById(commentid).get().getAttachment().forEach(attach -> {
 			// attach.setUpdatedBy(comments.getUplodedById());
 			attach.setCommentId(newComment.getId());
 			this.AttachmentRepository.save(attach);
 		});
 		
 		Arrays.asList(files).stream().
-		map(file -> storeFile(file, newComment.getId(),comments.getUplodedById())).
+		map(file -> storeFile(file, newComment.getId(),uplodedById)).
 		collect(Collectors.toList());
 
+	}
+	
+	public Attachment uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("commentId") int commentId,
+			@RequestParam("userId") int userId) {
+		Attachment fileName = storeFile(file, commentId, userId);
+		return fileName;
 	}
 
 }

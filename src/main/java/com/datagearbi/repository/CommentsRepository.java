@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.datagearbi.model.Comments;
 
 public interface CommentsRepository extends JpaRepository<Comments, Integer> {
-	@Query("SeLect D from Comments D where D.alarmed_Obj_level_Cd=?1 and D.alarmed_Obj_Key=?2")
-	List<Comments> findAttachmentbySuspect(String code, long key);
-//	@Query("select new map()from Comments c inner join User u on u.id=c.")
+	
+	@Query("select c from Comments c where c.alarmed_Obj_level_Cd=?1 and c.alarmed_Obj_Key=?2 and stateIndicator='y'")
+	public List<Comments> getAllComments(String alarmed_Obj_level_Cd, long alarmed_Obj_Key);
 }

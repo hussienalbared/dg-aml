@@ -66,21 +66,9 @@ public class AttachmentController {
 
 	}
 
-	@RequestMapping(value = "bySuspect", method = RequestMethod.GET)
-	public List<Comments> findBySuspect(@RequestParam("code") String code, @RequestParam("key") String key) {
-
-		return this.commentsRepository.findAttachmentbySuspect(code, Long.parseLong(key));
-
-	}
-
-	//add file to specific. comment
-	@PostMapping("/uploadFile")
-	public Attachment uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("commentId") int commentId,
-			@RequestParam("userId") int userId) {
-		Attachment fileName = fileStorageService.storeFile(file, commentId, userId);
-		return fileName;
-	}
-
+/*********/
+	
+	//add new comment
 	@PostMapping("/uploadMultipleFiles")
 	public List<Comments> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, int alarmed_Obj_Key,
 			String alarmed_Obj_level_Cd, String description, int uplodedById) {
@@ -93,15 +81,16 @@ public class AttachmentController {
 		c.setStateIndicator("y");
 		c.setPreviousComment(-1);
 		Comments z = this.commentsRepository.save(c);
-		Arrays.asList(files).stream().map(file -> uploadFile(file, z.getId(), uplodedById))
+		Arrays.asList(files).stream().map(file -> this.fileStorageService.uploadFile(file, z.getId(), uplodedById))
 				.collect(Collectors.toList());
 
 		z.setAttachment(this.attachmentRepository.findByCommentId(z.getId()));
 		template.convertAndSend("/topic/comment", this.commentsRepository.findById(z.getId()));
 
-		return findBySuspect(alarmed_Obj_level_Cd, String.valueOf(alarmed_Obj_Key));
+		return this.commentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key);
 	}
-
+/*********/
+	
 	@GetMapping("/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
 		// Load file as Resource
@@ -155,26 +144,20 @@ public class AttachmentController {
 		return this.EntityManager.createQuery(query).getResultList();
 	}
 
-	/***/
-	@PostMapping("/deletFiles")
-	public void deletef(@RequestParam("file") String f) {
-		this.fileStorageService.moveToDelete(f);
-		;
-	}
-	/****/
-
-	@PostMapping("/deleteComment")
-	public void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId) {
-		this.fileStorageService.deleteComment(commentId, updaterId);
-	}
-
-	@PostMapping("/removeAttachment")
+	
+	@DeleteMapping("/removeAttachment")
 	public void removeAttachment(@RequestParam int attachmentid, @RequestParam int userId) {
+		System.out.println("*********" + attachmentid+ " ; " + userId);
 		this.fileStorageService.removeAttachment(attachmentid, userId);
 	}
 	
-	@PostMapping("/updateComment")
-	public void updateComment(@RequestParam("comments")Comments comments,@RequestParam("files") MultipartFile[] files) {
-		this.fileStorageService.updateComment(comments, files);
+	
+	// case of adding only files to a sprec. comment(without desc)
+	@PostMapping("/addNewFilesToComment")
+	public void addNewFilesToComment(@RequestParam("files") MultipartFile[] files,
+			@RequestParam("commentId") int commentId,@RequestParam("userId") int userId) {
+		
+		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwww");
+		this.fileStorageService.addNewFilesToComment(files, commentId, userId);
 	}
 }
