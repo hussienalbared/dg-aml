@@ -2,6 +2,8 @@ package com.datagearbi.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,9 +56,9 @@ public class AttachmentController {
 
 	@Autowired
 	private FileStorageService fileStorageService;
-	
+
 	@Autowired
-    private SimpMessagingTemplate template;
+	private SimpMessagingTemplate template;
 
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public List<Attachment> findAll() {
@@ -71,15 +74,11 @@ public class AttachmentController {
 	}
 
 	@PostMapping("/uploadFile")
-	public Attachment uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("commentId") int commentId
+	public Attachment uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("commentId") int commentId,
+			@RequestParam("userId") int userId
 
 	) {
-		Attachment fileName = fileStorageService.storeFile(file, commentId);
-
-		// String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-		// .path("/downloadFile/")
-		// .path(fileName)
-		// .toUriString();
+		Attachment fileName = fileStorageService.storeFile(file, commentId, userId);
 
 		return fileName;
 	}
@@ -93,14 +92,15 @@ public class AttachmentController {
 		c.setDescription(description);
 		c.setUploadDate(new Date());
 		c.setUplodedById(uplodedById);
+		c.setStateIndicator("y");
+		c.setPreviousComment(-1);
 		Comments z = this.commentsRepository.save(c);
-		Arrays.asList(files).stream().map(file -> uploadFile(file, z.getId())).collect(Collectors.toList());
-		
+		Arrays.asList(files).stream().map(file -> uploadFile(file, z.getId(), uplodedById))
+				.collect(Collectors.toList());
+
 		z.setAttachment(this.attachmentRepository.findByCommentId(z.getId()));
 		template.convertAndSend("/topic/comment", this.commentsRepository.findById(z.getId()));
-		
-		System.out.println("AAAAAAAAAAAAAAa:" + z.getAttachment().size());
-		
+
 		return findBySuspect(alarmed_Obj_level_Cd, String.valueOf(alarmed_Obj_Key));
 	}
 
@@ -157,4 +157,46 @@ public class AttachmentController {
 		return this.EntityManager.createQuery(query).getResultList();
 	}
 
+	@PostMapping("/deleteMultipleFiles")
+	public void updateComment(@RequestParam("files") MultipartFile[] files, @RequestBody Comments comment) {
+
+		Comments x = new Comments();
+		x.setAlarmed_Obj_Key(comment.getAlarmed_Obj_Key());
+		x.setAlarmed_Obj_level_Cd(comment.getAlarmed_Obj_level_Cd());
+		x.setDescription(comment.getDescription());
+		x.setUploadDate(new Date());
+		Optional<Comments> cc = this.commentsRepository.findById(comment.getId());
+		if (cc.isPresent()) {
+			cc.get().getAttachment().forEach(q -> {
+				Path fileStorageLocation = Paths.get("deleted").toAbsolutePath().normalize();
+
+			});
+
+		}
+		// comment.getAttachment().forEach(a->
+		// {
+		//
+		// });
+		// Comments z = this.commentsRepository.save(x);
+
+	}
+
+	@PostMapping("/deletFiles")
+	public void deletef(@RequestParam("file") String f) {
+		this.fileStorageService.moveToDelete(f);
+		;
+
+	}
+
+	@PostMapping("/deleteComment")
+	private void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId) {
+		this.fileStorageService.deleteComment(commentId, updaterId);
+	}
+
+	@PostMapping("/deleteAttachment")
+	public void removeAttachment(@RequestParam int attachmentid, @RequestParam int userId) {
+
+		this.fileStorageService.removeAttachment(attachmentid, userId);
+
+	}
 }

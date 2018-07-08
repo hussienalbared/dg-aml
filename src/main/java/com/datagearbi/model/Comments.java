@@ -27,6 +27,24 @@ import com.datagearbi.model.security.Userview;
 @NamedQuery(name = "Comments.findAll", query = "SELECT c FROM Comments c")
 @Table(schema = "AC")
 public class Comments implements Serializable {
+	@Column(name="previousComment")
+	private int previousComment;
+	@Column(name="stateIndicator")
+	private String stateIndicator;
+	
+	public int getPreviousComment() {
+		return previousComment;
+	}
+	public void setPreviousComment(int previousComment) {
+		this.previousComment = previousComment;
+	}
+	public String getStateIndicator() {
+		return stateIndicator;
+	}
+	public void setStateIndicator(String stateIndicator) {
+		this.stateIndicator = stateIndicator;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(insertable = false, updatable = false, name = "UplodedById", referencedColumnName = "id")

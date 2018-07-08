@@ -16,6 +16,26 @@ import javax.persistence.Table;
 public class Attachment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Column(name="deletedBy")
+	private int deletedBy;
+	@Column(name="addedBy")
+	private int addedBy;
+	
+	public void setDeletedBy(int deletedBy) {
+		this.deletedBy = deletedBy;
+	}
+	public int getDeletedBy() {
+		return deletedBy;
+	}
+
+	public int getAddedBy() {
+		return addedBy;
+	}
+
+	public void setAddedBy(int addedBy) {
+		this.addedBy = addedBy;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
