@@ -73,13 +73,11 @@ public class AttachmentController {
 
 	}
 
+	//add file to specific. comment
 	@PostMapping("/uploadFile")
 	public Attachment uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("commentId") int commentId,
-			@RequestParam("userId") int userId
-
-	) {
+			@RequestParam("userId") int userId) {
 		Attachment fileName = fileStorageService.storeFile(file, commentId, userId);
-
 		return fileName;
 	}
 
@@ -157,46 +155,26 @@ public class AttachmentController {
 		return this.EntityManager.createQuery(query).getResultList();
 	}
 
-	@PostMapping("/deleteMultipleFiles")
-	public void updateComment(@RequestParam("files") MultipartFile[] files, @RequestBody Comments comment) {
-
-		Comments x = new Comments();
-		x.setAlarmed_Obj_Key(comment.getAlarmed_Obj_Key());
-		x.setAlarmed_Obj_level_Cd(comment.getAlarmed_Obj_level_Cd());
-		x.setDescription(comment.getDescription());
-		x.setUploadDate(new Date());
-		Optional<Comments> cc = this.commentsRepository.findById(comment.getId());
-		if (cc.isPresent()) {
-			cc.get().getAttachment().forEach(q -> {
-				Path fileStorageLocation = Paths.get("deleted").toAbsolutePath().normalize();
-
-			});
-
-		}
-		// comment.getAttachment().forEach(a->
-		// {
-		//
-		// });
-		// Comments z = this.commentsRepository.save(x);
-
-	}
-
+	/***/
 	@PostMapping("/deletFiles")
 	public void deletef(@RequestParam("file") String f) {
 		this.fileStorageService.moveToDelete(f);
 		;
-
 	}
+	/****/
 
 	@PostMapping("/deleteComment")
-	private void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId) {
+	public void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId) {
 		this.fileStorageService.deleteComment(commentId, updaterId);
 	}
 
-	@PostMapping("/deleteAttachment")
+	@PostMapping("/removeAttachment")
 	public void removeAttachment(@RequestParam int attachmentid, @RequestParam int userId) {
-
 		this.fileStorageService.removeAttachment(attachmentid, userId);
-
+	}
+	
+	@PostMapping("/updateComment")
+	public void updateComment(@RequestParam("comments")Comments comments,@RequestParam("files") MultipartFile[] files) {
+		this.fileStorageService.updateComment(comments, files);
 	}
 }

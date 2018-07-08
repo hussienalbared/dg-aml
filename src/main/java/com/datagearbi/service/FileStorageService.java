@@ -206,10 +206,7 @@ public class FileStorageService {
 			// attach.setUpdatedBy(comments.getUplodedById());
 			attach.setCommentId(newComment.getId());
 			this.AttachmentRepository.save(attach);
-
-		}
-
-		);
+		});
 		
 		Arrays.asList(files).stream().
 		map(file -> storeFile(file, newComment.getId(),comments.getUplodedById())).
