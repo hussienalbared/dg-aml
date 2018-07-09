@@ -85,7 +85,8 @@ public class AttachmentController {
 				.collect(Collectors.toList());
 
 		z.setAttachment(this.attachmentRepository.findByCommentId(z.getId()));
-		template.convertAndSend("/topic/comment", this.commentsRepository.findById(z.getId()));
+//		template.convertAndSend("/topic/comment", this.commentsRepository.findById(z.getId()));
+		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.commentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
 
 		return this.commentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key);
 	}
@@ -146,18 +147,25 @@ public class AttachmentController {
 
 	
 	@DeleteMapping("/removeAttachment")
-	public void removeAttachment(@RequestParam int attachmentid, @RequestParam int userId) {
+	public void removeAttachment(@RequestParam int attachmentid, @RequestParam int userId,
+			@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd,
+			@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key) {
 		System.out.println("*********" + attachmentid+ " ; " + userId);
 		this.fileStorageService.removeAttachment(attachmentid, userId);
+	
+		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.commentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
 	}
 	
 	
 	// case of adding only files to a sprec. comment(without desc)
 	@PostMapping("/addNewFilesToComment")
 	public void addNewFilesToComment(@RequestParam("files") MultipartFile[] files,
-			@RequestParam("commentId") int commentId,@RequestParam("userId") int userId) {
+			@RequestParam("commentId") int commentId,@RequestParam("userId") int userId,
+			@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key,@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd) {
 		
 		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwww");
 		this.fileStorageService.addNewFilesToComment(files, commentId, userId);
+		
+		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.commentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
 	}
 }

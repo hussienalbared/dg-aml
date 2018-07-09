@@ -3,6 +3,7 @@ package com.datagearbi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,9 @@ public class CommentsController {
 	
 	@Autowired
 	private FileStorageService fileStorageService;
+	
+	@Autowired
+	private SimpMessagingTemplate template;
 
 	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public List<Comments> findAll() {
@@ -54,12 +58,17 @@ public class CommentsController {
 //		System.out.println(comments.getAlarmed_Obj_level_Cd());
 //		System.out.println(comments.getId());
 		this.fileStorageService.updateComment(commentid,alarmed_Obj_Key, alarmed_Obj_level_Cd,description,uplodedById, files);
+	
+		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
 	}
 	
 	@DeleteMapping("/deleteComment")
-	public void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId) {
+	public void deleteComment(@RequestParam("commentId") int commentId, @RequestParam("updaterId") int updaterId,
+			@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key,@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd) {
 		System.out.println("*****************in deleteComment");
 		this.fileStorageService.deleteComment(commentId, updaterId);
+		
+		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
 	}
 
 	
