@@ -67,6 +67,9 @@ public class FileStorageService {
 
 			targetLocation = this.fileStorageLocation.resolve(fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+			
+			System.out.println("QQQQQQQQQQQQQq= " + commentId);
+			
 			Attachment x = new Attachment();
 			x.setCommentId(commentId);
 			x.setFileName(fileName);
@@ -200,7 +203,7 @@ public class FileStorageService {
 	}
 
 	// state 1
-	public void updateComment(int commentid, int alarmed_Obj_Key,String alarmed_Obj_level_Cd, String description, 
+	public void updateComment(int commentid, long alarmed_Obj_Key,String alarmed_Obj_level_Cd, String description, 
 			int uplodedById, MultipartFile[] files) {
 
 		Optional<Comments> oldOne = this.CommentsRepository.findById(commentid);
@@ -218,11 +221,25 @@ public class FileStorageService {
 		s.setStateIndicator("y");
 		s.setUplodedById(uplodedById);
 		Comments newComment = this.CommentsRepository.save(s);
-		this.CommentsRepository.findById(commentid).get().getAttachment().forEach(attach -> {
-			// attach.setUpdatedBy(comments.getUplodedById());
-			attach.setCommentId(newComment.getId());
-			this.AttachmentRepository.save(attach);
+//		this.CommentsRepository.findById(commentid).get().getAttachment().forEach(attach -> {
+//			// attach.setUpdatedBy(comments.getUplodedById());
+//			attach.setCommentId(newComment.getId());
+//			this.AttachmentRepository.save(attach);
+//		});
+		System.out.println("HUSSIENHUSSIENBefor = " + this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key).size());
+		List<Attachment>list=this.CommentsRepository.findById(commentid).get().getAttachment();
+		list.forEach(a->{
+			a.setCommentId(newComment.getId());
+			System.out.println(a.getCommentId()+"Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+			
+			this.AttachmentRepository.save(a);
+//			newComment.getAttachment().add(a);/**/
 		});
+		//
+		System.out.println("HUSSIENHUSSIENAfter = " + this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key).size() + " , " + newComment.getDescription());		
+		newComment.setAttachment(list);
+		this.CommentsRepository.save(newComment);
+		//
 		
 		Arrays.asList(files).stream().
 		map(file -> storeFile(file, newComment.getId(),uplodedById)).

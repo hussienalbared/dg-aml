@@ -53,13 +53,21 @@ public class CommentsController {
 	}
 	
 	@PostMapping("/updateComment")
-	public void updateComment(int commentid, int alarmed_Obj_Key,String alarmed_Obj_level_Cd, String description, 
-			int uplodedById,@RequestParam MultipartFile[] files) {
+	public void updateComment(@RequestParam("commentid") int commentid,@RequestParam("alarmed_Obj_Key") long alarmed_Obj_Key,
+			@RequestParam("alarmed_Obj_level_Cd") String alarmed_Obj_level_Cd, @RequestParam("description") String description, 
+			@RequestParam("uplodedById") int uplodedById,@RequestParam MultipartFile[] files) {
 //		System.out.println(comments.getAlarmed_Obj_level_Cd());
 //		System.out.println(comments.getId());
 		this.fileStorageService.updateComment(commentid,alarmed_Obj_Key, alarmed_Obj_level_Cd,description,uplodedById, files);
-	
+		
+//		System.out.println("files.length" + files.length);
+		System.out.println("After Calling Update ....." + alarmed_Obj_Key + " , " + alarmed_Obj_level_Cd);
+		
 		template.convertAndSend("/topic/comment/"+alarmed_Obj_Key+"/"+alarmed_Obj_level_Cd, this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key));
+		
+		System.out.println("CHeck CHeck CHeck: " + this.CommentsRepository.getAllComments(alarmed_Obj_level_Cd, alarmed_Obj_Key).get(0).getAttachment().size());
+		
+		System.out.println("After Send Returen .....");
 	}
 	
 	@DeleteMapping("/deleteComment")
