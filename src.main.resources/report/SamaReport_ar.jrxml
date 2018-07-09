@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SamaReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0109799-050d-4825-b0e2-2fb395cfeb6a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="reportingEntityBranch" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingEntityBranch]]></fieldDescription>
+	</field>
+	<field name="reportingEntityPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingEntityPhone]]></fieldDescription>
+	</field>
+	<field name="withdrawType" class="java.lang.Integer">
+		<fieldDescription><![CDATA[withdrawType]]></fieldDescription>
+	</field>
+	<field name="accountNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[accountNumber]]></fieldDescription>
+	</field>
+	<field name="creationDate" class="java.util.Date">
+		<fieldDescription><![CDATA[creationDate]]></fieldDescription>
+	</field>
+	<field name="customerName" class="java.lang.String">
+		<fieldDescription><![CDATA[customerName]]></fieldDescription>
+	</field>
+	<field name="reportingEntityName" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingEntityName]]></fieldDescription>
+	</field>
+	<field name="reportingEntityCity" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingEntityCity]]></fieldDescription>
+	</field>
+	<field name="currencyName" class="java.lang.String">
+		<fieldDescription><![CDATA[currencyName]]></fieldDescription>
+	</field>
+	<field name="nationality" class="java.lang.String">
+		<fieldDescription><![CDATA[nationality]]></fieldDescription>
+	</field>
+	<field name="customerId" class="java.lang.String">
+		<fieldDescription><![CDATA[customerId]]></fieldDescription>
+	</field>
+	<field name="transferType" class="java.lang.Integer">
+		<fieldDescription><![CDATA[transferType]]></fieldDescription>
+	</field>
+	<field name="reportingEntityType" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingEntityType]]></fieldDescription>
+	</field>
+	<field name="depositType" class="java.lang.Integer">
+		<fieldDescription><![CDATA[depositType]]></fieldDescription>
+	</field>
+	<field name="accountBranch" class="java.lang.String">
+		<fieldDescription><![CDATA[accountBranch]]></fieldDescription>
+	</field>
+	<field name="amountNumber" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[amountNumber]]></fieldDescription>
+	</field>
+	<field name="reportingPersonName" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingPersonName]]></fieldDescription>
+	</field>
+	<field name="reportingPersonAddress" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingPersonAddress]]></fieldDescription>
+	</field>
+	<field name="bank" class="java.lang.String">
+		<fieldDescription><![CDATA[bank]]></fieldDescription>
+	</field>
+	<field name="reportingPersonPhone" class="java.lang.String">
+		<fieldDescription><![CDATA[reportingPersonPhone]]></fieldDescription>
+	</field>
+	<field name="writtenAmount" class="java.lang.String">
+		<fieldDescription><![CDATA[writtenAmount]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="405" y="0" width="150" height="60" uuid="e5338617-ae4b-4ecc-aa57-d75d3133a2af"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[المملكة العربية السعودية
+وزارة الداخلية
+الادارة العامة للتحريات المالية
+]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement stretchType="RelativeToBandHeight" x="240" y="0" width="130" height="60" uuid="2a7b7fda-7576-4a94-a030-77dd07941be3"/>
+				<imageExpression><![CDATA["D:/DataGear/Business/Final Documents/report/sama.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="40" width="120" height="20" uuid="203b4e3f-a745-49e8-aa06-4bd0ec5a5c42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="20" uuid="e32eb0df-e38f-4d5f-b575-4129c88496aa"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[الرقم]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="20" width="100" height="20" uuid="2228de29-11a6-43c6-b4fe-4624ec774cdd"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[التاريخ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="40" width="100" height="20" uuid="b01fba19-b82c-466a-9a3a-fb8ea0acfa4d"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[المرفقات]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="20" width="120" height="20" uuid="acf9f55c-b687-45f9-a189-e3ad00c20810"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="120" height="20" uuid="862c93b6-ea14-4ce0-a02c-ed11b2047e39"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="571">
+			<staticText>
+				<reportElement x="335" y="30" width="100" height="30" uuid="6661a5de-77e6-4d28-afa2-023625636a69"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[اسم الجهة المُبلغة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="235" y="30" width="100" height="30" uuid="86b44dbd-47c0-4be5-867d-78c13585e71a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[المدينة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="30" width="100" height="30" uuid="289a6b84-550a-44be-8646-329d7fd3e16c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الفرع]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="30" width="100" height="30" uuid="5fc43595-64f3-420f-a1ed-a71c6ed73c0e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الهاتف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="90" width="100" height="30" uuid="7c84ab5c-427b-4fd4-9707-28030d496e3d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الاسم]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="335" y="60" width="100" height="30" uuid="305607ca-20af-4c0b-bb7f-a431b0ad3d1f"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingEntityName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="235" y="60" width="100" height="30" uuid="f93e6a60-a033-4bfc-b166-6a0df2f5bc7a"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingEntityCity}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="135" y="60" width="100" height="30" uuid="a4fa7630-6e14-4ed7-acf2-2be3e6158134"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingEntityBranch}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="60" width="100" height="30" uuid="32c37b2b-13ab-422b-9ec1-84ff6183c24c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingEntityPhone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="335" y="120" width="100" height="30" uuid="d2e60082-2fcb-4612-b662-9e71672f4d92"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingPersonName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="235" y="90" width="100" height="30" uuid="b005bc52-b1a7-41b6-9281-feef35924ac6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الهاتف]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="235" y="120" width="100" height="30" uuid="8236ebcf-147b-4030-a02e-46443d74dd8f"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingPersonPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="90" width="200" height="30" uuid="c88064af-f1c4-42ff-a098-fee0e926d0fd"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[العنوان]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="120" width="200" height="30" uuid="e575a21e-bd60-4dab-a18d-1cf50811a2f5"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{reportingPersonAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="190" width="100" height="30" uuid="34522bc4-adef-4fec-80f9-43cadb5bef7d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[نوع الايداع]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="190" width="100" height="30" uuid="8e1431fc-9033-4c92-944f-5328071d86f4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[نوع السحب]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="190" width="220" height="30" uuid="2040ab6c-e2c8-47ed-9d86-5ad148835ec4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[نوع التحويل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="35" y="250" width="120" height="30" uuid="322263f5-3d2b-41d1-9c13-6bcbbb8f3be3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[السنة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="250" width="100" height="30" uuid="d88991e0-ccb6-4688-88a6-7fa0608089ca"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الوقت]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="220" width="100" height="30" uuid="781fdbb9-9c8a-4c54-be7f-efd7b703f5a0"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{depositType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="220" width="100" height="30" uuid="e3846a5f-959e-4c86-945d-7b967485c81a"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{withdrawType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="220" width="220" height="30" uuid="1279213e-3993-4097-b6f5-9832f455e198"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{transferType}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="280" width="120" height="30" uuid="e405b951-7c5b-451d-80c2-78439bebb46c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{creationDate}.getYear()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="280" width="100" height="30" uuid="fe4c371a-502c-438d-bf4a-f81e18b8940d"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{creationDate}.getTime()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="250" width="100" height="30" uuid="ee64db52-9b9b-4ea5-ace3-f022b92de517"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[اليوم]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="280" width="100" height="30" uuid="568fd655-f060-41fd-b056-0b097b4bd058"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{creationDate}.getDay()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="155" y="250" width="100" height="30" uuid="f0a9052d-226d-4452-afc9-27111fa54fff"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الشهر]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="155" y="280" width="100" height="30" uuid="5732a155-ad66-4d5a-b97d-fb91d8df3ad1"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{creationDate}.getMonth()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="310" width="100" height="30" uuid="ca2aeec7-069c-4cb1-bf60-b06dda0f97e3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[المبلغ رقماً]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="340" width="100" height="30" uuid="6846a8cf-46c7-4d55-a6d6-6fe8f785685d"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{amountNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="310" width="100" height="30" uuid="95ccce19-c9e6-4bb2-a63f-acd243247103"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[المبلغ كتابة]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="340" width="100" height="30" uuid="f03720dc-4017-4437-9a10-acfa40faed42"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{writtenAmount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="310" width="220" height="30" uuid="c43a82a7-cadb-4fae-bdde-8d372d2b5615"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[نوع العملة]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="340" width="220" height="30" uuid="3a377fb6-b035-4fbc-9e36-182ce57ea29c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{currencyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="370" width="100" height="30" uuid="095942a3-9c48-4be2-8219-d5d6e8e42f75"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[رقم  الحساب العميل]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="400" width="100" height="30" uuid="184ab3b6-84ea-41e2-8339-06ba9613bde5"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{accountNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="370" width="100" height="30" uuid="4643fdcc-5f1e-46ad-9ba8-b39609eb602a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[رقم الفرع]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="400" width="100" height="30" uuid="6f26dea4-2232-44d2-b273-fdfd98453d38"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{accountBranch}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="370" width="220" height="30" uuid="f64f7a9a-73a5-4690-8ccc-dafa372590ca"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[البنك]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="400" width="220" height="30" uuid="1ec1322a-b302-4de3-9e57-55ed30b4652e"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="430" width="100" height="30" uuid="71902138-eeb1-4d69-8492-3b4ceae11efa"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[اسم العميل]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="355" y="460" width="100" height="30" uuid="abaaeb41-2e51-49e2-b366-7d9140d27f9c"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="430" width="100" height="30" uuid="c22b4074-acc4-45e4-9a0a-067c4ee56179"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[رقم الهوية]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="255" y="460" width="100" height="30" uuid="1f6826ed-8432-4d77-96d9-c41bdea5bb76"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{customerId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="35" y="430" width="220" height="30" uuid="01ce6aac-8af5-42f9-88b0-e6667315971e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الجنسية]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="35" y="460" width="220" height="30" uuid="9c32ba52-3779-49d8-a2df-5669a70dda92"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nationality}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="435" y="30" width="120" height="60" uuid="47f37fc9-1b17-4bb3-b1f6-16906e5ac700"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الجهة المُبلغة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="90" width="120" height="60" uuid="dcd8ecb6-45d0-4f77-a495-f81780c679da"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[الاتصال بالمبلغ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="190" width="100" height="60" uuid="3e952000-b434-461b-89a9-4df48ab0b379"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[نوع العملية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="250" width="100" height="60" uuid="e4627a8f-0365-4f9b-a769-d5f244945ffa"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[تاريخ التنفيذ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="310" width="100" height="60" uuid="73d63e85-56d4-4292-942d-9c1692f619af"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[مقدار المبلغ ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="370" width="100" height="60" uuid="4e3fbffe-788b-4ea4-a0f1-90022e1013ff"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[حساب منفذ العملية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="430" width="100" height="60" uuid="a41670a1-e9b4-48e7-8546-b6d2bc54b80e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[منفذ العملية]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="10" width="270" height="20" uuid="635b7b50-4391-46e1-a764-8b1a1b95fabd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[بلاغ عن عملية مالية مشتبه بها]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="160" width="270" height="20" uuid="b9604033-e6ac-4b68-a2d0-4b6890be9129"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مضمون البلاغ]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="94"/>
+	</summary>
+</jasperReport>

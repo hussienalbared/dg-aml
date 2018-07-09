@@ -1,12 +1,10 @@
 package com.datagearbi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.h2.util.TempFileDeleter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.DateUtil;
 import com.datagearbi.model.Account;
-import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AccountObjectRepository;
-import com.datagearbi.service.AlarmDTO;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController

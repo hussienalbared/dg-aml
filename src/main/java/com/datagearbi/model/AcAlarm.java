@@ -33,19 +33,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "AcAlarm.findAll", query = "SELECT a FROM AcAlarm a")
 public class AcAlarm implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@JsonIgnore
-	@NotFound(action = NotFoundAction.IGNORE)
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-			@JoinColumn(name = "alarmed_obj_key", referencedColumnName = "obj_key", insertable = false, updatable = false),
-			@JoinColumn(name = "alarmed_obj_level_code", referencedColumnName = "obj_level_code", insertable = false, updatable = false) })
-	private AcSuspectedObj acSuspectedObj ;
+//	@JsonIgnore
+//	@NotFound(action = NotFoundAction.IGNORE)
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumns({
+//			@JoinColumn(name = "alarmed_obj_key", referencedColumnName = "obj_key", insertable = false, updatable = false),
+//			@JoinColumn(name = "alarmed_obj_level_code", referencedColumnName = "obj_level_code", insertable = false, updatable = false) })
+//	private AcSuspectedObj acSuspectedObj ;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "alarm_id")
 	private long alarmId;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="acalarm")
-    private List<AcRoutine> acroutine;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,mappedBy="acalarm")
+//    private List<AcRoutine> acroutine;
 	@Column(name = "actual_values_text")
 	private String actualValuesText;
 
@@ -108,14 +108,14 @@ public class AcAlarm implements Serializable {
 
 	@Column(name = "routine_id")
 	private BigDecimal routineId;
-
-	public List<AcRoutine> getAcroutine() {
-		return acroutine;
-	}
-
-	public void setAcroutine(List<AcRoutine> acroutine) {
-		this.acroutine = acroutine;
-	}
+//
+//	public List<AcRoutine> getAcroutine() {
+//		return acroutine;
+//	}
+//
+//	public void setAcroutine(List<AcRoutine> acroutine) {
+//		this.acroutine = acroutine;
+//	}
 
 	@Column(name = "routine_name")
 	private String routineName;
