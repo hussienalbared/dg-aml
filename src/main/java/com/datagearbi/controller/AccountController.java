@@ -22,7 +22,7 @@ import com.datagearbi.model.DGAML003_Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AccountObjectRepository;
 import com.datagearbi.service.AlarmDTO;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/account")
 public class AccountController {
