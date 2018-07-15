@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
-import com.datagearbi.model.Comment;
 import com.datagearbi.model.Comments;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.CommentsRepository;
