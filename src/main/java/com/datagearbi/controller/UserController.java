@@ -44,7 +44,7 @@ public class UserController {
     	
     	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     	Date date = new Date();
-    	System.out.println(date); //2016/11/16 12:08:43
+    	System.out.println("AAAAAAAAAaa=" + date); //2016/11/16 12:08:43
     	target_user.setLastPasswordResetDate(date);
         target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
         

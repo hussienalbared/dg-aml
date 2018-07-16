@@ -16,7 +16,7 @@ import com.datagearbi.model.Suspected_transactions_V;
 import com.datagearbi.repository.suspected_transactions_VRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("aml/api/suspectedTransaction")
 
 public class suspectedTransactionController {
