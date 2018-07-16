@@ -25,7 +25,7 @@ public class alarmNotification extends Notification implements Serializable {
 	private int id;
 
 	@Column(name = "alarmId")
-	private int alarmId;
+	private long alarmId;
 
 	@Column(name = "action")
 	private String action;
@@ -41,11 +41,11 @@ public class alarmNotification extends Notification implements Serializable {
 		this.id = id;
 	}
 
-	public int getAlarmId() {
+	public long getAlarmId() {
 		return alarmId;
 	}
 
-	public void setAlarmId(int alarmId) {
+	public void setAlarmId(long alarmId) {
 		this.alarmId = alarmId;
 	}
 

@@ -1,6 +1,7 @@
 package com.datagearbi.security.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -48,4 +49,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
 //    @Query("select u from User u where u.id=?1")
 //    User getUser(long id);
+   Optional<User> findById(long id);
 }
