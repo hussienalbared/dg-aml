@@ -50,10 +50,10 @@ public class SuspectedController {
     private SimpMessagingTemplate template;
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
-	public Object[] list() {
+	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return this.suspectedObjectRepository.getAllSuspectWithNames();
-//		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 2);
+//		return this.suspectedObjectRepository.getAllSuspectWithNames();
+		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 20);
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
