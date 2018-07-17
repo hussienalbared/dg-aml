@@ -77,9 +77,10 @@ String NotificationMessage="";
 		
 	}
 	Optional<AC_Suspected_Object> suspect=this.suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(s.getAlarmed_Obj_level_Cd(),s.getAlarmed_Obj_Key()));
+	
 	if(suspect.isPresent())
 		{
-			s.setAlarmed_obj_name(s.getAlarmed_obj_name());
+			s.setAlarmed_obj_name(suspect.get().getAlarmed_Obj_Name());
 		}
 	if(s.getAction().equals("Forward"))
 	{
