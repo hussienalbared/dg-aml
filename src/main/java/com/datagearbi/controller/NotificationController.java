@@ -153,7 +153,11 @@ public class NotificationController {
 					"  "+s.getCust_Name()+" to user "+s.getTarget_Name();
 			
 		}
-		 NotificationMessage=""+s.getUserName()+" "+s.getAction()+" on "+s.getCust_Name();
+		else
+		{
+			 NotificationMessage=""+s.getUserName()+" "+s.getAction()+" on "+s.getCust_Name();
+			
+		}
 		s.setFinalDescription(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
 		template.convertAndSend("topic/notification/",ss);
