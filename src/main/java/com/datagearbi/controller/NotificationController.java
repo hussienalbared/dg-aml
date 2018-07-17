@@ -107,7 +107,7 @@ public class NotificationController {
 
 		s.setFinalDescription(NotificationMessage);
 		SuspectNotification ss = this.suspectNotificationRepository.save(s);
-		template.convertAndSend("topic/notification/", ss);
+		template.convertAndSend("/topic/notification/", this.notificationRepository.findAll());
 
 		return ss;
 	}
@@ -128,7 +128,7 @@ public class NotificationController {
 				+ s.getAlarmed_obj_name();
 		s.setFinalDescription(NotificationMessage);
 		alarmNotification ss = this.alarmNotificationRepository.save(s);
-		template.convertAndSend("topic/notification/", ss);
+		template.convertAndSend("/topic/notification/",this.notificationRepository.findAll());
 
 		return ss;
 	}
@@ -160,7 +160,7 @@ public class NotificationController {
 		}
 		s.setFinalDescription(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
-		template.convertAndSend("topic/notification/",ss);
+		template.convertAndSend("/topic/notification/",this.notificationRepository.findAll());
 
 	 return ss;
 		}
@@ -176,59 +176,5 @@ public class NotificationController {
 	// CommentNotification ss=this.commentNotificationRepository.save(s);
 	// return ss;
 	// }
-
-	@RequestMapping("test2")
-	public List<String> test2() {
-		List<Notification> notification = this.notificationRepository.findAll();
-		List<String> description = new ArrayList<>();
-		System.out.println("*************************************************");
-		notification.forEach(a -> {
-			if (a instanceof SuspectNotification) {
-				System.out.println("**********hhhhhhhhhhhh**************************************");
-				Optional<User> u = this.userRepository.findById(a.getUserId());
-
-				if (u.isPresent()) {
-					Optional<AC_Suspected_Object> uu = this.suspectedObjectRepository.findById(new AC_Suspected_ObjectPK
-
-					(((SuspectNotification) a).getAlarmed_Obj_level_Cd(),
-							((SuspectNotification) a).getAlarmed_Obj_Key()));
-
-					if (uu.isPresent()) {
-						String h = "User " + u.get().getDisplayName() + " " + ((SuspectNotification) a).getAction()
-								+ " on suspect " + uu.get().getAlarmed_Obj_Name();
-						description.add(h);
-					}
-
-				}
-
-			} else if (a instanceof alarmNotification) {
-				Optional<User> u = this.userRepository.findById(a.getUserId());
-				if (u.isPresent()) {
-					Optional<AC_Alarm> al = this.alaramObjectRepository.findById(((alarmNotification) a).getAlarmId());
-					if (al.isPresent()) {
-						String h = "User " + u.get().getDisplayName() + " " + ((alarmNotification) a).getAction()
-								+ " on suspect " + al.get().getAlarmed_Obj_Name();
-						description.add(h);
-
-					}
-				}
-			} else if (a instanceof CommentNotification) {
-				Optional<User> u = this.userRepository.findById(a.getUserId());
-				if (u.isPresent()) {
-					Optional<Comments> al = this.commentsRepository.findById(((CommentNotification) a).getCommentId());
-
-					if (al.isPresent()) {
-						String h = "User " + u.get().getDisplayName() + " " + ((CommentNotification) a).getDescription()
-								+ " comment with id " + al.get().getDescription();
-						description.add(h);
-
-					}
-				}
-			}
-
-		});
-		return description;
-
-	}
 
 }
