@@ -20,25 +20,31 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-	@Column(name = "userId")
-	private int userId;
-	@Column(name = "NotificationDate")
-	private Date NotificationDate;
-
+	private String finalDescription;
+	private String userName;
+	
+	public String getFinalDescription() {
+		return finalDescription;
+	}
+	public void setFinalDescription(String finalDescription) {
+		this.finalDescription = finalDescription;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public Date getNotificationDate() {
@@ -47,6 +53,14 @@ public class Notification implements Serializable {
 	public void setNotificationDate(Date notificationDate) {
 		NotificationDate = notificationDate;
 	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+	@Column(name = "userId")
+	private long userId;
+	@Column(name = "NotificationDate")
+	private Date NotificationDate;
 
 	
 }

@@ -29,6 +29,16 @@ public class alarmNotification extends Notification implements Serializable {
 
 	@Column(name = "action")
 	private String action;
+	@Column(name = "alarmed_obj_name")
+	private String alarmed_obj_name;
+	
+	public String getAlarmed_obj_name() {
+		return alarmed_obj_name;
+	}
+
+	public void setAlarmed_obj_name(String alarmed_obj_name) {
+		this.alarmed_obj_name = alarmed_obj_name;
+	}
 
 	public alarmNotification() {
 	}

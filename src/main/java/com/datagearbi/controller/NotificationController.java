@@ -1,19 +1,12 @@
 package com.datagearbi.controller;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +24,13 @@ import com.datagearbi.model.alarmNotification;
 import com.datagearbi.model.security.User;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.AlarmNotificationRepository;
+import com.datagearbi.repository.CommentNotificationRepository;
+import com.datagearbi.repository.CommentsRepository;
 import com.datagearbi.repository.NotificationRepository;
 import com.datagearbi.repository.RiskNotificationRepository;
 import com.datagearbi.repository.SuspectNotificationRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 import com.datagearbi.security.repository.UserRepository;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.datagearbi.repository.CommentNotificationRepository;
-import com.datagearbi.repository.CommentsRepository;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/notification")
@@ -63,7 +55,8 @@ public class NotificationController {
 	private AlaramObjectRepository alaramObjectRepository;
 	@Autowired
 	private CommentsRepository commentsRepository;
-
+	@Autowired
+	private SimpMessagingTemplate template;
 	@RequestMapping("all")
 	public List<Notification> allNotifications() {
 
@@ -76,29 +69,97 @@ public class NotificationController {
 		}
 	@RequestMapping("addSuspectNotification")
 	public SuspectNotification addSuspectNotification(@RequestBody SuspectNotification s) {
+s.setNotificationDate(new Date());
+Optional<User>user=this.userRepository.findById(s.getUserId());
+String NotificationMessage="";
+	if(user.isPresent()) {
+		s.setUserName(user.get().getFirstname());
+		
+	}
+	Optional<AC_Suspected_Object> suspect=this.suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(s.getAlarmed_Obj_level_Cd(),s.getAlarmed_Obj_Key()));
+	if(suspect.isPresent())
+		{
+			s.setAlarmed_obj_name(s.getAlarmed_obj_name());
+		}
+	if(s.getAction().equals("Forward"))
+	{
+		NotificationMessage=""+s.getUserName()+" "+s.getAction()+"  suspect "
+	+s.getAlarmed_obj_name()+" to user "+s.getTarget_user_name();
+		
+		
+	
+	}
+	else if(s.getAction().equals("close")||s.getAction().equals("suppress")||s.getAction().equals("take ownership")
+			||s.getAction().equals("remove ownership"))
+	{
+		NotificationMessage=""+s.getUserName()+" "+s.getAction()+"  suspect "+s.getAlarmed_obj_name();
+		
+	}
+	else if(s.getAction().equals("add comment")||s.getAction().equals("update comment")||s.getAction().equals("delete comment"))
+	{
+	NotificationMessage=""+s.getUserName()+" "+s.getAction()+s.getCommentdecription()+" on  suspect "+s.getAlarmed_obj_name();
 
+	}
+	
+	s.setCommentdecription(NotificationMessage);
 	 SuspectNotification ss=this.suspectNotificationRepository.save(s);
+	template.convertAndSend("/notification/",ss);
+
 	 return ss;
 		}
 	@RequestMapping("addalarmNotification")
 	public alarmNotification addalarmNotification(@RequestBody alarmNotification s) {
-
+		String NotificationMessage="";
+		s.setNotificationDate(new Date());
+		Optional<User>user=this.userRepository.findById(s.getUserId());
+		if(user.isPresent()) {
+			s.setUserName(user.get().getFirstname());
+		}
+		Optional<AC_Alarm> alarm=this.alaramObjectRepository.findById(s.getAlarmId());
+		if(alarm.isPresent())
+		{
+			s.setAlarmed_obj_name(alarm.get().getAlarmed_Obj_Name());
+		}
+		NotificationMessage=""+s.getUserName()+" "+s.getAction()+" alarm on suspect "+s.getAlarmed_obj_name();
+		s.setFinalDescription(NotificationMessage);
 		alarmNotification ss=this.alarmNotificationRepository.save(s);
+		template.convertAndSend("/notification/",ss);
+
 	 return ss;
 		}
 
 	@RequestMapping("addRiskNotification")
 	public RiskNotification addRiskNotification(@RequestBody RiskNotification s) {
-
+		String NotificationMessage="";
+		s.setNotificationDate(new Date());
+		Optional<User>user=this.userRepository.findById(s.getUserId());
+		if(user.isPresent()) {
+			s.setUserName(user.get().getFirstname());
+		}
+		if(s.getAction().equals("Forward"))
+		{
+			 NotificationMessage=""+s.getUserName()+" "+s.getAction()+
+					"  "+s.getCust_Name()+" to user "+s.getTarget_Name();
+			
+		}
+		 NotificationMessage=""+s.getUserName()+" "+s.getAction()+" on "+s.getCust_Name();
+		s.setFinalDescription(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
-	 return ss;
-		}
-	@RequestMapping("addCommentNotification")
-	public CommentNotification addCommentNotification(@RequestBody CommentNotification s) {
+		template.convertAndSend("/notification/",ss);
 
-		CommentNotification ss=this.commentNotificationRepository.save(s);
 	 return ss;
 		}
+//	@RequestMapping("addCommentNotification")
+//	public CommentNotification addCommentNotification(@RequestBody CommentNotification s) {
+//		s.setNotificationDate(new Date());
+//		Optional<User>user=this.userRepository.findById(s.getUserId());
+//		if(user.isPresent()) {
+//			s.setUserName(user.get().getFirstname());
+//		}
+//		
+//		CommentNotification ss=this.commentNotificationRepository.save(s);
+//	 return ss;
+//		}
 	
 	@RequestMapping("test2")
 	public List<String> test2()  {
