@@ -70,6 +70,7 @@ public class NotificationController {
 	@RequestMapping("addSuspectNotification")
 	public SuspectNotification addSuspectNotification(@RequestBody SuspectNotification s) {
 s.setNotificationDate(new Date());
+System.out.println("***********************>>>" + s.getUserId());
 Optional<User>user=this.userRepository.findById(s.getUserId());
 String NotificationMessage="";
 	if(user.isPresent()) {
@@ -102,9 +103,9 @@ String NotificationMessage="";
 
 	}
 	
-	s.setCommentdecription(NotificationMessage);
+	s.setFinalDescription(NotificationMessage);
 	 SuspectNotification ss=this.suspectNotificationRepository.save(s);
-	template.convertAndSend("/notification/",ss);
+	template.convertAndSend("topic/notification/",ss);
 
 	 return ss;
 		}
@@ -124,7 +125,7 @@ String NotificationMessage="";
 		NotificationMessage=""+s.getUserName()+" "+s.getAction()+" alarm on suspect "+s.getAlarmed_obj_name();
 		s.setFinalDescription(NotificationMessage);
 		alarmNotification ss=this.alarmNotificationRepository.save(s);
-		template.convertAndSend("/notification/",ss);
+		template.convertAndSend("topic/notification/",ss);
 
 	 return ss;
 		}
@@ -146,7 +147,7 @@ String NotificationMessage="";
 		 NotificationMessage=""+s.getUserName()+" "+s.getAction()+" on "+s.getCust_Name();
 		s.setFinalDescription(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
-		template.convertAndSend("/notification/",ss);
+		template.convertAndSend("topic/notification/",ss);
 
 	 return ss;
 		}
