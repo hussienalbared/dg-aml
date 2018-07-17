@@ -75,7 +75,9 @@
 		<band height="60" splitType="Stretch">
 			<staticText>
 				<reportElement x="405" y="0" width="150" height="60" uuid="e5338617-ae4b-4ecc-aa57-d75d3133a2af"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[المملكة العربية السعودية
 وزارة الداخلية
 الادارة العامة للتحريات المالية
@@ -83,7 +85,7 @@
 			</staticText>
 			<image hAlign="Center" vAlign="Middle">
 				<reportElement stretchType="RelativeToBandHeight" x="240" y="0" width="130" height="60" uuid="2a7b7fda-7576-4a94-a030-77dd07941be3"/>
-				<imageExpression><![CDATA["D:/DataGear/Business/Final Documents/report/sama.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/images/sama.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="0" y="40" width="120" height="20" uuid="203b4e3f-a745-49e8-aa06-4bd0ec5a5c42"/>
@@ -92,17 +94,23 @@
 			</textField>
 			<staticText>
 				<reportElement x="120" y="0" width="100" height="20" uuid="e32eb0df-e38f-4d5f-b575-4129c88496aa"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الرقم]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="120" y="20" width="100" height="20" uuid="2228de29-11a6-43c6-b4fe-4624ec774cdd"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[التاريخ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="120" y="40" width="100" height="20" uuid="b01fba19-b82c-466a-9a3a-fb8ea0acfa4d"/>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[المرفقات]]></text>
 			</staticText>
 			<textField>
@@ -124,7 +132,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[اسم الجهة المُبلغة]]></text>
 			</staticText>
 			<staticText>
@@ -132,7 +142,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[المدينة]]></text>
 			</staticText>
 			<staticText>
@@ -140,7 +152,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الفرع]]></text>
 			</staticText>
 			<staticText>
@@ -148,7 +162,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الهاتف]]></text>
 			</staticText>
 			<staticText>
@@ -156,7 +172,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الاسم]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -199,7 +217,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الهاتف]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -214,7 +234,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[العنوان]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -229,7 +251,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[نوع الايداع]]></text>
 			</staticText>
 			<staticText>
@@ -237,7 +261,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[نوع السحب]]></text>
 			</staticText>
 			<staticText>
@@ -245,7 +271,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[نوع التحويل]]></text>
 			</staticText>
 			<staticText>
@@ -253,7 +281,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[السنة]]></text>
 			</staticText>
 			<staticText>
@@ -261,7 +291,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الوقت]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -304,7 +336,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[اليوم]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -319,7 +353,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الشهر]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -334,7 +370,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[المبلغ رقماً]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -349,7 +387,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[المبلغ كتابة]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -364,7 +404,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[نوع العملة]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -379,7 +421,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[رقم  الحساب العميل]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -394,7 +438,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[رقم الفرع]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -409,7 +455,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[البنك]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -424,7 +472,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[اسم العميل]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -439,7 +489,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[رقم الهوية]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -454,7 +506,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الجنسية]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
@@ -469,7 +523,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الجهة المُبلغة]]></text>
 			</staticText>
 			<staticText>
@@ -477,7 +533,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[الاتصال بالمبلغ]]></text>
 			</staticText>
 			<staticText>
@@ -485,7 +543,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[نوع العملية]]></text>
 			</staticText>
 			<staticText>
@@ -493,7 +553,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[تاريخ التنفيذ]]></text>
 			</staticText>
 			<staticText>
@@ -501,7 +563,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[مقدار المبلغ ]]></text>
 			</staticText>
 			<staticText>
@@ -509,7 +573,9 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[حساب منفذ العملية]]></text>
 			</staticText>
 			<staticText>
@@ -517,20 +583,22 @@
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
 				<text><![CDATA[منفذ العملية]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="10" width="270" height="20" uuid="635b7b50-4391-46e1-a764-8b1a1b95fabd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[بلاغ عن عملية مالية مشتبه بها]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="115" y="160" width="270" height="20" uuid="b9604033-e6ac-4b68-a2d0-4b6890be9129"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Symbol" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[مضمون البلاغ]]></text>
 			</staticText>

@@ -24,12 +24,18 @@ import com.datagearbi.service.ReportService;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPropertiesHolder;
+import net.sf.jasperreports.engine.JRPropertiesMap;
+import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.xml.JasperPrintFactory;
+import net.sf.jasperreports.view.JasperViewer;
 
 @RestController
 
@@ -91,15 +97,17 @@ public class ReportController {
 	
 	@CrossOrigin(allowedHeaders="*",allowCredentials="true")
 	@RequestMapping("printSamaReport")
-	public void printSamaReport(HttpServletResponse response, @RequestParam(name = "transactionIds") Integer[] transactionIds) {
-		InputStream inputStream = this.getClass().getResourceAsStream("/report/SamaReport.jrxml");
+	public void printSamaReport(HttpServletResponse response, @RequestParam(name = "transactionIds") Integer[] transactionIds, @RequestParam(name = "lang") String lang) {
+		InputStream inputStream = this.getClass().getResourceAsStream("/report/SamaReport_"+lang+".jrxml");
 		Map<String, Object> parameters = new HashMap<>();
 		List<SAMAReportDTO> samaReports = reportService.samaReportsPDF(transactionIds);
 		
 		JRDataSource dataSource = new JRBeanCollectionDataSource(samaReports);
+		
 		try {
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+			
 			String fileName= "samareport.pdf";
 			response.setHeader("Content-Disposition", "inline; filename="+ fileName);
 			response.setContentType("application/x-pdf");

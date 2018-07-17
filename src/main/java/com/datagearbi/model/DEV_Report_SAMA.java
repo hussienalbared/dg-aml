@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@Table
+@Table(schema="AML")
 @NamedQuery(name="DEV_Report_SAMA.findAll", query="SELECT d FROM DEV_Report_SAMA d")
 public class DEV_Report_SAMA implements Serializable {
 	private static final long serialVersionUID = 1L;

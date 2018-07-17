@@ -28,7 +28,12 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public List<CoreTransactionD> getTransactions(String customerId) {
-		List<CoreTransactionD> transactions = transactionRepository.find(customerId);
+		List<CoreTransactionD> transactions = null;
+		try {
+			transactions = transactionRepository.find(customerId);
+		}catch(Exception e) {
+			
+		}
 		if(transactions == null || transactions.size() == 0) {
 			transactions = new ArrayList<CoreTransactionD>();
 			CoreTransactionD transaction = new CoreTransactionD();
