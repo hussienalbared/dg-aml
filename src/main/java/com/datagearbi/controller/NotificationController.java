@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import com.datagearbi.model.Comments;
 import com.datagearbi.model.Notification;
 import com.datagearbi.model.RiskNotification;
 import com.datagearbi.model.SuspectNotification;
+import com.datagearbi.model.UserNotifications;
 import com.datagearbi.model.alarmNotification;
 import com.datagearbi.model.security.User;
 import com.datagearbi.repository.AcRiskAssismentRepository;
@@ -32,6 +34,7 @@ import com.datagearbi.repository.NotificationRepository;
 import com.datagearbi.repository.RiskNotificationRepository;
 import com.datagearbi.repository.SuspectNotificationRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
+import com.datagearbi.repository.UserNotificationsRepository;
 import com.datagearbi.security.repository.UserRepository;
 
 @CrossOrigin(origins = "*")
@@ -62,6 +65,8 @@ public class NotificationController {
 	private SimpMessagingTemplate template;
 	@Autowired
 	private AcRiskAssismentRepository acRiskAssismentRepository;
+	@Autowired
+	private UserNotificationsRepository userNotificationsRepository;
 	@RequestMapping("all")
 	
 	public List<Notification> allNotifications() {
@@ -160,21 +165,30 @@ public class NotificationController {
 		}
 		s.setFinalDescription(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
-		template.convertAndSend("/topic/notification/",this.notificationRepository.findAll());
+		List<User> uu=this.userRepository.findAll();
+		uu.forEach(a->{
+			template.convertAndSend("/topic/notification/" + a.getId(),ss);
+	
+});
 
 	 return ss;
 		}
-	// @RequestMapping("addCommentNotification")
-	// public CommentNotification addCommentNotification(@RequestBody
-	// CommentNotification s) {
-	// s.setNotificationDate(new Date());
-	// Optional<User>user=this.userRepository.findById(s.getUserId());
-	// if(user.isPresent()) {
-	// s.setUserName(user.get().getFirstname());
-	// }
-	//
-	// CommentNotification ss=this.commentNotificationRepository.save(s);
-	// return ss;
-	// }
+	@RequestMapping("readNotification")
+	public void readNotification(@RequestBody UserNotifications s) {
+		s.setIsSeen("y");
+		this.userNotificationsRepository.save(s);
+		 List<Notification> notification= this.notificationRepository.getUnseenNotification(s.getUserId());
+
+		template.convertAndSend("/topic/notification/"+s.getUserId(),notification);
+
+
+	}
+	@RequestMapping("test/{userId}")
+	public List<Notification> test(@PathVariable int userId) {
+		return this.notificationRepository.getUnseenNotification(userId);
+		
+
+	}
+	
 
 }
