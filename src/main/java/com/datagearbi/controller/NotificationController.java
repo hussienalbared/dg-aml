@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.AC_Alarm;
@@ -188,13 +189,28 @@ public class NotificationController {
 		this.userNotificationsRepository.save(s);
 		 List<Notification> notification= this.notificationRepository.getUnseenNotification(s.getUserId());
 
-		template.convertAndSend("/topic/notification/"+s.getUserId(),notification);
+//		template.convertAndSend("/topic/notification/"+s.getUserId(),notification);
 
 
 	}
-	@RequestMapping("test/{userId}")
+	@RequestMapping("allNotification/{userId}")
 	public List<Notification> test(@PathVariable int userId) {
 		return this.notificationRepository.getUnseenNotification(userId);
+		
+
+	}
+	@RequestMapping("markAllRead")
+	public void  markAllRead(@RequestParam("userId") int userId) {
+	List<Notification> n= this.notificationRepository.getUnseenNotification(userId);
+	n.forEach(a->{
+		UserNotifications nn=new UserNotifications();
+		nn.setIsSeen("y");
+		nn.setNotificationId(a.getId());
+		nn.setUserId(userId);
+		this.userNotificationsRepository.save(nn);
+		
+		
+	});
 		
 
 	}
