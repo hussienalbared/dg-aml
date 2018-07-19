@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.model.External_Customer;
 import com.datagearbi.repository.ExternalPartyObjectRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/externalParty")
 @Transactional

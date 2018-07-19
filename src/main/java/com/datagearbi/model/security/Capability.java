@@ -1,7 +1,10 @@
 package com.datagearbi.model.security;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+
 
 
 /**
@@ -10,12 +13,21 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Capability")
+
 @NamedQuery(name="Capability.findAll", query="SELECT c FROM Capability c")
 public class Capability implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private String desc;
-	@Id
+//	@ManyToMany(mappedBy="capabilities")
+//   private List<Group>groups;
+//   public void setGroups(List<Group> groups) {
+//	this.groups = groups;
+//}
+//   public List<Group> getGroups() {
+//	return groups;
+//}
+	@Column(name="Description")
+	private String description;
+    @Id
 	@Column(name="ID")
 	private int id;
 
@@ -25,12 +37,12 @@ public class Capability implements Serializable {
 	public Capability() {
 	}
 
-	public String getDesc() {
-		return this.desc;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getId() {
