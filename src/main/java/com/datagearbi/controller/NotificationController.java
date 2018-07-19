@@ -112,8 +112,12 @@ public class NotificationController {
 
 		s.setFinalDescription(NotificationMessage);
 		SuspectNotification ss = this.suspectNotificationRepository.save(s);
-		template.convertAndSend("/topic/notification/", this.notificationRepository.findAll());
-
+//		template.convertAndSend("/topic/notification/", this.notificationRepository.findAll());
+		List<User> uu=this.userRepository.findAll();
+		uu.forEach(a->{
+			template.convertAndSend("/topic/notification/" + a.getId(),ss);
+	
+});
 		return ss;
 	}
 
@@ -133,7 +137,12 @@ public class NotificationController {
 				+ s.getAlarmed_obj_name();
 		s.setFinalDescription(NotificationMessage);
 		alarmNotification ss = this.alarmNotificationRepository.save(s);
-		template.convertAndSend("/topic/notification/",this.notificationRepository.findAll());
+		List<User> uu=this.userRepository.findAll();
+		uu.forEach(a->{
+			template.convertAndSend("/topic/notification/" + a.getId(),ss);
+	
+});
+//		template.convertAndSend("/topic/notification/",this.notificationRepository.findAll());
 
 		return ss;
 	}
