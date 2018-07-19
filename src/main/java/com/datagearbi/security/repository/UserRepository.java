@@ -45,4 +45,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select new map( u.id as id,u.DisplayName as displayName,u.firstname as firstname,u.lastname as lastname,u.email as email,u.enabled as enabled,"
     		+ "u.username as username,u.password as password,u.lastPasswordResetDate as lastPasswordResetDate,u.groups as groups )from User u")
 	List<User> getAll_users();
+    
+//    @Query("select u from User u where u.id=?1")
+//    User getUser(long id);
 }

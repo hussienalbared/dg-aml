@@ -1,5 +1,8 @@
 package com.datagearbi.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -8,8 +11,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
+import com.datagearbi.model.Comments;
 import com.datagearbi.repository.AlaramObjectRepository;
+import com.datagearbi.repository.CommentsRepository;
+
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
@@ -33,11 +41,18 @@ public class SuspectedController {
 	private AlaramObjectRepository alaramObjectRepository;
 	
 	
+	
+	@Autowired
+	private CommentsRepository commentsRepository;
+	
+	@Autowired
+    private SimpMessagingTemplate template;
+	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
-	public Object[] list() {
+	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return this.suspectedObjectRepository.getAllSuspectWithNames();
-//		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 2);
+//		return this.suspectedObjectRepository.getAllSuspectWithNames();
+		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 20);
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
@@ -117,5 +132,4 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	
 	
 	}
-	
 }

@@ -17,7 +17,7 @@ import com.datagearbi.helper.DateUtil;
 import com.datagearbi.model.Account;
 import com.datagearbi.repository.AccountObjectRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/account")
 public class AccountController {

@@ -16,7 +16,7 @@ import com.datagearbi.repository.PartyObjectRepository;
 
 @RestController
 @RequestMapping("aml/api/party")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class PartyController {
 	@Autowired
 	private PartyObjectRepository PartyObjectRepository;
