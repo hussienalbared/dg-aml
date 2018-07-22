@@ -24,7 +24,7 @@ public interface SuspectedObjectRepository extends JpaRepository<AC_Suspected_Ob
 
 	public List<AC_Suspected_Object> findByalarmsCountGreaterThan(int count);
 	
-	@Query("select new map(u.username as ownername,s as details)from User u,AC_Suspected_Object s where u.id=s.owner_UID")
+	@Query("select new map(u.username as ownername,s as details)from User u,AC_Suspected_Object s ")
 	public Object[] getAllSuspectWithNames();
 	
 
