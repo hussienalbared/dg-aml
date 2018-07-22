@@ -28,7 +28,7 @@ public class suspectedTransactionController {
 	@RequestMapping("all")
 	public List  suspectedTransaction(@RequestParam("partyNumber")String partyNumber) {
 	
-		List<Integer> accountKeys1=this.entityManager.createQuery("select B.id.acct_Key from Customer_X_Account B where B.chg_Current_Ind='Y'   and B.cust_No='"+partyNumber+"'").getResultList();
+		List<Integer> accountKeys1=this.entityManager.createQuery("select B.id.acct_Key from Customer_X_Account B where B.chg_Current_Ind='Y'   and B.id.cust_Key="+partyNumber).getResultList();
 		Query q1=this.entityManager.createQuery("select  A.acct_Key from Account A where A.chg_Current_Ind='Y' and  A.acct_Key in (:varList)");
 		q1.setParameter("varList", accountKeys1);
 
