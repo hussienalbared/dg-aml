@@ -1,7 +1,9 @@
 package com.datagearbi.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * The primary key class for the AC_Monthly_Acct_Summery_Alarm database table.

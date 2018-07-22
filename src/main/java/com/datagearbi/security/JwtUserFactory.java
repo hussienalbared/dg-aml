@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import com.datagearbi.model.security.Group;
 import com.datagearbi.model.security.User;
 

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datagearbi.model.security.Group_CapabilityPK;
 import com.datagearbi.model.security.Group_capability;
 import com.datagearbi.security.repository.Group_CapabilityRepository;
 @RestController

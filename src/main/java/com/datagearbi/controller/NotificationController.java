@@ -1,6 +1,5 @@
 package com.datagearbi.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +17,6 @@ import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Risk_Assessment;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
-import com.datagearbi.model.CommentNotification;
-import com.datagearbi.model.Comments;
 import com.datagearbi.model.Notification;
 import com.datagearbi.model.RiskNotification;
 import com.datagearbi.model.SuspectNotification;
