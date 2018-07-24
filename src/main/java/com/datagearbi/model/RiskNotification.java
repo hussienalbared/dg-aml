@@ -27,8 +27,7 @@ public class RiskNotification extends Notification implements Serializable {
 	@Column(name = "risk_Assmnt_Id")
 	private long risk_Assmnt_Id;
 
-	@Column(name = "Action")
-	private String Action;
+
 	
 	@Column(name = "Cust_Name")
 	private String Cust_Name;
@@ -73,11 +72,6 @@ public class RiskNotification extends Notification implements Serializable {
 	}
 
 
-	public void setAction(String action) {
-		Action = action;
-	}
-	public String getAction() {
-		return Action;
-	}
+
 
 }

@@ -16,8 +16,7 @@ public class SuspectNotification extends Notification {
 	@Column(name = "Notification_ID")
 	private int Notification_ID;
 
-	@Column(name = "Action")
-	private String Action;
+	
 	
 	@Column(name = "Alarmed_Obj_level_Cd")
 	private String Alarmed_Obj_level_Cd;
@@ -43,13 +42,6 @@ public class SuspectNotification extends Notification {
 	private String Comment_Decription;
 
 
-	public String getAction() {
-		return Action;
-	}
-
-	public void setAction(String action) {
-		Action = action;
-	}
 
 	public String getAlarmed_Obj_level_Cd() {
 		return Alarmed_Obj_level_Cd;

@@ -23,7 +23,14 @@ public class Notification implements Serializable {
 	private String Notification_Summary;
 	@Column(name = "Create_User_Name")
 	private String Create_User_Name;
-
+	@Column(name = "Action")
+	private String Action;
+	public String getAction() {
+		return Action;
+	}
+	public void setAction(String action) {
+		Action = action;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Notification_ID")
