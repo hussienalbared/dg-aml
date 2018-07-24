@@ -48,8 +48,7 @@ public class NotificationController {
 	private AlarmNotificationRepository alarmNotificationRepository;
 	@Autowired
 	private RiskNotificationRepository riskNotificationRepository;
-	@Autowired
-	private CommentNotificationRepository commentNotificationRepository;
+	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -79,36 +78,36 @@ public class NotificationController {
 
 	@RequestMapping("addSuspectNotification")
 	public SuspectNotification addSuspectNotification(@RequestBody SuspectNotification s) {
-		s.setNotificationDate(new Date());
-		System.out.println("***********************>>>" + s.getUserId());
-		Optional<User> user = this.userRepository.findById(s.getUserId());
+		s.setNotification_Date(new Date());
+		
+		Optional<User> user = this.userRepository.findById(s.getCreate_User_Id());
 		String NotificationMessage = "";
 		if (user.isPresent()) {
-			s.setUserName(user.get().getFirstname());
+			s.setCreate_User_Name(user.get().getFirstname());
 
 		}
 		Optional<AC_Suspected_Object> suspect = this.suspectedObjectRepository
 				.findById(new AC_Suspected_ObjectPK(s.getAlarmed_Obj_level_Cd(), s.getAlarmed_Obj_Key()));
 
 		if (suspect.isPresent()) {
-			s.setAlarmed_obj_name(suspect.get().getAlarmed_Obj_Name());
+			s.setAlarmed_Obj_Name(suspect.get().getAlarmed_Obj_Name());
 		}
 		if (s.getAction().equals("Forward")) {
-			NotificationMessage = "" + s.getUserName() + " " + s.getAction() + "  suspect " + s.getAlarmed_obj_name()
-					+ " to user " + s.getTarget_user_name();
+			NotificationMessage = "" + s.getCreate_User_Name() + " " + s.getAction() + "  suspect " + s.getAlarmed_Obj_Name()
+					+ " to user " + s.getTarget_User_Name();
 
 		} else if (s.getAction().equals("close") || s.getAction().equals("suppress")
 				|| s.getAction().equals("take ownership") || s.getAction().equals("remove ownership")) {
-			NotificationMessage = "" + s.getUserName() + " " + s.getAction() + "  suspect " + s.getAlarmed_obj_name();
+			NotificationMessage = "" + s.getCreate_User_Name() + " " + s.getAction() + "  suspect " + s.getAlarmed_Obj_Name();
 
 		} else if (s.getAction().equals("add comment") || s.getAction().equals("update comment")
 				|| s.getAction().equals("delete comment")) {
-			NotificationMessage = "" + s.getUserName() + " " + s.getAction() + s.getCommentdecription()
-					+ " on  suspect " + s.getAlarmed_obj_name();
+			NotificationMessage = "" + s.getCreate_User_Name() + " " + s.getAction() + s.getComment_Decription()
+					+ " on  suspect " + s.getAlarmed_Obj_Name();
 
 		}
 
-		s.setFinalDescription(NotificationMessage);
+		s.setNotification_Summary(NotificationMessage);
 		SuspectNotification ss = this.suspectNotificationRepository.save(s);
 //		template.convertAndSend("/topic/notification/", this.notificationRepository.findAll());
 		List<User> uu=this.userRepository.findAll();
@@ -122,18 +121,18 @@ public class NotificationController {
 	@RequestMapping("addalarmNotification")
 	public alarmNotification addalarmNotification(@RequestBody alarmNotification s) {
 		String NotificationMessage = "";
-		s.setNotificationDate(new Date());
-		Optional<User> user = this.userRepository.findById(s.getUserId());
+		s.setNotification_Date(new Date());
+		Optional<User> user = this.userRepository.findById(s.getCreate_User_Id());
 		if (user.isPresent()) {
-			s.setUserName(user.get().getFirstname());
+			s.setCreate_User_Name(user.get().getFirstname());
 		}
-		Optional<AC_Alarm> alarm = this.alaramObjectRepository.findById(s.getAlarmId());
+		Optional<AC_Alarm> alarm = this.alaramObjectRepository.findById(s.getAlarm_Id());
 		if (alarm.isPresent()) {
 			s.setAlarmed_obj_name(alarm.get().getAlarmed_Obj_Name());
 		}
-		NotificationMessage = "" + s.getUserName() + " " + s.getAction() + " alarm on suspect "
+		NotificationMessage = "" + s.getCreate_User_Name() + " " + s.getAction() + " alarm on suspect "
 				+ s.getAlarmed_obj_name();
-		s.setFinalDescription(NotificationMessage);
+		s.setNotification_Summary(NotificationMessage);
 		alarmNotification ss = this.alarmNotificationRepository.save(s);
 		List<User> uu=this.userRepository.findAll();
 		uu.forEach(a->{
@@ -148,10 +147,10 @@ public class NotificationController {
 	@RequestMapping("addRiskNotification")
 	public RiskNotification addRiskNotification(@RequestBody RiskNotification s) {
 		String NotificationMessage="";
-		s.setNotificationDate(new Date());
-		Optional<User>user=this.userRepository.findById(s.getUserId());
+		s.setNotification_Date(new Date());
+		Optional<User>user=this.userRepository.findById(s.getCreate_User_Id());
 		if(user.isPresent()) {
-			s.setUserName(user.get().getFirstname());
+			s.setCreate_User_Name(user.get().getFirstname());
 		}
 		Optional<AC_Risk_Assessment> ac_risk=this.acRiskAssismentRepository.findById(s.getRisk_Assmnt_Id());
 		if(ac_risk.isPresent())
@@ -161,16 +160,16 @@ public class NotificationController {
 
 		if(s.getAction().equals("Forward"))
 		{
-			 NotificationMessage=""+s.getUserName()+" "+s.getAction()+
+			 NotificationMessage=""+s.getCreate_User_Name()+" "+s.getAction()+
 					"  "+s.getCust_Name()+" to user "+s.getTarget_Name();
 			
 		}
 		else
 		{
-			 NotificationMessage=""+s.getUserName()+" "+s.getAction()+" on "+s.getCust_Name();
+			 NotificationMessage=""+s.getCreate_User_Name()+" "+s.getAction()+" on "+s.getCust_Name();
 			
 		}
-		s.setFinalDescription(NotificationMessage);
+		s.setNotification_Summary(NotificationMessage);
 		RiskNotification ss=this.riskNotificationRepository.save(s);
 		List<User> uu=this.userRepository.findAll();
 		uu.forEach(a->{
@@ -202,7 +201,7 @@ public class NotificationController {
 	n.forEach(a->{
 		UserNotifications nn=new UserNotifications();
 		nn.setIsSeen("y");
-		nn.setNotificationId(a.getId());
+		nn.setNotificationId(a.getNotification_ID());
 		nn.setUserId(userId);
 		this.userNotificationsRepository.save(nn);
 		
