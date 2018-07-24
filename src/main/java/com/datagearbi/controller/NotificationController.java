@@ -181,9 +181,9 @@ public class NotificationController {
 		}
 	@RequestMapping("readNotification")
 	public void readNotification(@RequestBody UserNotifications s) {
-		s.setIsSeen("y");
+		s.setIs_Seen("y");
 		this.userNotificationsRepository.save(s);
-		 List<Notification> notification= this.notificationRepository.getUnseenNotification(s.getUserId());
+		 List<Notification> notification= this.notificationRepository.getUnseenNotification(s.getUser_Id());
 
 //		template.convertAndSend("/topic/notification/"+s.getUserId(),notification);
 
@@ -200,9 +200,9 @@ public class NotificationController {
 	List<Notification> n= this.notificationRepository.getUnseenNotification(userId);
 	n.forEach(a->{
 		UserNotifications nn=new UserNotifications();
-		nn.setIsSeen("y");
-		nn.setNotificationId(a.getNotification_ID());
-		nn.setUserId(userId);
+		nn.setIs_Seen("y");
+		nn.setNotification_ID(a.getNotification_ID());
+		nn.setUser_Id(userId);
 		this.userNotificationsRepository.save(nn);
 		
 		
