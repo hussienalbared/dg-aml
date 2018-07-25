@@ -21,49 +21,42 @@ public class UserNotifications implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 
-	private int  id;
+	private int  ID;
 
-	@Column(name="userId")
-	private int userId;
+	@Column(name="User_Id")
+	private int User_Id;
 
-	@Column(name="notificationId")
-	private int notificationId;
+	@Column(name="Notification_ID")
+	private int Notification_ID;
 
-	@Column(name="isSeen")
-	private String  isSeen;
+	@Column(name="Is_Seen")
+	private String  Is_Seen;
 public UserNotifications() {
 	// TODO Auto-generated constructor stub
 }
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public int getNotificationId() {
-		return notificationId;
-	}
-
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
-	}
-
-	public String getIsSeen() {
-		return isSeen;
-	}
-
-	public void setIsSeen(String isSeen) {
-		this.isSeen = isSeen;
-	}
-
+public int getID() {
+	return ID;
+}
+public void setID(int iD) {
+	ID = iD;
+}
+public int getUser_Id() {
+	return User_Id;
+}
+public void setUser_Id(int user_Id) {
+	User_Id = user_Id;
+}
+public void setNotification_ID(int notification_ID) {
+	Notification_ID = notification_ID;
+}
+public int getNotification_ID() {
+	return Notification_ID;
+}
+public String getIs_Seen() {
+	return Is_Seen;
+}
+public void setIs_Seen(String is_Seen) {
+	Is_Seen = is_Seen;
+}
+	
 }

@@ -16,22 +16,42 @@ import javax.persistence.Table;
 @Entity
 @NamedQuery(name = "alarmNotification.findAll", query = "SELECT a FROM alarmNotification a")
 @Table(schema = "dbo")
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "Notification_ID")
 
 public class alarmNotification extends Notification implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "id")
-	private int id;
+	@Column(name = "Notification_ID")
+	private int Notification_ID;
 
-	@Column(name = "alarmId")
-	private long alarmId;
+	public int getNotification_ID() {
+		return Notification_ID;
+	}
 
-	@Column(name = "action")
-	private String action;
-	@Column(name = "alarmed_obj_name")
-	private String alarmed_obj_name;
+	public void setNotification_ID(int notification_ID) {
+		Notification_ID = notification_ID;
+	}
+
+	@Column(name = "Alarm_Id")
+	private long Alarm_Id;
+
+
 	
+	@Column(name = "Alarmed_Obj_Name")
+	private String alarmed_obj_name;
+
+
+
+	public long getAlarm_Id() {
+		return Alarm_Id;
+	}
+
+	public void setAlarm_Id(long alarm_Id) {
+		Alarm_Id = alarm_Id;
+	}
+
+	
+
 	public String getAlarmed_obj_name() {
 		return alarmed_obj_name;
 	}
@@ -39,34 +59,6 @@ public class alarmNotification extends Notification implements Serializable {
 	public void setAlarmed_obj_name(String alarmed_obj_name) {
 		this.alarmed_obj_name = alarmed_obj_name;
 	}
-
-	public alarmNotification() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public long getAlarmId() {
-		return alarmId;
-	}
-
-	public void setAlarmId(long alarmId) {
-		this.alarmId = alarmId;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-
+	
 
 }

@@ -16,9 +16,9 @@ import javax.persistence.Table;
 @Entity
 @NamedQuery(name = "CommentNotification.findAll", query = "SELECT a FROM CommentNotification a")
 @Table(schema = "dbo")
-@PrimaryKeyJoinColumn(name = "id")
+//@PrimaryKeyJoinColumn(name = "id")
 
-public class CommentNotification extends Notification implements Serializable {
+public class CommentNotification implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id")
