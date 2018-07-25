@@ -1,452 +1,533 @@
 package com.datagearbi.model;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-@Entity
-@Table(schema = "AML", name = "CORE_ACCOUNT_D")
-public class Account {
-	@Id
-	private int account_key;
-	@Column(name="acctno")
-	private String acctNo;
-	private String ACCTBNM;
-	private String ACCTTYDESC;
-	private String ACCTCURRC;
-	private String ACCTCURRNM;
-	private String ACCTREGTYDESC;
-	private String ACCTREGNM;
-	private String ACCTNM;
-	private String ACCTALTNM;
-	private Date ACCTOPDATE;
-	private Date ACCTCLDATE;
-	private String ACCTSTATDESC;
-	private String ACCTDORIND;
-	private String ACCTPRODLINENM;
-	private String ACCTPRODCATNM;
-	private String ACCTPRODNM;
-	private String ACCTPRODNO;
-		
-	private String ACCTTAXID	;
-	private String	ACCTTAXIDTYDES	;
-	private String	ACCTTAXSTATCD	;
-	private String ACCTPRBRNM	;
-	private String ACCTMAILADD1	;
-	private String	ACCTMAILADD2	;
-	private String ACCTMAILCINM	;
-	private String ACCTMAILSTATCD	;
-	private String ACCTMAILSTATNM	;
-	private String	ACCTMAILPOCD	;
-	private String ACCTMAILCOCD	;
-	private String ACCTMAILCONM	;
-	private String ACCTCURRBASEIND;
-	private Date ACCTMATURDATE	;
-	private Double ACCTORGLOANAMT;
-	private String ACCTCOLLTYCD	; //char(10)
-	private String ACCTCOLLTYDS	; //varchar(35)
-	private Double ACCTINSAMT;//	decimal(15, 5)
-	private String ACCTEMPIND	;//char(1)
-	private String	ACCTLETTERCREDITIND;	//char(1)
 
-	private String ACTTCASHINTIND; //	char(1)
-	private String	ACCTTRADEIND; //	char(1)
-	private Double installment_amount;//	decimal(18, 5)
-	private Date CREATION_DATE	;//datetime
-	private Date MODIFICATION_DATE;	//datetime
-	private Date change_begin_date	;//datetime
-	private Date change_end_date	;//datetime
-	private String change_current_ind;	//char(1)
-	public int getAccount_key() {
-		return account_key;
-	}
-	public void setAccount_key(int account_key) {
-		this.account_key = account_key;
-	}
-	public String getAcctNo() {
-		return acctNo;
-	}
-	public void setAcctNo(String acctNo) {
-		this.acctNo = acctNo;
-	}
-	public String getACCTBNM() {
-		return ACCTBNM;
-	}
-	public void setACCTBNM(String aCCTBNM) {
-		ACCTBNM = aCCTBNM;
-	}
-	public String getACCTTYDESC() {
-		return ACCTTYDESC;
-	}
-	public void setACCTTYDESC(String aCCTTYDESC) {
-		ACCTTYDESC = aCCTTYDESC;
-	}
-	public String getACCTCURRC() {
-		return ACCTCURRC;
-	}
-	public void setACCTCURRC(String aCCTCURRC) {
-		ACCTCURRC = aCCTCURRC;
-	}
-	public String getACCTCURRNM() {
-		return ACCTCURRNM;
-	}
-	public void setACCTCURRNM(String aCCTCURRNM) {
-		ACCTCURRNM = aCCTCURRNM;
-	}
-	public String getACCTREGTYDESC() {
-		return ACCTREGTYDESC;
-	}
-	public void setACCTREGTYDESC(String aCCTREGTYDESC) {
-		ACCTREGTYDESC = aCCTREGTYDESC;
-	}
-	public String getACCTREGNM() {
-		return ACCTREGNM;
-	}
-	public void setACCTREGNM(String aCCTREGNM) {
-		ACCTREGNM = aCCTREGNM;
-	}
-	public String getACCTNM() {
-		return ACCTNM;
-	}
-	public void setACCTNM(String aCCTNM) {
-		ACCTNM = aCCTNM;
-	}
-	public String getACCTALTNM() {
-		return ACCTALTNM;
-	}
-	public void setACCTALTNM(String aCCTALTNM) {
-		ACCTALTNM = aCCTALTNM;
-	}
-	public Date getACCTOPDATE() {
-		return ACCTOPDATE;
-	}
-	public void setACCTOPDATE(Date aCCTOPDATE) {
-		ACCTOPDATE = aCCTOPDATE;
-	}
-	public Date getACCTCLDATE() {
-		return ACCTCLDATE;
-	}
-	public void setACCTCLDATE(Date aCCTCLDATE) {
-		ACCTCLDATE = aCCTCLDATE;
-	}
-	public String getACCTSTATDESC() {
-		return ACCTSTATDESC;
-	}
-	public void setACCTSTATDESC(String aCCTSTATDESC) {
-		ACCTSTATDESC = aCCTSTATDESC;
-	}
-	public String getACCTDORIND() {
-		return ACCTDORIND;
-	}
-	public void setACCTDORIND(String aCCTDORIND) {
-		ACCTDORIND = aCCTDORIND;
-	}
-	public String getACCTPRODLINENM() {
-		return ACCTPRODLINENM;
-	}
-	public void setACCTPRODLINENM(String aCCTPRODLINENM) {
-		ACCTPRODLINENM = aCCTPRODLINENM;
-	}
-	public String getACCTPRODCATNM() {
-		return ACCTPRODCATNM;
-	}
-	public void setACCTPRODCATNM(String aCCTPRODCATNM) {
-		ACCTPRODCATNM = aCCTPRODCATNM;
-	}
-	public String getACCTPRODNM() {
-		return ACCTPRODNM;
-	}
-	public void setACCTPRODNM(String aCCTPRODNM) {
-		ACCTPRODNM = aCCTPRODNM;
-	}
-	public String getACCTPRODNO() {
-		return ACCTPRODNO;
-	}
-	public void setACCTPRODNO(String aCCTPRODNO) {
-		ACCTPRODNO = aCCTPRODNO;
-	}
-	public String getACCTTAXID() {
-		return ACCTTAXID;
-	}
-	public void setACCTTAXID(String aCCTTAXID) {
-		ACCTTAXID = aCCTTAXID;
-	}
-	public String getACCTTAXIDTYDES() {
-		return ACCTTAXIDTYDES;
-	}
-	public void setACCTTAXIDTYDES(String aCCTTAXIDTYDES) {
-		ACCTTAXIDTYDES = aCCTTAXIDTYDES;
-	}
-	public String getACCTTAXSTATCD() {
-		return ACCTTAXSTATCD;
-	}
-	public void setACCTTAXSTATCD(String aCCTTAXSTATCD) {
-		ACCTTAXSTATCD = aCCTTAXSTATCD;
-	}
-	public String getACCTPRBRNM() {
-		return ACCTPRBRNM;
-	}
-	public void setACCTPRBRNM(String aCCTPRBRNM) {
-		ACCTPRBRNM = aCCTPRBRNM;
-	}
-	public String getACCTMAILADD1() {
-		return ACCTMAILADD1;
-	}
-	public void setACCTMAILADD1(String aCCTMAILADD1) {
-		ACCTMAILADD1 = aCCTMAILADD1;
-	}
-	public String getACCTMAILADD2() {
-		return ACCTMAILADD2;
-	}
-	public void setACCTMAILADD2(String aCCTMAILADD2) {
-		ACCTMAILADD2 = aCCTMAILADD2;
-	}
-	public String getACCTMAILCINM() {
-		return ACCTMAILCINM;
-	}
-	public void setACCTMAILCINM(String aCCTMAILCINM) {
-		ACCTMAILCINM = aCCTMAILCINM;
-	}
-	public String getACCTMAILSTATCD() {
-		return ACCTMAILSTATCD;
-	}
-	public void setACCTMAILSTATCD(String aCCTMAILSTATCD) {
-		ACCTMAILSTATCD = aCCTMAILSTATCD;
-	}
-	public String getACCTMAILSTATNM() {
-		return ACCTMAILSTATNM;
-	}
-	public void setACCTMAILSTATNM(String aCCTMAILSTATNM) {
-		ACCTMAILSTATNM = aCCTMAILSTATNM;
-	}
-	public String getACCTMAILPOCD() {
-		return ACCTMAILPOCD;
-	}
-	public void setACCTMAILPOCD(String aCCTMAILPOCD) {
-		ACCTMAILPOCD = aCCTMAILPOCD;
-	}
-	public String getACCTMAILCOCD() {
-		return ACCTMAILCOCD;
-	}
-	public void setACCTMAILCOCD(String aCCTMAILCOCD) {
-		ACCTMAILCOCD = aCCTMAILCOCD;
-	}
-	public String getACCTMAILCONM() {
-		return ACCTMAILCONM;
-	}
-	public void setACCTMAILCONM(String aCCTMAILCONM) {
-		ACCTMAILCONM = aCCTMAILCONM;
-	}
-	public String getACCTCURRBASEIND() {
-		return ACCTCURRBASEIND;
-	}
-	public void setACCTCURRBASEIND(String aCCTCURRBASEIND) {
-		ACCTCURRBASEIND = aCCTCURRBASEIND;
-	}
-	public Date getACCTMATURDATE() {
-		return ACCTMATURDATE;
-	}
-	public void setACCTMATURDATE(Date aCCTMATURDATE) {
-		ACCTMATURDATE = aCCTMATURDATE;
-	}
-	public Double getACCTORGLOANAMT() {
-		return ACCTORGLOANAMT;
-	}
-	public void setACCTORGLOANAMT(Double aCCTORGLOANAMT) {
-		ACCTORGLOANAMT = aCCTORGLOANAMT;
-	}
-	public String getACCTCOLLTYCD() {
-		return ACCTCOLLTYCD;
-	}
-	public void setACCTCOLLTYCD(String aCCTCOLLTYCD) {
-		ACCTCOLLTYCD = aCCTCOLLTYCD;
-	}
-	public String getACCTCOLLTYDS() {
-		return ACCTCOLLTYDS;
-	}
-	public void setACCTCOLLTYDS(String aCCTCOLLTYDS) {
-		ACCTCOLLTYDS = aCCTCOLLTYDS;
-	}
-	public Double getACCTINSAMT() {
-		return ACCTINSAMT;
-	}
-	public void setACCTINSAMT(Double aCCTINSAMT) {
-		ACCTINSAMT = aCCTINSAMT;
-	}
-	public String getACCTEMPIND() {
-		return ACCTEMPIND;
-	}
-	public void setACCTEMPIND(String aCCTEMPIND) {
-		ACCTEMPIND = aCCTEMPIND;
-	}
-	public String getACCTLETTERCREDITIND() {
-		return ACCTLETTERCREDITIND;
-	}
-	public void setACCTLETTERCREDITIND(String aCCTLETTERCREDITIND) {
-		ACCTLETTERCREDITIND = aCCTLETTERCREDITIND;
-	}
-	public String getACTTCASHINTIND() {
-		return ACTTCASHINTIND;
-	}
-	public void setACTTCASHINTIND(String aCTTCASHINTIND) {
-		ACTTCASHINTIND = aCTTCASHINTIND;
-	}
-	public String getACCTTRADEIND() {
-		return ACCTTRADEIND;
-	}
-	public void setACCTTRADEIND(String aCCTTRADEIND) {
-		ACCTTRADEIND = aCCTTRADEIND;
-	}
-	public Double getInstallment_amount() {
-		return installment_amount;
-	}
-	public void setInstallment_amount(Double installment_amount) {
-		this.installment_amount = installment_amount;
-	}
-	public Date getCREATION_DATE() {
-		return CREATION_DATE;
-	}
-	public void setCREATION_DATE(Date cREATION_DATE) {
-		CREATION_DATE = cREATION_DATE;
-	}
-	public Date getMODIFICATION_DATE() {
-		return MODIFICATION_DATE;
-	}
-	public void setMODIFICATION_DATE(Date mODIFICATION_DATE) {
-		MODIFICATION_DATE = mODIFICATION_DATE;
-	}
-	public Date getChange_begin_date() {
-		return change_begin_date;
-	}
-	public void setChange_begin_date(Date change_begin_date) {
-		this.change_begin_date = change_begin_date;
-	}
-	public Date getChange_end_date() {
-		return change_end_date;
-	}
-	public void setChange_end_date(Date change_end_date) {
-		this.change_end_date = change_end_date;
-	}
-	public String getChange_current_ind() {
-		return change_current_ind;
-	}
-	public void setChange_current_ind(String change_current_ind) {
-		this.change_current_ind = change_current_ind;
-	}
-	public Account(int account_key, String acctNo, String aCCTBNM, String aCCTTYDESC, String aCCTCURRC,
-			String aCCTCURRNM, String aCCTREGTYDESC, String aCCTREGNM, String aCCTNM, String aCCTALTNM, Date aCCTOPDATE,
-			Date aCCTCLDATE, String aCCTSTATDESC, String aCCTDORIND, String aCCTPRODLINENM, String aCCTPRODCATNM,
-			String aCCTPRODNM, String aCCTPRODNO, String aCCTTAXID, String aCCTTAXIDTYDES, String aCCTTAXSTATCD,
-			String aCCTPRBRNM, String aCCTMAILADD1, String aCCTMAILADD2, String aCCTMAILCINM, String aCCTMAILSTATCD,
-			String aCCTMAILSTATNM, String aCCTMAILPOCD, String aCCTMAILCOCD, String aCCTMAILCONM,
-			String aCCTCURRBASEIND, Date aCCTMATURDATE, Double aCCTORGLOANAMT, String aCCTCOLLTYCD, String aCCTCOLLTYDS,
-			Double aCCTINSAMT, String aCCTEMPIND, String aCCTLETTERCREDITIND, String aCTTCASHINTIND,
-			String aCCTTRADEIND, Double installment_amount, Date cREATION_DATE, Date mODIFICATION_DATE,
-			Date change_begin_date, Date change_end_date, String change_current_ind) {
-		super();
-		this.account_key = account_key;
-		this.acctNo = acctNo;
-		ACCTBNM = aCCTBNM;
-		ACCTTYDESC = aCCTTYDESC;
-		ACCTCURRC = aCCTCURRC;
-		ACCTCURRNM = aCCTCURRNM;
-		ACCTREGTYDESC = aCCTREGTYDESC;
-		ACCTREGNM = aCCTREGNM;
-		ACCTNM = aCCTNM;
-		ACCTALTNM = aCCTALTNM;
-		ACCTOPDATE = aCCTOPDATE;
-		ACCTCLDATE = aCCTCLDATE;
-		ACCTSTATDESC = aCCTSTATDESC;
-		ACCTDORIND = aCCTDORIND;
-		ACCTPRODLINENM = aCCTPRODLINENM;
-		ACCTPRODCATNM = aCCTPRODCATNM;
-		ACCTPRODNM = aCCTPRODNM;
-		ACCTPRODNO = aCCTPRODNO;
-		ACCTTAXID = aCCTTAXID;
-		ACCTTAXIDTYDES = aCCTTAXIDTYDES;
-		ACCTTAXSTATCD = aCCTTAXSTATCD;
-		ACCTPRBRNM = aCCTPRBRNM;
-		ACCTMAILADD1 = aCCTMAILADD1;
-		ACCTMAILADD2 = aCCTMAILADD2;
-		ACCTMAILCINM = aCCTMAILCINM;
-		ACCTMAILSTATCD = aCCTMAILSTATCD;
-		ACCTMAILSTATNM = aCCTMAILSTATNM;
-		ACCTMAILPOCD = aCCTMAILPOCD;
-		ACCTMAILCOCD = aCCTMAILCOCD;
-		ACCTMAILCONM = aCCTMAILCONM;
-		ACCTCURRBASEIND = aCCTCURRBASEIND;
-		ACCTMATURDATE = aCCTMATURDATE;
-		ACCTORGLOANAMT = aCCTORGLOANAMT;
-		ACCTCOLLTYCD = aCCTCOLLTYCD;
-		ACCTCOLLTYDS = aCCTCOLLTYDS;
-		ACCTINSAMT = aCCTINSAMT;
-		ACCTEMPIND = aCCTEMPIND;
-		ACCTLETTERCREDITIND = aCCTLETTERCREDITIND;
-		ACTTCASHINTIND = aCTTCASHINTIND;
-		ACCTTRADEIND = aCCTTRADEIND;
-		this.installment_amount = installment_amount;
-		CREATION_DATE = cREATION_DATE;
-		MODIFICATION_DATE = mODIFICATION_DATE;
-		this.change_begin_date = change_begin_date;
-		this.change_end_date = change_end_date;
-		this.change_current_ind = change_current_ind;
-	}
+
+/**
+ * The persistent class for the Account database table.
+ * 
+ */
+@Entity
+@Table(name="Account",schema="DGAMLCORE")
+@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
+
+public class Account implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
+	@OneToMany
+	@JoinColumn(name="acct_Key")
+	private List<Customer_X_Account> CutomerAccounts;
+	  @Id
+	  @GeneratedValue(strategy=GenerationType.AUTO)
+		@Column(name="Acct_Key")
+		private int acct_Key;
+
+	@Column(name="Acct_Ccy_Cd")
+	private String acct_Ccy_Cd;
+
+	public List<Customer_X_Account> getCutomerAccounts() {
+		return CutomerAccounts;
+	}
+
+	public void setCutomerAccounts(List<Customer_X_Account> cutomerAccounts) {
+		CutomerAccounts = cutomerAccounts;
+	}
+
+	@Column(name="Acct_Ccy_Name")
+	private String acct_Ccy_Name;
+
+	@Column(name="Acct_Close_Date")
+	private Timestamp acct_Close_Date;
+  
+
+	@Column(name="Acct_Name")
+	private String acct_Name;
+
+	@Column(name="Acct_No")
+	private String acct_No;
+	
+
+	@Column(name="Acct_Open_Date")
+	private Timestamp acct_Open_Date;
+
+	@Column(name="Acct_Prim_Branch_Name")
+	private String acct_Prim_Branch_Name;
+
+	@Column(name="Acct_Reg_Name")
+	private String acct_Reg_Name;
+
+	@Column(name="Acct_Reg_Type_Desc")
+	private String acct_Reg_Type_Desc;
+
+	@Column(name="Acct_Status_Desc")
+	private String acct_Status_Desc;
+
+	@Column(name="Acct_Tax_Id")
+	private String acct_Tax_Id;
+
+	@Column(name="Acct_Tax_Id_Type_Cd")
+	private String acct_Tax_Id_Type_Cd;
+
+	@Column(name="Acct_Tax_State_Cd")
+	private String acct_Tax_State_Cd;
+
+	@Column(name="Acct_Type_Desc")
+	private String acct_Type_Desc;
+
+	@Column(name="Alt_Name")
+	private String alt_Name;
+
+	@Column(name="Cash_Ints_Bus_Ind")
+	private String cash_Ints_Bus_Ind;
+
+	@Column(name="Ccy_Based_Acct_Ind")
+	private String ccy_Based_Acct_Ind;
+
+	@Column(name="Chg_Begin_Date")
+	private Timestamp chg_Begin_Date;
+
+	@Column(name="Chg_Current_Ind")
+	private String chg_Current_Ind;
+
+	@Column(name="Chg_End_Date")
+	private Timestamp chg_End_Date;
+
+	@Column(name="Coltrl_Type_Cd")
+	private String coltrl_Type_Cd;
+
+	@Column(name="Coltrl_Type_Desc")
+	private String coltrl_Type_Desc;
+
+	@Column(name="Dorm_Ind")
+	private String dorm_Ind;
+
+	@Column(name="Emp_Ind")
+	private String emp_Ind;
+
+	@Column(name="Insur_Amt")
+	private BigDecimal insur_Amt;
+
+	@Column(name="Letter_Cr_Onfile_Ind")
+	private String letter_Cr_Onfile_Ind;
+
+	@Column(name="Line_Bus_Name")
+	private String line_Bus_Name;
+
+	@Column(name="Mail_Addr_1")
+	private String mail_Addr_1;
+
+	@Column(name="Mail_Addr_2")
+	private String mail_Addr_2;
+
+	@Column(name="Mail_City_Name")
+	private String mail_City_Name;
+
+	@Column(name="Mail_Cntry_Cd")
+	private String mail_Cntry_Cd;
+
+	@Column(name="Mail_Cntry_Name")
+	private String mail_Cntry_Name;
+
+	@Column(name="Mail_Post_Cd")
+	private String mail_Post_Cd;
+
+	@Column(name="Mail_State_Cd")
+	private String mail_State_Cd;
+
+	@Column(name="Mail_State_Name")
+	private String mail_State_Name;
+
+	@Column(name="Maturity_Date")
+	private Timestamp maturity_Date;
+
+	@Column(name="Orig_Loan_Amt")
+	private BigDecimal orig_Loan_Amt;
+
+	@Column(name="Prod_Categ_Name")
+	private String prod_Categ_Name;
+
+	@Column(name="Prod_Line_Name")
+	private String prod_Line_Name;
+
+	@Column(name="Prod_Name")
+	private String prod_Name;
+
+	@Column(name="Prod_No")
+	private String prod_No;
+
+	@Column(name="Prod_Type_Name")
+	private String prod_Type_Name;
+
+	@Column(name="Trade_Fin_Ind")
+	private String trade_Fin_Ind;
+
 	public Account() {
-		// TODO Auto-generated constructor stub
+	}
+
+	public String getAcct_Ccy_Cd() {
+		return this.acct_Ccy_Cd;
+	}
+
+	public void setAcct_Ccy_Cd(String acct_Ccy_Cd) {
+		this.acct_Ccy_Cd = acct_Ccy_Cd;
+	}
+
+	public String getAcct_Ccy_Name() {
+		return this.acct_Ccy_Name;
+	}
+
+	public void setAcct_Ccy_Name(String acct_Ccy_Name) {
+		this.acct_Ccy_Name = acct_Ccy_Name;
+	}
+
+	public Timestamp getAcct_Close_Date() {
+		return this.acct_Close_Date;
+	}
+
+	public void setAcct_Close_Date(Timestamp acct_Close_Date) {
+		this.acct_Close_Date = acct_Close_Date;
+	}
+
+	public int getAcct_Key() {
+		return this.acct_Key;
+	}
+
+	public void setAcct_Key(int acct_Key) {
+		this.acct_Key = acct_Key;
+	}
+
+	public String getAcct_Name() {
+		return this.acct_Name;
+	}
+
+	public void setAcct_Name(String acct_Name) {
+		this.acct_Name = acct_Name;
+	}
+
+	public String getAcct_No() {
+		return this.acct_No;
+	}
+
+	public void setAcct_No(String acct_No) {
+		this.acct_No = acct_No;
+	}
+
+	public Timestamp getAcct_Open_Date() {
+		return this.acct_Open_Date;
+	}
+
+	public void setAcct_Open_Date(Timestamp acct_Open_Date) {
+		this.acct_Open_Date = acct_Open_Date;
+	}
+
+	public String getAcct_Prim_Branch_Name() {
+		return this.acct_Prim_Branch_Name;
+	}
+
+	public void setAcct_Prim_Branch_Name(String acct_Prim_Branch_Name) {
+		this.acct_Prim_Branch_Name = acct_Prim_Branch_Name;
+	}
+
+	public String getAcct_Reg_Name() {
+		return this.acct_Reg_Name;
+	}
+
+	public void setAcct_Reg_Name(String acct_Reg_Name) {
+		this.acct_Reg_Name = acct_Reg_Name;
+	}
+
+	public String getAcct_Reg_Type_Desc() {
+		return this.acct_Reg_Type_Desc;
+	}
+
+	public void setAcct_Reg_Type_Desc(String acct_Reg_Type_Desc) {
+		this.acct_Reg_Type_Desc = acct_Reg_Type_Desc;
+	}
+
+	public String getAcct_Status_Desc() {
+		return this.acct_Status_Desc;
+	}
+
+	public void setAcct_Status_Desc(String acct_Status_Desc) {
+		this.acct_Status_Desc = acct_Status_Desc;
+	}
+
+	public String getAcct_Tax_Id() {
+		return this.acct_Tax_Id;
+	}
+
+	public void setAcct_Tax_Id(String acct_Tax_Id) {
+		this.acct_Tax_Id = acct_Tax_Id;
+	}
+
+	public String getAcct_Tax_Id_Type_Cd() {
+		return this.acct_Tax_Id_Type_Cd;
+	}
+
+	public void setAcct_Tax_Id_Type_Cd(String acct_Tax_Id_Type_Cd) {
+		this.acct_Tax_Id_Type_Cd = acct_Tax_Id_Type_Cd;
+	}
+
+	public String getAcct_Tax_State_Cd() {
+		return this.acct_Tax_State_Cd;
+	}
+
+	public void setAcct_Tax_State_Cd(String acct_Tax_State_Cd) {
+		this.acct_Tax_State_Cd = acct_Tax_State_Cd;
+	}
+
+	public String getAcct_Type_Desc() {
+		return this.acct_Type_Desc;
+	}
+
+	public void setAcct_Type_Desc(String acct_Type_Desc) {
+		this.acct_Type_Desc = acct_Type_Desc;
+	}
+
+	public String getAlt_Name() {
+		return this.alt_Name;
+	}
+
+	public void setAlt_Name(String alt_Name) {
+		this.alt_Name = alt_Name;
+	}
+
+	public String getCash_Ints_Bus_Ind() {
+		return this.cash_Ints_Bus_Ind;
+	}
+
+	public void setCash_Ints_Bus_Ind(String cash_Ints_Bus_Ind) {
+		this.cash_Ints_Bus_Ind = cash_Ints_Bus_Ind;
+	}
+
+	public String getCcy_Based_Acct_Ind() {
+		return this.ccy_Based_Acct_Ind;
+	}
+
+	public void setCcy_Based_Acct_Ind(String ccy_Based_Acct_Ind) {
+		this.ccy_Based_Acct_Ind = ccy_Based_Acct_Ind;
+	}
+
+	public Timestamp getChg_Begin_Date() {
+		return this.chg_Begin_Date;
+	}
+
+	public void setChg_Begin_Date(Timestamp chg_Begin_Date) {
+		this.chg_Begin_Date = chg_Begin_Date;
+	}
+
+	public String getChg_Current_Ind() {
+		return this.chg_Current_Ind;
+	}
+
+	public void setChg_Current_Ind(String chg_Current_Ind) {
+		this.chg_Current_Ind = chg_Current_Ind;
+	}
+
+	public Timestamp getChg_End_Date() {
+		return this.chg_End_Date;
+	}
+
+	public void setChg_End_Date(Timestamp chg_End_Date) {
+		this.chg_End_Date = chg_End_Date;
+	}
+
+	public String getColtrl_Type_Cd() {
+		return this.coltrl_Type_Cd;
+	}
+
+	public void setColtrl_Type_Cd(String coltrl_Type_Cd) {
+		this.coltrl_Type_Cd = coltrl_Type_Cd;
+	}
+
+	public String getColtrl_Type_Desc() {
+		return this.coltrl_Type_Desc;
+	}
+
+	public void setColtrl_Type_Desc(String coltrl_Type_Desc) {
+		this.coltrl_Type_Desc = coltrl_Type_Desc;
+	}
+
+	public String getDorm_Ind() {
+		return this.dorm_Ind;
+	}
+
+	public void setDorm_Ind(String dorm_Ind) {
+		this.dorm_Ind = dorm_Ind;
+	}
+
+	public String getEmp_Ind() {
+		return this.emp_Ind;
+	}
+
+	public void setEmp_Ind(String emp_Ind) {
+		this.emp_Ind = emp_Ind;
+	}
+
+	public BigDecimal getInsur_Amt() {
+		return this.insur_Amt;
+	}
+
+	public void setInsur_Amt(BigDecimal insur_Amt) {
+		this.insur_Amt = insur_Amt;
+	}
+
+	public String getLetter_Cr_Onfile_Ind() {
+		return this.letter_Cr_Onfile_Ind;
+	}
+
+	public void setLetter_Cr_Onfile_Ind(String letter_Cr_Onfile_Ind) {
+		this.letter_Cr_Onfile_Ind = letter_Cr_Onfile_Ind;
+	}
+
+	public String getLine_Bus_Name() {
+		return this.line_Bus_Name;
+	}
+
+	public void setLine_Bus_Name(String line_Bus_Name) {
+		this.line_Bus_Name = line_Bus_Name;
+	}
+
+	public String getMail_Addr_1() {
+		return this.mail_Addr_1;
+	}
+
+	public void setMail_Addr_1(String mail_Addr_1) {
+		this.mail_Addr_1 = mail_Addr_1;
+	}
+
+	public String getMail_Addr_2() {
+		return this.mail_Addr_2;
+	}
+
+	public void setMail_Addr_2(String mail_Addr_2) {
+		this.mail_Addr_2 = mail_Addr_2;
+	}
+
+	public String getMail_City_Name() {
+		return this.mail_City_Name;
+	}
+
+	public void setMail_City_Name(String mail_City_Name) {
+		this.mail_City_Name = mail_City_Name;
+	}
+
+	public String getMail_Cntry_Cd() {
+		return this.mail_Cntry_Cd;
+	}
+
+	public void setMail_Cntry_Cd(String mail_Cntry_Cd) {
+		this.mail_Cntry_Cd = mail_Cntry_Cd;
+	}
+
+	public String getMail_Cntry_Name() {
+		return this.mail_Cntry_Name;
+	}
+
+	public void setMail_Cntry_Name(String mail_Cntry_Name) {
+		this.mail_Cntry_Name = mail_Cntry_Name;
+	}
+
+	public String getMail_Post_Cd() {
+		return this.mail_Post_Cd;
+	}
+
+	public void setMail_Post_Cd(String mail_Post_Cd) {
+		this.mail_Post_Cd = mail_Post_Cd;
+	}
+
+	public String getMail_State_Cd() {
+		return this.mail_State_Cd;
+	}
+
+	public void setMail_State_Cd(String mail_State_Cd) {
+		this.mail_State_Cd = mail_State_Cd;
+	}
+
+	public String getMail_State_Name() {
+		return this.mail_State_Name;
+	}
+
+	public void setMail_State_Name(String mail_State_Name) {
+		this.mail_State_Name = mail_State_Name;
+	}
+
+	public Timestamp getMaturity_Date() {
+		return this.maturity_Date;
+	}
+
+	public void setMaturity_Date(Timestamp maturity_Date) {
+		this.maturity_Date = maturity_Date;
+	}
+
+	public BigDecimal getOrig_Loan_Amt() {
+		return this.orig_Loan_Amt;
+	}
+
+	public void setOrig_Loan_Amt(BigDecimal orig_Loan_Amt) {
+		this.orig_Loan_Amt = orig_Loan_Amt;
+	}
+
+	public String getProd_Categ_Name() {
+		return this.prod_Categ_Name;
+	}
+
+	public void setProd_Categ_Name(String prod_Categ_Name) {
+		this.prod_Categ_Name = prod_Categ_Name;
+	}
+
+	public String getProd_Line_Name() {
+		return this.prod_Line_Name;
+	}
+
+	public void setProd_Line_Name(String prod_Line_Name) {
+		this.prod_Line_Name = prod_Line_Name;
+	}
+
+	public String getProd_Name() {
+		return this.prod_Name;
+	}
+
+	public void setProd_Name(String prod_Name) {
+		this.prod_Name = prod_Name;
+	}
+
+	public String getProd_No() {
+		return this.prod_No;
+	}
+
+	public void setProd_No(String prod_No) {
+		this.prod_No = prod_No;
+	}
+
+	public String getProd_Type_Name() {
+		return this.prod_Type_Name;
+	}
+
+	public void setProd_Type_Name(String prod_Type_Name) {
+		this.prod_Type_Name = prod_Type_Name;
+	}
+
+	public String getTrade_Fin_Ind() {
+		return this.trade_Fin_Ind;
+	}
+
+	public void setTrade_Fin_Ind(String trade_Fin_Ind) {
+		this.trade_Fin_Ind = trade_Fin_Ind;
 	}
 
 }
-/*
- account_key	int
-ACCTNO	varchar(50)
-ACCTBNM	varchar(35)
-ACCTTYDESC	varchar(50)
-ACCTCURRC	char(3)
-ACCTCURRNM	varchar(100)
-ACCTREGTYDESC	varchar(20)
-ACCTREGNM	varchar(255)
-ACCTNM	varchar(255)
-ACCTALTNM	varchar(255)
-ACCTOPDATE	datetime
-ACCTCLDATE	datetime
-ACCTSTATDESC	varchar(35)
-ACCTDORIND	char(1)
-ACCTPRODLINENM	varchar(35)
-ACCTPRODCATNM	varchar(35)
-ACCTPRODTYNM	varchar(35)
-ACCTPRODNM	varchar(100)
-ACCTPRODNO	varchar(25)
-ACCTTAXID	varchar(35)
-ACCTTAXIDTYDES	char(1)
-ACCTTAXSTATCD	char(3)
-ACCTPRBRNM	varchar(100)
-ACCTMAILADD1	varchar(350)
-ACCTMAILADD2	varchar(350)
-ACCTMAILCINM	varchar(50)
-ACCTMAILSTATCD	char(3)
-ACCTMAILSTATNM	varchar(50)
-ACCTMAILPOCD	varchar(50)
-ACCTMAILCOCD	char(3)
-ACCTMAILCONM	varchar(100)
-ACCTCURRBASEIND	char(1)
-ACCTMATURDATE	datetime
-ACCTORGLOANAMT	decimal(15, 5)
-ACCTCOLLTYCD	char(10)
-ACCTCOLLTYDS	varchar(35)
-ACCTINSAMT	decimal(15, 5)
-ACCTEMPIND	char(1)
-ACCTLETTERCREDITIND	char(1)
-ACTTCASHINTIND	char(1)
-ACCTTRADEIND	char(1)
-installment_amount	decimal(18, 5)
-CREATION_DATE	datetime
-MODIFICATION_DATE	datetime
-change_begin_date	datetime
-change_end_date	datetime
-change_current_ind	char(1)
-	
-
- 
-*/
