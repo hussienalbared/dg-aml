@@ -6,7 +6,7 @@
 	<groupId>com.datagearbi</groupId>
 	<artifactId>dg-aml</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>dg-aml</name>
 	<url>http://maven.apache.org</url>
