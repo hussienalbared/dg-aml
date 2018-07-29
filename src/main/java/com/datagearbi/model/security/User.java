@@ -3,6 +3,7 @@ package com.datagearbi.model.security;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,106 @@ public class User implements Serializable {
 	// allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
+
+	public String getDisplayName() {
+		return DisplayName;
+	}
+
+
+	public void setDisplayName(String displayName) {
+		DisplayName = displayName;
+	}
+
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+
+	public void setGroups(List<Group> groups) {
+		this.groups = groups;
+	}
+
 
 	@Column(name = "UserName", length = 50, unique = true)
 
@@ -71,13 +172,7 @@ public class User implements Serializable {
 	@Column(name = "DisplayName")
 	private String DisplayName;
 
-	public String getDisplayName() {
-		return this.DisplayName;
-	}
 
-	public void setDisplayName(String displayName) {
-		this.DisplayName = displayName;
-	}
 	@NotFound(action=NotFoundAction.IGNORE)
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "USER_GROUP", joinColumns = {
@@ -85,75 +180,5 @@ public class User implements Serializable {
 					@JoinColumn(name = "G_ID", referencedColumnName = "ID") })
 	private List<Group> groups;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Boolean getEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public List<Group> getGroups() {
-		return groups;
-	}
-
-	public void setGroup(List<Group> groups) {
-		this.groups = groups;
-	}
-
-	public Date getLastPasswordResetDate() {
-		return lastPasswordResetDate;
-	}
-
-	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-		this.lastPasswordResetDate = lastPasswordResetDate;
-	}
 }
