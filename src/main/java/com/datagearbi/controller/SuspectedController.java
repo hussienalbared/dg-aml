@@ -1,14 +1,21 @@
 package com.datagearbi.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,11 +50,12 @@ public class SuspectedController {
     private SimpMessagingTemplate template;
 	
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
+	@PreAuthorize("hasAuthority('show-main-screen')")	
 	public List<AC_Suspected_Object> list() {
-		System.out.println("---list---");
+		
+		 
 //		return this.suspectedObjectRepository.getAllSuspectWithNames();
 		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 20);
-//		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)

@@ -26,6 +26,8 @@ import com.datagearbi.security.JwtTokenUtil;
 import com.datagearbi.security.JwtUser;
 import com.datagearbi.security.service.JwtAuthenticationResponse;
 
+import net.bytebuddy.description.annotation.AnnotationDescription.Latent;
+
 @CrossOrigin(origins = "*", allowedHeaders="*", exposedHeaders="Cache-Control, Content-Language, Content-Type, Expires, Last-Modified")
 @RestController
 public class AuthenticationRestController {
@@ -52,7 +54,7 @@ public class AuthenticationRestController {
         // Reload password post-security so we can generate the token
         final JwtUser userDetails = (JwtUser)userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         
-       String laset= userDetails.getFirstname();
+    
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         // Return the token
