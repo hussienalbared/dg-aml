@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.security.User;
 import com.datagearbi.security.repository.UserRepository;
+import com.datagearbi.security.service.JwtUserDetailsService;
 
 @RestController
 @RequestMapping("aml/api/user/")
@@ -28,9 +28,11 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
 	@RequestMapping(value = "users", method = RequestMethod.GET)
     public  List<String> getUsers() {
+		
     	return userRepository.getUserNames();
     }
 	
@@ -78,7 +80,10 @@ public class UserController {
     
     @RequestMapping(value = "editUser", method= RequestMethod.PUT)
    	public void  editUser(@RequestBody User target_user) {
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	
+    	System.out.println("QQQQQQQQQQQQQQQQQQQ = " + target_user.getGroups().size());
+    	
+    
     	
     	User user = userRepository.findById(target_user.getId()).get();
     	if(target_user.getPassword()!= null && target_user.getPassword().length()>0)
@@ -86,22 +91,20 @@ public class UserController {
     		target_user.setPassword(passwordEncoder.encode(target_user.getPassword()));
     	}
     	else {
-    		try {    			
-    			target_user.setPassword(user.getPassword());
-    		}catch (NoSuchElementException ex) {
-    			// TODO log
-    		}
+    		target_user.setPassword(user.getPassword());
     	}
+    	
+    
     	Date date = new Date();
     	target_user.setLastPasswordResetDate(date);
     	
-    	List<User> users = this.userRepository.findAll();
-        for (User user2 : users) {
-        	if(target_user.getUsername().equals(user2.getUsername())) {
-            	System.out.println("this user name is exist...");
-            	target_user.setUsername(user.getUsername());
-            }
-		}
+//    	List<User> users = this.userRepository.findAll();
+//        for (User user2 : users) {
+//        	if(target_user.getUsername().equals(user2.getUsername())) {
+//            	System.out.println("this user name is exist...");
+//            	target_user.setUsername(user.getUsername());
+//            }
+//		}
        	this.userRepository.save(target_user);
    	}
     
@@ -123,5 +126,11 @@ public class UserController {
         return allUsers;
 //    	return this.userRepository.getAll_users();
    	}
+    @RequestMapping(value = "getUserCapabilities/{id}", method= RequestMethod.GET)
+   	public List<String> getUserCapabilities(@PathVariable int id) {	
+    	return this.userDetailsService.getUserCapabilities(id);
+//    	return this.userRepository.getAll_users();
+   	}
+  
     /*********/
 }

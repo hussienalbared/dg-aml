@@ -73,7 +73,7 @@ public class UserRestControllerTest {
 
         User user = new User();
         user.setUsername("username");
-        user.setGroup(groups);
+        user.setGroups(groups);
         user.setEnabled(Boolean.TRUE);
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
