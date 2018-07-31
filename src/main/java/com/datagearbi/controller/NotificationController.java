@@ -26,7 +26,6 @@ import com.datagearbi.model.security.User;
 import com.datagearbi.repository.AcRiskAssismentRepository;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.AlarmNotificationRepository;
-import com.datagearbi.repository.CommentNotificationRepository;
 import com.datagearbi.repository.CommentsRepository;
 import com.datagearbi.repository.NotificationRepository;
 import com.datagearbi.repository.RiskNotificationRepository;
