@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.model.SAMA_Report_V;
 import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
@@ -54,6 +55,8 @@ public class ReportController {
 	@CrossOrigin
 	@RequestMapping("getTransactions")
 	public List<Transaction_Detail> getTransactions(@RequestParam(name = "customerId") String customerId) {
+		System.out.println("jjjjjjjjjjjjjjjjjjjjjjj");
+		System.out.println(customerId);
 		return reportService.getTransactions(customerId);
 	}
 
@@ -66,6 +69,8 @@ public class ReportController {
 	@CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
 	@RequestMapping(value = "createSamaReport", method = RequestMethod.POST)
 	public List<SAMAReportDTO> createSamaReport(@RequestBody Integer[] transactionId) {
+		System.out.println(transactionId.length+"hussien");
+		
 		return reportService.getSAMAReport(transactionId);
 	}
 
