@@ -29,6 +29,12 @@ public class AC_Suspected_Object implements Serializable {
 	public Set<AC_Alarm> getAcAlarm() {
 		return acAlarm;
 	}
+	public int getAlarmsCount() {
+		return alarmsCount;
+	}
+	public void setAlarmsCount(int alarmsCount) {
+		this.alarmsCount = alarmsCount;
+	}
 	public void setAcAlarm(Set<AC_Alarm> acAlarm) {
 		this.acAlarm = acAlarm;
 	}

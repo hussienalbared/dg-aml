@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.datagearbi.model.DEV_Report_Property;
 import com.datagearbi.model.DEV_Report_SAMA;
 import com.datagearbi.model.SAMA_Report_V;
 import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
+import com.datagearbi.repository.DEV_Report_PropertyRepository;
 import com.datagearbi.repository.ReportRepository;
 import com.datagearbi.repository.SAMA_Report_VRepository;
 import com.datagearbi.repository.TransactionRepository;
@@ -25,6 +27,9 @@ public class ReportServiceImpl implements ReportService {
 
 	@Autowired
 	private ReportRepository samaReportRepository;
+	
+	@Autowired
+	private DEV_Report_PropertyRepository dev_Report_PropertyRepository;
 
 	@Autowired
 	private TransactionRepository transactionRepository;
@@ -216,6 +221,27 @@ System.out.println(samaReports2.size()+"husssssssssssssssssssssssien");
 		List<SAMAReportDTO> samaReports = new ArrayList<SAMAReportDTO>();
 		samaReports = getSAMAReport(transactionIds);		
 		return samaReports;
+	}
+	
+	@Override
+	public void saveSamaProperties(String sama_Entity_Name,String sama_Entity_City,String sama_Entity_Phone,
+			String sama_Entity_Type,String sama_Entity_Branch,String sama_Reporting_Name,
+			String sama_Reporting_Address,String sama_Reporting_Phone) {
+		
+		
+		this.dev_Report_PropertyRepository.updateProps("sama_Entity_Name",sama_Entity_Name);
+		this.dev_Report_PropertyRepository.updateProps("sama_Entity_City",sama_Entity_City);
+		this.dev_Report_PropertyRepository.updateProps("sama_Entity_Phone",sama_Entity_Phone);
+		this.dev_Report_PropertyRepository.updateProps("sama_Entity_Type",sama_Entity_Type);
+		this.dev_Report_PropertyRepository.updateProps("sama_Entity_Branch",sama_Entity_Branch);
+		this.dev_Report_PropertyRepository.updateProps("sama_Reporting_Name",sama_Reporting_Name);
+		this.dev_Report_PropertyRepository.updateProps("sama_Reporting_Address",sama_Reporting_Address);
+		this.dev_Report_PropertyRepository.updateProps("sama_Reporting_Phone",sama_Reporting_Phone);
+	}
+	
+	@Override
+	public List<DEV_Report_Property> samaprops() {
+		return this.dev_Report_PropertyRepository.findAll();
 	}
 
 }
