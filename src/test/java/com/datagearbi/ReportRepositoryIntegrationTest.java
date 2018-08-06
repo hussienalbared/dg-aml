@@ -36,17 +36,17 @@ public class ReportRepositoryIntegrationTest {
 	public void testSave() {
 		
 		DEV_Report_SAMA entity= new DEV_Report_SAMA(); 
-		entity.setBrtydesc("Branch");
-		entity.setPrimaryMediumDesc("International");
-		entity.setSecondaryMediumDesc("Check");
-		entity.setCalendarDate( new Timestamp(0));
-		entity.setCfcurramt(BigDecimal.TEN);
-		entity.setCurrencyName("test");
-		entity.setAcctno("test1");
-		entity.setAcctbnm("test2");
-		entity.setPid("test3");
-		entity.setPnm("test4");	
-		entity.setPczconm("test5");
+//		entity.setBrtydesc("Branch");
+//		entity.setPrimaryMediumDesc("International");
+//		entity.setSecondaryMediumDesc("Check");
+//		entity.setCalendarDate( new Timestamp(0));
+//		entity.setCfcurramt(BigDecimal.TEN);
+//		entity.setCurrencyName("test");
+//		entity.setAcctno("test1");
+//		entity.setAcctbnm("test2");
+//		entity.setPid("test3");
+//		entity.setPnm("test4");	
+//		entity.setPczconm("test5");
 	
 		DEV_Report_SAMA objs = samaReportRepository.save(entity);
 		System.out.println("test:" + objs);

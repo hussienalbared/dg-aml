@@ -1,35 +1,23 @@
-
 package com.datagearbi.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.databind.jsonschema.JsonSerializableSchema;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the DEV_Report_SAMA database table.
+ * The persistent class for the SAMA_Report_V database table.
  * 
  */
 @Entity
-@Table(schema="AML")
-@NamedQuery(name="DEV_Report_SAMA.findAll", query="SELECT d FROM DEV_Report_SAMA d")
-public class DEV_Report_SAMA implements Serializable {
+@NamedQuery(name="SAMA_Report_V.findAll", query="SELECT s FROM SAMA_Report_V s")
+@Table(schema="DGAMLCORE")
+public class SAMA_Report_V implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-//	@Id
-//	@GenericGenerator(
-//		    name = "incrementGenerator2",
-//		    strategy = "org.hibernate.id.IncrementGenerator",
-//		    parameters = {
-//                    @org.hibernate.annotations.Parameter(name = "schema",value = "AML")
-//            })
-//	@GeneratedValue(generator="incrementGenerator2")
-//	@Column(name="DEV_Report_SAMA_ID")
-//	private Integer DEV_Report_SAMA_ID;
 
 	@Column(name="Acct_No")
 	private String acct_No;
@@ -76,7 +64,7 @@ public class DEV_Report_SAMA implements Serializable {
 	@Column(name="Trans_Key")
 	private int trans_Key;
 
-	public DEV_Report_SAMA() {
+	public SAMA_Report_V() {
 	}
 
 	public String getAcct_No() {
