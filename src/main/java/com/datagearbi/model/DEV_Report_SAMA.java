@@ -20,158 +20,183 @@ import java.sql.Timestamp;
 public class DEV_Report_SAMA implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GenericGenerator(
-		    name = "incrementGenerator2",
-		    strategy = "org.hibernate.id.IncrementGenerator",
-		    parameters = {
-                    @org.hibernate.annotations.Parameter(name = "schema",value = "AML")
-            })
-	@GeneratedValue(generator="incrementGenerator2")
-	@Column(name="DEV_Report_SAMA_ID")
-	private Integer DEV_Report_SAMA_ID;
+//	@Id
+//	@GenericGenerator(
+//		    name = "incrementGenerator2",
+//		    strategy = "org.hibernate.id.IncrementGenerator",
+//		    parameters = {
+//                    @org.hibernate.annotations.Parameter(name = "schema",value = "AML")
+//            })
+//	@GeneratedValue(generator="incrementGenerator2")
+//	@Column(name="DEV_Report_SAMA_ID")
+//	private Integer DEV_Report_SAMA_ID;
 
-	@Column(name="ACCTBNM")
-	private String acctbnm;
+	@Column(name="Acct_No")
+	private String acct_No;
 
-	@Column(name="ACCTNO")
-	private String acctno;
+	@Column(name="Acct_Prim_Branch_Name")
+	private String acct_Prim_Branch_Name;
 
-	@Column(name="BRNM")
-	private String brnm;
+	@Column(name="Branch_Name")
+	private String branch_Name;
 
-	@Column(name="BRTYDESC")
-	private String brtydesc;
+	@Column(name="Branch_Type_Desc")
+	private String branch_Type_Desc;
 
-	@Column(name="calendar_date")
-	private Timestamp calendarDate;
+	@Column(name="Calendar_Date")
+	private Timestamp calendar_Date;
 
-	@Column(name="CFCURRAMT")
-	private BigDecimal cfcurramt;
+	@Column(name="Ccy_Amt")
+	private BigDecimal ccy_Amt;
 
-	@Column(name="currency_name")
-	private String currencyName;
+	@Column(name="Citizen_Cntry_Name")
+	private String citizen_Cntry_Name;
 
-	@Column(name="PCZCONM")
-	private String pczconm;
+	@Column(name="Curr_Name")
+	private String curr_Name;
 
-	@Column(name="PID")
-	private String pid;
+	@Column(name="Cust_Ident_Id")
+	private String cust_Ident_Id;
 
-	@Column(name="PNM")
-	private String pnm;
+	@Column(name="Cust_Key")
+	private int cust_Key;
 
-	@Column(name="primary_medium_desc")
-	private String primaryMediumDesc;
+	@Column(name="Cust_Name")
+	private String cust_Name;
 
-	@Column(name="secondary_medium_desc")
-	private String secondaryMediumDesc;
+	@Column(name="Cust_No")
+	private String cust_No;
+
+	@Column(name="Prim_Med_Desc")
+	private String prim_Med_Desc;
+
+	@Column(name="Sec_Med_Desc")
+	private String sec_Med_Desc;
+   @Id
+	@Column(name="Trans_Key")
+	private int trans_Key;
 
 	public DEV_Report_SAMA() {
 	}
 
-	public Integer getDEV_Report_SAMA_ID() {
-		return this.DEV_Report_SAMA_ID;
+	public String getAcct_No() {
+		return this.acct_No;
 	}
 
-	public void setDEV_Report_SAMA_ID(Integer DEV_Report_SAMA_ID) {
-		this.DEV_Report_SAMA_ID = DEV_Report_SAMA_ID;
+	public void setAcct_No(String acct_No) {
+		this.acct_No = acct_No;
 	}
 
-	public String getAcctbnm() {
-		return this.acctbnm;
+	public String getAcct_Prim_Branch_Name() {
+		return this.acct_Prim_Branch_Name;
 	}
 
-	public void setAcctbnm(String acctbnm) {
-		this.acctbnm = acctbnm;
+	public void setAcct_Prim_Branch_Name(String acct_Prim_Branch_Name) {
+		this.acct_Prim_Branch_Name = acct_Prim_Branch_Name;
 	}
 
-	public String getAcctno() {
-		return this.acctno;
+	public String getBranch_Name() {
+		return this.branch_Name;
 	}
 
-	public void setAcctno(String acctno) {
-		this.acctno = acctno;
+	public void setBranch_Name(String branch_Name) {
+		this.branch_Name = branch_Name;
 	}
 
-	public String getBrnm() {
-		return this.brnm;
+	public String getBranch_Type_Desc() {
+		return this.branch_Type_Desc;
 	}
 
-	public void setBrnm(String brnm) {
-		this.brnm = brnm;
+	public void setBranch_Type_Desc(String branch_Type_Desc) {
+		this.branch_Type_Desc = branch_Type_Desc;
 	}
 
-	public String getBrtydesc() {
-		return this.brtydesc;
+	public Timestamp getCalendar_Date() {
+		return this.calendar_Date;
 	}
 
-	public void setBrtydesc(String brtydesc) {
-		this.brtydesc = brtydesc;
+	public void setCalendar_Date(Timestamp calendar_Date) {
+		this.calendar_Date = calendar_Date;
 	}
 
-	public Timestamp getCalendarDate() {
-		return this.calendarDate;
+	public BigDecimal getCcy_Amt() {
+		return this.ccy_Amt;
 	}
 
-	public void setCalendarDate(Timestamp calendarDate) {
-		this.calendarDate = calendarDate;
+	public void setCcy_Amt(BigDecimal ccy_Amt) {
+		this.ccy_Amt = ccy_Amt;
 	}
 
-	public BigDecimal getCfcurramt() {
-		return this.cfcurramt;
+	public String getCitizen_Cntry_Name() {
+		return this.citizen_Cntry_Name;
 	}
 
-	public void setCfcurramt(BigDecimal cfcurramt) {
-		this.cfcurramt = cfcurramt;
+	public void setCitizen_Cntry_Name(String citizen_Cntry_Name) {
+		this.citizen_Cntry_Name = citizen_Cntry_Name;
 	}
 
-	public String getCurrencyName() {
-		return this.currencyName;
+	public String getCurr_Name() {
+		return this.curr_Name;
 	}
 
-	public void setCurrencyName(String currencyName) {
-		this.currencyName = currencyName;
+	public void setCurr_Name(String curr_Name) {
+		this.curr_Name = curr_Name;
 	}
 
-	public String getPczconm() {
-		return this.pczconm;
+	public String getCust_Ident_Id() {
+		return this.cust_Ident_Id;
 	}
 
-	public void setPczconm(String pczconm) {
-		this.pczconm = pczconm;
+	public void setCust_Ident_Id(String cust_Ident_Id) {
+		this.cust_Ident_Id = cust_Ident_Id;
 	}
 
-	public String getPid() {
-		return this.pid;
+	public int getCust_Key() {
+		return this.cust_Key;
 	}
 
-	public void setPid(String pid) {
-		this.pid = pid;
+	public void setCust_Key(int cust_Key) {
+		this.cust_Key = cust_Key;
 	}
 
-	public String getPnm() {
-		return this.pnm;
+	public String getCust_Name() {
+		return this.cust_Name;
 	}
 
-	public void setPnm(String pnm) {
-		this.pnm = pnm;
+	public void setCust_Name(String cust_Name) {
+		this.cust_Name = cust_Name;
 	}
 
-	public String getPrimaryMediumDesc() {
-		return this.primaryMediumDesc;
+	public String getCust_No() {
+		return this.cust_No;
 	}
 
-	public void setPrimaryMediumDesc(String primaryMediumDesc) {
-		this.primaryMediumDesc = primaryMediumDesc;
+	public void setCust_No(String cust_No) {
+		this.cust_No = cust_No;
 	}
 
-	public String getSecondaryMediumDesc() {
-		return this.secondaryMediumDesc;
+	public String getPrim_Med_Desc() {
+		return this.prim_Med_Desc;
 	}
 
-	public void setSecondaryMediumDesc(String secondaryMediumDesc) {
-		this.secondaryMediumDesc = secondaryMediumDesc;
+	public void setPrim_Med_Desc(String prim_Med_Desc) {
+		this.prim_Med_Desc = prim_Med_Desc;
+	}
+
+	public String getSec_Med_Desc() {
+		return this.sec_Med_Desc;
+	}
+
+	public void setSec_Med_Desc(String sec_Med_Desc) {
+		this.sec_Med_Desc = sec_Med_Desc;
+	}
+
+	public int getTrans_Key() {
+		return this.trans_Key;
+	}
+
+	public void setTrans_Key(int trans_Key) {
+		this.trans_Key = trans_Key;
 	}
 
 }

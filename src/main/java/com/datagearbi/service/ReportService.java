@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.datagearbi.model.SAMA_Report_V;
+import com.datagearbi.model.DEV_Report_SAMA;
 import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
@@ -16,4 +16,5 @@ public interface ReportService {
 	public List<AlarmReportDTO> getAlarmsReport(String status);
 	public void saveSAMARport(SAMAReportDTO samaReportDTO);
 	public List<SAMAReportDTO> samaReportsPDF(Integer[] transactionIds);
+	public List<DEV_Report_SAMA> allreports();
 }

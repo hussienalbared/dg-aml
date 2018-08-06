@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.model.DEV_Report_SAMA;
 import com.datagearbi.model.SAMA_Report_V;
 import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
@@ -39,7 +40,7 @@ import net.sf.jasperreports.engine.xml.JasperPrintFactory;
 import net.sf.jasperreports.view.JasperViewer;
 
 @RestController
-
+@CrossOrigin(origins="*")
 @RequestMapping("report/")
 public class ReportController {
 
@@ -52,14 +53,17 @@ public class ReportController {
 	 * parameter customerId
 	 * 
 	 **/
-	@CrossOrigin
+	
 	@RequestMapping("getTransactions")
 	public List<Transaction_Detail> getTransactions(@RequestParam(name = "customerId") String customerId) {
 		System.out.println("jjjjjjjjjjjjjjjjjjjjjjj");
 		System.out.println(customerId);
 		return reportService.getTransactions(customerId);
 	}
-
+	@RequestMapping("all")
+	public List<DEV_Report_SAMA> all() {
+	return this.reportService.allreports();
+	}
 	/**
 	 * used to create new SAMA report in case of the request coming from SAMA report
 	 * tab return SAMA report(s) based on the entered transaction id(s) input
