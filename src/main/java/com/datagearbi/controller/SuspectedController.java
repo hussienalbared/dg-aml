@@ -57,7 +57,7 @@ public class SuspectedController {
 	/*********************/
 		@RequestMapping(value = "suspectesPage/{page}", method= RequestMethod.GET)
 		public Page<AC_Suspected_Object> suspectesPage(@PathVariable int page) {
-			return this.suspectedObjectRepository.findAll(new PageRequest(page, 10));
+			return this.suspectedObjectRepository.findAll(new PageRequest(page, 30));
 		}
 	/*********************/
 	
