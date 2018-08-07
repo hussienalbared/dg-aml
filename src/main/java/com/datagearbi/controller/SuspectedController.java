@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +53,13 @@ public class SuspectedController {
 		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 20);
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
+	
+	/*********************/
+		@RequestMapping(value = "suspectesPage/{page}", method= RequestMethod.GET)
+		public Page<AC_Suspected_Object> suspectesPage(@PathVariable int page) {
+			return this.suspectedObjectRepository.findAll(new PageRequest(page, 10));
+		}
+	/*********************/
 	
 	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
 	public AC_Suspected_Object get(@PathVariable int key,@PathVariable String levelCode) {
