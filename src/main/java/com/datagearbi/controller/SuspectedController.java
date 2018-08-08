@@ -41,16 +41,36 @@ public class SuspectedController {
 	
 	@Autowired
     private SimpMessagingTemplate template;
-	
+//	@RequestMapping(value = "test11" , method= RequestMethod.GET)
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
 //		return this.suspectedObjectRepository.getAllSuspectWithNames();
-		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 20);
+		List<AC_Suspected_Object> x= this.suspectedObjectRepository.findByalarmsCountGreaterThan(0);
+//		x.forEach(a->{
+//			updatecount(a.getId().getAlarmed_Obj_Key(),a.getId().getAlarmed_Obj_level_Cd());
+//		});
+		return x;
+		
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
-	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
+	public void updatecount(long key, String code) {
+String q="select count(a.alarmed_Obj_No) from AC_Alarm a where a.alarmed_Obj_Key="+key+" and a.alarmed_Obj_Level_Cd='"+
+	code+"' and a.alarm_Status_Cd='ACT'  group by a.alarmed_Obj_No ";
+List z= this.entityManager.createQuery(q).getResultList();
+AC_Suspected_Object vv= suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(code, key)).get();
+
+int y;
+if(z.size()>0)
+	y= ((Long)z.get(0)).intValue();
+else y= 0;
+vv.setAlarmsCount(y);
+this.suspectedObjectRepository.save(vv);
+
+	
+}
+@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
 	public AC_Suspected_Object get(@PathVariable int key,@PathVariable String levelCode) {
 		AC_Suspected_ObjectPK id = new AC_Suspected_ObjectPK(levelCode, key);
 		return suspectedObjectRepository.getOne(id);

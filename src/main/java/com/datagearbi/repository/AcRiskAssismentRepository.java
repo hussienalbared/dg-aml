@@ -30,5 +30,11 @@ public interface AcRiskAssismentRepository extends JpaRepository<AC_Risk_Assessm
 			+" where c.cust_No=?2")
 	void updateCusNo(Long rkey_,String custNo);
 	
+	
+	@Modifying
+	@Transactional
+	@Query("update AC_Risk_Assessment rc set rc.risk_Class = rc.proposed_Risk_Class where rc.risk_Assmnt_Id=?1")
+	void updatePropsed(Long rkey);
+	
 	/****/
 }

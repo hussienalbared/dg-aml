@@ -90,6 +90,8 @@ public class AcRiskAssessmentController {
 //    	
 //    	em.createQuery(query).executeUpdate();
     	this.acRiskAssismentRepository.updateCusNo(Long.parseLong(key), custNo);
+    	
+    	this.acRiskAssismentRepository.updatePropsed(Long.parseLong(key));
 	}
     /******/
 }		

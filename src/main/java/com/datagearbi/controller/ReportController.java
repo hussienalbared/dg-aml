@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.datagearbi.model.DEV_Report_Property;
 import com.datagearbi.model.DEV_Report_SAMA;
 import com.datagearbi.model.SAMA_Report_V;
 import com.datagearbi.model.Transaction_Detail;
@@ -53,7 +54,7 @@ public class ReportController {
 	 * parameter customerId
 	 * 
 	 **/
-	
+	@CrossOrigin
 	@RequestMapping("getTransactions")
 	public List<Transaction_Detail> getTransactions(@RequestParam(name = "customerId") String customerId) {
 		System.out.println("jjjjjjjjjjjjjjjjjjjjjjj");
@@ -122,5 +123,29 @@ public class ReportController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
+	@RequestMapping(value="savesamaprops", method=RequestMethod.POST)
+	public void saveSamaProperties(@RequestParam("sama_Entity_Name") String sama_Entity_Name,
+									@RequestParam("sama_Entity_City") String sama_Entity_City,
+									@RequestParam("sama_Entity_Phone") String sama_Entity_Phone,
+									@RequestParam("sama_Entity_Type") String sama_Entity_Type,
+									@RequestParam("sama_Entity_Branch") String sama_Entity_Branch,
+									@RequestParam("sama_Reporting_Name") String sama_Reporting_Name,
+									@RequestParam("sama_Reporting_Address") String sama_Reporting_Address,
+									@RequestParam("sama_Reporting_Phone") String sama_Reporting_Phone) {
+		
+		
+		this.reportService.saveSamaProperties(sama_Entity_Name,sama_Entity_City,sama_Entity_Phone,
+											sama_Entity_Type,sama_Entity_Branch,sama_Reporting_Name,
+											sama_Reporting_Address,sama_Reporting_Phone);
+	}
+	
+	@CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
+	@RequestMapping(value="samaprops", method=RequestMethod.GET)
+	public List<DEV_Report_Property> samaprops() {
+		return this.reportService.samaprops();
+	}
+	
+ 
 }
