@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.datagearbi.model.AC_Risk_Assessment;
-import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.repository.AcRiskAssismentRepository;
 
 /**
@@ -90,6 +90,8 @@ public class AcRiskAssessmentController {
 //    	
 //    	em.createQuery(query).executeUpdate();
     	this.acRiskAssismentRepository.updateCusNo(Long.parseLong(key), custNo);
+    	
+    	this.acRiskAssismentRepository.updatePropsed(Long.parseLong(key));
 	}
     /******/
 }		

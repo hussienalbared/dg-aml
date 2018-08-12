@@ -68,12 +68,12 @@ public class UserRestControllerTest {
 
     	Group group = new Group();
         group.setId(1);
-        group.setName(AuthorityName.ROLE_ADMIN);
+        group.setName(AuthorityName.ROLE_ADMIN.name());
         List<Group> groups = Arrays.asList(group);
 
         User user = new User();
         user.setUsername("username");
-        user.setGroup(groups);
+        user.setGroups(groups);
         user.setEnabled(Boolean.TRUE);
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 

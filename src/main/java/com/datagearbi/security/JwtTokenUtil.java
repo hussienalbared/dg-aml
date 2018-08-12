@@ -6,19 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import com.datagearbi.security.service.JwtUserDetailsService;
+
 //import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenUtil implements Serializable {
-
+	@Autowired
+	JwtUserDetailsService jwtUserDetailsService;
     static final String CLAIM_KEY_USERNAME = "sub";
     static final String CLAIM_KEY_CREATED = "iat";
     private static final long serialVersionUID = -3301605591108950415L;
@@ -89,6 +94,10 @@ public class JwtTokenUtil implements Serializable {
         final Date expirationDate = calculateExpirationDate(createdDate);
       Map<String, Object> payload=new HashMap<>();
       payload.put("userName", userDetails.getFirstname()+" "+userDetails.getLastname());
+      payload.put("id", userDetails.getId());
+      payload.put("authorities", jwtUserDetailsService.getUserCapabilities(userDetails.getId()));
+      
+     
         return Jwts.builder()
             .setClaims(claims)
             .setSubject(userDetails.getUsername())

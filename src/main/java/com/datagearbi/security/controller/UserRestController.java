@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.datagearbi.security.JwtTokenUtil;
 import com.datagearbi.security.JwtUser;
 
@@ -35,4 +36,5 @@ public class UserRestController {
         JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
         return user;
     }
+    
 }

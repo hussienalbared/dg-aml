@@ -1,7 +1,13 @@
 package com.datagearbi.model.security;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -13,10 +19,17 @@ import javax.persistence.*;
 @NamedQuery(name="Group_Capability.findAll", query="SELECT g FROM Group_capability g")
 public class Group_capability implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@JsonProperty("id")
 	@EmbeddedId
 	private Group_CapabilityPK id;
 
 	public Group_capability() {
+	}
+	public Group_CapabilityPK getId() {
+		return id;
+	}
+	public void setId(Group_CapabilityPK id) {
+		this.id = id;
 	}
 	
 }

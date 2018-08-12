@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
 import com.datagearbi.repository.AlaramObjectRepository;
+import com.datagearbi.repository.CommentsRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 
 @RestController
@@ -33,14 +35,42 @@ public class SuspectedController {
 	private AlaramObjectRepository alaramObjectRepository;
 	
 	
+	
+	@Autowired
+	private CommentsRepository commentsRepository;
+	
+	@Autowired
+    private SimpMessagingTemplate template;
+//	@RequestMapping(value = "test11" , method= RequestMethod.GET)
 	@RequestMapping(value = "suspectedObject", method= RequestMethod.GET)
 	public List<AC_Suspected_Object> list() {
 		System.out.println("---list---");
-		return this.suspectedObjectRepository.findByalarmsCountGreaterThan(0).subList(1, 2);
+//		return this.suspectedObjectRepository.getAllSuspectWithNames();
+		List<AC_Suspected_Object> x= this.suspectedObjectRepository.findByalarmsCountGreaterThan(0);
+//		x.forEach(a->{
+//			updatecount(a.getId().getAlarmed_Obj_Key(),a.getId().getAlarmed_Obj_level_Cd());
+//		});
+		return x;
+		
 //		return suspectedObjectRepository.findAll().stream().filter(f->f.getAlarms_Count()>0).collect(Collectors.toList());
 	}
 	
-	@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
+	public void updatecount(long key, String code) {
+String q="select count(a.alarmed_Obj_No) from AC_Alarm a where a.alarmed_Obj_Key="+key+" and a.alarmed_Obj_Level_Cd='"+
+	code+"' and a.alarm_Status_Cd='ACT'  group by a.alarmed_Obj_No ";
+List z= this.entityManager.createQuery(q).getResultList();
+AC_Suspected_Object vv= suspectedObjectRepository.findById(new AC_Suspected_ObjectPK(code, key)).get();
+
+int y;
+if(z.size()>0)
+	y= ((Long)z.get(0)).intValue();
+else y= 0;
+vv.setAlarmsCount(y);
+this.suspectedObjectRepository.save(vv);
+
+	
+}
+@RequestMapping(value = "suspectedObject/{key}/{levelCode}" , method= RequestMethod.GET)
 	public AC_Suspected_Object get(@PathVariable int key,@PathVariable String levelCode) {
 		AC_Suspected_ObjectPK id = new AC_Suspected_ObjectPK(levelCode, key);
 		return suspectedObjectRepository.getOne(id);
@@ -116,5 +146,4 @@ this.suspectedObjectRepository.updateAcSuspectedObj(Integer.parseInt(key), level
 	
 	
 	}
-	
 }

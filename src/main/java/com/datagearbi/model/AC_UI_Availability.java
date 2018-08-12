@@ -1,7 +1,9 @@
 package com.datagearbi.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Embeddable;
+import javax.persistence.NamedQuery;
 
 
 /**

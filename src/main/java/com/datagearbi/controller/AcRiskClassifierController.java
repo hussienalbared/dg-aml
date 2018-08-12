@@ -18,7 +18,7 @@ import com.datagearbi.repository.AcRiskClassifierRepository;
  * Created by Ahmed Shalash on 27/04/2018.
  */
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("aml/api/acriskclassifier")
 @EnableTransactionManagement

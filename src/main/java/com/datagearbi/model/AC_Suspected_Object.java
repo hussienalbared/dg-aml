@@ -1,10 +1,18 @@
 package com.datagearbi.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -20,6 +28,12 @@ public class AC_Suspected_Object implements Serializable {
 	private Set<AC_Alarm> acAlarm;
 	public Set<AC_Alarm> getAcAlarm() {
 		return acAlarm;
+	}
+	public int getAlarmsCount() {
+		return alarmsCount;
+	}
+	public void setAlarmsCount(int alarmsCount) {
+		this.alarmsCount = alarmsCount;
 	}
 	public void setAcAlarm(Set<AC_Alarm> acAlarm) {
 		this.acAlarm = acAlarm;
