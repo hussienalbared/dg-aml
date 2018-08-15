@@ -1,11 +1,8 @@
 package com.datagearbi.service;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.datagearbi.helper.alramInsertionUtil;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.AC_Alarm_Event;
@@ -102,18 +99,7 @@ public class AlarmGeneration {
 		aaa.setCreate_Timestamp(Timestamp.valueOf(ut.getCreate_date()));
 		suspectedObjectRepository.save(aaa);
 
-		/*
-		 * "INSERT INTO AML.AC_CASH_FLOW_ALARM " +
-		 * "(alarm_id,transaction_key,account_key,date_key,time_key,transaction_type_key"
-		 * +
-		 * ",country_key,transaction_status_key,remitter_ext_party_key,beneficiary_ext_party_key"
-		 * +
-		 * ",posted_date_key,associate_key,executing_party_key,executing_ext_party_key"
-		 * +
-		 * ",currency_amount,currency_amount_in_txn_ccy,currency_amount_in_account_ccy"
-		 * + ",transaction_currency_key,branch_key,secondary_account_key,related_ind" +
-		 * ",trigger_ind,third_party_ind)"
-		 */
+		
 		AC_Transaction_Flow_Alarm b = new AC_Transaction_Flow_Alarm();
 		b.setId(new AC_Transaction_Flow_AlarmPK(aa.getAlarm_Id(), Long.valueOf(ut.getTransaction_key())));
 		b.setAcct_Key(new BigDecimal(ut.getPrimary_obj_key()));

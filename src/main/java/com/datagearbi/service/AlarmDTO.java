@@ -11,7 +11,9 @@ package com.datagearbi.service;
  * @author Hamzah.Ahmed
  */
 public class AlarmDTO {
+	
 /*
+ * 
     private String PTYDS,PNO, PNM, ACCTNO, account_key, ACCTNM,ACCTTYDESC, routine_id, routine_name, ACCTEMPIND, alarm_category_cd, alarm_subcategory_cd, party_key, alarm_transactions_count,transactions_count, 
             alarm_total_amount,total_amount, oldest_alarm_count, routine_short_description, routine_message_text, PPEPIND, transaction_key, ACCTEVDATEKEY, ACCTEVHHMMSS, ACCTEVTTYKEY, ACCTEVCOCD, ACCTEVTSTATKEY, ACCTEVBRNO, PASCIND,
             CFTRN,
@@ -54,7 +56,37 @@ public class AlarmDTO {
 */    
     
     
-    // This class used to setter and getter for all fields
+    @Override
+	public String toString() {
+		return "AlarmDTO [Cust_Type_Desc=" + Cust_Type_Desc + ", Cust_No=" + Cust_No + ", Cust_Name=" + Cust_Name
+				+ ", Acct_No=" + Acct_No + ", Acct_Key=" + Acct_Key + ", Acct_Name=" + Acct_Name + ", Acct_Type_Desc="
+				+ Acct_Type_Desc + ", Routine_Id=" + Routine_Id + ", Routine_Name=" + Routine_Name + ", Acct_Emp_Ind="
+				+ Acct_Emp_Ind + ", Alarm_Categ_Cd=" + Alarm_Categ_Cd + ", Alarm_Subcateg_Cd=" + Alarm_Subcateg_Cd
+				+ ", Cust_Key=" + Cust_Key + ", alarm_transactions_count=" + alarm_transactions_count
+				+ ", transactions_count=" + transactions_count + ", alarm_total_amount=" + alarm_total_amount
+				+ ", total_amount=" + total_amount + ", oldest_alarm_count=" + oldest_alarm_count
+				+ ", Routine_Short_Desc=" + Routine_Short_Desc + ", Routine_Msg_Txt=" + Routine_Msg_Txt
+				+ ", Political_Exp_Prsn_Ind=" + Political_Exp_Prsn_Ind + ", Trans_Key=" + Trans_Key + ", Date_Key="
+				+ Date_Key + ", Time_Key=" + Time_Key + ", Trans_Type_Key=" + Trans_Type_Key + ", Cntry_Key="
+				+ Cntry_Key + ", Trans_Status_Key=" + Trans_Status_Key + ", Branch_Key=" + Branch_Key
+				+ ", Cust_Emp_Ind=" + Cust_Emp_Ind + ", Remit_Ext_Cust_Key=" + Remit_Ext_Cust_Key
+				+ ", Benef_Ext_Cust_Key=" + Benef_Ext_Cust_Key + ", Trans_Curr_Key=" + Trans_Curr_Key
+				+ ", Post_Date_Key=" + Post_Date_Key + ", Emp_Key=" + Emp_Key + ", Exec_Cust_Key=" + Exec_Cust_Key
+				+ ", Ccy_Amt=" + Ccy_Amt + ", Ccy_Amnt_In_Trans_Ccy=" + Ccy_Amnt_In_Trans_Ccy
+				+ ", Ccy_Amnt_In_Acct_Ccy=" + Ccy_Amnt_In_Acct_Ccy + ", Sec_Acct_Key=" + Sec_Acct_Key + ", Relate_Ind="
+				+ Relate_Ind + ", Third_Cust_Ind=" + Third_Cust_Ind + ", parm_name=" + parm_name + ", parm_value="
+				+ parm_value + ", parm_type_desc=" + parm_type_desc + ", parm_desc=" + parm_desc + ", num_inst="
+				+ num_inst + ", Agg_Assets_Amt=" + Agg_Assets_Amt + ", Annual_Income_Amt=" + Annual_Income_Amt
+				+ ", total_loan_amount=" + total_loan_amount + ", Orig_Loan_Amt=" + Orig_Loan_Amt + ", Acct_Open_Date="
+				+ Acct_Open_Date + ", Acct_Close_Date=" + Acct_Close_Date + ", Cust_Tax_Id=" + Cust_Tax_Id
+				+ ", Tel_No_1=" + Tel_No_1 + ", Tel_No_2=" + Tel_No_2 + ", Tel_No_3=" + Tel_No_3 + ", St_Addr_1="
+				+ St_Addr_1 + ", St_Addr_2=" + St_Addr_2 + ", Empr_Name=" + Empr_Name + ", Cust_Ident_type_Desc="
+				+ Cust_Ident_type_Desc + ", St_City_Name=" + St_City_Name + ", PSTCINM=" + PSTCINM
+				+ ", Pchange_current_ind=" + Pchange_current_ind + ", Branch_Name=" + Branch_Name + ", all_amnt="
+				+ all_amnt + "]";
+	}
+
+	// This class used to setter and getter for all fields
     private String Cust_Type_Desc,Cust_No, Cust_Name, Acct_No, Acct_Key, Acct_Name,Acct_Type_Desc, Routine_Id, Routine_Name, Acct_Emp_Ind, Alarm_Categ_Cd, Alarm_Subcateg_Cd, Cust_Key, alarm_transactions_count,transactions_count, 
             alarm_total_amount,total_amount, oldest_alarm_count, Routine_Short_Desc, Routine_Msg_Txt, Political_Exp_Prsn_Ind, Trans_Key, Date_Key, Time_Key, Trans_Type_Key, Cntry_Key, Trans_Status_Key, Branch_Key, Cust_Emp_Ind,
             Remit_Ext_Cust_Key,
