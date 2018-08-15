@@ -92,7 +92,17 @@ public class AlarmDTO {
             ,all_amnt
           ;
 
-    public String getExec_Cust_Key() {
+    private int Transfer_Period_Date;
+    
+    public int getTransfer_Period_Date() {
+		return Transfer_Period_Date;
+	}
+
+	public void setTransfer_Period_Date(int transfer_Period_Date) {
+		Transfer_Period_Date = transfer_Period_Date;
+	}
+
+	public String getExec_Cust_Key() {
         return Exec_Cust_Key;
     }
 

@@ -1,6 +1,7 @@
 package com.datagearbi.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class Dgaml001TransLoanXToT implements Serializable {
 		return IdRow;
 	}
 	
+	
 	@Column(name="Acct_Emp_Ind")
 	private String acct_Emp_Ind;
    
@@ -46,11 +48,26 @@ public class Dgaml001TransLoanXToT implements Serializable {
 	@Column(name="Branch_Key")
 	private int branch_Key;
 
+	@Column(name="Calendar_Date")
+	private Date Calendar_Date;
+	
+	@Column(name="Acct_Open_Date")
+	private Date Acct_Open_Date;
+	
+	@Column(name="Maturity_Date")
+	private Date Maturity_Date;
+	
+	@Column(name="Date_Key")
+	private int date_Key;
+	
+	@Column(name="Time_Key")
+	private int time_Key;
+	
 	@Column(name="Cntry_Key")
 	private int cntry_Key;
-
-	@Column(name="Cust_Emp_Ind")
-	private String cust_Emp_Ind;
+//
+//	@Column(name="Cust_Emp_Ind")
+//	private String cust_Emp_Ind;
 
 	@Column(name="Cust_Key")
 	private int cust_Key;
@@ -60,18 +77,12 @@ public class Dgaml001TransLoanXToT implements Serializable {
 
 	@Column(name="Cust_No")
 	private String cust_No;
-
-	@Column(name="Cust_Type_Desc")
-	private String cust_Type_Desc;
-
-	@Column(name="Date_Key")
-	private int date_Key;
+//
+//	@Column(name="Cust_Type_Desc")
+//	private String cust_Type_Desc;
 
 	@Column(name="Political_Exp_Prsn_Ind")
 	private String political_Exp_Prsn_Ind;
-
-	@Column(name="Time_Key")
-	private int time_Key;
 
 	@Column(name="Trans_Key")
 	private int trans_Key;
@@ -82,6 +93,82 @@ public class Dgaml001TransLoanXToT implements Serializable {
 	@Column(name="Trans_Type_Key")
 	private int trans_Type_Key;
 
+	@Column(name="Trans_Cr_Db_Ind_Cd")
+	private char Trans_Cr_Db_Ind_Cd;
+	
+	@Column(name="Prim_Med_Desc")
+	private String Prim_Med_Desc;
+	
+	@Column(name="Sec_Med_Desc")
+	private String Sec_Med_Desc;
+	
+	@Column(name="Cust_Type_Desc")
+	private String Cust_Type_Desc;
+	
+	@Column(name="Cust_Emp_Ind")
+	private String Cust_Emp_Ind;
+	
+	@Column(name="calculated_percentage")
+	private float calculated_percentage;
+	
+	
+	@Column(name="Transfer_Period_Date")
+	private int Transfer_Period_Date;
+	
+	public int getTransfer_Period_Date() {
+		return Transfer_Period_Date;
+	}
+	public void setTransfer_Period_Date(int transfer_Period_Date) {
+		Transfer_Period_Date = transfer_Period_Date;
+	}
+	public int getAcctKey() {
+		return acctKey;
+	}
+	public void setAcctKey(int acctKey) {
+		this.acctKey = acctKey;
+	}
+	public Date getCalendar_Date() {
+		return Calendar_Date;
+	}
+	public void setCalendar_Date(Date calendar_Date) {
+		Calendar_Date = calendar_Date;
+	}
+	public Date getAcct_Open_Date() {
+		return Acct_Open_Date;
+	}
+	public void setAcct_Open_Date(Date acct_Open_Date) {
+		Acct_Open_Date = acct_Open_Date;
+	}
+	public Date getMaturity_Date() {
+		return Maturity_Date;
+	}
+	public void setMaturity_Date(Date maturity_Date) {
+		Maturity_Date = maturity_Date;
+	}
+	public char getTrans_Cr_Db_Ind_Cd() {
+		return Trans_Cr_Db_Ind_Cd;
+	}
+	public void setTrans_Cr_Db_Ind_Cd(char trans_Cr_Db_Ind_Cd) {
+		Trans_Cr_Db_Ind_Cd = trans_Cr_Db_Ind_Cd;
+	}
+	public String getPrim_Med_Desc() {
+		return Prim_Med_Desc;
+	}
+	public void setPrim_Med_Desc(String prim_Med_Desc) {
+		Prim_Med_Desc = prim_Med_Desc;
+	}
+	public String getSec_Med_Desc() {
+		return Sec_Med_Desc;
+	}
+	public void setSec_Med_Desc(String sec_Med_Desc) {
+		Sec_Med_Desc = sec_Med_Desc;
+	}
+	public float getCalculated_percentage() {
+		return calculated_percentage;
+	}
+	public void setCalculated_percentage(float calculated_percentage) {
+		this.calculated_percentage = calculated_percentage;
+	}
 	public Dgaml001TransLoanXToT() {
 	}
 
@@ -142,11 +229,11 @@ public class Dgaml001TransLoanXToT implements Serializable {
 	}
 
 	public String getCust_Emp_Ind() {
-		return this.cust_Emp_Ind;
+		return this.Cust_Emp_Ind;
 	}
 
 	public void setCust_Emp_Ind(String cust_Emp_Ind) {
-		this.cust_Emp_Ind = cust_Emp_Ind;
+		this.Cust_Emp_Ind = cust_Emp_Ind;
 	}
 
 	public int getCust_Key() {
@@ -174,11 +261,11 @@ public class Dgaml001TransLoanXToT implements Serializable {
 	}
 
 	public String getCust_Type_Desc() {
-		return this.cust_Type_Desc;
+		return this.Cust_Type_Desc;
 	}
 
 	public void setCust_Type_Desc(String cust_Type_Desc) {
-		this.cust_Type_Desc = cust_Type_Desc;
+		this.Cust_Type_Desc = cust_Type_Desc;
 	}
 
 	public int getDate_Key() {
