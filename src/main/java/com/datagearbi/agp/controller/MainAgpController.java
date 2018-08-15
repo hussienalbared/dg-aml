@@ -12,7 +12,7 @@ import com.datagearbi.agp.repository.InstallmentsPaidByOtherPartyRepository;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.service.AML002Service;
 
-import com.datagearbi.service.AlarmProcess;
+
 import com.datagearbi.service.MainAGP;
 
 @RestController
@@ -27,9 +27,7 @@ public class MainAgpController {
 	private AlaramObjectRepository AlaramObjectRepository;
 	@Autowired
 	private AML002Service AML002Service;
-	@Autowired
-	AlarmProcess AlarmProcess;
-	
+
 	@RequestMapping(value="runAGP", method=RequestMethod.GET)
 	private void Run_AGP() {
 		this.mainAGP.Run_AGP();
@@ -38,7 +36,7 @@ public class MainAgpController {
 	
 	@RequestMapping(value="test", method=RequestMethod.GET)
 	private void test() {
-		this.AlarmProcess.insertAML002AlarmData();
+		
 //return this.installmentsPaidByOtherPartyRepository.selectRecordfromAML002EXPN(1);
 //	return	this.AlaramObjectRepository.getAlarmCount("PTY2", 40717);
 	//	return this.AML002Service.selectRecordfromAML002Parm();
