@@ -122,7 +122,7 @@ public class AC_RoutineController {
 				String msg = record.getRoutine_Msg_Txt().replace("#2", record.getCust_No());
 				msg = msg.replace("just 35", "just "+record.getTransfer_Period_Date());
 				
-				System.out.println("****F-MSG: " + msg);
+//				System.out.println("****F-MSG: " + msg);
 //				System.out.println("****R-MSG: " + record.getRoutine_Msg_Txt());
 //				System.out.println("***Transfer_Period_Date_VIEW: " + record.getTransfer_Period_Date());
 				
