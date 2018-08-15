@@ -64,7 +64,7 @@ System.out.println(Results.getAlrmsVMs().size()+"{{{{{{{{{");
 				AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
 						results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
 						results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(), results.getRoutine_Id(),
-						results.getRoutine_Name(), suppression_end_date, msg, tomorrow.toString()+" 00:00:00.000", StDate, "1",
+						results.getRoutine_Name(), suppression_end_date, msg, tomorrow, LocalDate.now(), "1",
 						results.getAcct_Emp_Ind(), "1", "N", "AML", results.getAlarm_Categ_Cd(),
 						results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY", alert_count,
 						results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",

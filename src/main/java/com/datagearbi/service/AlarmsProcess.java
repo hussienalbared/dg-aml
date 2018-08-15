@@ -113,18 +113,18 @@ public class AlarmsProcess {
 				// ***********************
 
 				if (flag1 == true) {
-
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), "0", oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), "0", "0", "0", "1", " ", "0", "0", executing_ext_party_key,
-							"0", "0", "0", "-1", "0", "N", "0"));
+//
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), "0", oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), "0", "0", "0", "1", " ", "0", "0", executing_ext_party_key,
+//							"0", "0", "0", "-1", "0", "N", "0"));
 				}
 
 			}
@@ -206,21 +206,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true && flag2 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -279,21 +279,21 @@ public class AlarmsProcess {
 				}
 				if (flag1 == true && flag2 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -356,22 +356,22 @@ public class AlarmsProcess {
 				// ***********************
 
 				if (flag1 == true) {
-
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -455,21 +455,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true && flag2 == true && flag3 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -533,21 +533,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -611,21 +611,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true && flag2 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "ACC", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 			}
 		}
@@ -693,14 +693,14 @@ public class AlarmsProcess {
 
 				if (flag1 == true && flag2 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(), "0",
-							"0", "0", results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getCust_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, "0", "0", oldest_alert, "1", results.getPolitical_Exp_Prsn_Ind(), "0", " ",
-							" ", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", executing_ext_party_key, "0", "0",
-							"0", "-1", "0", "N", "0"));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(), "0",
+//							"0", "0", results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getCust_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, "0", "0", oldest_alert, "1", results.getPolitical_Exp_Prsn_Ind(), "0", " ",
+//							" ", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", executing_ext_party_key, "0", "0",
+//							"0", "-1", "0", "N", "0"));
 				}
 
 			}
@@ -746,14 +746,14 @@ public class AlarmsProcess {
 
 				if (flag1 == true && flag2 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(), "0",
-							"0", "0", results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getCust_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, "0", "0", oldest_alert, "1", results.getPolitical_Exp_Prsn_Ind(), "0", " ",
-							" ", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", executing_ext_party_key, "0", "0",
-							"0", "-1", "0", "N", "0"));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(), "0",
+//							"0", "0", results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getCust_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, "0", "0", oldest_alert, "1", results.getPolitical_Exp_Prsn_Ind(), "0", " ",
+//							" ", "0", "0", "0", "0", "0", "0", "1", "0", "0", "0", executing_ext_party_key, "0", "0",
+//							"0", "-1", "0", "N", "0"));
 				}
 
 			}
@@ -809,21 +809,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}
@@ -879,21 +879,21 @@ public class AlarmsProcess {
 
 				if (flag1 == true) {
 
-					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
-							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
-							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
-							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
-							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
-							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
-							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
-							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
-							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
-							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
-							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
-							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
-							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
-							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
-							results.getThird_Cust_Ind()));
+//					AlarmGeneration.insertRecordIntoDbAlarmTable(new alramInsertionUtil("AML", "ACT", "1",
+//							results.getRoutine_Short_Desc(), "PTY", results.getCust_No(), results.getCust_Name(),
+//							results.getAcct_No(), results.getAcct_Key(), results.getAcct_Name(),
+//							results.getRoutine_Id(), results.getRoutine_Name(), suppression_end_date, msg,
+//							"2016-04-28 00:00:00.000", StDate, "1", results.getAcct_Emp_Ind(), "1", "N", "AML",
+//							results.getAlarm_Categ_Cd(), results.getAlarm_Subcateg_Cd(), results.getCust_Key(), "PTY",
+//							alert_count, results.getTransactions_count(), results.getTotal_amount(), oldest_alert, "1",
+//							results.getPolitical_Exp_Prsn_Ind(), results.getTrans_Key(), results.getDate_Key(),
+//							results.getTime_Key(), results.getTrans_Type_Key(), results.getCntry_Key(),
+//							results.getTrans_Status_Key(), results.getRemit_Ext_Cust_Key(),
+//							results.getBenef_Ext_Cust_Key(), results.getTrans_Curr_Key(), "1",
+//							results.getPost_Date_Key(), results.getEmp_Key(), results.getExec_Cust_Key(),
+//							executing_ext_party_key, results.getCcy_Amt(), results.getCcy_Amnt_In_Trans_Ccy(),
+//							results.getCcy_Amnt_In_Acct_Ccy(), "-1", results.getRelate_Ind(), "N",
+//							results.getThird_Cust_Ind()));
 				}
 
 			}

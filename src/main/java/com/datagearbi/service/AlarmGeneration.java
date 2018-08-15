@@ -28,12 +28,12 @@ public class AlarmGeneration {
 	private  AC_Transaction_Flow_AlarmRepository ac_Transaction_Flow_AlarmRepository;
 
 
-	public  void insertRecordIntoDbAlarmTable(alramInsertionUtil ut) {
+	public void insertRecordIntoDbAlarmTable(alramInsertionUtil ut) {
 		
 		AC_Alarm acc = new AC_Alarm();
-		System.out.println(acc+"amr");
-		System.out.println(alaramObjectRepository+"husien");
-		System.out.println(ut.getProduct_type()+ut.getAlarm_status_code()+"55555");
+//		System.out.println(acc+"amr");
+//		System.out.println(alaramObjectRepository+"husien");
+//		System.out.println(ut.getProduct_type()+ut.getAlarm_status_code()+"55555");
 		// + "( product_type,alarm_status_code,money_laundering_risk_score"
 		// + ",alarm_description,primary_obj_level_code"
 		// + ",alarmed_obj_number ,alarmed_obj_name,primary_obj_number,primary_obj_key"
@@ -55,8 +55,8 @@ public class AlarmGeneration {
 		acc.setRoutine_Name(ut.getRoutine_name());
 		acc.setSuppr_End_Date(Timestamp.valueOf(ut.getSuppression_end_date()));
 		acc.setActual_Value_Txt(ut.getActual_values_text());
-		acc.setRun_Date(Timestamp.valueOf(ut.getRun_date()));
-		acc.setCreate_Date(Timestamp.valueOf(ut.getCreate_date()));
+		acc.setRun_Date(ut.getRun_date());
+		acc.setCreate_Date(ut.getCreate_date());
 		acc.setCreate_User_Id(ut.getCreate_user_id());
 		acc.setEmp_Ind(ut.getEmployee_ind());
 		acc.setVer_No(Integer.parseInt(ut.getVersion_number()));
@@ -71,7 +71,7 @@ public class AlarmGeneration {
 		AC_Alarm aa = alaramObjectRepository.save(acc);
 		String event_code = "CRE";
 		AC_Alarm_Event ac = new AC_Alarm_Event();
-		ac.setCreate_Date(Timestamp.valueOf(ut.getCreate_date()));
+		ac.setCreate_Date(ut.getCreate_date());
 		ac.setCreate_User_Id(ut.getCreate_user_id());
 		ac.setAlarm_Id(aa.getAlarm_Id());
 		ac.setEvent_Desc(ut.getAlarm_description());
@@ -96,7 +96,7 @@ public class AlarmGeneration {
 		aaa.setEmp_Ind(ut.getEmployee_ind());
 		aaa.setOwner_UID(ut.getCreate_user_id());
 		aaa.setPolitical_Exp_Person_Ind(ut.getPep_ind());
-		aaa.setCreate_Timestamp(Timestamp.valueOf(ut.getCreate_date()));
+		aaa.setCreate_Timestamp(ut.getCreate_date());
 		suspectedObjectRepository.save(aaa);
 
 		
@@ -110,7 +110,7 @@ public class AlarmGeneration {
 		b.setTrans_Status_Key(Integer.parseInt(ut.getTransaction_status_key()));
 		b.setRemit_Ext_Cust_Key(new BigDecimal(ut.getRemitter_ext_party_key()));
 		b.setBenef_Ext_Cust_Key(new BigDecimal(ut.getBeneficiary_ext_party_key()));
-		b.setPost_Date_Key(Integer.parseInt(ut.getPosted_date_key()));
+//		b.setPost_Date_Key(Integer.parseInt(ut.getPosted_date_key()));
 		b.setEmp_Key(new BigDecimal(ut.getAssociate_key()));
 		b.setExec_Cust_Key(Integer.parseInt(ut.getExecuting_party_key()));
 		b.setCcy_Amt(new BigDecimal(ut.getCurrency_amount()));

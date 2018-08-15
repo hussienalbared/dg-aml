@@ -9,13 +9,14 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="DEV_Report_Properties")
+@Table(name="DEV_Report_Properties", schema="AML")
 @NamedQuery(name="DEV_Report_Property.findAll", query="SELECT d FROM DEV_Report_Property d")
 public class DEV_Report_Property implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Column(name="description")
 	private String description;
-	@Id
+	@Id()
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="DEV_Report_Properties_ID")
 	private int DEV_Report_Properties_ID;
 

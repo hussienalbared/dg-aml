@@ -1,5 +1,8 @@
 package com.datagearbi.helper;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class alramInsertionUtil {
 	private String product_type;
 	private String alarm_status_code;
@@ -17,58 +20,20 @@ public class alramInsertionUtil {
 	public alramInsertionUtil() {
 		// TODO Auto-generated constructor stub
 	}
-	public alramInsertionUtil(String product_type, 
-			String alarm_status_code,
-			String money_laundering_risk_score,
-			String alarm_description,
-			String primary_obj_level_code,
-			String alarmed_obj_number, 
-			String alarmed_obj_name,
-			String primary_obj_number,
-			String primary_obj_key,
-			String primary_obj_name,
-			String routine_id,
-			String routine_name, 
-			String suppression_end_date, 
-			String actual_values_text, 
-			String run_date,
-			String create_date, 
-			String create_user_id,
-			String employee_ind, 
-			String version_number,
-			String logical_delete_ind, 
-			String alarm_type_cd, 
-			String alarm_category_cd,
-			String alarm_subcategory_cd,
-			String alarmed_obj_key,
-			String alarmed_obj_level_code, 
-			String alert_count, 
-			String transactions_count,
-			String total_amount,
-			String oldest_alert,
-			String risk_classification_code, 
-			String pep_ind,
-			String transaction_key,
-			String date_key,
-			String time_key,
-			String transaction_type_key, 
-			String country_key,
-			String transaction_status_key, 
-			String remitter_ext_party_key, 
-			String beneficiary_ext_party_key,
-			String transaction_currency_key, 
-			String branch_key, 
-			String posted_date_key, 
-			String associate_key,
-			String executing_party_key, 
-			String executing_ext_party_key,
-			String currency_amount,
-			String currency_amount_in_txn_ccy, 
-			String currency_amount_in_account_ccy, 
-			String secondary_account_key,
-			String related_ind, 
-			String trigger_ind, 
-			String third_party_ind) {
+	public alramInsertionUtil(String product_type, String alarm_status_code, String money_laundering_risk_score,
+			String alarm_description, String primary_obj_level_code, String alarmed_obj_number, String alarmed_obj_name,
+			String primary_obj_number, String primary_obj_key, String primary_obj_name, String routine_id,
+			String routine_name, String suppression_end_date, String actual_values_text, LocalDate run_date,
+			LocalDate create_date, String create_user_id, String employee_ind, String version_number,
+			String logical_delete_ind, String alarm_type_cd, String alarm_category_cd, String alarm_subcategory_cd,
+			String alarmed_obj_key, String alarmed_obj_level_code, String alert_count, String transactions_count,
+			String total_amount, String oldest_alert, String risk_classification_code, String pep_ind,
+			String transaction_key, String date_key, String time_key, String transaction_type_key, String country_key,
+			String transaction_status_key, String remitter_ext_party_key, String beneficiary_ext_party_key,
+			String transaction_currency_key, String branch_key, String posted_date_key, String associate_key,
+			String executing_party_key, String executing_ext_party_key, String currency_amount,
+			String currency_amount_in_txn_ccy, String currency_amount_in_account_ccy, String secondary_account_key,
+			String related_ind, String trigger_ind, String third_party_ind) {
 		super();
 		this.product_type = product_type;
 		this.alarm_status_code = alarm_status_code;
@@ -124,8 +89,8 @@ public class alramInsertionUtil {
 		this.third_party_ind = third_party_ind;
 	}
 	private String actual_values_text;
-	private String run_date;
-	private String create_date;
+	private LocalDate run_date;
+	private LocalDate create_date;
 	private String create_user_id;
 	private String employee_ind;
 	private String version_number;
@@ -247,16 +212,16 @@ public class alramInsertionUtil {
 	public void setActual_values_text(String actual_values_text) {
 		this.actual_values_text = actual_values_text;
 	}
-	public String getRun_date() {
+	public LocalDate getRun_date() {
 		return run_date;
 	}
-	public void setRun_date(String run_date) {
+	public void setRun_date(LocalDate run_date) {
 		this.run_date = run_date;
 	}
-	public String getCreate_date() {
+	public LocalDate getCreate_date() {
 		return create_date;
 	}
-	public void setCreate_date(String create_date) {
+	public void setCreate_date(LocalDate create_date) {
 		this.create_date = create_date;
 	}
 	public String getCreate_user_id() {
