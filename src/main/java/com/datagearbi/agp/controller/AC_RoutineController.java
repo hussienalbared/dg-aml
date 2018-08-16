@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,6 +102,23 @@ public class AC_RoutineController {
 
 
 /*********************************/
+		
+
+	@RequestMapping(value="dgamlRun", method= RequestMethod.POST)
+	public void dgamlRun(@RequestBody String [] scenarios) {
+		for(int i=0 ; i<scenarios.length; i++) {
+			if(scenarios[i].equals("AML001"))
+				try {
+					this.DGAML001_new();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			else if(scenarios[i].equals("AML002"))
+				this.insertAML002AlarmData();
+		}
+	}
+	/***********************/
 	
 	/* NEW */
 	@RequestMapping(value="dgaml001_new", method= RequestMethod.GET)
