@@ -2,6 +2,7 @@ package com.datagearbi.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class AC_Alarm_Event implements Serializable {
 	private long alarm_Id;
 
 	@Column(name="Create_Date")
-	private Timestamp create_Date;
+	private LocalDate create_Date;
 
 	@Column(name="Create_User_Id")
 	private String create_User_Id;
@@ -52,11 +53,11 @@ public class AC_Alarm_Event implements Serializable {
 		this.alarm_Id = alarm_Id;
 	}
 
-	public Timestamp getCreate_Date() {
+	public LocalDate getCreate_Date() {
 		return this.create_Date;
 	}
 
-	public void setCreate_Date(Timestamp create_Date) {
+	public void setCreate_Date(LocalDate create_Date) {
 		this.create_Date = create_Date;
 	}
 

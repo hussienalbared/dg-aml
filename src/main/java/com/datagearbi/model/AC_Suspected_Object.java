@@ -3,6 +3,7 @@ package com.datagearbi.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -58,7 +59,7 @@ public class AC_Suspected_Object implements Serializable {
 	private int alarmsCount;
 
 	@Column(name="Create_Timestamp")
-	private Timestamp create_Timestamp;
+	private LocalDate create_Timestamp;
 
 	@Column(name="Emp_Ind")
 	private String emp_Ind;
@@ -128,11 +129,11 @@ public class AC_Suspected_Object implements Serializable {
 		this.alarmsCount = alarms_Count;
 	}
 
-	public Timestamp getCreate_Timestamp() {
+	public LocalDate getCreate_Timestamp() {
 		return this.create_Timestamp;
 	}
 
-	public void setCreate_Timestamp(Timestamp create_Timestamp) {
+	public void setCreate_Timestamp(LocalDate create_Timestamp) {
 		this.create_Timestamp = create_Timestamp;
 	}
 

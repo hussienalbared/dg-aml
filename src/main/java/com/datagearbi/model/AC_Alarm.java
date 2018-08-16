@@ -3,6 +3,7 @@ package com.datagearbi.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -97,7 +98,7 @@ public class AC_Alarm implements Serializable {
 	private String alarmed_Obj_No;
 	@JsonFormat( pattern="yyyy-MM-dd")
 	@Column(name="Create_Date")
-	private Timestamp create_Date;
+	private LocalDate create_Date;
 
 	@Column(name="Create_User_Id")
 	private String create_User_Id;
@@ -134,7 +135,7 @@ public class AC_Alarm implements Serializable {
 
 	@Column(name="Run_Date")
 	@JsonFormat( pattern="yyyy-MM-dd")
-	private Timestamp run_Date;
+	private LocalDate run_Date;
 
 	@Column(name="Suppr_End_Date")
 	private Timestamp suppr_End_Date;
@@ -236,11 +237,11 @@ public class AC_Alarm implements Serializable {
 		this.alarmed_Obj_No = alarmed_Obj_No;
 	}
 
-	public Timestamp getCreate_Date() {
+	public LocalDate getCreate_Date() {
 		return this.create_Date;
 	}
 
-	public void setCreate_Date(Timestamp create_Date) {
+	public void setCreate_Date(LocalDate create_Date) {
 		this.create_Date = create_Date;
 	}
 
@@ -332,11 +333,11 @@ public class AC_Alarm implements Serializable {
 		this.routine_Name = routine_Name;
 	}
 
-	public Timestamp getRun_Date() {
+	public LocalDate getRun_Date() {
 		return this.run_Date;
 	}
 
-	public void setRun_Date(Timestamp run_Date) {
+	public void setRun_Date(LocalDate run_Date) {
 		this.run_Date = run_Date;
 	}
 

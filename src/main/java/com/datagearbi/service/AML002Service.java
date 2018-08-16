@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.datagearbi.service;
 
 import java.util.ArrayList;
@@ -15,44 +10,24 @@ import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.DGAML002_Install_paid_BY_OTH_PRepsoitory;
+import com.datagearbi.agp.repository.InstallmentsPaidByOtherPartyRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.model.AC_Routine_Parameter;
 import com.datagearbi.model.DGAML002_Install_paid_BY_OTH_P;
+import com.datagearbi.model.InstallmentsPaidByOtherParty;
 
-/**
- * 
- * SELECT CUST.Cust_Type_Desc, CUST.Cust_No, CUST.Cust_Name, Acct.Acct_No,
- * Acct.Acct_Key, Acct.Acct_Name, Acct.Acct_Type_Desc, Acct.Emp_Ind AS
- * Acct_Emp_Ind, CUST.Emp_Ind AS Cust_Emp_Ind, CUST.Cust_Key,
- * CUST.Political_Exp_Prsn_Ind, TRANSF.Trans_Key, TRANSF.Date_Key,
- * TRANSF.Time_Key, TRANSF.Trans_Type_Key, TRANSF.Cntry_Key,
- * TRANSF.Trans_Status_Key, TRANSF.Branch_Key, TRANSF.Remit_Ext_Cust_Key,
- * TRANSF.Benef_Ext_Cust_Key, TRANSF.Trans_Ccy_Key, TRANSF.Post_Date_Key,
- * TRANSF.Emp_Key, TRANSF.Ccy_Amt, TRANSF.Ccy_Amt_In_Trans_Ccy,
- * TRANSF.Ccy_Amt_In_Acct_Ccy, TRANSF.Sec_Acct_Key, TRANSF.Relate_Ind,
- * TRANSF.Third_Cust_Ind FROM DGAMLCORE.Customer AS CUST INNER JOIN
- * DGAMLCORE.Customer_X_Account AS C_X_A ON CUST.Cust_Key = C_X_A.Cust_Key AND
- * C_X_A.Chg_Current_Ind = 'Y' INNER JOIN DGAMLCORE.Account AS Acct ON
- * C_X_A.Acct_Key = Acct.Acct_Key INNER JOIN DGAMLCORE.Transaction_Flow AS
- * TRANSF ON Acct.Acct_Key = TRANSF.Acct_Key INNER JOIN
- * DGAMLCORE.Transaction_Type AS Trans_T ON TRANSF.Trans_Type_Key =
- * Trans_T.Trans_Type_Key
- * 
- * @author Hamzah.Ahmed
- */
 @Service
-// @Transactional
-public class AML002AlarmData {
+public class AML002Service {
+	
 	@Autowired
 	Routine_ParameterRepository routine_ParameterRepository;
 	@Autowired
-	private DGAML002_Install_paid_BY_OTH_PRepsoitory dgaml002_Install_paid_BY_OTH_PRepsoitory;
+	private InstallmentsPaidByOtherPartyRepository installmentsPaidByOtherPartyRepository;
 	@Autowired
 	private AC_RoutineRepository ac_RoutineRepository;
 
-	public AML002AlarmData() {
-	}
+	
 
 	/**
 	 * *********** AML002 - ***
@@ -108,10 +83,10 @@ public class AML002AlarmData {
 
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
-		List<DGAML002_Install_paid_BY_OTH_P> a = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.findAll();
-
+		List<InstallmentsPaidByOtherParty> a = this.installmentsPaidByOtherPartyRepository.findAll();
+System.out.println("a size "+a.size());
 		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML002");
-
+System.out.println("aml002 size "+list.size());
 		a.forEach(b -> {
 			AlarmDTO temp = new AlarmDTO();
 			temp.setAcct_Name(b.getAcct_Name());
@@ -119,13 +94,13 @@ public class AML002AlarmData {
 			temp.setAcct_Key(String.valueOf(b.getAcct_Key()));
 			
 			temp.setAcct_Type_Desc(b.getAcct_Type_Desc());
-			temp.setAcct_Emp_Ind(b.getAcct_Emp_Ind());
+			temp.setAcct_Emp_Ind(b.getEmp_Ind());
 			temp.setBranch_Key(String.valueOf(b.getBranch_Key()));
 			temp.setBenef_Ext_Cust_Key(String.valueOf(b.getBenef_Ext_Cust_Key()));
 			temp.setCust_Type_Desc(b.getCust_Type_Desc());
 			temp.setCust_No(b.getCust_No());
 			temp.setCust_Name(b.getCust_Name());
-			temp.setCust_Emp_Ind(b.getCust_Emp_Ind());
+			temp.setCust_Emp_Ind(b.getExpr1());
 			temp.setCust_Key(String.valueOf(b.getCust_Key()));
 			temp.setCntry_Key(String.valueOf(b.getCntry_Key()));
 			temp.setCcy_Amt(String.valueOf(b.getCcy_Amt()));
@@ -133,7 +108,7 @@ public class AML002AlarmData {
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(b.getCcy_Amt_In_Acct_Ccy()));
 			temp.setEmp_Key(String.valueOf(b.getEmp_Key()));
 			temp.setDate_Key(String.valueOf(b.getDate_Key()));
-			temp.setNum_inst(selectInstNum(b.getAcct_Key()));
+			temp.setNum_inst(String.valueOf(b.getInstNumber()));
 			temp.setPolitical_Exp_Prsn_Ind(b.getPolitical_Exp_Prsn_Ind());
 			temp.setPost_Date_Key(String.valueOf(b.getPost_Date_Key()));
 			temp.setRemit_Ext_Cust_Key(String.valueOf(b.getRemit_Ext_Cust_Key()));
@@ -147,7 +122,7 @@ public class AML002AlarmData {
 			temp.setTrans_Type_Key(String.valueOf(b.getTrans_Type_Key()));
 			temp.setTrans_Status_Key(String.valueOf(b.getTrans_Status_Key()));
 			temp.setTrans_Curr_Key(String.valueOf(b.getTrans_Ccy_Key()));
-			// temp.setExec_Cust_Key(b.getcus
+			temp.setExec_Cust_Key(String.valueOf(b.getExec_Cust_Key()));
 
 			temp.setTotal_amount(selectTotalAmount(b.getAcct_Key()));
 
@@ -162,7 +137,7 @@ public class AML002AlarmData {
 				temp.setRoutine_Short_Desc(list.get(0).getRoutine_Short_Desc());
 				temp.setRoutine_Msg_Txt(list.get(0).getRoutine_Msg_Txt());
 			}
-
+listOfSC.add(temp);
 		});
 		return listOfSC;
 
@@ -179,7 +154,7 @@ public class AML002AlarmData {
 	public String selectTransactionsCount(int Acct_key) {
 		String transactions_count1 = null;
 
-		List<Object[]> z = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.TransactionsCount(Acct_key);
+		List<Object[]> z = this.installmentsPaidByOtherPartyRepository.TransactionsCount(Acct_key);
 		if (z.size() > 0)
 			transactions_count1 = z.get(0)[0].toString();
 		return transactions_count1;
@@ -193,7 +168,7 @@ public class AML002AlarmData {
 
 		String total_amount1 = null;
 
-		List<Object[]> z = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectTotalAmount(Acct_key);
+		List<Object[]> z = this.installmentsPaidByOtherPartyRepository.getTotalAmount(Acct_key);
 		if (z.size() > 0)
 			total_amount1 = String.valueOf(z.get(0)[0]);
 		return total_amount1;
@@ -206,7 +181,7 @@ public class AML002AlarmData {
 	public String selectInstNum(int Acct_key) {
 
 		String inst_num1 = null;
-		List<Object[]> list = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectInstNum(Acct_key);
+		List<Object[]> list = this.installmentsPaidByOtherPartyRepository.getInstallmentNumber(Acct_key);
 		if (list.size() > 0) {
 			inst_num1 = list.get(0)[0].toString();
 		}
@@ -239,11 +214,12 @@ public class AML002AlarmData {
 
 		List<AlarmDTO> listOfEXPN = new ArrayList<>();
 
-		List<Object[]> L = this.dgaml002_Install_paid_BY_OTH_PRepsoitory.selectRecordfromAML002EXPN(Acct_key);
+		List<Integer> L = this.installmentsPaidByOtherPartyRepository.selectRecordfromAML002EXPN(Acct_key);
+		
 		L.forEach(q -> {
 			AlarmDTO tempEXPN = new AlarmDTO();
 
-			tempEXPN.setExec_Cust_Key(q[0].toString());
+			tempEXPN.setExec_Cust_Key(q.toString());
 
 			listOfEXPN.add(tempEXPN);
 		});
@@ -255,4 +231,132 @@ public class AML002AlarmData {
 	 * *********** End of AML002 ***
 	 */
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Autowired
+// private InstallmentsPaidByOtherPartyRepository installmentsPaidByOtherPartyRepository;
+//	@Autowired
+//	Routine_ParameterRepository routine_ParameterRepository;
+//	@Autowired
+//	private AC_RoutineRepository ac_RoutineRepository;
+//	public List<AlarmDTO2> selectRecordfromAML002View() {
+//		List<AlarmDTO2> listOfSC = new ArrayList<AlarmDTO2>();
+//		List<InstallmentsPaidByOtherParty> a=this.installmentsPaidByOtherPartyRepository.findAll();
+//		List<AcRoutineHelper> list = this.ac_RoutineRepository.getRoutineDetail("AML002");
+//		a.forEach(b->{
+//			AlarmDTO2 temp = new AlarmDTO2();
+//			temp.setAcct_Emp_Ind(b.getEmp_Ind());
+//			temp.setAcct_Key(b.getAcct_Key());
+//			temp.setAcct_Name(b.getAcct_Name());
+//			temp.setAcct_No(b.getAcct_No());
+//			temp.setAcct_Type_Desc(b.getAcct_Type_Desc());
+//			temp.setCcy_Amt(b.getCcy_Amt());
+//			temp.setCcy_Amnt_In_Acct_Ccy(b.getCcy_Amt_In_Acct_Ccy());
+//			temp.setCcy_Amnt_In_Trans_Ccy(b.getCcy_Amt_In_Trans_Ccy());
+//			temp.setCntry_Key(b.getCntry_Key());
+//			temp.setCust_Emp_Ind(b.getEmp_Ind());
+//			temp.setBenef_Ext_Cust_Key(b.getBenef_Ext_Cust_Key());
+//			temp.setBranch_Key(b.getBranch_Key());
+//			temp.setCust_Key(b.getCust_Key());
+//			temp.setCust_Name(b.getCust_Name());
+//			temp.setCust_No(b.getCust_No());
+//			temp.setCust_Type_Desc(b.getCust_Type_Desc());
+//			temp.setDate_Key(b.getDate_Key());
+//			temp.setEmp_Key(b.getEmp_Key());
+//			temp.setExec_Cust_Key(b.getExec_Cust_Key());
+//			temp.setNum_inst(b.getInstNumber());
+//			temp.setPolitical_Exp_Prsn_Ind(b.getPolitical_Exp_Prsn_Ind());
+//			temp.setPost_Date_Key(b.getPost_Date_Key());
+//			temp.setRelate_Ind(b.getRelate_Ind());
+//			temp.setRemit_Ext_Cust_Key(b.getRemit_Ext_Cust_Key());
+//			temp.setSec_Acct_Key(b.getSec_Acct_Key());
+//			temp.setThird_Cust_Ind(b.getThird_Cust_Ind());
+//			temp.setTime_Key(b.getTime_Key());
+//			temp.setTotal_amount(b.getTotalAmount());
+//			temp.setTrans_Curr_Key(b.getTrans_Ccy_Key());
+//			temp.setTrans_Key(b.getTrans_Key());
+//			temp.setTrans_Type_Key(b.getTrans_Type_Key());
+//			temp.setTransactions_count(Integer.parseInt(TransactionsCount(b.getAcct_Key())));
+//			temp.setTrans_Status_Key(b.getTrans_Status_Key());
+//			
+//			if (list.size() > 0) {
+//				temp.setRoutine_Id(list.get(0).getRoutine_Id());
+//				temp.setRoutine_Name(list.get(0).getRoutine_Name());
+//				temp.setAlarm_Categ_Cd(list.get(0).getAlarm_Categ_Cd());
+//				temp.setAlarm_Subcateg_Cd(list.get(0).getAlarm_Subcateg_Cd());
+//				temp.setRoutine_Short_Desc(list.get(0).getRoutine_Short_Desc());
+//				temp.setRoutine_Msg_Txt(list.get(0).getRoutine_Msg_Txt());
+//			}
+//			
+//			listOfSC.add(temp);
+//		});
+//		return listOfSC;
+//	}
+//	String getInstallmentNumber(int acct_Key) {
+//		this.installmentsPaidByOtherPartyRepository.getInstallmentNumber(acct_Key);
+//		String inst_num1 = "0";
+//		List<Object[]> list = this.installmentsPaidByOtherPartyRepository.getInstallmentNumber(acct_Key);;
+//		if (list.size() > 0) {
+//			inst_num1 = list.get(0)[0].toString();
+//		}
+//		return inst_num1;
+//		
+//	}
+//	 String getTotalAmount(int acct_Key) {
+//			String total_amount1 = "0";
+//
+//			List<Object[]> z = this.installmentsPaidByOtherPartyRepository.getTotalAmount(acct_Key);
+//			if (z.size() > 0)
+//				total_amount1 = String.valueOf(z.get(0)[0]);
+//			return total_amount1;
+//	 }
+//	 String TransactionsCount(int acct_Key) {
+//		 String transactions_count1 = "0";
+//
+//			List<Object[]> z = this.installmentsPaidByOtherPartyRepository.TransactionsCount(acct_Key);
+//			if (z.size() > 0)
+//				transactions_count1 = z.get(0)[0].toString();
+//			return transactions_count1;
+//		 
+//	 }
+//	 public List<AlarmDTO2> selectRecordfromAML002Parm() {
+//
+//			List<AC_Routine_Parameter> list = this.routine_ParameterRepository.getRoutineParameter("AML002");
+//			List<AlarmDTO2> listOfParm = new ArrayList<>();
+//			list.forEach(q -> {
+//				AlarmDTO2 tempParm = new AlarmDTO2();
+//
+//				tempParm.setParm_name(q.getId().getParm_Name());
+//				tempParm.setParm_value(q.getParm_Value());
+//				tempParm.setParm_type_desc(q.getParm_Type_Desc());
+//				listOfParm.add(tempParm);
+//			});
+//			return listOfParm;
+//		}
+//	 public List<Integer> selectRecordfromAML002EXPN(int Acct_key) {
+//
+//			List<Integer> listOfEXPN = new ArrayList<>();
+//
+//			List<Object[]> L = this.installmentsPaidByOtherPartyRepository.selectRecordfromAML002EXPN(Acct_key);
+//			L.forEach(q -> {
+//			
+//
+//				listOfEXPN.add((int)q[0]);
+//
+//			});
+//			return listOfEXPN;
+//
+//		}
+	
 }

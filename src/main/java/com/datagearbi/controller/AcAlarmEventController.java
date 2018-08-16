@@ -32,7 +32,7 @@ public class AcAlarmEventController {
 		acAlarmEvent.setCreate_User_Id(ac.getCreate_user_id());
 		acAlarmEvent.setEvent_Desc(ac.getEvent_description());
 
-		acAlarmEvent.setCreate_Date(timestamp);
+//		acAlarmEvent.setCreate_Date(timestamp); TODO
 
 		acAlarmEvent.setEvent_Type_Cd(ac.getEvent_type_code());
 		acAlarmEvent.setAlarm_Id(ac.getAlarm_id());
