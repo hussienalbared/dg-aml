@@ -148,10 +148,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/classes/static/</outputDirectory>
+							<outputDirectory>C:/Users/AG/Desktop/New folder (3)/target/classes/static/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/../../dg-aml-ui/dist</directory>
+									<directory>C:/Users/AG/Desktop/New folder (3)/../../dg-aml-ui/dist</directory>
 								</resource>
 							</resources>
 						</configuration>
