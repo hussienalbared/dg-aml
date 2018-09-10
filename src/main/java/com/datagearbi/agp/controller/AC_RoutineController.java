@@ -3,13 +3,11 @@ package com.datagearbi.agp.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,23 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
-import com.datagearbi.agp.repository.DGAML001_Transfer_Loan_customer_to_anotherRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
+import com.datagearbi.agp.service.DGAML001;
+import com.datagearbi.helper.AcRoutineHelper;
+import com.datagearbi.helper.alramInsertionUtil;
 import com.datagearbi.model.AC_Routine;
-import com.datagearbi.model.AC_Routine_Parameter;
-import com.datagearbi.model.DGAML001_Transfer_Loan_customer_to_another;
 import com.datagearbi.model.Dgaml001TransLoanXToT;
 import com.datagearbi.repository.AlaramObjectRepository;
-import com.datagearbi.service.AML001AlarmData;
 import com.datagearbi.service.AML002Service;
 import com.datagearbi.service.AlarmDTO;
 import com.datagearbi.service.AlarmGeneration;
 import com.datagearbi.service.AlarmsVM;
-import com.ibm.icu.impl.duration.TimeUnit;
-import com.datagearbi.agp.service.DGAML001;
-import com.datagearbi.helper.AcRoutineHelper;
-import com.datagearbi.helper.alramInsertionUtil;
 
 @RestController
 @RequestMapping("aml/api/agp")
