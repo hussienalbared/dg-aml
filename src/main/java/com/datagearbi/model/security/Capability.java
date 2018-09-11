@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "Capability")
+@Table(name = "Capability",schema="admin")
 
 @NamedQuery(name="Capability.findAll", query="SELECT c FROM Capability c")
 public class Capability implements Serializable {

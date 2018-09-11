@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  */
 @Entity
-@Table(name = "Group_Capability")
+@Table(name = "Group_Capability",schema="admin")
 @NamedQuery(name="Group_Capability.findAll", query="SELECT g FROM Group_capability g")
 public class Group_capability implements Serializable {
 	private static final long serialVersionUID = 1L;

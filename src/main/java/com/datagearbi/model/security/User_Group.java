@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "User_Group", schema = "[Admin_DEV].[Admin]")
+@Table(name = "User_Group", schema = "Admin")
 @NamedQuery(name = "User_Group.findAll", query = "SELECT u FROM User_Group u")
 public class User_Group implements Serializable {
 	private static final long serialVersionUID = 1L;

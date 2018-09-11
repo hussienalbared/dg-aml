@@ -43,7 +43,7 @@ public class Group implements Serializable {
 //	private List<User> users;
 	@NotFound(action=NotFoundAction.IGNORE)
 	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="Group_Capability",joinColumns=@JoinColumn(name="G_ID", referencedColumnName = "ID"),
+	@JoinTable(schema="admin",name="Group_Capability",joinColumns=@JoinColumn(name="G_ID", referencedColumnName = "ID"),
 			inverseJoinColumns = @JoinColumn(name = "C_ID", referencedColumnName = "ID"))
     private Set<Capability> capabilities;
 	public Set<Capability> getCapabilities() {

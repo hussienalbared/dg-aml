@@ -23,7 +23,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
-@Table(name = "[User]", schema = "[Admin_DEV].[Admin]")
+@Table(name = "[User]", schema = "Admin")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -175,7 +175,7 @@ public class User implements Serializable {
 
 	@NotFound(action=NotFoundAction.IGNORE)
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "USER_GROUP", joinColumns = {
+	@JoinTable(schema="admin",name = "USER_GROUP", joinColumns = {
 			@JoinColumn(name = "U_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "G_ID", referencedColumnName = "ID") })
 	private List<Group> groups;
