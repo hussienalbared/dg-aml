@@ -122,42 +122,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-<!-- 	<build>
-		<finalName>${artifactId}</finalName>
-
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skipTests>${skipTests}</skipTests>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>C:/Users/AG/Desktop/New folder (3)/target/classes/static/</outputDirectory>
-							<resources>
-								<resource>
-									<directory>C:/Users/AG/Desktop/New folder (3)/../../dg-aml-ui/dist</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build> -->
 </project>
