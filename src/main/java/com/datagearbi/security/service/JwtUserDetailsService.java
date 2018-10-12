@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.datagearbi.model.security.Capability;
 import com.datagearbi.model.security.User;
 import com.datagearbi.security.JwtUserFactory;
 import com.datagearbi.security.repository.UserRepository;
@@ -20,6 +19,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    SMCService SMCSERVICE;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,4 +49,15 @@ public class JwtUserDetailsService implements UserDetailsService {
     	
 //    	return this.userRepository.getAll_users();
    	}
+//    @Override
+//    public UserDetails loadUserByUsernameFromMeta(String username) throws UsernameNotFoundException {
+//    	System.out.println("loadUserByUsername");
+//    	User user = this.sm
+//
+//        if (user == null) {
+//            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+//        } else {
+//            return JwtUserFactory.create(user);
+//        }
+//    }
 }

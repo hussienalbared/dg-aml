@@ -92,7 +92,6 @@ System.out.println("aml002 size "+list.size());
 			temp.setAcct_Name(b.getAcct_Name());
 			temp.setAcct_No(b.getAcct_No());
 			temp.setAcct_Key(String.valueOf(b.getAcct_Key()));
-			
 			temp.setAcct_Type_Desc(b.getAcct_Type_Desc());
 			temp.setAcct_Emp_Ind(b.getEmp_Ind());
 			temp.setBranch_Key(String.valueOf(b.getBranch_Key()));
@@ -124,7 +123,7 @@ System.out.println("aml002 size "+list.size());
 			temp.setTrans_Curr_Key(String.valueOf(b.getTrans_Ccy_Key()));
 			temp.setExec_Cust_Key(String.valueOf(b.getExec_Cust_Key()));
 
-			temp.setTotal_amount(selectTotalAmount(b.getAcct_Key()));
+			temp.setTotal_amount(String.valueOf(b.getTotalAmount()));
 
 			temp.setThird_Cust_Ind(b.getThird_Cust_Ind());
 
@@ -226,7 +225,11 @@ listOfSC.add(temp);
 		return listOfEXPN;
 
 	}
-
+	public List<Integer> getExternalParties(int Acct_key){
+		
+		List<Integer> L = this.installmentsPaidByOtherPartyRepository.selectRecordfromAML002EXPN(Acct_key);
+return L;
+	}
 	/**
 	 * *********** End of AML002 ***
 	 */

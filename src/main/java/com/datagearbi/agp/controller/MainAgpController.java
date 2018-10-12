@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.agp.repository.InstallmentsPaidByOtherPartyRepository;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.service.AML002Service;
-
-
+import com.datagearbi.service.AlarmsVM;
 import com.datagearbi.service.MainAGP;
 
 @RestController
@@ -35,11 +34,9 @@ public class MainAgpController {
 	}
 	
 	@RequestMapping(value="test", method=RequestMethod.GET)
-	private void test() {
+	private AlarmsVM test() {
 		
-//return this.installmentsPaidByOtherPartyRepository.selectRecordfromAML002EXPN(1);
-//	return	this.AlaramObjectRepository.getAlarmCount("PTY2", 40717);
-	//	return this.AML002Service.selectRecordfromAML002Parm();
+return this.AML002Service.getAML002AlarmData();
 	}
 
 }
