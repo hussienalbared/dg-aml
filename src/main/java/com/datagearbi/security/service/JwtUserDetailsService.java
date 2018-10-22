@@ -19,8 +19,8 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    SMCService SMCSERVICE;
+//    @Autowired
+//    SMCService SMCSERVICE;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
