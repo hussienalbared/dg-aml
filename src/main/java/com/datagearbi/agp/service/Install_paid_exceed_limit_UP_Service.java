@@ -19,6 +19,8 @@ import com.datagearbi.helper.alramInsertionUtil;
 import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AlaramObjectRepository;
+import com.datagearbi.repository.SuspectedObjectRepository;
+import com.datagearbi.service.AlarmGeneration;
 
 @Service
 public class Install_paid_exceed_limit_UP_Service {
@@ -30,6 +32,10 @@ public class Install_paid_exceed_limit_UP_Service {
 	Routine_ParameterRepository routine_ParameterRepository;
 	@Autowired
 	private AlaramObjectRepository alaramObjectRepository;
+	@Autowired
+	private SuspectedObjectRepository suspectedObjectRepository;
+	@Autowired
+	private AlarmGeneration alarmGeneration;
 
 	public List<AlarmDTO> getAllRecords() {
 		List<AcRoutineHelper> routine_detail = this.getRoutine_3_Parameters();
@@ -116,7 +122,7 @@ public class Install_paid_exceed_limit_UP_Service {
 		return result;
 	}
 
-	public Map<String, List<AlarmDTO>> test() {
+	public Map<String, List<AlarmDTO>> generateaAlarms() {
 		List<AlarmDTO> alarms = this.getAllRecords();
 		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
 		alarmDtos.forEach((a, b) -> {
@@ -151,13 +157,28 @@ public class Install_paid_exceed_limit_UP_Service {
 			long alarmed_Obj_Key=Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
 			String alarmed_Obj_Level_Cd=alramInsertionUtil.getAlarmed_obj_level_code();
 			//******
-			Integer alert_count=this.getAlarmCount(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
+			Long alert_count=this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 			alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
-			alramInsertionUtil.setTransactions_count(String.valueOf(b.size()));
-			alramInsertionUtil.setTotal_amount(b.get(0).getTotal_amount());
+			alramInsertionUtil.setTransactions_count(String.valueOf(this.getTransactions_cnt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
+			alramInsertionUtil.setTotal_amount(String.valueOf(this.getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
+			alramInsertionUtil.setOldest_alert("7");
+			alramInsertionUtil.setRisk_classification_code("1");
+			alramInsertionUtil.setMoney_laundering_risk_score(b.get(0).getPolitical_Exp_Prsn_Ind());
+			alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
 			
-			
-			
+			AC_Alarm alarm=this.alarmGeneration.saveAlarm(alramInsertionUtil);
+			if(alarm!=null) {
+				
+				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+				
+				this.alarmGeneration.saveSuspect(alramInsertionUtil);
+				for(AlarmDTO d:b)
+				{
+					this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
+					
+					
+				}
+			}
 			
 			
 			
@@ -200,9 +221,18 @@ public class Install_paid_exceed_limit_UP_Service {
 		AC_Alarm aa = alaramObjectRepository.save(acc);
 
 	}
-	private int getAlarmCount(String alarmed_Obj_Level_Cd,long alarmed_Obj_Key) {
-		// TODO Auto-generated method stub
-return this.alaramObjectRepository.getAlarmCount(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
-	}
+
+public Long getTransactions_cnt(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
+	return this.suspectedObjectRepository.getTransactions_cntForActiveAlarms( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
+
+}
+public Long getAggregate_amt(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
+	return this.suspectedObjectRepository.getAggregate_amtForActiveAlarms(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
+
+}
+public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
+	// TODO Auto-generated method stub
+return this.alaramObjectRepository.getActiveAlarmsCounts( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
+}
 
 }

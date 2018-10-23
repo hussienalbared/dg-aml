@@ -30,5 +30,10 @@ public interface AlaramObjectRepository extends JpaRepository<AC_Alarm, Long> {
 	@Query("select count(a) from AC_Alarm a where a.alarmed_Obj_Level_Cd=?1 and a.alarmed_Obj_Key=?2 ")
 	public int getAlarmCount(String alarmed_Obj_Level_Cd,long alarmed_Obj_Key);
 	
+	@Query("select count(a) from AC_Alarm a where a.alarmed_Obj_Level_Cd=?1 and a.alarmed_Obj_Key=?2 and lower(a.alarm_Status_Cd)='act'")
+	public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd,long alarmed_Obj_Key);
+	
+	
+	
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -18,6 +19,7 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQuery(name="AC_Alarm_Transaction.findAll", query="SELECT a FROM AC_Alarm_Transaction a")
+@Table(schema="AC")
 public class AC_Alarm_Transaction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
