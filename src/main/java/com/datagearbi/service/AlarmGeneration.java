@@ -1,6 +1,7 @@
 package com.datagearbi.service;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,6 @@ import com.datagearbi.model.AC_Suspected_Object;
 import com.datagearbi.model.AC_Suspected_ObjectPK;
 import com.datagearbi.model.AC_Transaction_Flow_Alarm;
 import com.datagearbi.model.AC_Transaction_Flow_AlarmPK;
-import com.datagearbi.model.AcAlarm;
 import com.datagearbi.repository.AC_Transaction_Flow_AlarmRepository;
 import com.datagearbi.repository.AcAlarmEventRepository;
 import com.datagearbi.repository.AlaramObjectRepository;
@@ -153,7 +153,7 @@ public void saveAC_Transaction_Flow_Alarm(AlarmDTO a,AC_Alarm aa) {
 	ac.setTrans_Ccy_Key(Integer.valueOf(a.getTrans_Curr_Key()));
 	ac.setTrans_Status_Key(Integer.valueOf(a.getTrans_Status_Key()));
 	ac.setTrans_Type_Key(new BigDecimal(a.getTrans_Type_Key()));
-
+    this.ac_Transaction_Flow_AlarmRepository.save(ac);
 }
 
 }

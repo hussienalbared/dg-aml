@@ -26,9 +26,9 @@ public interface SuspectedObjectRepository extends JpaRepository<AC_Suspected_Ob
 	
 	@Query("select new map(u.username as ownername,s as details)from User u,AC_Suspected_Object s ")
 	public Object[] getAllSuspectWithNames();
-	@Query("select count(T) from AC_Alarm A inner join AC_Alarm_Transaction T on T.alarm_Id=A.alarm_Id where A.alarm_Status_Cd='ACT' and A.alarmed_Obj_Key=?2 and A.alarmed_Obj_Level_Cd=?1")
+	@Query("select count(T) from AC_Alarm A inner join AC_Alarm_Transaction T on T.alarm_Id=A.alarm_Id where lower(A.alarm_Status_Cd)='act' and A.alarmed_Obj_Key=?2 and A.alarmed_Obj_Level_Cd=?1")
 	public Long getTransactions_cntForActiveAlarms(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key);
-	@Query("select sum(T.trans_Amt) from AC_Alarm A inner join AC_Alarm_Transaction T on T.alarm_Id=A.alarm_Id where A.alarm_Status_Cd='ACT' and A.alarmed_Obj_Key=?2 and A.alarmed_Obj_Level_Cd=?1")
+	@Query("select sum(T.trans_Amt) from AC_Alarm A inner join AC_Alarm_Transaction T on T.alarm_Id=A.alarm_Id where lower( A.alarm_Status_Cd)='act' and A.alarmed_Obj_Key=?2 and A.alarmed_Obj_Level_Cd=?1")
 	public Long getAggregate_amtForActiveAlarms(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key);
 
 }

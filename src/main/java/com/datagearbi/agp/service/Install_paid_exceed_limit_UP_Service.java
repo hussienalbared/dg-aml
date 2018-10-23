@@ -1,8 +1,10 @@
 package com.datagearbi.agp.service;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,7 +84,7 @@ public class Install_paid_exceed_limit_UP_Service {
 			temp.setRelate_Ind(String.valueOf(res.getRelate_Ind()));
 			temp.setThird_Cust_Ind(res.getThird_Cust_Ind());
 
-			temp.setInst_Amt(String.valueOf(res.getInst_Amt()));
+			temp.setInst_Amt(String.valueOf(Math.round(res.getInst_Amt())));
 			if (routine_detail.size() > 0) {
 				temp.setRoutine_Id(String.valueOf(routine_detail.get(0).getRoutine_Id()));
 				temp.setRoutine_Name(routine_detail.get(0).getRoutine_Name());
@@ -104,7 +106,7 @@ public class Install_paid_exceed_limit_UP_Service {
 	}
 
 	public String getTotalAmount(int accountKey) {
-		Double totalAmount = this.install_paid_exceed_limit_UP_Repository.CalculateTransactionTotalAmount(accountKey);
+		Long totalAmount = this.install_paid_exceed_limit_UP_Repository.CalculateTransactionTotalAmount(accountKey);
 		String result = String.valueOf(totalAmount);
 		return result;
 
@@ -117,19 +119,34 @@ public class Install_paid_exceed_limit_UP_Service {
 	}
 
 	public String getInstallmentNumber(int accountKey) {
-		Double InstallmentNumber = this.install_paid_exceed_limit_UP_Repository.CalculateInstallmentNumber(accountKey);
+		Long InstallmentNumber = this.install_paid_exceed_limit_UP_Repository.CalculateInstallmentNumber(accountKey);
 		String result = String.valueOf(InstallmentNumber);
 		return result;
 	}
 
 	public Map<String, List<AlarmDTO>> generateaAlarms() {
 		List<AlarmDTO> alarms = this.getAllRecords();
-		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
+		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().
+				collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
 		alarmDtos.forEach((a, b) -> {
+		Long PaidAmount=Long.parseLong(b.get(0).getTotal_amount());
+		
+		Long InstallmentAmount=Long.valueOf(b.get(0).getInst_Amt());
+		if(PercentageOfIncrease(PaidAmount, InstallmentAmount))
+		{
+			
+		
+		System.out.println("PaidAmount after :"+PaidAmount);
+		System.out.println("InstallmentAmount:"+InstallmentAmount);
+		System.out.println("paid/install"+(PaidAmount/InstallmentAmount));
 			alramInsertionUtil alramInsertionUtil = new alramInsertionUtil();
 			//insert to alarm table
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date dateobj = new Date();
+			String StDate = df.format(dateobj);
 			String actual_values_text = "Paid amount " + b.get(0).getTotal_amount() + " exceeds Installment "
 					+ " amount " + b.get(0).getInst_Amt();
+			alramInsertionUtil.setProduct_type("AML");
 			alramInsertionUtil.setAlarm_status_code("ACT");
 			alramInsertionUtil.setAlarm_description(b.get(0).getRoutine_Short_Desc());
 			alramInsertionUtil.setPrimary_obj_level_code("ACC");
@@ -140,10 +157,11 @@ public class Install_paid_exceed_limit_UP_Service {
 			alramInsertionUtil.setPrimary_obj_name("");
 			alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
 			alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());
-			alramInsertionUtil.setSuppression_end_date("");
+			alramInsertionUtil.setSuppression_end_date(StDate);
 			alramInsertionUtil.setActual_values_text(actual_values_text);
-			// alramInsertionUtil.setRun_date("");
-			// alramInsertionUtil.setCreate_date(create_date);
+			LocalDate today = LocalDate.now();
+			 alramInsertionUtil.setRun_date(today);
+			 alramInsertionUtil.setCreate_date(today);
 			alramInsertionUtil.setCreate_user_id("1");
 			alramInsertionUtil.setEmployee_ind(b.get(0).getAcct_Emp_Ind());
 			alramInsertionUtil.setVersion_number("1");
@@ -156,83 +174,79 @@ public class Install_paid_exceed_limit_UP_Service {
 			alramInsertionUtil.setAlarmed_obj_level_code("PTY");
 			long alarmed_Obj_Key=Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
 			String alarmed_Obj_Level_Cd=alramInsertionUtil.getAlarmed_obj_level_code();
-			//******
+			System.out.println("alarmed_Obj_Key:"+alarmed_Obj_Key);
+
+			System.out.println("alarmed_Obj_Level_Cd:"+alarmed_Obj_Level_Cd);
 			Long alert_count=this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 			alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
 			alramInsertionUtil.setTransactions_count(String.valueOf(this.getTransactions_cnt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
-			alramInsertionUtil.setTotal_amount(String.valueOf(this.getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
+			String Total_amount=getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)!=null?
+			String.valueOf(getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)):"0";
+			alramInsertionUtil.setTotal_amount(Total_amount);
+			System.out.println(alramInsertionUtil.getTotal_amount());
 			alramInsertionUtil.setOldest_alert("7");
 			alramInsertionUtil.setRisk_classification_code("1");
-			alramInsertionUtil.setMoney_laundering_risk_score(b.get(0).getPolitical_Exp_Prsn_Ind());
+			alramInsertionUtil.setMoney_laundering_risk_score("1");
 			alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
 			
-			AC_Alarm alarm=this.alarmGeneration.saveAlarm(alramInsertionUtil);
-			if(alarm!=null) {
-				
-				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
-				
-				this.alarmGeneration.saveSuspect(alramInsertionUtil);
-				for(AlarmDTO d:b)
-				{
-					this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
-					
-					
-				}
-			}
+//			AC_Alarm alarm=this.alarmGeneration.saveAlarm(alramInsertionUtil);
+//			if(alarm!=null) {
+//				
+//				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+//				
+//				this.alarmGeneration.saveSuspect(alramInsertionUtil);
+//				for(AlarmDTO d:b)
+//				{
+//					this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
+//					
+//					
+//				}
+//			}
 			
 			
 			
 
-		});
+		}});
 
 		return alarmDtos;
 
 	}
 
-	private void addAlert(alramInsertionUtil ut) {
-		AC_Alarm acc = new AC_Alarm();
-
-		acc.setProd_Type(ut.getProduct_type());
-		acc.setAlarm_Status_Cd(ut.getAlarm_status_code());
-		acc.setMl_Risk_Score(Integer.parseInt(ut.getMoney_laundering_risk_score()));
-		acc.setAlarm_Desc(ut.getAlarm_description());
-		acc.setPrim_Obj_level_Cd(ut.getPrimary_obj_level_code());
-		acc.setAlarmed_Obj_No(ut.getAlarmed_obj_number());
-		acc.setAlarmed_Obj_Name(ut.getAlarmed_obj_name());
-		acc.setPrim_Obj_No(ut.getPrimary_obj_number());
-		acc.setPrim_Obj_Key(acc.getPrim_Obj_Key());
-		acc.setPrim_Obj_Name(ut.getPrimary_obj_name());
-		acc.setRoutine_Id(new BigDecimal(ut.getRoutine_id()));
-		acc.setRoutine_Name(ut.getRoutine_name());
-		acc.setSuppr_End_Date(Timestamp.valueOf(ut.getSuppression_end_date()));
-		acc.setActual_Value_Txt(ut.getActual_values_text());
-		acc.setRun_Date(ut.getRun_date());
-		acc.setCreate_Date(ut.getCreate_date());
-		acc.setCreate_User_Id(ut.getCreate_user_id());
-		acc.setEmp_Ind(ut.getEmployee_ind());
-		acc.setVer_No(Integer.parseInt(ut.getVersion_number()));
-		acc.setLogic_Del_Ind(ut.getLogical_delete_ind());
-		acc.setAlarm_Type_Cd(ut.getAlarm_type_cd());
-		acc.setAlarm_Categ_Cd(ut.getAlarm_category_cd());
-		acc.setAlarm_Subcateg_Cd(ut.getAlarm_subcategory_cd());
-		acc.setAlarmed_Obj_Level_Cd(ut.getAlarmed_obj_level_code());
-		acc.setAlarmed_Obj_Key(Long.valueOf(ut.getAlarmed_obj_key()));
-
-		AC_Alarm aa = alaramObjectRepository.save(acc);
-
-	}
-
+	
 public Long getTransactions_cnt(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
-	return this.suspectedObjectRepository.getTransactions_cntForActiveAlarms( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
+	Long Transactions_cnt= this.suspectedObjectRepository.getTransactions_cntForActiveAlarms( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
+	System.out.println("getTransactions_cnt for ("+alarmed_Obj_Level_Cd+","+alarmed_Obj_Key+")="+Transactions_cnt);
+	return Transactions_cnt;
 
 }
 public Long getAggregate_amt(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
-	return this.suspectedObjectRepository.getAggregate_amtForActiveAlarms(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
+	Long Aggregate_amt= this.suspectedObjectRepository.getAggregate_amtForActiveAlarms(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
+	System.out.println("getAggregate_amt for ("+alarmed_Obj_Level_Cd+","+alarmed_Obj_Key+")="+Aggregate_amt);
+	return Aggregate_amt;
 
 }
 public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd , long alarmed_Obj_Key) {
 	// TODO Auto-generated method stub
 return this.alaramObjectRepository.getActiveAlarmsCounts( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
 }
+private boolean PercentageOfIncrease(Long PaidInstallment,Long InstallmentAmount) {
+	int percentage=this.getM003Percentage();
+	System.out.println(percentage+"=percentage");
+	return ((PaidInstallment/InstallmentAmount)*100)>percentage;
 
+}
+private int getM003Percentage() {
+List<String> values=this.routine_ParameterRepository.getParamValueByParamName("m003_percentage");
+System.out.println("values size:"+values.size());
+int number=200;
+if(values.size()>0)
+	{
+	String mystr = values.get(0).replaceAll( "[^\\d]", "" );
+	 number= Integer.parseInt(mystr);
+
+	}
+
+
+	return number;
+}
 }
