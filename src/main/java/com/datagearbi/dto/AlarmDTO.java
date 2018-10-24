@@ -12,7 +12,15 @@ public class AlarmDTO {
 			Relate_Ind, Third_Cust_Ind, parm_name, parm_value, parm_type_desc, parm_desc, num_inst, Agg_Assets_Amt,
 			Annual_Income_Amt, total_loan_amount, Orig_Loan_Amt, Acct_Open_Date, Acct_Close_Date, Cust_Tax_Id, Tel_No_1,
 			Tel_No_2, Tel_No_3, St_Addr_1, St_Addr_2, Empr_Name, Cust_Ident_type_Desc, St_City_Name, PSTCINM,
-			Pchange_current_ind, Branch_Name, all_amnt,Inst_Amt;
+			Pchange_current_ind, Branch_Name, all_amnt,Inst_Amt,Credit_Ind;
+
+	public String getCredit_Ind() {
+		return Credit_Ind;
+	}
+
+	public void setCredit_Ind(String credit_Ind) {
+		Credit_Ind = credit_Ind;
+	}
 
 	public String getInst_Amt() {
 		return Inst_Amt;

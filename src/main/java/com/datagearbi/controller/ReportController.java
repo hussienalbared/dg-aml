@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.datagearbi.model.DEV_Report_Property;
 import com.datagearbi.model.DEV_Report_SAMA;
-import com.datagearbi.model.SAMA_Report_V;
 import com.datagearbi.model.Transaction_Detail;
 import com.datagearbi.model.dto.report.AlarmReportDTO;
 import com.datagearbi.model.dto.report.SAMAReportDTO;
@@ -27,18 +26,12 @@ import com.datagearbi.service.ReportService;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRPropertiesHolder;
-import net.sf.jasperreports.engine.JRPropertiesMap;
-import net.sf.jasperreports.engine.JRPropertiesUtil;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.xml.JasperPrintFactory;
-import net.sf.jasperreports.view.JasperViewer;
 
 @RestController
 @CrossOrigin(origins="*")

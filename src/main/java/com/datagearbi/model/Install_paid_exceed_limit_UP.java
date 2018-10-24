@@ -113,6 +113,15 @@ public class Install_paid_exceed_limit_UP implements java.io.Serializable {
 
 	@Column(name="Trans_Type_Key")
 	private int trans_Type_Key;
+	@Column(name="Credit_Ind")
+	private String Credit_Ind;
+	public String getCredit_Ind() {
+		return Credit_Ind;
+	}
+
+	public void setCredit_Ind(String credit_Ind) {
+		Credit_Ind = credit_Ind;
+	}
 
 	public Install_paid_exceed_limit_UP() {
 	}

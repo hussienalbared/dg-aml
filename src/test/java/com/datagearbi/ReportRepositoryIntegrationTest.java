@@ -2,8 +2,6 @@ package com.datagearbi;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.junit.Test;

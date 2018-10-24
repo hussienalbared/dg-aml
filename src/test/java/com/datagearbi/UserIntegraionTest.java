@@ -3,7 +3,6 @@ package com.datagearbi;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.datagearbi.controller.UserController;
 import com.datagearbi.model.security.User;
-import com.datagearbi.security.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest()

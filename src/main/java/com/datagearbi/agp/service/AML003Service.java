@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +19,13 @@ import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
-import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 import com.datagearbi.service.AlarmGeneration;
 
 @Service
-public class Install_paid_exceed_limit_UP_Service {
+public class AML003Service {
 	@Autowired
 	private Install_paid_exceed_limit_UP_Repository install_paid_exceed_limit_UP_Repository;
 	@Autowired
@@ -39,12 +39,19 @@ public class Install_paid_exceed_limit_UP_Service {
 	@Autowired
 	private AlarmGeneration alarmGeneration;
 
-	public List<AlarmDTO> getAllRecords() {
+	public List<AlarmDTO> getAllRecordsFromView() {
 		List<AcRoutineHelper> routine_detail = this.getRoutine_3_Parameters();
+		List<String> CreditInd=this.getm003_credit_ind();
+		
+		List<String>AccountTypes=this.getM003account_type();
+		
 		List<Install_paid_exceed_limit_UP> records = this.install_paid_exceed_limit_UP_Repository.findAll();
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		records.forEach(res -> {
+			if(AccountTypes.contains(res.getAcct_Type_Desc().trim())&& CreditInd.contains(res.getCredit_Ind())) {
+				
+			
 			AlarmDTO temp = new AlarmDTO();
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
 			temp.setCust_No(res.getCust_No());
@@ -77,7 +84,7 @@ public class Install_paid_exceed_limit_UP_Service {
 			temp.setTransactions_count(getTransactionCount(res.getAcct_Key()));
 			temp.setTotal_amount(getTotalAmount(res.getAcct_Key()));
 			temp.setNum_inst(getInstallmentNumber(res.getAcct_Key()));
-
+            temp.setCredit_Ind(res.getCredit_Ind());
 			temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));
 			temp.setSec_Acct_Key(String.valueOf(res.getSec_Acct_Key()));
@@ -94,7 +101,7 @@ public class Install_paid_exceed_limit_UP_Service {
 				temp.setRoutine_Msg_Txt(routine_detail.get(0).getRoutine_Msg_Txt());
 			}
 			listOfSC.add(temp);
-		});
+			}});
 
 		return listOfSC;
 	}
@@ -125,17 +132,21 @@ public class Install_paid_exceed_limit_UP_Service {
 	}
 
 	public Map<String, List<AlarmDTO>> generateaAlarms() {
-		List<AlarmDTO> alarms = this.getAllRecords();
+		List<AlarmDTO> alarms = this.getAllRecordsFromView();
 		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().
 				collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
+		System.out.println("number of accounts "+alarmDtos.size());
 		alarmDtos.forEach((a, b) -> {
 		Long PaidAmount=Long.parseLong(b.get(0).getTotal_amount());
 		
 		Long InstallmentAmount=Long.valueOf(b.get(0).getInst_Amt());
-		if(PercentageOfIncrease(PaidAmount, InstallmentAmount))
+		System.out.println("InstallmentAmount "+InstallmentAmount);
+		boolean isPercentageOver=PercentageOfIncrease(PaidAmount, InstallmentAmount);
+		System.out.println("ispercentageover:"+isPercentageOver);
+		if(isPercentageOver)
 		{
 			
-		
+		System.out.println("alarm genertead");
 		System.out.println("PaidAmount after :"+PaidAmount);
 		System.out.println("InstallmentAmount:"+InstallmentAmount);
 		System.out.println("paid/install"+(PaidAmount/InstallmentAmount));
@@ -230,9 +241,16 @@ public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd , long alarmed_Obj
 return this.alaramObjectRepository.getActiveAlarmsCounts( alarmed_Obj_Level_Cd ,  alarmed_Obj_Key);
 }
 private boolean PercentageOfIncrease(Long PaidInstallment,Long InstallmentAmount) {
-	int percentage=this.getM003Percentage();
-	System.out.println(percentage+"=percentage");
-	return ((PaidInstallment/InstallmentAmount)*100)>percentage;
+	int percentageValue=this.getM003Percentage();
+	try {
+		long CalPercentage=(PaidInstallment/InstallmentAmount)*100;
+		System.out.println(CalPercentage+"percentage");
+		return CalPercentage>percentageValue;
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+	}
+	return false;
+	
 
 }
 private int getM003Percentage() {
@@ -249,4 +267,43 @@ if(values.size()>0)
 
 	return number;
 }
+private List<String> getM003account_type() {
+	List<String> values=this.routine_ParameterRepository.getParamValueByParamName("m003_account_type");
+	
+	if(values.size()>0 &&(values.get(0)!=null&&values.get(0).length()!=0) )
+	{
+		String []accounttypes=values.get(0).split(",");
+		return Arrays.asList(accounttypes)
+				.stream()
+				.map((z)->z.trim())
+				.collect(Collectors.toList());
+		
+		
+	}
+List<String> defaultAccountTypes=new ArrayList<String>();
+defaultAccountTypes.add("P");
+defaultAccountTypes.add("C");
+return defaultAccountTypes;
+	}
+private List<String> getm003_credit_ind() {
+List<String> values=this.routine_ParameterRepository.getParamValueByParamName("m003_credit_ind");
+	
+	if(values.size()>0 &&(values.get(0)!=null&&values.get(0).length()!=0) )
+	{
+		String []accounttypes=values.get(0).split(",");
+		return Arrays.asList(accounttypes).stream().
+				map((z)->z.trim())
+				.collect(Collectors.toList());
+		
+		
+	}
+	
+	List<String> defaultCreditInd=new ArrayList<String>();
+	
+	defaultCreditInd.add("C");
+	return defaultCreditInd;
+
 }
+}
+
+

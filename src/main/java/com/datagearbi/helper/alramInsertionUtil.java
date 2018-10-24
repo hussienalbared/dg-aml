@@ -1,7 +1,6 @@
 package com.datagearbi.helper;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class alramInsertionUtil {
 	private String product_type;

@@ -1,23 +1,5 @@
 package com.datagearbi.security;
 
-import java.util.Date;
-
-import io.jsonwebtoken.Clock;
-import io.jsonwebtoken.ExpiredJwtException;
-import org.assertj.core.util.DateUtil;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.within;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class JwtTokenUtilTest {
 
 //    private static final String TEST_USERNAME = "testUser";
