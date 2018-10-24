@@ -36,8 +36,7 @@ public class AML003Service {
 	private AlaramObjectRepository alaramObjectRepository;
 	@Autowired
 	private SuspectedObjectRepository suspectedObjectRepository;
-	@Autowired
-	private AlarmGeneration alarmGeneration;
+	
 
 	public List<AlarmDTO> getAllRecordsFromView() {
 		List<AcRoutineHelper> routine_detail = this.getRoutine_3_Parameters();

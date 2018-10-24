@@ -4,114 +4,134 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
- * The persistent class for the [AML002-InstallmentsPaidByOtherParties] database table.
+ * The persistent class for the [AML002-InstallmentsPaidByOtherParties] database
+ * table.
  * 
  */
 @Entity
-@Table(name="InstallmentsPaidByOtherParties",schema="dbo")
-@NamedQuery(name="InstallmentsPaidByOtherParty.findAll", query="SELECT a FROM InstallmentsPaidByOtherParty a")
+@Table(name = "InstallmentsPaidByOtherParties", schema = "dbo")
+@NamedQuery(name = "InstallmentsPaidByOtherParty.findAll", query = "SELECT a FROM InstallmentsPaidByOtherParty a")
 public class InstallmentsPaidByOtherParty implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="Acct_Key")
+	@Column(name = "Acct_Key")
 	private int acct_Key;
 
-	@Column(name="Acct_Name")
+	@Column(name = "Acct_Name")
 	private String acct_Name;
 
-	@Column(name="Acct_No")
+	@Column(name = "Acct_No")
 	private String acct_No;
 
-	@Column(name="Acct_Type_Desc")
+	@Column(name = "Acct_Type_Desc")
 	private String acct_Type_Desc;
 
-	@Column(name="Benef_Ext_Cust_Key")
+	@Column(name = "Benef_Ext_Cust_Key")
 	private int benef_Ext_Cust_Key;
 
-	@Column(name="Branch_Key")
+	@Column(name = "Branch_Key")
 	private int branch_Key;
 
-	@Column(name="Ccy_Amt")
+	@Column(name = "Ccy_Amt")
 	private BigDecimal ccy_Amt;
 
-	@Column(name="Ccy_Amt_In_Acct_Ccy")
+	@Column(name = "Ccy_Amt_In_Acct_Ccy")
 	private BigDecimal ccy_Amt_In_Acct_Ccy;
 
-	@Column(name="Ccy_Amt_In_Trans_Ccy")
+	@Column(name = "Ccy_Amt_In_Trans_Ccy")
 	private BigDecimal ccy_Amt_In_Trans_Ccy;
 
-	@Column(name="Cntry_Key")
+	@Column(name = "Cntry_Key")
 	private int cntry_Key;
 
-	@Column(name="Cust_Key")
+	@Column(name = "Cust_Key")
 	private int cust_Key;
 
-	@Column(name="Cust_Name")
+	@Column(name = "Cust_Name")
 	private String cust_Name;
 
-	@Column(name="Cust_No")
+	@Column(name = "Cust_No")
 	private String cust_No;
 
-	@Column(name="Cust_Type_Desc")
+	@Column(name = "Cust_Type_Desc")
 	private String cust_Type_Desc;
 
-	@Column(name="Date_Key")
+	@Column(name = "Date_Key")
 	private int date_Key;
 
-	@Column(name="Emp_Ind")
+	@Column(name = "Emp_Ind")
 	private String emp_Ind;
 
-	@Column(name="Emp_Key")
+	@Column(name = "Emp_Key")
 	private int emp_Key;
 
-	@Column(name="Exec_Cust_Key")
+	@Column(name = "Exec_Cust_Key")
 	private int exec_Cust_Key;
 
-	@Column(name="Expr1")
+	@Column(name = "Expr1")
 	private String expr1;
 
-	@Column(name="Political_Exp_Prsn_Ind")
+	@Column(name = "Political_Exp_Prsn_Ind")
 	private String political_Exp_Prsn_Ind;
 
-	@Column(name="Post_Date_Key")
+	@Column(name = "Post_Date_Key")
 	private int post_Date_Key;
 
-	@Column(name="Relate_Ind")
+	@Column(name = "Relate_Ind")
 	private String relate_Ind;
 
-	@Column(name="Remit_Ext_Cust_Key")
+	@Column(name = "Remit_Ext_Cust_Key")
 	private int remit_Ext_Cust_Key;
 
-	@Column(name="Sec_Acct_Key")
+	@Column(name = "Sec_Acct_Key")
 	private int sec_Acct_Key;
 
-	@Column(name="Third_Cust_Ind")
+	@Column(name = "Third_Cust_Ind")
 	private String third_Cust_Ind;
 
-	@Column(name="Time_Key")
+	@Column(name = "Time_Key")
 	private int time_Key;
 
-	@Column(name="Trans_Ccy_Key")
+	@Column(name = "Trans_Ccy_Key")
 	private int trans_Ccy_Key;
-@Id
-	@Column(name="Trans_Key")
+	@Id
+	@Column(name = "Trans_Key")
 	private int trans_Key;
 
-	@Column(name="Trans_Status_Key")
+	@Column(name = "Trans_Status_Key")
 	private int trans_Status_Key;
 
-	@Column(name="Trans_Type_Key")
+	@Column(name = "Trans_Type_Key")
 	private int trans_Type_Key;
-	
-	@Column(name="TotalAmount")
+
+	@Column(name = "TotalAmount")
 	private long TotalAmount;
-	@Column(name="InstNumber")
+	@Column(name = "InstNumber")
 	private int InstNumber;
+	@Column(name = "Credit_Ind")
+	private String Credit_Ind;
+	@Column(name = "Inst_Amt")
+	private long Inst_Amt;
 
 	public long getTotalAmount() {
 		return TotalAmount;
+	}
+
+	public String getCredit_Ind() {
+		return Credit_Ind;
+	}
+
+	public void setCredit_Ind(String credit_Ind) {
+		Credit_Ind = credit_Ind;
+	}
+
+	public long getInst_Amt() {
+		return Inst_Amt;
+	}
+
+	public void setInst_Amt(long inst_Amt) {
+		Inst_Amt = inst_Amt;
 	}
 
 	public void setTotalAmount(long totalAmount) {

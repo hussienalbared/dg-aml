@@ -22,6 +22,11 @@ public interface InstallmentsPaidByOtherPartyRepository extends JpaRepository<In
 	
 	@Query("select D from InstallmentsPaidByOtherParty D")
 	List<InstallmentsPaidByOtherParty> getData();
-	
+	@Query("select sum(e.ccy_Amt) from InstallmentsPaidByOtherParty e where e.acct_Key=?1")
+	public Long CalculateTransactionTotalAmount(int accountKey);
+ @Query("select count(e.trans_Key)  from InstallmentsPaidByOtherParty e where e.acct_Key=?1")
+	public Integer CalculateTransactionsCount(int accountKey);
+ @Query("select count(e.trans_Key)  from InstallmentsPaidByOtherParty e where e.acct_Key=?1")
+	public Long CalculateInstallmentNumber(int accountKey);
 	
 }
