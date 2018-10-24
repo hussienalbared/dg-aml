@@ -8,10 +8,17 @@ package com.datagearbi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.datagearbi.agp.service.AML002Service2X;
+import com.datagearbi.agp.service.AML003Service;
+
 @Service
 public class MainAGP {
 	@Autowired
 	AlarmsProcess alarmsProcess;
+	@Autowired
+	private AML002Service2X aml002Service2X;
+	@Autowired
+	private AML003Service aml003Service;
 
 	// private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd
 	// HH:mm:ss");
@@ -29,36 +36,36 @@ public class MainAGP {
 				alarmsProcess.insertAML001AlarmData();
 				break;
 			case 2:
-				alarmsProcess.insertAML002AlarmData();
+				this.aml002Service2X.generateaAlarms();
 				break;
 			case 3:
-				alarmsProcess.insertAML003AlarmData();
+				this.aml003Service.generateaAlarms();
 				break;
-			case 5:
-				alarmsProcess.insertAML005AlarmData();
-				break;
-			case 7:
-				alarmsProcess.insertAML007AlarmData();
-				break;
-			case 10:
-				alarmsProcess.insertAML010AlarmData();
-				;
-				break;
-			case 16:
-				alarmsProcess.insertAML016AlarmData();
-				break;
-			case 20:
-				alarmsProcess.insertAML020AlarmData();
-				break;
-			case 21:
-				alarmsProcess.insertAML021AlarmData();
-				break;
-			case 22:
-				alarmsProcess.insertAML022AlarmData();
-				break;
-			case 23:
-				alarmsProcess.insertAML023AlarmData();
-				break;
+//			case 5:
+//				alarmsProcess.insertAML005AlarmData();
+//				break;
+//			case 7:
+//				alarmsProcess.insertAML007AlarmData();
+//				break;
+//			case 10:
+//				alarmsProcess.insertAML010AlarmData();
+//				;
+//				break;
+//			case 16:
+//				alarmsProcess.insertAML016AlarmData();
+//				break;
+//			case 20:
+//				alarmsProcess.insertAML020AlarmData();
+//				break;
+//			case 21:
+//				alarmsProcess.insertAML021AlarmData();
+//				break;
+//			case 22:
+//				alarmsProcess.insertAML022AlarmData();
+//				break;
+//			case 23:
+//				alarmsProcess.insertAML023AlarmData();
+//				break;
 			default:
 				System.out.println("Invalid Scenario Name");
 				;

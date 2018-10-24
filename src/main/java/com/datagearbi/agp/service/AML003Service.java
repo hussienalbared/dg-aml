@@ -19,6 +19,7 @@ import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
+import com.datagearbi.model.AC_Alarm;
 import com.datagearbi.model.Install_paid_exceed_limit_UP;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
@@ -36,6 +37,8 @@ public class AML003Service {
 	private AlaramObjectRepository alaramObjectRepository;
 	@Autowired
 	private SuspectedObjectRepository suspectedObjectRepository;
+	@Autowired
+	private AlarmGeneration alarmGeneration;
 	
 
 	public List<AlarmDTO> getAllRecordsFromView() {
@@ -199,19 +202,19 @@ public class AML003Service {
 			alramInsertionUtil.setMoney_laundering_risk_score("1");
 			alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
 			
-//			AC_Alarm alarm=this.alarmGeneration.saveAlarm(alramInsertionUtil);
-//			if(alarm!=null) {
-//				
-//				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
-//				
-//				this.alarmGeneration.saveSuspect(alramInsertionUtil);
-//				for(AlarmDTO d:b)
-//				{
-//					this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
-//					
-//					
-//				}
-//			}
+			AC_Alarm alarm=this.alarmGeneration.saveAlarm(alramInsertionUtil);
+			if(alarm!=null) {
+				
+				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+				
+				this.alarmGeneration.saveSuspect(alramInsertionUtil);
+				for(AlarmDTO d:b)
+				{
+					this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
+					
+					
+				}
+			}
 			
 			
 			
