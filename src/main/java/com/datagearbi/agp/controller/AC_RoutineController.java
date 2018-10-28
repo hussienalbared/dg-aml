@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
+import com.datagearbi.agp.service.AML002Service2X;
+import com.datagearbi.agp.service.AML003Service;
+import com.datagearbi.agp.service.AML005Service;
 import com.datagearbi.agp.service.DGAML001;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
@@ -48,6 +51,12 @@ public class AC_RoutineController {
 
 	@Autowired
 	Dgaml001TransLoanXToRepository dgaml001_repository;
+	@Autowired
+	private AML002Service2X AML002Service2X;
+	@Autowired
+	private AML003Service AML003Service;
+	@Autowired
+	private AML005Service AML005Service;
 
 	@GetMapping("scenarios")
 	private List<AC_Routine> selectRecordIntoSecsTable() {
@@ -113,8 +122,30 @@ public class AC_RoutineController {
 				}
 
 			else if (scenarios[i].equals("AML002")) {
-
+				try {
+					this.AML002Service2X.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if (scenarios[i].equals("AML003")) {
+				try {
+					this.AML003Service.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+
+			else if (scenarios[i].equals("AML005")) {
+				try {
+					this.AML005Service.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
 		}
 	}
 
