@@ -249,7 +249,6 @@ public class AML005Service {
 
 	private int getM005Percentage() {
 		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m005_percentage");
-		System.out.println("values size:" + values.size());
 		// default percentage
 		int number = 70;
 		if (values.size() > 0) {
@@ -261,7 +260,6 @@ public class AML005Service {
 			}
 
 		}
-System.out.println(number+"uuuuuuuuuuuuuuuuuuu");
 		return number;
 	}
 
