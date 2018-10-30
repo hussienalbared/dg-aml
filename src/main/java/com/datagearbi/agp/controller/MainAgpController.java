@@ -39,8 +39,8 @@ public class MainAgpController {
 	
 	
 	@RequestMapping(value="test", method=RequestMethod.GET)
-	private List<Early_termination_of_Loans> test() {
-		return this.Early_termination_of_LoansRepository.findAll();
+	private void test() {
+		 this.aml007Service.generateaAlarms();
 
 	}
 }
