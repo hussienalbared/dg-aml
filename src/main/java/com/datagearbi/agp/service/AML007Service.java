@@ -46,14 +46,12 @@ public class AML007Service {
 		Integer AmtSingleLoanParameter = this.getm007_amt_single_loan();
 		List<Early_termination_of_Loans> records = this.early_termination_of_LoansRepository.findAll();
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
-		System.out.println(records.size() + "size ");
 		long PercentageParam = this.getm007_percentage();
 		records.forEach(res -> {
-			boolean x = AccountTypes.contains(res.getAcct_Type_Desc())
+			boolean checkParamter = AccountTypes.contains(res.getAcct_Type_Desc())
 					&& AmtSingleLoanParameter <= res.getOrig_Loan_Amt()
 					&& res.getPercentageCloseAcct() < PercentageParam;
-			System.out.println("X result " + x);
-			if (x) {
+			if (checkParamter) {
 				AlarmDTO temp = new AlarmDTO();
 				temp.setCust_Type_Desc(res.getCust_Type_Desc());
 				temp.setCust_No(res.getCust_No());
@@ -95,7 +93,6 @@ public class AML007Service {
 	}
 
 	private List<String> getM007account_type() {
-		// TODO Auto-generated method stub
 		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m007_account_type");
 
 		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
@@ -240,7 +237,6 @@ public class AML007Service {
 
 	}
 	public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
-		// TODO Auto-generated method stub
 		return this.alaramObjectRepository.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 	}
 	public Long getTransactions_cnt(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
