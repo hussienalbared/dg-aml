@@ -17,6 +17,8 @@ import com.datagearbi.agp.service.AML007Service;
 import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.model.Early_termination_of_Loans;
 import com.datagearbi.model.Installments_paid_in_cash;
+import com.datagearbi.agp.service.AML0010Service;
+import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.service.MainAGP;
 
 @RestController
@@ -30,17 +32,18 @@ public class MainAgpController {
 	@Autowired
 	private Early_termination_of_LoansRepository Early_termination_of_LoansRepository;
 	
+	private AML0010Service AML0010Service;
 
 	@RequestMapping(value="runAGP", method=RequestMethod.GET)
 	private void Run_AGP() {
 		this.mainAGP.Run_AGP();
 
 	}
-	
-	
 	@RequestMapping(value="test", method=RequestMethod.GET)
-	private void test() {
-		 this.aml007Service.generateaAlarms();
+	private Map<String, List<AlarmDTO>> test() {
+		return this.AML0010Service.generateaAlarms();
 
 	}
+	
+	
 }
