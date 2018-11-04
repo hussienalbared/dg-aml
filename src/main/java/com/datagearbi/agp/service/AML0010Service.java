@@ -62,7 +62,6 @@ public class AML0010Service {
 			temp.setCust_Name(res.getCust_Name());
 			temp.setAcct_No(res.getAcct_No());
 			temp.setAcct_Key(String.valueOf(res.getAcct_Key()));
-
 			temp.setAcct_Name(res.getAcct_Name());
 			temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
 			temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
@@ -70,7 +69,6 @@ public class AML0010Service {
 			temp.setCust_Key(String.valueOf(res.getCust_Key()));
 			temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 			temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
-
 			temp.setDate_Key(String.valueOf(res.getDate_Key()));
 			temp.setTime_Key(String.valueOf(res.getTime_Key()));
 			temp.setTrans_Type_Key(String.valueOf(res.getTrans_Type_Key()));
@@ -84,7 +82,6 @@ public class AML0010Service {
 			temp.setEmp_Key(String.valueOf(res.getEmp_Key()));
 			temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 			temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
-
 			// temp.setTransactions_count(getTransactionCount(res.getAcct_Key()));
 			// temp.setTotal_amount(getTotalAmount(res.getAcct_Key()));
 			temp.setCredit_Ind(res.getCdi_code());
@@ -151,7 +148,7 @@ public class AML0010Service {
 
 		}
 
-		return Arrays.asList("ACCOUNT_OPEN", "ACCOUNT_CLOSE", "CHANGE_BENEFECIARY", "CHANGE_OWNERSHIP");
+		return Arrays.asList("ACCOUNT OPEN", "ACCOUNT CLOSE", "CHANGE BENEFECIARY", "CHANGE OWNERSHIP");
 	}
 
 	private long getm010_amount() {
@@ -199,6 +196,7 @@ public class AML0010Service {
 	}
 
 	public Map<String, List<AlarmDTO>> generateaAlarms() {
+		int period=getm010_num_days();
 		List<AlarmDTO> alarms = this.getAllRecordsFromView();
 		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().collect(Collectors.groupingBy(AlarmDTO::getCust_Key));
 		System.out.println("number of accounts " + alarmDtos.size());
@@ -222,7 +220,7 @@ public class AML0010Service {
 				Date dateobj = new Date();
 				String StDate = df.format(dateobj);
 				String actual_values_text = "Customer has " + activityNumber
-						+ " Account open-close events in the last 365 days";
+						+ " Account open-close events in the last "+period+" days";
 
 				alramInsertionUtil.setProduct_type("AML");
 				alramInsertionUtil.setAlarm_status_code("ACT");
@@ -272,9 +270,9 @@ public class AML0010Service {
 				AC_Alarm alarm = this.alarmGeneration.saveAlarm(alramInsertionUtil);
 				if (alarm != null) {
 
-					this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
 
-					this.alarmGeneration.saveSuspect(alramInsertionUtil);
+//					this.alarmGeneration.saveSuspect(alramInsertionUtil);
 //					for (AlarmDTO d : b) {
 //						this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
 //
