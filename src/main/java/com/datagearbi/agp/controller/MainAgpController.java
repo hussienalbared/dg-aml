@@ -28,8 +28,8 @@ public class MainAgpController {
 
 	}
 	@RequestMapping(value="test", method=RequestMethod.GET)
-	private List<AlarmDTO> test() {
-		return this.AML0010Service.getAllRecordsFromView();
+	private Map<String, List<AlarmDTO>> test() {
+		return this.AML0010Service.generateaAlarms();
 
 	}
 	

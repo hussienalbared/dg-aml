@@ -272,11 +272,11 @@ public class AML0010Service {
 
 				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
 
-//					this.alarmGeneration.saveSuspect(alramInsertionUtil);
-//					for (AlarmDTO d : b) {
-//						this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
-//
-//					}
+					this.alarmGeneration.saveSuspect(alramInsertionUtil);
+					for (AlarmDTO d : b) {
+						this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
+
+					}
 				}
 
 			}
