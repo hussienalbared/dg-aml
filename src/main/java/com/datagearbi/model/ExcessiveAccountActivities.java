@@ -127,13 +127,26 @@ public class ExcessiveAccountActivities implements Serializable {
 	private String cdiCode;
 	@Column(name="Prim_Med_Desc")
 	private String primMedDesc;
-
+	@Column(name="date_diff")
+    private int dateDiff;
 	public String getCdi_code() {
 		return cdiCode;
 	}
 
 	public void setCdi_code(String cdi_code) {
 		this.cdiCode = cdi_code;
+	}
+
+
+
+	
+
+	public int getDateDiff() {
+		return dateDiff;
+	}
+
+	public void setDateDiff(int dateDiff) {
+		this.dateDiff = dateDiff;
 	}
 
 	public String getPrimMedDesc() {
