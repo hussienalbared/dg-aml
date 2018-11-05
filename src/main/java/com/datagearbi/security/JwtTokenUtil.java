@@ -37,28 +37,28 @@ public class JwtTokenUtil implements Serializable {
     private Long expiration;
 
     public String getUsernameFromToken(String token) {
-    	System.out.println("getUsernameFromToken");
+    	System.out.println("---getUsernameFromToken---");
         return getClaimFromToken(token, Claims::getSubject);
     }
 
     public Date getIssuedAtDateFromToken(String token) {
-    	System.out.println("getIssuedAtDateFromToken");
+    	System.out.println("---getIssuedAtDateFromToken---");
         return getClaimFromToken(token, Claims::getIssuedAt);
     }
 
     public Date getExpirationDateFromToken(String token) {
-    	System.out.println("getExpirationDateFromToken");
+    	System.out.println("---getExpirationDateFromToken---");
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-    	System.out.println("getClaimFromToken");
+    	System.out.println("---getClaimFromToken---");
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims getAllClaimsFromToken(String token) {
-    	System.out.println("getClaimFromToken");
+    	System.out.println("---getClaimFromToken---");
         return Jwts.parser()
             .setSigningKey(secret)
             .parseClaimsJws(token)
@@ -66,38 +66,37 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Boolean isTokenExpired(String token) {
-    	System.out.println("isTokenExpired");
+    	System.out.println("---isTokenExpired---");
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(clock.now());
     }
 
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
-    	System.out.println("isCreatedBeforeLastPasswordReset");
+    	System.out.println("---isCreatedBeforeLastPasswordReset---");
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }
 
     private Boolean ignoreTokenExpiration(String token) {
         // here you specify tokens, for that the expiration is ignored
-    	System.out.println("ignoreTokenExpiration");
+    	System.out.println("---ignoreTokenExpiration---");
         return false;
     }
 
     public String generateToken(JwtUser userDetails) {
-    	System.out.println("generateToken");
+    	System.out.println("---generateToken---");
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails);
     }
 
     private String doGenerateToken(Map<String, Object> claims,JwtUser userDetails) {
-    	System.out.println("doGenerateToken");
+    	System.out.println("---doGenerateToken---");
         final Date createdDate = clock.now();
         final Date expirationDate = calculateExpirationDate(createdDate);
-      Map<String, Object> payload=new HashMap<>();
-      payload.put("userName", userDetails.getFirstname()+" "+userDetails.getLastname());
-      payload.put("id", userDetails.getId());
-      payload.put("authorities", jwtUserDetailsService.getUserCapabilities(userDetails.getId()));
-      
-     
+		Map<String, Object> payload = new HashMap<>();
+		payload.put("userName", userDetails.getFirstname() + " " + userDetails.getLastname());
+		payload.put("id", userDetails.getId());
+		payload.put("authorities", jwtUserDetailsService.getUserCapabilities(userDetails.getId()));
+
         return Jwts.builder()
             .setClaims(claims)
             .setSubject(userDetails.getUsername())
@@ -108,14 +107,14 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
-    	System.out.println("canTokenBeRefreshed");
+    	System.out.println("---canTokenBeRefreshed---");
         final Date created = getIssuedAtDateFromToken(token);
         return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
             && (!isTokenExpired(token) || ignoreTokenExpiration(token));
     }
 
     public String refreshToken(String token) {
-    	System.out.println("refreshToken");
+    	System.out.println("---refreshToken---");
         final Date createdDate = clock.now();
         final Date expirationDate = calculateExpirationDate(createdDate);
 
@@ -130,7 +129,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
-    	System.out.println("validateToken");
+    	System.out.println("---validateToken---");
         JwtUser user = (JwtUser) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
@@ -143,7 +142,7 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private Date calculateExpirationDate(Date createdDate) {
-    	System.out.println("calculateExpirationDate");
+    	System.out.println("---calculateExpirationDate---");
         return new Date(createdDate.getTime() + expiration * 1000);
     }
 }
