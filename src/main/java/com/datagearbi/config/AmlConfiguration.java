@@ -40,8 +40,6 @@ public class AmlConfiguration {
 	@ConfigurationProperties("spring.datasource")
 	public DataSource amlDataSource() {
 		return amlDataSourceProperties().initializeDataSourceBuilder().build();
-		// return DataSourceBuilder.create().build();
-
 	}
 
 	@Primary

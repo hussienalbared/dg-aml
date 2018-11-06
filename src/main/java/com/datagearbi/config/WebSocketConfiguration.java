@@ -12,6 +12,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
+		System.out.println("---register Stomp Endpoints---");
 		stompEndpointRegistry.addEndpoint("/socket")
 				.setAllowedOrigins("*")
 				.withSockJS();
@@ -19,6 +20,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
+		System.out.println("---configure Message Broker---");
 		registry.enableSimpleBroker("/topic");
 		registry.setApplicationDestinationPrefixes("/app");
 	}
