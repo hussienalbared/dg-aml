@@ -13,10 +13,26 @@ public class AlarmDTO {
 			Annual_Income_Amt, total_loan_amount, Orig_Loan_Amt, Acct_Open_Date, Acct_Close_Date, Cust_Tax_Id, Tel_No_1,
 			Tel_No_2, Tel_No_3, St_Addr_1, St_Addr_2, Empr_Name, Cust_Ident_type_Desc, St_City_Name, PSTCINM,
 			Pchange_current_ind, Branch_Name, all_amnt,Inst_Amt,Credit_Ind,Maturity_Date,percentageCloseAcct,
-	change_current_ind,date_diff;
+	change_current_ind,date_diff,branch_city,cust_city;
 
 	public String getCust_Type_Desc() {
 		return Cust_Type_Desc;
+	}
+
+	public String getBranch_city() {
+		return branch_city;
+	}
+
+	public void setBranch_city(String branch_city) {
+		this.branch_city = branch_city;
+	}
+
+	public String getCust_city() {
+		return cust_city;
+	}
+
+	public void setCust_city(String cust_city) {
+		this.cust_city = cust_city;
 	}
 
 	public void setCust_Type_Desc(String cust_Type_Desc) {
