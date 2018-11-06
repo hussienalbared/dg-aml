@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
+import com.datagearbi.agp.service.AML0010Service;
 import com.datagearbi.agp.service.AML002Service2X;
 import com.datagearbi.agp.service.AML003Service;
 import com.datagearbi.agp.service.AML005Service;
@@ -60,6 +61,8 @@ public class AC_RoutineController {
 	private AML005Service AML005Service;
 	@Autowired
 	private AML007Service AML007Service;
+	@Autowired
+	private AML0010Service AML010Service;
 
 	@GetMapping("scenarios")
 	private List<AC_Routine> selectRecordIntoSecsTable() {
@@ -158,7 +161,15 @@ public class AC_RoutineController {
 				}
 				
 			}
-
+			else if (scenarios[i].equals("AML010")) {
+				try {
+					this.AML010Service.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
 			
 		}
 	}
