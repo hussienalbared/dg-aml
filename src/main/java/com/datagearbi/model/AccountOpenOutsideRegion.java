@@ -122,8 +122,26 @@ public class AccountOpenOutsideRegion implements Serializable{
 
 	@Column(name = "Trans_Type_Key")
 	private int trans_Type_Key;
+	@Column(name = "cust_city")
+	private String cust_city;
+	public String getCust_city() {
+		return cust_city;
+	}
 
-	
+	public void setCust_city(String cust_city) {
+		this.cust_city = cust_city;
+	}
+
+	public String getBranch_city() {
+		return branch_city;
+	}
+
+	public void setBranch_city(String branch_city) {
+		this.branch_city = branch_city;
+	}
+
+	@Column(name = "branch_city")
+	private String branch_city;
 
 	public String getAcct_Name() {
 		return this.acct_Name;

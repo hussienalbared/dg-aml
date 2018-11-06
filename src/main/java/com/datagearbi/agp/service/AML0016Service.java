@@ -29,7 +29,6 @@ import com.datagearbi.service.AlarmGeneration;
 @Service
 public class AML0016Service {
 
-
 	@Autowired
 	private AccountOpenOutsideRegionRepository accountOpenOutsideRegionRepository;
 	@Autowired
@@ -50,7 +49,7 @@ public class AML0016Service {
 
 		List<AccountOpenOutsideRegion> records = this.accountOpenOutsideRegionRepository.findAll();
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
-
+		System.out.println(records.size() + " records in AML0016Service");
 		records.forEach(res -> {
 			if (AccountTypes.contains(res.getAcct_Type_Desc())) {
 
@@ -85,7 +84,8 @@ public class AML0016Service {
 				temp.setSec_Acct_Key(String.valueOf(res.getSec_Acct_Key()));
 				temp.setRelate_Ind(String.valueOf(res.getRelate_Ind()));
 				temp.setThird_Cust_Ind(res.getThird_Cust_Ind());
-
+				temp.setCust_city(res.getCust_city());
+				temp.setBranch_city(res.getBranch_city());
 				if (routine_detail.size() > 0) {
 					temp.setRoutine_Id(String.valueOf(routine_detail.get(0).getRoutine_Id()));
 					temp.setRoutine_Name(routine_detail.get(0).getRoutine_Name());
@@ -101,7 +101,7 @@ public class AML0016Service {
 		return listOfSC;
 	}
 
-	private List<String> getM016account_type() {
+	public List<String> getM016account_type() {
 		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m016_account_type_desc");
 
 		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
@@ -122,18 +122,13 @@ public class AML0016Service {
 
 	}
 
-
-
-	
-
 	public Map<String, List<AlarmDTO>> generateaAlarms() {
 		List<AlarmDTO> alarms = this.getAllRecordsFromView();
 		Map<String, List<AlarmDTO>> alarmByCustomers = alarms.stream()
-				.collect(Collectors.groupingBy(AlarmDTO::getCust_Key));
-		System.out.println("number of customers " + alarmByCustomers.size());
+				.collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
 		    alarmByCustomers.forEach((a, b) -> {
 //
-			String actual_values_text =   " %  Percentage of total installments are paid in cash";
+			String actual_values_text =   "The customer is from  ("+b.get(0).getCust_city()+") and opened account from ("+b.get(0).getBranch_city()+")";
 			System.out.println(actual_values_text);
 			//
 		
