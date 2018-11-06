@@ -150,27 +150,25 @@ public class AC_RoutineController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
-			else if (scenarios[i].equals("AML007")) {
+
+			} else if (scenarios[i].equals("AML007")) {
 				try {
 					this.AML007Service.generateaAlarms();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
-			else if (scenarios[i].equals("AML010")) {
+
+			} else if (scenarios[i].equals("AML010")) {
 				try {
 					this.AML010Service.generateaAlarms();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
-			
+
 		}
 	}
 
