@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ import com.datagearbi.service.AlarmGeneration;
 
 @Service
 public class AML0020Service {
+
+    Logger logger = LoggerFactory.getLogger(AML0020Service.class);
 	@Autowired
 	private LargeNumberAuthorizationsConductBusinessRepository largeNumberAuthorizationsConductBusinessRepository;
 	@Autowired
@@ -39,13 +43,22 @@ public class AML0020Service {
 	@Autowired
 	private AlarmGeneration alarmGeneration;
 
-	public List<AlarmDTO> getAllRecordsFromView() {
-		List<AcRoutineHelper> routine_detail = this.getRoutine_20_Parameters();
+	public List<AlarmDTO> getAllRecordsFromView(String scenarioName) {
+		List<AcRoutineHelper> routine_detail = this.getRoutine_20_21_Parameters(scenarioName);
+		List<LargeNumberAuthorizationsConductBusiness> records = null;
+		switch (scenarioName) {
+		case "AML020":
+			records = this.largeNumberAuthorizationsConductBusinessRepository.findByRoleDesc("Signatory");
 
-		List<LargeNumberAuthorizationsConductBusiness> records = this.largeNumberAuthorizationsConductBusinessRepository
-				.findAll();
+			break;
+		case "AML021":
+			records = this.largeNumberAuthorizationsConductBusinessRepository.findByRoleDesc("User");
+
+			break;
+		}
+
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
-		System.out.println(records.size() + " records in AML0016Service");
+		System.out.println(records.size() + " records in scenario" + scenarioName);
 		records.forEach(res -> {
 
 			AlarmDTO temp = new AlarmDTO();
@@ -78,90 +91,103 @@ public class AML0020Service {
 		return listOfSC;
 	}
 
-	public List<AcRoutineHelper> getRoutine_20_Parameters() {
-		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail("AML020");
+	public List<AcRoutineHelper> getRoutine_20_21_Parameters(String ScenarioName) {
+		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail(ScenarioName);
 		System.out.println(routine_detail.size() + "routine_detail");
 		return routine_detail;
 
 	}
 
-	public Map<String, List<AlarmDTO>> generateaAlarms() {
-		List<AlarmDTO> alarms = this.getAllRecordsFromView();
+	public Map<String, List<AlarmDTO>> generateaAlarms(String ScenarioName) {
+		logger.info("ScenarioName:"+ScenarioName);
+		List<AlarmDTO> alarms = this.getAllRecordsFromView(ScenarioName);
 		Map<String, List<AlarmDTO>> alarmByCustomers = alarms.stream()
 				.collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
-		int AuthorizationNumber=this.getm020_number();
+		int AuthorizationNumber = ScenarioName=="AML020"?this.getm020_number():this.getm021_number();
+		logger.info("AuthorizationNumber from paramter:"+AuthorizationNumber);
+		logger.info("alarms by account:"+alarmByCustomers.size());
 		alarmByCustomers.forEach((a, b) -> {
-//
-		if(AuthorizationNumber<=b.size())
-		{
-			
-		
-			String actual_values_text = "Account (" + a + ") has " + b.size() + " authorizations to conduct business";
-			System.out.println(actual_values_text);
 			//
+			String scenarioDesc = "";
+			switch (ScenarioName) {
+			case "AML020":
+				scenarioDesc=" conduct business";
+				break;
 
-			System.out.println("alarm genertead");
+			case "AML021":
+				scenarioDesc=" use the account";
+				break;
+			}
+			if (AuthorizationNumber <= b.size()) {
 
-			alramInsertionUtil alramInsertionUtil = new alramInsertionUtil();
-			// insert to alarm table
-			java.text.DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date dateobj = new Date();
-			String StDate = df.format(dateobj);
-			LocalDate today = LocalDate.now();
-			alramInsertionUtil.setProduct_type("AML");
-			alramInsertionUtil.setAlarm_status_code("ACT");
-			alramInsertionUtil.setAlarm_description(b.get(0).getRoutine_Short_Desc());
-			alramInsertionUtil.setPrimary_obj_level_code("ACC");
-			alramInsertionUtil.setAlarmed_obj_number(b.get(0).getAcct_No());
-			alramInsertionUtil.setAlarmed_obj_name(b.get(0).getAcct_Name());
-			alramInsertionUtil.setPrimary_obj_number(b.get(0).getCust_No());
-			alramInsertionUtil.setPrimary_obj_key(b.get(0).getCust_Key());
-			alramInsertionUtil.setPrimary_obj_name(b.get(0).getCust_Name());
-			alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
-			alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());
-			alramInsertionUtil.setSuppression_end_date(StDate);
-			alramInsertionUtil.setActual_values_text(actual_values_text);
+				String actual_values_text = "Account (" + a + ") has " + b.size()
+						+ " authorizations to "+scenarioDesc;
+				System.out.println(actual_values_text);
+				//
 
-			alramInsertionUtil.setRun_date(today);
-			alramInsertionUtil.setCreate_date(today);
-			alramInsertionUtil.setCreate_user_id("1");
-			alramInsertionUtil.setEmployee_ind(b.get(0).getAcct_Emp_Ind());
-			alramInsertionUtil.setVersion_number("1");
-			alramInsertionUtil.setLogical_delete_ind("N");
-			alramInsertionUtil.setAlarm_type_cd("AML");
+				System.out.println("alarm genertead");
 
-			alramInsertionUtil.setAlarm_category_cd("Unexpected events");
-			alramInsertionUtil.setAlarm_subcategory_cd(b.get(0).getAlarm_Subcateg_Cd());
-			alramInsertionUtil.setAlarmed_obj_key(b.get(0).getAcct_Key());
-			alramInsertionUtil.setAlarmed_obj_level_code("ACC");
-			long alarmed_Obj_Key = Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
-			String alarmed_Obj_Level_Cd = alramInsertionUtil.getAlarmed_obj_level_code();
+				alramInsertionUtil alramInsertionUtil = new alramInsertionUtil();
+				// insert to alarm table
+				java.text.DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date dateobj = new Date();
+				String StDate = df.format(dateobj);
+				LocalDate today = LocalDate.now();
+				alramInsertionUtil.setProduct_type("AML");
+				alramInsertionUtil.setAlarm_status_code("ACT");
+				alramInsertionUtil.setAlarm_description(b.get(0).getRoutine_Short_Desc());
+				alramInsertionUtil.setPrimary_obj_level_code("ACC");
+				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getAcct_No());
+				alramInsertionUtil.setAlarmed_obj_name(b.get(0).getAcct_Name());
+				alramInsertionUtil.setPrimary_obj_number(b.get(0).getCust_No());
+				alramInsertionUtil.setPrimary_obj_key(b.get(0).getCust_Key());
+				alramInsertionUtil.setPrimary_obj_name(b.get(0).getCust_Name());
+				alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
+				alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());
+				alramInsertionUtil.setSuppression_end_date(StDate);
+				alramInsertionUtil.setActual_values_text(actual_values_text);
 
-			Long alert_count = this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
-			alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
-			alramInsertionUtil.setTransactions_count(
-					String.valueOf(this.getTransactions_cnt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
-			String Total_amount = getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key) != null
-					? String.valueOf(getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key))
-					: "0";
-			alramInsertionUtil.setTotal_amount(Total_amount);
-			System.out.println(alramInsertionUtil.getTotal_amount());
-			alramInsertionUtil.setOldest_alert("7");
-			alramInsertionUtil.setRisk_classification_code("1");
-			alramInsertionUtil.setMoney_laundering_risk_score("1");
-			alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
+				alramInsertionUtil.setRun_date(today);
+				alramInsertionUtil.setCreate_date(today);
+				alramInsertionUtil.setCreate_user_id("1");
+				alramInsertionUtil.setEmployee_ind(b.get(0).getAcct_Emp_Ind());
+				alramInsertionUtil.setVersion_number("1");
+				alramInsertionUtil.setLogical_delete_ind("N");
+				alramInsertionUtil.setAlarm_type_cd("AML");
 
-			AC_Alarm alarm = this.alarmGeneration.saveAlarm(alramInsertionUtil);
-			if (alarm != null) {
+				alramInsertionUtil.setAlarm_category_cd("Unexpected events");
+				alramInsertionUtil.setAlarm_subcategory_cd(b.get(0).getAlarm_Subcateg_Cd());
+				alramInsertionUtil.setAlarmed_obj_key(b.get(0).getAcct_Key());
+				alramInsertionUtil.setAlarmed_obj_level_code("ACC");
+				long alarmed_Obj_Key = Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
+				String alarmed_Obj_Level_Cd = alramInsertionUtil.getAlarmed_obj_level_code();
 
-				this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+				Long alert_count = this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
+				alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
+				alramInsertionUtil.setTransactions_count(
+						String.valueOf(this.getTransactions_cnt(alarmed_Obj_Level_Cd, alarmed_Obj_Key)));
+				String Total_amount = getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key) != null
+						? String.valueOf(getAggregate_amt(alarmed_Obj_Level_Cd, alarmed_Obj_Key))
+						: "0";
+				alramInsertionUtil.setTotal_amount(Total_amount);
+				System.out.println(alramInsertionUtil.getTotal_amount());
+				alramInsertionUtil.setOldest_alert("7");
+				alramInsertionUtil.setRisk_classification_code("1");
+				alramInsertionUtil.setMoney_laundering_risk_score("1");
+				alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
 
-				this.alarmGeneration.saveSuspect(alramInsertionUtil);
+				AC_Alarm alarm = this.alarmGeneration.saveAlarm(alramInsertionUtil);
+				if (alarm != null) {
+
+					this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
+
+					this.alarmGeneration.saveSuspect(alramInsertionUtil);
+
+				}
+				//
 
 			}
-//
-
-		}});
+		});
 
 		return alarmByCustomers;
 
@@ -183,6 +209,14 @@ public class AML0020Service {
 
 	private int getm020_number() {
 		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m020_number");
+
+		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
+			return Integer.parseInt(values.get(0));
+		}
+		return 4;
+	}
+	private int getm021_number() {
+		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m021_number");
 
 		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
 			return Integer.parseInt(values.get(0));

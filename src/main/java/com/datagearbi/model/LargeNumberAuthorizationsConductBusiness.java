@@ -54,12 +54,22 @@ public class LargeNumberAuthorizationsConductBusiness implements Serializable {
 	private String Acct_No;
 	@Column(name = "Acct_Name")
 	private String Acct_Name;
+	@Column(name = "role_desc")
+	private String roleDesc;
 	public int getAcct_key() {
 		return Acct_key;
 	}
 
 	public void setAcct_key(int acct_key) {
 		Acct_key = acct_key;
+	}
+
+	public String getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
 	}
 
 	public String getAcct_No() {

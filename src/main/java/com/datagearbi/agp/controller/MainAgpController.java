@@ -1,6 +1,7 @@
 package com.datagearbi.agp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,8 +28,8 @@ private AML0020Service AML0020Service;
 	}
 	
 	@RequestMapping(value="test", method=RequestMethod.GET)
-	private List<AlarmDTO> test() {
-		return this.AML0020Service.getAllRecordsFromView();
+	private Map<String, List<AlarmDTO>> test() {
+		return this.AML0020Service.generateaAlarms("AML021");
 
 	}	
 	
