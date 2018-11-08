@@ -27,6 +27,7 @@ import com.datagearbi.agp.service.AML002Service2X;
 import com.datagearbi.agp.service.AML003Service;
 import com.datagearbi.agp.service.AML005Service;
 import com.datagearbi.agp.service.AML007Service;
+import com.datagearbi.agp.service.AML0020Service;
 import com.datagearbi.agp.service.DGAML001;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
@@ -66,6 +67,8 @@ public class AC_RoutineController {
 	private AML0010Service AML010Service;
 	@Autowired
 	private AML0016Service AML016Service;
+	@Autowired
+	private AML0020Service AML0020Service;
 	@GetMapping("scenarios")
 	private List<AC_Routine> selectRecordIntoSecsTable() {
 		return ac_RoutineRepository.findAll();
@@ -176,7 +179,23 @@ public class AC_RoutineController {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}}
+				else if (scenarios[i].equals("AML020")) {
+					try {
+						 this.AML0020Service.generateaAlarms("AML020");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}}
+					else if (scenarios[i].equals("AML021")) {
+						try {
+							 this.AML0020Service.generateaAlarms("AML021");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				
+					
 
 			}
 		}
