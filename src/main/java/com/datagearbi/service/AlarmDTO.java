@@ -282,10 +282,7 @@ public class AlarmDTO {
         this.Routine_Short_Desc = Routine_Short_Desc;
     }
 
-    
-
-    
-    
+  
     public String getPolitical_Exp_Prsn_Ind() {
         return Political_Exp_Prsn_Ind;
     }

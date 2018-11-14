@@ -146,6 +146,16 @@ public class AC_Alarm implements Serializable {
 	@Column(name="Ver_No")
 	private int ver_No;
 
+
+	@Column(name="total_amount_of_Pep")
+	private int total_AmountOfPepCustomer;
+
+	public int getTotal_AmountOfPepCustomer() {
+		return total_AmountOfPepCustomer;
+	}
+	public void setTotal_AmountOfPepCustomer(int total_AmountOfPepCustomer) {
+		this.total_AmountOfPepCustomer = total_AmountOfPepCustomer;
+	}
 	public AC_Alarm() {
 	}
 
@@ -364,5 +374,6 @@ public class AC_Alarm implements Serializable {
 	public void setVer_No(int ver_No) {
 		this.ver_No = ver_No;
 	}
+	
 
 }

@@ -62,7 +62,7 @@ public class AML003Service {
 				temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
 				temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
 				temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
-				temp.setCust_Key(String.valueOf(res.getCust_Key()));
+				temp.setCust_Key(res.getCust_Key());
 				temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 				temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 				temp.setDate_Key(String.valueOf(res.getDate_Key()));
@@ -159,7 +159,7 @@ public class AML003Service {
 				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getAcct_No());
 				alramInsertionUtil.setAlarmed_obj_name("PTY");
 				alramInsertionUtil.setPrimary_obj_number(b.get(0).getAcct_No());
-				alramInsertionUtil.setPrimary_obj_key("");
+				alramInsertionUtil.setPrimary_obj_key(Integer.valueOf(""));
 				alramInsertionUtil.setPrimary_obj_name("");
 				alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
 				alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());

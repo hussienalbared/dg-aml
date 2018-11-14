@@ -61,7 +61,7 @@ public class AC_RoutineController {
 	@Autowired
 	private AML007Service AML007Service;
 
-	@GetMapping("scenarios")
+	@GetMapping(value="scenarios",produces="application/xml")
 	private List<AC_Routine> selectRecordIntoSecsTable() {
 		return ac_RoutineRepository.findAll();
 	}
@@ -213,7 +213,7 @@ public class AC_RoutineController {
 						record.getTransactions_count(), "0", oldest_alert, "1", record.getPolitical_Exp_Prsn_Ind(),
 						record.getTrans_Key(), record.getDate_Key(), record.getTime_Key(), record.getTrans_Type_Key(),
 						record.getCntry_Key(), record.getTrans_Status_Key(), "0", "0", "0", "1", " ", "0", "0",
-						executing_ext_party_key, "0", "0", "0", "-1", "0", "N", "0"));
+						executing_ext_party_key, "0", "0", "0", "-1", "0", "N", "0" , 1));
 			}
 		}
 
