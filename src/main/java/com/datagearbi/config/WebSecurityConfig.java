@@ -96,7 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-    	System.out.println("configure WebSecurity");
+    	System.out.println("---configure WebSecurity---");
 
         // AuthenticationTokenFilter will ignore the below paths
         web
@@ -123,6 +123,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .ignoring()
             .antMatchers("/h2-console/**/**");
+        System.out.println("---configure WebSecurity---");
     }
     
 }

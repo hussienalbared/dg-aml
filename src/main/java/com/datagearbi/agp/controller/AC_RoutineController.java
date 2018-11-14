@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datagearbi.agp.repository.AC_RoutineRepository;
 import com.datagearbi.agp.repository.Dgaml001TransLoanXToRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
+import com.datagearbi.agp.service.AML0010Service;
+import com.datagearbi.agp.service.AML0016Service;
 import com.datagearbi.agp.service.AML002Service2X;
 import com.datagearbi.agp.service.AML003Service;
 import com.datagearbi.agp.service.AML005Service;
 import com.datagearbi.agp.service.AML007Service;
+import com.datagearbi.agp.service.AML0020Service;
 import com.datagearbi.agp.service.DGAML001;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
@@ -60,8 +63,13 @@ public class AC_RoutineController {
 	private AML005Service AML005Service;
 	@Autowired
 	private AML007Service AML007Service;
-
-	@GetMapping(value="scenarios",produces="application/xml")
+	@Autowired
+	private AML0010Service AML010Service;
+	@Autowired
+	private AML0016Service AML016Service;
+	@Autowired
+	private AML0020Service AML0020Service;
+	@GetMapping("scenarios")
 	private List<AC_Routine> selectRecordIntoSecsTable() {
 		return ac_RoutineRepository.findAll();
 	}
@@ -147,18 +155,49 @@ public class AC_RoutineController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
-			else if (scenarios[i].equals("AML007")) {
+
+			} else if (scenarios[i].equals("AML007")) {
 				try {
 					this.AML007Service.generateaAlarms();
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
 
+			} else if (scenarios[i].equals("AML010")) {
+				try {
+					this.AML010Service.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			else if (scenarios[i].equals("AML016")) {
+				try {
+					this.AML016Service.generateaAlarms();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}}
+				else if (scenarios[i].equals("AML020")) {
+					try {
+						 this.AML0020Service.generateaAlarms("AML020");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}}
+					else if (scenarios[i].equals("AML021")) {
+						try {
+							 this.AML0020Service.generateaAlarms("AML021");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				
+					
+
+			}
 		}
 	}
 

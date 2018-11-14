@@ -62,7 +62,7 @@ public class AML005Service {
 				temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
 				temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
 				temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
-				temp.setCust_Key(res.getCust_Key());
+				temp.setCust_Key(String.valueOf(res.getCust_Key()));
 				temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 				temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
@@ -155,9 +155,9 @@ public class AML005Service {
 
 	}
 
-	public Map<Integer, List<AlarmDTO>> generateaAlarms() {
+	public Map<String, List<AlarmDTO>> generateaAlarms() {
 		List<AlarmDTO> alarms = this.getAllRecordsFromView();
-		Map<Integer, List<AlarmDTO>> alarmByCustomers = alarms.stream()
+		Map<String, List<AlarmDTO>> alarmByCustomers = alarms.stream()
 				.collect(Collectors.groupingBy(AlarmDTO::getCust_Key));
 		System.out.println("number of customers " + alarmByCustomers.size());
 		alarmByCustomers.forEach((a, b) -> {
@@ -192,7 +192,7 @@ public class AML005Service {
 				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getCust_No());
 				alramInsertionUtil.setAlarmed_obj_name("PTY");
 				alramInsertionUtil.setPrimary_obj_number(b.get(0).getCust_No());
-				alramInsertionUtil.setPrimary_obj_key(b.get(0).getCust_Key());
+				alramInsertionUtil.setPrimary_obj_key(Integer.valueOf(b.get(0).getCust_Key()));
 				alramInsertionUtil.setPrimary_obj_name(b.get(0).getCust_Name());
 				alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
 				alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());

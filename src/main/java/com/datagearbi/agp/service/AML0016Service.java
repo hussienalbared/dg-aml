@@ -1,6 +1,5 @@
 package com.datagearbi.agp.service;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,25 +9,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
-import com.datagearbi.agp.repository.Install_paid_exceed_limit_UP_Repository;
+import com.datagearbi.agp.repository.AccountOpenOutsideRegionRepository;
+import com.datagearbi.agp.repository.Installments_paid_in_cashRepository;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
 import com.datagearbi.model.AC_Alarm;
-import com.datagearbi.model.Install_paid_exceed_limit_UP;
+import com.datagearbi.model.AccountOpenOutsideRegion;
+import com.datagearbi.model.Installments_paid_in_cash;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 import com.datagearbi.service.AlarmGeneration;
 
 @Service
-public class AML003Service {
+public class AML0016Service {
+
 	@Autowired
-	private Install_paid_exceed_limit_UP_Repository install_paid_exceed_limit_UP_Repository;
+	private AccountOpenOutsideRegionRepository accountOpenOutsideRegionRepository;
 	@Autowired
 	private AC_RoutineRepository ac_RoutineRepository;
 	@Autowired
@@ -41,16 +45,15 @@ public class AML003Service {
 	private AlarmGeneration alarmGeneration;
 
 	public List<AlarmDTO> getAllRecordsFromView() {
-		List<AcRoutineHelper> routine_detail = this.getRoutine_3_Parameters();
-		List<String> CreditInd = this.getm003_credit_ind();
+		List<AcRoutineHelper> routine_detail = this.getRoutine_16_Parameters();
 
-		List<String> AccountTypes = this.getM003account_type();
+		List<String> AccountTypes = this.getM016account_type();
 
-		List<Install_paid_exceed_limit_UP> records = this.install_paid_exceed_limit_UP_Repository.findAll();
+		List<AccountOpenOutsideRegion> records = this.accountOpenOutsideRegionRepository.findAll();
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
-
+		System.out.println(records.size() + " records in AML0016Service");
 		records.forEach(res -> {
-			if (AccountTypes.contains(res.getAcct_Type_Desc().trim()) && CreditInd.contains(res.getCredit_Ind())) {
+			if (AccountTypes.contains(res.getAcct_Type_Desc())) {
 
 				AlarmDTO temp = new AlarmDTO();
 				temp.setCust_Type_Desc(res.getCust_Type_Desc());
@@ -60,7 +63,7 @@ public class AML003Service {
 				temp.setAcct_Key(String.valueOf(res.getAcct_Key()));
 				temp.setAcct_Name(res.getAcct_Name());
 				temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
-				temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
+				temp.setAcct_Emp_Ind(res.getEmp_Ind());
 				temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
 				temp.setCust_Key(String.valueOf(res.getCust_Key()));
 				temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
@@ -78,16 +81,13 @@ public class AML003Service {
 				temp.setEmp_Key(String.valueOf(res.getEmp_Key()));
 				temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 				temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
-				temp.setTransactions_count(getTransactionCount(res.getAcct_Key()));
-				temp.setTotal_amount(getTotalAmount(res.getAcct_Key()));
-				temp.setNum_inst(getInstallmentNumber(res.getAcct_Key()));
-				temp.setCredit_Ind(res.getCredit_Ind());
 				temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 				temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));
 				temp.setSec_Acct_Key(String.valueOf(res.getSec_Acct_Key()));
 				temp.setRelate_Ind(String.valueOf(res.getRelate_Ind()));
 				temp.setThird_Cust_Ind(res.getThird_Cust_Ind());
-				temp.setInst_Amt(String.valueOf(Math.round(res.getInst_Amt())));
+				temp.setCust_city(res.getCust_city());
+				temp.setBranch_city(res.getBranch_city());
 				if (routine_detail.size() > 0) {
 					temp.setRoutine_Id(String.valueOf(routine_detail.get(0).getRoutine_Id()));
 					temp.setRoutine_Name(routine_detail.get(0).getRoutine_Name());
@@ -103,69 +103,60 @@ public class AML003Service {
 		return listOfSC;
 	}
 
-	public List<AcRoutineHelper> getRoutine_3_Parameters() {
-		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail("AML003");
+	public List<String> getM016account_type() {
+		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m016_account_type_desc");
+
+		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
+			String[] accounttypes = values.get(0).split(",");
+			return Arrays.asList(accounttypes).stream().map((z) -> z.trim()).collect(Collectors.toList());
+
+		}
+		List<String> defaultAccountTypes = new ArrayList<String>();
+		defaultAccountTypes.add("P");
+		defaultAccountTypes.add("C");
+		return defaultAccountTypes;
+	}
+
+	public List<AcRoutineHelper> getRoutine_16_Parameters() {
+		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail("AML016");
+		System.out.println(routine_detail.size() + "routine_detail");
 		return routine_detail;
 
 	}
 
-	public String getTotalAmount(int accountKey) {
-		Long totalAmount = this.install_paid_exceed_limit_UP_Repository.CalculateTransactionTotalAmount(accountKey);
-		String result = String.valueOf(totalAmount);
-		return result;
-
-	}
-
-	public String getTransactionCount(int accountKey) {
-		Integer TransactionCount = this.install_paid_exceed_limit_UP_Repository.CalculateTransactionsCount(accountKey);
-		String result = String.valueOf(TransactionCount);
-		return result;
-	}
-
-	public String getInstallmentNumber(int accountKey) {
-		Long InstallmentNumber = this.install_paid_exceed_limit_UP_Repository.CalculateInstallmentNumber(accountKey);
-		String result = String.valueOf(InstallmentNumber);
-		return result;
-	}
-
 	public Map<String, List<AlarmDTO>> generateaAlarms() {
 		List<AlarmDTO> alarms = this.getAllRecordsFromView();
-		Map<String, List<AlarmDTO>> alarmDtos = alarms.stream().collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
-		System.out.println("number of accounts " + alarmDtos.size());
-		alarmDtos.forEach((a, b) -> {
-			Long PaidAmount = Long.parseLong(b.get(0).getTotal_amount());
-
-			Long InstallmentAmount = Long.valueOf(b.get(0).getInst_Amt());
-			System.out.println("InstallmentAmount " + InstallmentAmount);
-			boolean isPercentageOver = PercentageOfIncrease(PaidAmount, InstallmentAmount);
-			System.out.println("ispercentageover:" + isPercentageOver);
-			if (isPercentageOver) {
+		Map<String, List<AlarmDTO>> alarmByCustomers = alarms.stream()
+				.collect(Collectors.groupingBy(AlarmDTO::getAcct_Key));
+		    alarmByCustomers.forEach((a, b) -> {
+//
+			String actual_values_text =   "The customer is from  ("+b.get(0).getCust_city()+") and opened account from ("+b.get(0).getBranch_city()+")";
+			System.out.println(actual_values_text);
+			//
+		
 
 				System.out.println("alarm genertead");
-				System.out.println("PaidAmount after :" + PaidAmount);
-				System.out.println("InstallmentAmount:" + InstallmentAmount);
-				System.out.println("paid/install" + (PaidAmount / InstallmentAmount));
+
 				alramInsertionUtil alramInsertionUtil = new alramInsertionUtil();
 				// insert to alarm table
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				java.text.DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date dateobj = new Date();
 				String StDate = df.format(dateobj);
-				String actual_values_text = "Paid amount " + b.get(0).getTotal_amount() + " exceeds Installment "
-						+ " amount " + b.get(0).getInst_Amt();
+				LocalDate today = LocalDate.now();
 				alramInsertionUtil.setProduct_type("AML");
 				alramInsertionUtil.setAlarm_status_code("ACT");
 				alramInsertionUtil.setAlarm_description(b.get(0).getRoutine_Short_Desc());
-				alramInsertionUtil.setPrimary_obj_level_code("ACC");
-				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getAcct_No());
+				alramInsertionUtil.setPrimary_obj_level_code("PTY");
+				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getCust_No());
 				alramInsertionUtil.setAlarmed_obj_name("PTY");
-				alramInsertionUtil.setPrimary_obj_number(b.get(0).getAcct_No());
-				alramInsertionUtil.setPrimary_obj_key(Integer.valueOf(""));
-				alramInsertionUtil.setPrimary_obj_name("");
+				alramInsertionUtil.setPrimary_obj_number(b.get(0).getCust_No());
+				alramInsertionUtil.setPrimary_obj_key(Integer.parseInt(b.get(0).getCust_Key()));
+				alramInsertionUtil.setPrimary_obj_name(b.get(0).getCust_Name());
 				alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
 				alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());
 				alramInsertionUtil.setSuppression_end_date(StDate);
 				alramInsertionUtil.setActual_values_text(actual_values_text);
-				LocalDate today = LocalDate.now();
+				
 				alramInsertionUtil.setRun_date(today);
 				alramInsertionUtil.setCreate_date(today);
 				alramInsertionUtil.setCreate_user_id("1");
@@ -174,15 +165,13 @@ public class AML003Service {
 				alramInsertionUtil.setLogical_delete_ind("N");
 				alramInsertionUtil.setAlarm_type_cd("AML");
 
-				alramInsertionUtil.setAlarm_category_cd("Unexpected payments");
+				alramInsertionUtil.setAlarm_category_cd("Cash payments ");
 				alramInsertionUtil.setAlarm_subcategory_cd(b.get(0).getAlarm_Subcateg_Cd());
 				alramInsertionUtil.setAlarmed_obj_key(b.get(0).getAcct_Key());
 				alramInsertionUtil.setAlarmed_obj_level_code("PTY");
 				long alarmed_Obj_Key = Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
 				String alarmed_Obj_Level_Cd = alramInsertionUtil.getAlarmed_obj_level_code();
-				System.out.println("alarmed_Obj_Key:" + alarmed_Obj_Key);
 
-				System.out.println("alarmed_Obj_Level_Cd:" + alarmed_Obj_Level_Cd);
 				Long alert_count = this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 				alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
 				alramInsertionUtil.setTransactions_count(
@@ -208,12 +197,17 @@ public class AML003Service {
 
 					}
 				}
-
-			}
+//
+			
 		});
 
-		return alarmDtos;
+		return alarmByCustomers;
 
+	}
+
+	public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
+		// TODO Auto-generated method stub
+		return this.alaramObjectRepository.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 	}
 
 	public Long getTransactions_cnt(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
@@ -231,67 +225,6 @@ public class AML003Service {
 		System.out.println(
 				"getAggregate_amt for (" + alarmed_Obj_Level_Cd + "," + alarmed_Obj_Key + ")=" + Aggregate_amt);
 		return Aggregate_amt;
-
-	}
-
-	public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
-		// TODO Auto-generated method stub
-		return this.alaramObjectRepository.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
-	}
-
-	private boolean PercentageOfIncrease(Long PaidInstallment, Long InstallmentAmount) {
-		int percentageValue = this.getM003Percentage();
-		try {
-			long CalPercentage = (PaidInstallment / InstallmentAmount) * 100;
-			System.out.println(CalPercentage + "percentage");
-			return CalPercentage > percentageValue;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return false;
-
-	}
-
-	private int getM003Percentage() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m003_percentage");
-		System.out.println("values size:" + values.size());
-		int number = 200;
-		if (values.size() > 0) {
-			String mystr = values.get(0).replaceAll("[^\\d]", "");
-			number = Integer.parseInt(mystr);
-
-		}
-
-		return number;
-	}
-
-	private List<String> getM003account_type() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m003_account_type");
-
-		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
-			String[] accounttypes = values.get(0).split(",");
-			return Arrays.asList(accounttypes).stream().map((z) -> z.trim()).collect(Collectors.toList());
-
-		}
-		List<String> defaultAccountTypes = new ArrayList<String>();
-		defaultAccountTypes.add("P");
-		defaultAccountTypes.add("C");
-		return defaultAccountTypes;
-	}
-
-	private List<String> getm003_credit_ind() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m003_credit_ind");
-
-		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
-			String[] accounttypes = values.get(0).split(",");
-			return Arrays.asList(accounttypes).stream().map((z) -> z.trim()).collect(Collectors.toList());
-
-		}
-
-		List<String> defaultCreditInd = new ArrayList<String>();
-
-		defaultCreditInd.add("C");
-		return defaultCreditInd;
 
 	}
 }

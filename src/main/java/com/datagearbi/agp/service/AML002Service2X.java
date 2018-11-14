@@ -64,7 +64,7 @@ public class AML002Service2X {
 				temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
 				// temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
 				// temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
-				temp.setCust_Key(res.getCust_Key());
+				temp.setCust_Key(String.valueOf(res.getCust_Key()));
 				temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 				temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
