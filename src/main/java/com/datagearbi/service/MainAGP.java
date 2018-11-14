@@ -8,6 +8,7 @@ package com.datagearbi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.datagearbi.agp.service.AML0023Service;
 import com.datagearbi.agp.service.AML002Service2X;
 import com.datagearbi.agp.service.AML003Service;
 
@@ -19,6 +20,10 @@ public class MainAGP {
 	private AML002Service2X aml002Service2X;
 	@Autowired
 	private AML003Service aml003Service;
+	
+	@Autowired
+	private AML0023Service aml0023Service;
+	
 
 	// private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd
 	// HH:mm:ss");
@@ -63,9 +68,9 @@ public class MainAGP {
 //			case 22:
 //				alarmsProcess.insertAML022AlarmData();
 //				break;
-//			case 23:
-//				alarmsProcess.insertAML023AlarmData();
-//				break;
+			case 23:
+				alarmsProcess.insertAML023AlarmData();
+				break;
 			default:
 				System.out.println("Invalid Scenario Name");
 				;

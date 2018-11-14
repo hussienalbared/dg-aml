@@ -1,147 +1,80 @@
-package com.datagearbi.model;
+package com.datagearbi.dto;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
-/**
- * The persistent class for the DGAML023_Payments_PEP database table.
- * 
- */
-@Entity
-@Table(name = "DGAML023_Payments_PEP", schema = "dbo")
-@NamedQuery(name = "DGAML023_Payments_PEP.findAll", query = "SELECT d FROM DGAML023_Payments_PEP d")
-public class DGAML023_Payments_PEP implements Serializable {
+
+public class AML0023AlarmDataDTO {
 	
-
-	private static final long serialVersionUID = 1L;
-	@Column(name = "Exec_Cust_Key")
-	private int Exec_Cust_Key;
-
-	@Id
-	@Column(name = "IdRow")
 	private int IdRow;
+	
+	public int getIdRow() {
+		return IdRow;
+	}
 
-//	@Column(name = "Acct_Emp_Ind")
-//	private String acct_Emp_Ind;
+	public void setIdRow(int idRow) {
+		IdRow = idRow;
+	}
 
-	@Column(name = "Acct_Key")
-	private int acct_Key;
-
-	@Column(name = "Acct_Name")
+	private int Exec_Cust_Key;
+	
 	private String acct_Name;
 
-//	@Column(name = "Acct_No")
-//	private String acct_No;
-
-	@Column(name = "Acct_Type_Desc")
 	private String acct_Type_Desc;
 
-	@Column(name = "Benef_Ext_Cust_Key")
 	private int benef_Ext_Cust_Key;
 
-	@Column(name = "Branch_Key")
 	private int branch_Key;
 
-	@Column(name = "Ccy_Amt")
 	private BigDecimal ccy_Amt;
-	
-	@Column(name = "tot")
-	private BigDecimal tot;
 
-	public BigDecimal getTot() {
-		return tot;
-	}
-
-	public void setTot(BigDecimal tot) {
-		this.tot = tot;
-	}
-
-	@Column(name = "Ccy_Amt_In_Acct_Ccy")
 	private BigDecimal ccy_Amt_In_Acct_Ccy;
 
-	@Column(name = "Ccy_Amt_In_Trans_Ccy")
 	private BigDecimal ccy_Amt_In_Trans_Ccy;
 
-	@Column(name = "Cntry_Key")
 	private int cntry_Key;
 
-	@Column(name = "Cust_Emp_Ind")
 	private String cust_Emp_Ind;
 
-	@Column(name = "Cust_Key")
-	private Integer cust_Key;
+	private int cust_Key;
 
-	@Column(name = "Cust_Name")
 	private String cust_Name;
 
-	@Column(name = "Cust_No")
 	private String cust_No;
 
-	@Column(name = "Cust_Type_Desc")
 	private String cust_Type_Desc;
 
-	@Column(name = "Date_Key")
 	private int date_Key;
 
-	@Column(name = "Emp_Key")
 	private int emp_Key;
 
-	@Column(name = "Political_Exp_Prsn_Ind")
+	private String expr16;
+	
+	private int expr6;
+
+	private String expr7;
+
 	private String political_Exp_Prsn_Ind;
 
-	@Column(name = "Post_Date_Key")
 	private int post_Date_Key;
 
-	@Column(name = "Relate_Ind")
 	private String relate_Ind;
 
-	@Column(name = "Remit_Ext_Cust_Key")
 	private int remit_Ext_Cust_Key;
 
-	@Column(name = "Sec_Acct_Key")
 	private int sec_Acct_Key;
 
-	@Column(name = "Third_Cust_Ind")
 	private String third_Cust_Ind;
 
-	@Column(name = "Time_Key")
 	private int time_Key;
 
-	@Column(name = "Trans_Ccy_Key")
 	private int trans_Ccy_Key;
 
-	@Column(name = "Trans_Key")
 	private int trans_Key;
 
-	@Column(name = "Trans_Status_Key")
 	private int trans_Status_Key;
 
-	@Column(name = "Trans_Type_Key")
 	private int trans_Type_Key;
-//	@Column(name = "Prim_Med_Desc")
-//	private String Prim_Med_Desc;
-	
-	
-	@Column(name = "Trans_Cr_Db_Ind_Cd")
-	private String trans_Cr_Db_Ind_Cd;
-	
-	
-//	@Column(name = "Sec_Med_Desc")
-//	private String Sec_Med_Desc;
-
-//	public String getSec_Med_Desc() {
-//		return Sec_Med_Desc;
-//	}
-//
-//	public void setSec_Med_Desc(String sec_Med_Desc) {
-//		Sec_Med_Desc = sec_Med_Desc;
-//	}
 
 	public int getExec_Cust_Key() {
 		return Exec_Cust_Key;
@@ -151,30 +84,6 @@ public class DGAML023_Payments_PEP implements Serializable {
 		Exec_Cust_Key = exec_Cust_Key;
 	}
 
-	public int getIdRow() {
-		return IdRow;
-	}
-
-	public void setIdRow(int idRow) {
-		IdRow = idRow;
-	}
-
-//	public String getAcct_Emp_Ind() {
-//		return acct_Emp_Ind;
-//	}
-//
-//	public void setAcct_Emp_Ind(String acct_Emp_Ind) {
-//		this.acct_Emp_Ind = acct_Emp_Ind;
-//	}
-
-	public int getAcct_Key() {
-		return acct_Key;
-	}
-
-	public void setAcct_Key(int acct_Key) {
-		this.acct_Key = acct_Key;
-	}
-
 	public String getAcct_Name() {
 		return acct_Name;
 	}
@@ -182,14 +91,6 @@ public class DGAML023_Payments_PEP implements Serializable {
 	public void setAcct_Name(String acct_Name) {
 		this.acct_Name = acct_Name;
 	}
-
-//	public String getAcct_No() {
-//		return acct_No;
-//	}
-//
-//	public void setAcct_No(String acct_No) {
-//		this.acct_No = acct_No;
-//	}
 
 	public String getAcct_Type_Desc() {
 		return acct_Type_Desc;
@@ -303,6 +204,30 @@ public class DGAML023_Payments_PEP implements Serializable {
 		this.emp_Key = emp_Key;
 	}
 
+	public String getExpr16() {
+		return expr16;
+	}
+
+	public void setExpr16(String expr16) {
+		this.expr16 = expr16;
+	}
+
+	public int getExpr6() {
+		return expr6;
+	}
+
+	public void setExpr6(int expr6) {
+		this.expr6 = expr6;
+	}
+
+	public String getExpr7() {
+		return expr7;
+	}
+
+	public void setExpr7(String expr7) {
+		this.expr7 = expr7;
+	}
+
 	public String getPolitical_Exp_Prsn_Ind() {
 		return political_Exp_Prsn_Ind;
 	}
@@ -391,19 +316,49 @@ public class DGAML023_Payments_PEP implements Serializable {
 		this.trans_Type_Key = trans_Type_Key;
 	}
 
-//	public String getPrim_Med_Desc() {
-//		return Prim_Med_Desc;
-//	}
-//
-//	public void setPrim_Med_Desc(String prim_Med_Desc) {
-//		Prim_Med_Desc = prim_Med_Desc;
-//	}
-
-	public String getTrans_Cr_Db_Ind_Cd() {
-		return trans_Cr_Db_Ind_Cd;
+	public AML0023AlarmDataDTO(int IdRow, int exec_Cust_Key, String acct_Name, String acct_Type_Desc, int benef_Ext_Cust_Key,
+			int branch_Key, BigDecimal ccy_Amt, BigDecimal ccy_Amt_In_Acct_Ccy, BigDecimal ccy_Amt_In_Trans_Ccy,
+			int cntry_Key, String cust_Emp_Ind, int cust_Key, String cust_Name, String cust_No, String cust_Type_Desc,
+			int date_Key, int emp_Key, String expr16, int expr6, String expr7, String political_Exp_Prsn_Ind,
+			int post_Date_Key, String relate_Ind, int remit_Ext_Cust_Key, int sec_Acct_Key, String third_Cust_Ind,
+			int time_Key, int trans_Ccy_Key, int trans_Key, int trans_Status_Key, int trans_Type_Key ) {
+		super();
+		this.IdRow = IdRow ; 
+		this.Exec_Cust_Key = exec_Cust_Key;
+		this.acct_Name = acct_Name;
+		this.acct_Type_Desc = acct_Type_Desc;
+		this.benef_Ext_Cust_Key = benef_Ext_Cust_Key;
+		this.branch_Key = branch_Key;
+		this.ccy_Amt = ccy_Amt;
+		this.ccy_Amt_In_Acct_Ccy = ccy_Amt_In_Acct_Ccy;
+		this.ccy_Amt_In_Trans_Ccy = ccy_Amt_In_Trans_Ccy;
+		this.cntry_Key = cntry_Key;
+		this.cust_Emp_Ind = cust_Emp_Ind;
+		this.cust_Key = cust_Key;
+		this.cust_Name = cust_Name;
+		this.cust_No = cust_No;
+		this.cust_Type_Desc = cust_Type_Desc;
+		this.date_Key = date_Key;
+		this.emp_Key = emp_Key;
+		this.expr16 = expr16;
+		this.expr6 = expr6;
+		this.expr7 = expr7;
+		this.political_Exp_Prsn_Ind = political_Exp_Prsn_Ind;
+		this.post_Date_Key = post_Date_Key;
+		this.relate_Ind = relate_Ind;
+		this.remit_Ext_Cust_Key = remit_Ext_Cust_Key;
+		this.sec_Acct_Key = sec_Acct_Key;
+		this.third_Cust_Ind = third_Cust_Ind;
+		this.time_Key = time_Key;
+		this.trans_Ccy_Key = trans_Ccy_Key;
+		this.trans_Key = trans_Key;
+		this.trans_Status_Key = trans_Status_Key;
+		this.trans_Type_Key = trans_Type_Key;
 	}
+	
+	
+	
 
-	public void setTrans_Cr_Db_Ind_Cd(String trans_Cr_Db_Ind_Cd) {
-		trans_Cr_Db_Ind_Cd = trans_Cr_Db_Ind_Cd;
-	}
+	
+
 }

@@ -84,18 +84,18 @@ public class AML023AlarmData {
 			temp.setCust_Type_Desc(res.getCust_Type_Desc());
 			temp.setCust_No(res.getCust_No());
 			temp.setCust_Name(res.getCust_Name());
-			temp.setAcct_No(res.getExpr7());
-			temp.setAcct_Key(String.valueOf(res.getExpr6()));
+//			temp.setAcct_No(res.getExpr7());
+//			temp.setAcct_Key(String.valueOf(res.getExpr6()));
 
 			temp.setAcct_Name(res.getAcct_Name());
 			temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
-			temp.setAcct_Emp_Ind(res.getExpr16());
+//			temp.setAcct_Emp_Ind(res.getExpr16());
 			temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
 			temp.setCust_Key(String.valueOf(res.getCust_Key()));
 			temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
 			temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
-			temp.setTransactions_count(selectTransactionsCount(res.getExpr6()));
+//			temp.setTransactions_count(selectTransactionsCount(res.getExpr6()));
 
 			temp.setDate_Key(String.valueOf(res.getDate_Key()));
 			temp.setTime_Key(String.valueOf(res.getTime_Key()));
@@ -111,7 +111,7 @@ public class AML023AlarmData {
 			temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 			temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
 
-			temp.setTotal_amount(selectTotalAmount(res.getExpr6()));
+//			temp.setTotal_amount(selectTotalAmount(res.getExpr6()));
 
 			temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 			temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));

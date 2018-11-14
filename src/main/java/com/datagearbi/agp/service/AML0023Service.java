@@ -1,10 +1,10 @@
 package com.datagearbi.agp.service;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,21 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.datagearbi.agp.repository.AC_RoutineRepository;
-import com.datagearbi.agp.repository.Installments_paid_in_cashRepository;
+import com.datagearbi.agp.repository.*;
 import com.datagearbi.agp.repository.Routine_ParameterRepository;
 import com.datagearbi.dto.AlarmDTO;
 import com.datagearbi.helper.AcRoutineHelper;
 import com.datagearbi.helper.alramInsertionUtil;
 import com.datagearbi.model.AC_Alarm;
-import com.datagearbi.model.Installments_paid_in_cash;
+import com.datagearbi.model.DGAML023_Payments_PEP;
 import com.datagearbi.repository.AlaramObjectRepository;
 import com.datagearbi.repository.SuspectedObjectRepository;
 import com.datagearbi.service.AlarmGeneration;
 
 @Service
-public class AML005Service {
+public class AML0023Service {
+
 	@Autowired
-	private Installments_paid_in_cashRepository Installments_paid_in_cashRepository;
+	private DGAML023_Payments_PEPRepository paymentsByPEPRepository  ;
 	@Autowired
 	private AC_RoutineRepository ac_RoutineRepository;
 	@Autowired
@@ -38,32 +39,37 @@ public class AML005Service {
 	private SuspectedObjectRepository suspectedObjectRepository;
 	@Autowired
 	private AlarmGeneration alarmGeneration;
-
+	
+	
 	public List<AlarmDTO> getAllRecordsFromView() {
-		List<AcRoutineHelper> routine_detail = this.getRoutine_5_Parameters();
-		List<String> CreditInd = this.getm005_credit_ind();
+	 
+		List<AcRoutineHelper> routine_detail = this.getRoutine_23_Parameters();
+		List<String> cdiCodes = this.getm0023_cdi_code();
 
-		List<String> AccountTypes = this.getM005account_type();
+		List<String> pepInd = this.getM0023_pep_ind();
 
-		List<Installments_paid_in_cash> records = this.Installments_paid_in_cashRepository.findAll();
+		List<DGAML023_Payments_PEP> records = this.paymentsByPEPRepository.findAll();
 		List<AlarmDTO> listOfSC = new ArrayList<AlarmDTO>();
 
 		records.forEach(res -> {
-			if (AccountTypes.contains(res.getAcct_Type_Desc()) && CreditInd.contains(res.getTrans_Cr_Db_Ind_Cd())) {
+			if (cdiCodes.contains(res.getTrans_Cr_Db_Ind_Cd()) && pepInd.contains(res.getPolitical_Exp_Prsn_Ind())) {
 
 				AlarmDTO temp = new AlarmDTO();
 				temp.setCust_Type_Desc(res.getCust_Type_Desc());
 				temp.setCust_No(res.getCust_No());
 				temp.setCust_Name(res.getCust_Name());
-				temp.setAcct_No(res.getAcct_No());
+//				temp.setAcct_No(res.getAcct_No());
 				temp.setAcct_Key(String.valueOf(res.getAcct_Key()));
 
 				temp.setAcct_Name(res.getAcct_Name());
 				temp.setAcct_Type_Desc(res.getAcct_Type_Desc());
-				temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
+//				temp.setAcct_Emp_Ind(res.getAcct_Emp_Ind());
 				temp.setCust_Emp_Ind(res.getCust_Emp_Ind());
 				temp.setCust_Key(res.getCust_Key());
+				
+				// setting the pep to temp
 				temp.setPolitical_Exp_Prsn_Ind(res.getPolitical_Exp_Prsn_Ind());
+				
 				temp.setTrans_Key(String.valueOf(res.getTrans_Key()));
 
 				temp.setDate_Key(String.valueOf(res.getDate_Key()));
@@ -80,7 +86,9 @@ public class AML005Service {
 				temp.setExec_Cust_Key(String.valueOf(res.getExec_Cust_Key()));
 				temp.setCcy_Amt(String.valueOf(res.getCcy_Amt()));
 
-				temp.setTotal_amount(getTotalAmount(res.getAcct_Key()));
+				temp.setTotal_amount(getTotalAmountOfPepCustomer(res.getCust_Key()));
+				
+				// setting the cdi to temp
 				temp.setCredit_Ind(res.getTrans_Cr_Db_Ind_Cd());
 				temp.setCcy_Amnt_In_Trans_Ccy(String.valueOf(res.getCcy_Amt_In_Trans_Ccy()));
 				temp.setCcy_Amnt_In_Acct_Ccy(String.valueOf(res.getCcy_Amt_In_Acct_Ccy()));
@@ -103,117 +111,112 @@ public class AML005Service {
 		return listOfSC;
 	}
 
-	private List<String> getM005account_type() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m003_account_type");
-
-		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
-			String[] accounttypes = values.get(0).split(",");
-			return Arrays.asList(accounttypes).stream().map((z) -> z.trim()).collect(Collectors.toList());
-
+	public List<String> getM0023_pep_ind() {
+		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m023_pep_ind");
+		if(values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)){
+			String [] pepInd = values.get(0).split(",") ; 
+			return Arrays.asList(pepInd).stream().map((z) -> z.trim()).collect(Collectors.toList());
 		}
-		List<String> defaultAccountTypes = new ArrayList<String>();
-		defaultAccountTypes.add("P");
-		defaultAccountTypes.add("C");
-		return defaultAccountTypes;
+		List<String> default_pep_ind = new ArrayList<String>() ; 
+		default_pep_ind.add("Y") ; 
+		return default_pep_ind;
 	}
 
-	private List<String> getm005_credit_ind() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m003_credit_ind");
-
+	public List<String> getm0023_cdi_code() {
+		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m023_cdi_code");
 		if (values.size() > 0 && (values.get(0) != null && values.get(0).length() != 0)) {
-			String[] accounttypes = values.get(0).split(",");
-			return Arrays.asList(accounttypes).stream().map((z) -> z.trim()).collect(Collectors.toList());
-
+			String[] cdiCodes = values.get(0).split(",");
+			return Arrays.asList(cdiCodes).stream().map((z) -> z.trim()).collect(Collectors.toList());
 		}
-
-		List<String> defaultCreditInd = new ArrayList<String>();
-
-		defaultCreditInd.add("C");
-		return defaultCreditInd;
-
+		List<String> defaultCdiCodes = new ArrayList<String>();
+		defaultCdiCodes.add("C");
+		return defaultCdiCodes;
 	}
+	
+//	
+//	private String getM0023_num_days() {
+//		String value = this.routine_ParameterRepository.getParamValueByTheParamName("m023_num_days");
+//		if (value != null) 
+//			return value ; 
+//
+//		String default_num_days = "1" ; 
+//		return default_num_days;
+//	}
 
-	public List<AcRoutineHelper> getRoutine_5_Parameters() {
-		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail("AML005");
+//	private Long getM0023_amount() {
+//		Long value = Long.valueOf(this.routine_ParameterRepository.getParamValueByTheParamName("m023_amount"));
+//		if (value != null) 
+//			return value ; 
+//
+//		Long default_pep_ind = (long) 100  ; 
+//		return default_pep_ind;
+//	}
+	
+	public List<AcRoutineHelper> getRoutine_23_Parameters() {
+		List<AcRoutineHelper> routine_detail = this.ac_RoutineRepository.getRoutineDetail("AML0023");
 		System.out.println(routine_detail.size() + "routine_detail");
 		return routine_detail;
-
 	}
-
-	public String getTotalAmount(int customerKey) {
-		Long totalAmount = this.Installments_paid_in_cashRepository.CalculateTransactionTotalAmount(customerKey);
-		String result = totalAmount != null ? String.valueOf(totalAmount) : "0";
-		return result;
-
-	}
-
-	public String getTotalAmountOfCash(int customerKey) {
-		Long totalAmount = this.Installments_paid_in_cashRepository.CalculateTransactionTotalAmountOfCash(customerKey);
+	
+	public String getTotalAmountOfPepCustomer(int customerKey) {
+		
+		Long totalAmount = this.paymentsByPEPRepository.CalculateTransactionTotalAmountOfPepCustomer(customerKey);
 		System.out.println("totalamount:" + totalAmount);
-		String result = totalAmount != null ? String.valueOf(totalAmount) : "0";
+		String result = String.valueOf(totalAmount) != null ? String.valueOf(totalAmount) : "0";
 		return result;
-
 	}
-
-	public Map<Integer, List<AlarmDTO>> generateaAlarms() {
+	
+	
+	
+	public void generateaAlarms() {
+	
 		List<AlarmDTO> alarms = this.getAllRecordsFromView();
-		Map<Integer, List<AlarmDTO>> alarmByCustomers = alarms.stream()
-				.collect(Collectors.groupingBy(AlarmDTO::getCust_Key));
+		Map<Integer, List<AlarmDTO>> alarmByCustomers = alarms.stream().collect(Collectors.groupingBy(AlarmDTO::getCust_Key));
 		System.out.println("number of customers " + alarmByCustomers.size());
-		alarmByCustomers.forEach((a, b) -> {
-//
-			Long TotalAMOUNT = Long.valueOf(this.getTotalAmount(Integer.valueOf(a)));
-			Long TotalCASH = Long.valueOf(this.getTotalAmountOfCash(Integer.valueOf(a)));
-			System.out.println("TotalAMOUNT:" + TotalAMOUNT);
-			System.out.println("TotalCASH:" + TotalCASH);
-			System.out.println("Account key " + a);
-			long percentage = 100 * TotalCASH / TotalAMOUNT;
-			String actual_values_text = percentage + " %  Percentage of total installments are paid in cash";
-			System.out.println(actual_values_text);
-			//
-			boolean isPercentageCashHigh = this.PercentageOfCaShInstallment(TotalAMOUNT, TotalCASH);
-			System.out.println("cash high result:" + isPercentageCashHigh);
-			System.out.println("*********8");
-
-			if (isPercentageCashHigh) {
-
-				System.out.println("alarm genertead");
-
+		System.out.println("alarms by customers " + alarmByCustomers.toString());
+		
+		
+		Long totalAmountOfPerCustomer ; 
+		for (int i = 0 ; i < alarms.size() ; i++){
+			totalAmountOfPerCustomer = Long.valueOf(this.getTotalAmountOfPepCustomer(i)) ;
+			System.out.println("the total amount of customer is" +  totalAmountOfPerCustomer);
+			
+			
+//			if (totalAmountOfPerCustomer > this.getM0023_amount()) {
 				alramInsertionUtil alramInsertionUtil = new alramInsertionUtil();
-				// insert to alarm table
 				java.text.DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				Date dateobj = new Date();
 				String StDate = df.format(dateobj);
 				LocalDate today = LocalDate.now();
 				alramInsertionUtil.setProduct_type("AML");
 				alramInsertionUtil.setAlarm_status_code("ACT");
-				alramInsertionUtil.setAlarm_description(b.get(0).getRoutine_Short_Desc());
+				alramInsertionUtil.setAlarm_description(alarms.get(0).getRoutine_Short_Desc());
 				alramInsertionUtil.setPrimary_obj_level_code("PTY");
-				alramInsertionUtil.setAlarmed_obj_number(b.get(0).getCust_No());
+				alramInsertionUtil.setAlarmed_obj_number(alarms.get(0).getCust_No());
 				alramInsertionUtil.setAlarmed_obj_name("PTY");
-				alramInsertionUtil.setPrimary_obj_number(b.get(0).getCust_No());
-				alramInsertionUtil.setPrimary_obj_key(b.get(0).getCust_Key());
-				alramInsertionUtil.setPrimary_obj_name(b.get(0).getCust_Name());
-				alramInsertionUtil.setRoutine_id(b.get(0).getRoutine_Id());
-				alramInsertionUtil.setRoutine_name(b.get(0).getRoutine_Name());
+				alramInsertionUtil.setPrimary_obj_number(alarms.get(0).getCust_No());
+				alramInsertionUtil.setPrimary_obj_key(alarms.get(0).getCust_Key());
+				alramInsertionUtil.setPrimary_obj_name(alarms.get(0).getCust_Name());
+				alramInsertionUtil.setRoutine_id(alarms.get(0).getRoutine_Id());
+				alramInsertionUtil.setRoutine_name(alarms.get(0).getRoutine_Name());
 				alramInsertionUtil.setSuppression_end_date(StDate);
-				alramInsertionUtil.setActual_values_text(actual_values_text);
+				alramInsertionUtil.setActual_values_text(String.valueOf(totalAmountOfPerCustomer));
 				
 				alramInsertionUtil.setRun_date(today);
 				alramInsertionUtil.setCreate_date(today);
 				alramInsertionUtil.setCreate_user_id("1");
-				alramInsertionUtil.setEmployee_ind(b.get(0).getAcct_Emp_Ind());
+				alramInsertionUtil.setEmployee_ind(alarms.get(0).getAcct_Emp_Ind());
 				alramInsertionUtil.setVersion_number("1");
 				alramInsertionUtil.setLogical_delete_ind("N");
 				alramInsertionUtil.setAlarm_type_cd("AML");
 
 				alramInsertionUtil.setAlarm_category_cd("Cash payments ");
-				alramInsertionUtil.setAlarm_subcategory_cd(b.get(0).getAlarm_Subcateg_Cd());
-				alramInsertionUtil.setAlarmed_obj_key(b.get(0).getAcct_Key());
+				alramInsertionUtil.setAlarm_subcategory_cd(alarms.get(0).getAlarm_Subcateg_Cd());
+				alramInsertionUtil.setAlarmed_obj_key(alarms.get(0).getAcct_Key());
 				alramInsertionUtil.setAlarmed_obj_level_code("PTY");
 				long alarmed_Obj_Key = Long.parseLong(alramInsertionUtil.getAlarmed_obj_key());
 				String alarmed_Obj_Level_Cd = alramInsertionUtil.getAlarmed_obj_level_code();
-
+				
 				Long alert_count = this.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 				alramInsertionUtil.setAlert_count(String.valueOf(alert_count));
 				alramInsertionUtil.setTransactions_count(
@@ -226,58 +229,26 @@ public class AML005Service {
 				alramInsertionUtil.setOldest_alert("7");
 				alramInsertionUtil.setRisk_classification_code("1");
 				alramInsertionUtil.setMoney_laundering_risk_score("1");
-				alramInsertionUtil.setPep_ind(b.get(0).getPolitical_Exp_Prsn_Ind());
+				alramInsertionUtil.setPep_ind(alarms.get(0).getPolitical_Exp_Prsn_Ind());
 
+				
 				AC_Alarm alarm = this.alarmGeneration.saveAlarm(alramInsertionUtil);
 				if (alarm != null) {
 
 					this.alarmGeneration.saveAlarmEvent(alramInsertionUtil, alarm);
 
 					this.alarmGeneration.saveSuspect(alramInsertionUtil);
-					for (AlarmDTO d : b) {
+					for (AlarmDTO d : alarms) {
 						this.alarmGeneration.saveAC_Transaction_Flow_Alarm(d, alarm);
 
 					}
 				}
-//
 			}
-		});
-
-		return alarmByCustomers;
-
-	}
-
-	private int getM005Percentage() {
-		List<String> values = this.routine_ParameterRepository.getParamValueByParamName("m005_percentage");
-		// default percentage
-		int number = 70;
-		if (values.size() > 0) {
-			String mystr = values.get(0).replaceAll("[^\\d]", "");
-			try {
-			number = Integer.parseInt(mystr);}
-			catch (Exception e) {
-				// TODO: handle exception
-			}
-
 		}
-		return number;
-	}
-
-	private boolean PercentageOfCaShInstallment(Long TotalAMOUNT, Long TotalCASH) {
-		int percentageValue = this.getM005Percentage();
-		try {
-			long CalPercentage = (100 * TotalCASH / TotalAMOUNT);
-			System.out.println(CalPercentage + "percentage");
-			return CalPercentage > percentageValue;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return false;
-
-	}
-
+	
+	
 	public Long getActiveAlarmsCounts(String alarmed_Obj_Level_Cd, long alarmed_Obj_Key) {
-		// TODO Auto-generated method stub
+		
 		return this.alaramObjectRepository.getActiveAlarmsCounts(alarmed_Obj_Level_Cd, alarmed_Obj_Key);
 	}
 
@@ -298,4 +269,13 @@ public class AML005Service {
 		return Aggregate_amt;
 
 	}
+
+	public String getPepName(int customerKey) {
+		
+		return this.paymentsByPEPRepository.getPepName(customerKey);
+	}
+	
 }
+
+
+

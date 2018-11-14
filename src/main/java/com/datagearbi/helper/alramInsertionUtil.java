@@ -11,7 +11,7 @@ public class alramInsertionUtil {
 	private String alarmed_obj_number;
 	private String alarmed_obj_name;
 	private String primary_obj_number;
-	private String primary_obj_key;
+	private int primary_obj_key;
 	private String primary_obj_name;
 	private String routine_id;
 	private String routine_name;
@@ -21,7 +21,7 @@ public class alramInsertionUtil {
 	}
 	public alramInsertionUtil(String product_type, String alarm_status_code, String money_laundering_risk_score,
 			String alarm_description, String primary_obj_level_code, String alarmed_obj_number, String alarmed_obj_name,
-			String primary_obj_number, String primary_obj_key, String primary_obj_name, String routine_id,
+			String primary_obj_number, String string, String primary_obj_name, String routine_id,
 			String routine_name, String suppression_end_date, String actual_values_text, LocalDate run_date,
 			LocalDate create_date, String create_user_id, String employee_ind, String version_number,
 			String logical_delete_ind, String alarm_type_cd, String alarm_category_cd, String alarm_subcategory_cd,
@@ -32,7 +32,7 @@ public class alramInsertionUtil {
 			String transaction_currency_key, String branch_key, String posted_date_key, String associate_key,
 			String executing_party_key, String executing_ext_party_key, String currency_amount,
 			String currency_amount_in_txn_ccy, String currency_amount_in_account_ccy, String secondary_account_key,
-			String related_ind, String trigger_ind, String third_party_ind) {
+			String related_ind, String trigger_ind, String third_party_ind , int primary_obj_key) {
 		super();
 		this.product_type = product_type;
 		this.alarm_status_code = alarm_status_code;
@@ -175,11 +175,11 @@ public class alramInsertionUtil {
 	public void setPrimary_obj_number(String primary_obj_number) {
 		this.primary_obj_number = primary_obj_number;
 	}
-	public String getPrimary_obj_key() {
+	public int getPrimary_obj_key() {
 		return primary_obj_key;
 	}
-	public void setPrimary_obj_key(String primary_obj_key) {
-		this.primary_obj_key = primary_obj_key;
+	public void setPrimary_obj_key(int i) {
+		this.primary_obj_key = i;
 	}
 	public String getPrimary_obj_name() {
 		return primary_obj_name;

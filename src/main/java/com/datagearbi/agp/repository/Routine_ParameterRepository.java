@@ -22,4 +22,7 @@ public interface Routine_ParameterRepository extends JpaRepository<AC_Routine_Pa
 	void updateParameters(String param_Name, String param_Value);
 	@Query("select D.parm_Value from AC_Routine_Parameter D where D.id.parm_Name=?1")
 	List<String> getParamValueByParamName(String param_name);
+	
+	@Query("select D.parm_Value from AC_Routine_Parameter D where D.id.parm_Name=?1")
+	String getParamValueByTheParamName(String param_name);
 }

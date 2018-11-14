@@ -68,6 +68,7 @@ public class AlarmGeneration {
 		acc.setAlarm_Subcateg_Cd(ut.getAlarm_subcategory_cd());
 		acc.setAlarmed_Obj_Level_Cd(ut.getAlarmed_obj_level_code());
 		acc.setAlarmed_Obj_Key(Long.valueOf(ut.getAlarmed_obj_key()));
+		
 		// FIXME add for testing
 		AC_Alarm aa = alaramObjectRepository.save(acc);
 		return aa;

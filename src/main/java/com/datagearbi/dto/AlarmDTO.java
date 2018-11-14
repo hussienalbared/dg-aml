@@ -4,7 +4,7 @@ public class AlarmDTO {
 
 	// This class used to setter and getter for all fields
 	private String Cust_Type_Desc, Cust_No, Cust_Name, Acct_No, Acct_Key, Acct_Name, Acct_Type_Desc, Routine_Id,
-			Routine_Name, Acct_Emp_Ind, Alarm_Categ_Cd, Alarm_Subcateg_Cd, Cust_Key, alarm_transactions_count,
+			Routine_Name, Acct_Emp_Ind, Alarm_Categ_Cd, Alarm_Subcateg_Cd, alarm_transactions_count,
 			transactions_count, alarm_total_amount, total_amount, oldest_alarm_count, Routine_Short_Desc,
 			Routine_Msg_Txt, Political_Exp_Prsn_Ind, Trans_Key, Date_Key, Time_Key, Trans_Type_Key, Cntry_Key,
 			Trans_Status_Key, Branch_Key, Cust_Emp_Ind, Remit_Ext_Cust_Key, Benef_Ext_Cust_Key, Trans_Curr_Key,
@@ -14,6 +14,9 @@ public class AlarmDTO {
 			Tel_No_2, Tel_No_3, St_Addr_1, St_Addr_2, Empr_Name, Cust_Ident_type_Desc, St_City_Name, PSTCINM,
 			Pchange_current_ind, Branch_Name, all_amnt,Inst_Amt,Credit_Ind,Maturity_Date,percentageCloseAcct;
 
+	
+	private int Cust_Key ; 
+	
 	public String getPercentageCloseAcct() {
 		return percentageCloseAcct;
 	}
@@ -134,11 +137,11 @@ public class AlarmDTO {
 		this.Alarm_Subcateg_Cd = Alarm_Subcateg_Cd;
 	}
 
-	public String getCust_Key() {
+	public int getCust_Key() {
 		return Cust_Key;
 	}
 
-	public void setCust_Key(String Cust_Key) {
+	public void setCust_Key(int Cust_Key) {
 		this.Cust_Key = Cust_Key;
 	}
 
